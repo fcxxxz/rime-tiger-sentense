@@ -46,7 +46,7 @@ elseif mode == "lvyww" then
     get_bool = function() return nil end,
   }
 else
-  assert(mode == "original", "unknown mode: " .. tostring(mode))
+  assert(mode == "orig", "unknown mode: " .. tostring(mode))
   package.path = root .. "/lua/?.lua;" .. package.path
   rime_api = { get_user_data_dir = function() return root end }
   mod = require("tiger_sentence")
