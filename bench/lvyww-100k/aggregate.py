@@ -62,7 +62,7 @@ def load(mode):
         for a, b in zip(r['text'], r['committed']):
             if a != b:
                 break
-        correct_committed += 1
+            correct_committed += 1
     metrics = {'sentences': len(rows), 'characters': chars, 'keys': keys,
                'wrong_sentences': sum(r['wrong'] for r in rows.values()),
                'wrong_commit_events': sum(map(len, events.values())),

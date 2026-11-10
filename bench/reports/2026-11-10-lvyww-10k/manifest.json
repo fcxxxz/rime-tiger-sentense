@@ -1,0 +1,1749 @@
+{
+  "seed": 20261110,
+  "n": 10000,
+  "shards": 8,
+  "sentences_per_shard": 1250,
+  "pool_unique_encodable": 42395151,
+  "rejected_unique": 1280021,
+  "common_rank1_characters": 8491,
+  "chars": 126663,
+  "keys": 297366,
+  "git_head": "717f693ed938691f8a8af774f03692c1f7704dc0",
+  "git_status_clean": false,
+  "versions": {
+    "new": "本仓工作树（见 git_head）+ V5 TCSKNM04 u8 389,671,262B；all_ranks=false two_char_word_gate=false native_short_codes=true user_model=false；提前上屏出厂默认门槛 0.99（普通证据3键/强证据2键）",
+    "lvyww": "tiger-sentense-rime 发布包 20260915-3dd98bd-compact；TCSKNM02 224,475,584B sha256 e3953f8f…；固定门槛0.995/三代证据/≥3键尾码；无学习文件（supplement 仅随包11条静态）；HEAD 1.6.20261010.1 的五阶模型未公开，不可测",
+    "orig": "Rime虎整句-20260826（c3b0a4a+尾码置信度修正）；TCSKNM02 224,475,584B；与 2026-10-26 报告同物，保留连续性"
+  },
+  "protocol": "三方同语料逐句配对；每键 processor CPU（os.clock，每4键采样1键）；收尾解码取延续已提交文本且（new 另要求 raw 边界对齐）的首个候选；训练重叠测评（语料池与 V5 训练同源 fenci），非独立留出泛化",
+  "files": {
+    "new/lua/candidate_shadow_filter.lua": {
+      "bytes": 781,
+      "sha256": "fa048d5446bdb14862ec58c2e970e500222366f2f21be1a7b765bf02a8b7c3a3"
+    },
+    "new/lua/mohu.lua": {
+      "bytes": 15974,
+      "sha256": "e7744c77a5c73033709f29bfbf3805f61cbeaa50cc9c5f9d58c61d87081bfbed"
+    },
+    "new/lua/mohu_aux_translator.lua": {
+      "bytes": 18215,
+      "sha256": "fd036be1677ab244f9aaf43bb29bb5b4640aac5286614f95b2cd63dfd013377a"
+    },
+    "new/lua/mohu_candidate_manager.lua": {
+      "bytes": 23017,
+      "sha256": "50ecb0eaf650051ad4fdbeeea89703aa9e7b195ef41f46f7d7f61f93b51bb35b"
+    },
+    "new/lua/mohu_candidate_override.lua": {
+      "bytes": 51563,
+      "sha256": "67301c2cd91d9777097c935895c4c6729245a8601d2a1523f8790de6874f6dfa"
+    },
+    "new/lua/mohu_charset_comment_filter.lua": {
+      "bytes": 33890,
+      "sha256": "4af445f1db6be56f5c9d86802c8522f24a678b7f67c598abd4b0c81d00d84ecf"
+    },
+    "new/lua/mohu_charset_filter.lua": {
+      "bytes": 3221,
+      "sha256": "2e8eea4587875a4679ddf7362d8da5e0acec3cf33191f1188bfc0ed261fe3218"
+    },
+    "new/lua/mohu_completion_filter.lua": {
+      "bytes": 1642,
+      "sha256": "d47549073035158435ca6954feca65e41945391eaf4937889eed25f555b62917"
+    },
+    "new/lua/mohu_contextual_translator.lua": {
+      "bytes": 4188,
+      "sha256": "50003a5da8230875edf2380ba09fe81a43e76a20f7a8912500bfbe2a354d34de"
+    },
+    "new/lua/mohu_disable_phrase_memory.lua": {
+      "bytes": 713,
+      "sha256": "c109dfab11ce9933edb6388e2ba23727232ed5c553b5cb0bb6c1fab453d33ebd"
+    },
+    "new/lua/mohu_express_translator.lua": {
+      "bytes": 30353,
+      "sha256": "829550f24ef7db8d6a3312e220fbd8fea4c16ffca1fde49b395d3be2de6585dc"
+    },
+    "new/lua/mohu_fix_filter.lua": {
+      "bytes": 2693,
+      "sha256": "711ad197bc9a2ac7ea1501540d2b70ba0a1022dfda062751757bae472db756ab"
+    },
+    "new/lua/mohu_flypy_word2_codes.lua": {
+      "bytes": 377842,
+      "sha256": "7aafb3ac9f693e9ae17281609168eb116543fbfac32fc75c05b498d2e9478623"
+    },
+    "new/lua/mohu_hint_filter.lua": {
+      "bytes": 9725,
+      "sha256": "6bba2fc6f7facfb5b124b0fd826484c9f77178e41c9ff7c45bceafc3e90f8112"
+    },
+    "new/lua/mohu_ijrq_filter.lua": {
+      "bytes": 16110,
+      "sha256": "bdf09af0a8a5880d796589910d33a61773c5ab5d32a69cd2d6d3143bec37daef"
+    },
+    "new/lua/mohu_number.lua": {
+      "bytes": 6544,
+      "sha256": "fa5ae448138a7f4ca7770a559e7a018e277d1e6d983b75538741b3c1f0b87cbb"
+    },
+    "new/lua/mohu_personal_lexicon.lua": {
+      "bytes": 8450,
+      "sha256": "8ec279380da684475f75bc197828f48bb9e5baa962dee6e9c2652fe21443ebac"
+    },
+    "new/lua/mohu_pin.lua": {
+      "bytes": 40102,
+      "sha256": "f907aabbad6ec9cd26000aba9de9ba5604af1a6c20fb1cee354dc4d2eceba4f3"
+    },
+    "new/lua/mohu_processor.lua": {
+      "bytes": 9016,
+      "sha256": "046c2b243df675c21aba2481b83ad00c01927ab1fc97c6f8b93059e2ff0442fc"
+    },
+    "new/lua/mohu_reorder_filter.lua": {
+      "bytes": 18019,
+      "sha256": "52366827925c9662597e2d1186d2c61ce6710ff4ca8ca535142d6b26c6aea1d6"
+    },
+    "new/lua/mohu_sentence_visibility_filter.lua": {
+      "bytes": 8519,
+      "sha256": "9ed3e68fe24c5e119c990bc2ff16f20cd05f9581852acff802754ca4e3cb372b"
+    },
+    "new/lua/mohu_shijian.lua": {
+      "bytes": 87613,
+      "sha256": "c22f5f0ef3ae4d643c85f59072de82df9fa36cfcfbbecce096b9c8ed0baed4bb"
+    },
+    "new/lua/mohu_symbol_hint.lua": {
+      "bytes": 1852,
+      "sha256": "dd4c558000328242dbab2b7b65da72ec51a0aa00294d277c5a3a62d0138b6410"
+    },
+    "new/lua/mohu_tab_nav.lua": {
+      "bytes": 9756,
+      "sha256": "502f215cb26c6297cd8aa881c4e2ed3d40f1a52dfcb9d53e853e5036cbf7b211"
+    },
+    "new/lua/mohu_unicode.lua": {
+      "bytes": 1612,
+      "sha256": "c94c24abb19b44590af392dccbacbeb782088ef3631e30781f726273eb0113b3"
+    },
+    "new/lua/mohu_unicode_display_filter.lua": {
+      "bytes": 1926,
+      "sha256": "4cf96f051ceb04937cbaf2c59136da31b48b83518b2d5bd1dcf8c0bca8edbf4f"
+    },
+    "new/lua/mohu_word_order_filter.lua": {
+      "bytes": 13426,
+      "sha256": "6eafbd47a7880f036f39f6ccae3be63336f6a65790fe44fb9d21d57fc7de2a95"
+    },
+    "new/lua/mohu_zrm_word2_codes.lua": {
+      "bytes": 377830,
+      "sha256": "d3c66c5929c24b12b5a019ef7aae09ef78fcea3ed31ba516fdc6aa9bb1df6686"
+    },
+    "new/lua/option_state.lua": {
+      "bytes": 4019,
+      "sha256": "663e54ea188d8fe90691ebf818db2019f758cd8e6d9b7b1a0a1f420fe5b94329"
+    },
+    "new/lua/option_sync.lua": {
+      "bytes": 3388,
+      "sha256": "4213422dbbada60cc74059ed5444f3e6c05911484eed4f1f6dac78f0435cba35"
+    },
+    "new/lua/space_proc3.lua": {
+      "bytes": 4044,
+      "sha256": "0cc3aa70aa38572c6cb7c912f197163be0070bc5338b8f29e2c403f79f231fba"
+    },
+    "new/lua/symbol_proc.lua": {
+      "bytes": 5869,
+      "sha256": "356c2e6c63c3d28ee23b4e84c69da52eb6bbf40723a67f899c6a1ba013318ce3"
+    },
+    "new/lua/tiger_mode_proc.lua": {
+      "bytes": 19740,
+      "sha256": "2e1314cb5608432b88f1f067583b4662cf2fd8d9a3bf62bf90d2733c1e1264a2"
+    },
+    "new/lua/tiger_progress_hint.lua": {
+      "bytes": 8207,
+      "sha256": "d5d2028309855b3a89b4894c0270798c1c99ce5c7886a84d2ee5313875b7f470"
+    },
+    "new/lua/tiger_rank.txt": {
+      "bytes": 884870,
+      "sha256": "f2f2015f7663cc79d40569f1cbf054eb8ac44ea38f1ffb0ff9163af0e49e6b7d"
+    },
+    "new/lua/tiger_reverse_mode.lua": {
+      "bytes": 4437,
+      "sha256": "f5d7871a171f45f72ce2b8b2ecb71d119e18c80d0651c4bd8ee02d40d1cd3043"
+    },
+    "new/lua/zrmdb.txt": {
+      "bytes": 92690,
+      "sha256": "ed38c4ccd77a7dd32ca711937e9b8b1e9a86b32df858e6a6a07ab0e1dd88f3ba"
+    },
+    "new/tiger.schema.yaml": {
+      "bytes": 11813,
+      "sha256": "6344b815a06d5edd913ff04803e3dee124b4113ea60e6d12ace02eed7deaca41"
+    },
+    "new/tiger_sentence_native/.DS_Store": {
+      "bytes": 6148,
+      "sha256": "e85b766c4dc68758411961ecf500baa06c5b67863938fbbcd070912148314b2c"
+    },
+    "new/tiger_sentence_native/.mimosa/finding-ledger/v1/events/batch-posttooluse-59a696d4fad6543d4f4c693ae7fceef4.json": {
+      "bytes": 1414,
+      "sha256": "04ba259b3c5693b49ab04ca6c603d70d7505fe02dfc02a8226debad7367f8513"
+    },
+    "new/tiger_sentence_native/.mimosa/finding-ledger/v1/events/batch-posttooluse-a1fea324cc03d7040f65cd111323952b.json": {
+      "bytes": 1408,
+      "sha256": "362004d9c4b298672dbd6a82d190a7aa62bdb80342a468e932689afd0ed7dfc0"
+    },
+    "new/tiger_sentence_native/.mimosa/finding-ledger/v1/events/batch-pretooluse-3b9276eb4f7587a29839c6918d6e0e82.json": {
+      "bytes": 1381,
+      "sha256": "491234549a6cc3abe3d38e2d7b4358f91c8d03e436f37f2d4963fc54cf324e75"
+    },
+    "new/tiger_sentence_native/.mimosa/finding-ledger/v1/events/batch-pretooluse-5e9145a5a44eda655fdee7ede859ce37.json": {
+      "bytes": 1384,
+      "sha256": "39bf050400d6cf8e0cdadc5f8ec05842f374d3ba3a2766092c3050fbf8921b3a"
+    },
+    "new/tiger_sentence_native/.mimosa/finding-ledger/v1/events/batch-pretooluse-bfa135ab5c31fc302a01ede3bb604c1d.json": {
+      "bytes": 1387,
+      "sha256": "44a7022e552a4ff2654fb292588ed02232db9a68ddca0d9481c80e18993e7d92"
+    },
+    "new/tiger_sentence_native/.mimosa/finding-ledger/v1/events/batch-pretooluse-faea559d741a76457e60060f107d01d2.json": {
+      "bytes": 1384,
+      "sha256": "3624c01655d8c456345ef224366683e84fdaa008aa1d95f51cf13d3958ab5966"
+    },
+    "new/tiger_sentence_native/.mimosa/finding-ledger/v1/events/batch-stop-20260831T064059652Z-48041-f97c6f1d6640.json": {
+      "bytes": 1669,
+      "sha256": "03ba4f0cb085027b0ba6905ff663bdac36a2598108dad2417df51330bd7b6cbc"
+    },
+    "new/tiger_sentence_native/.mimosa/finding-ledger/v1/events/batch-stop-20260831T070930916Z-55703-a0a646a32847.json": {
+      "bytes": 1291,
+      "sha256": "1d7c6a1d121a3af9f8ff1f9a223e2db44feac2d267a811f594e9f25ef7e9f22f"
+    },
+    "new/tiger_sentence_native/.mimosa/finding-ledger/v1/events/batch-stop-20260831T071934829Z-57707-fd7e9996bc1e.json": {
+      "bytes": 1291,
+      "sha256": "883b9bc2875aef3c14c1e7c4724bd0defafd3584558dc0b09a86c8e87096b409"
+    },
+    "new/tiger_sentence_native/.mimosa/finding-ledger/v1/events/batch-stop-20260831T100007590Z-67827-4080a5537b7a.json": {
+      "bytes": 1400,
+      "sha256": "ab336db633f1dec84a8b89bed5c20a6a8a93c70cea873dfa59dcc1e99db1023a"
+    },
+    "new/tiger_sentence_native/.mimosa/finding-ledger/v1/events/batch-stop-20260920T045316703Z-52960-dff7f53245e0.json": {
+      "bytes": 948,
+      "sha256": "813e6e8f4b13f684168188ec2dbf4399856d8c54f935c286b9af930f7435f1a2"
+    },
+    "new/tiger_sentence_native/.mimosa/finding-ledger/v1/events/batch-stop-20261021T015122557Z-99258-a2ec12061102.json": {
+      "bytes": 1668,
+      "sha256": "5a4d9a0ad28ac72b238ec28a8739dbe619e0b3d98aa34be466a6a2be3bf8b2c2"
+    },
+    "new/tiger_sentence_native/.mimosa/history/run-20260831T064059652Z-48041-f97c6f1d6640.json": {
+      "bytes": 1211,
+      "sha256": "bcb23fc03bbcbf04a2136ca403b793784fac59b097e5387a8751d664a57dfcb5"
+    },
+    "new/tiger_sentence_native/.mimosa/history/run-20260831T070930916Z-55703-a0a646a32847.json": {
+      "bytes": 1118,
+      "sha256": "a84f55a7eb242af750829f76abc4d6fbf35bcdb7339c0e5be84da84a72a0f6d4"
+    },
+    "new/tiger_sentence_native/.mimosa/history/run-20260831T071934829Z-57707-fd7e9996bc1e.json": {
+      "bytes": 1118,
+      "sha256": "f2aea33cf3c897d1a09f9674f3497b6948cf46bf9f397131046ebde07874aa22"
+    },
+    "new/tiger_sentence_native/.mimosa/history/run-20260831T100007590Z-67827-4080a5537b7a.json": {
+      "bytes": 1118,
+      "sha256": "8c74d11e1f1db9c5a825ff8d665ea74471e2e7c05df6dcd29f0fcd50eb8f043b"
+    },
+    "new/tiger_sentence_native/.mimosa/history/run-20260920T045316703Z-52960-dff7f53245e0.json": {
+      "bytes": 959,
+      "sha256": "30889572ac0efec4fa8a50a647882b4ca6aae42087284577cd0b63d400abd08e"
+    },
+    "new/tiger_sentence_native/.mimosa/history/run-20261021T015122557Z-99258-a2ec12061102.json": {
+      "bytes": 1210,
+      "sha256": "e9c07a81c515927aa1e7bbca2acd1204b5331989a0e4cbb0c96644c512b207db"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_0b457550-9a15-4e8f-8829-a3594272ad98.json": {
+      "bytes": 218,
+      "sha256": "88a8075c349283be6af4b92f426286ff1c51d0f792c0116a356a8137695283d6"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_0ba2bf9e-8b3a-490f-b68b-3e3ab9fde04a.json": {
+      "bytes": 679,
+      "sha256": "c934d45702e3ddd5cfb7561366cc63cce84f26047c685c890a14ea6e291b8724"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_125712f1-c2fa-469c-a205-d6d4ea2d9bc9.json": {
+      "bytes": 3065,
+      "sha256": "3e100da4523af06b972748c2035712e1b69816667ddfd91cf622d03562b87aa3"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_125712f1-c2fa-469c-a205-d6d4ea2d9bc9.mticogmh-63459-caf7aae36e.baseline/259ec4af568a8b3bd8a944918f94b5ceda9a7356a5897027451daf63543d6cf4.source": {
+      "bytes": 10942,
+      "sha256": "03d15c9e82fa152462f5c618585ea48b5344160df9c1535d0d306895eb751b88"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_125712f1-c2fa-469c-a205-d6d4ea2d9bc9.mticogmh-63459-caf7aae36e.baseline/a0e6a622b582986336392a9dbbbd77e03b9c86ea882997ae0b13ea0fd13f0e8b.source": {
+      "bytes": 2165,
+      "sha256": "f3b35a90ac6159fb6ec63fd9ced1b4387f17c5f5980b0081c0a8d91bb0bba2dd"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_125712f1-c2fa-469c-a205-d6d4ea2d9bc9.mticogmh-63459-caf7aae36e.baseline/a8482ee7dc1d8def15820a7e0dde8e04a6e8e06ef50d5e2991ee9e7f4950b8a8.source": {
+      "bytes": 101421,
+      "sha256": "bbe695e38f4d9b2a3a71da11331d4b0a3f0645680f573e4d81f3d94c1bf817e4"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.continue.json": {
+      "bytes": 177,
+      "sha256": "1e7281b634c5e77a47e484ad31ee37307d9b5b2a75b35457ba41c8bc16831fbd"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.json": {
+      "bytes": 9133,
+      "sha256": "4f76408efa80d8c27cfa12a717e1d92891262a7ff24336c22ad3e936288d084b"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/037a227278ac4a74f0e6ecdc75ce91f9b39fa5a9585d67d2602587dc82283a4f.source": {
+      "bytes": 36164,
+      "sha256": "4ca15edc740fe17132871f87dce3fd9f3588d0d6a4f44a79a763a82f8aefeb37"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/0a0df9ce1d2191c0f652347af5bfbe7a1389c0a087fe1cf11dda222bd9dc33c6.source": {
+      "bytes": 15305,
+      "sha256": "7b31e449409ead7c3d7e8bc295dfea3aca1203df4943d6c624f47c82ccde700c"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/0ccb3160cca2ece5c06c41e95cb14718893a6354dcbc3d6281bf9a198ee35593.source": {
+      "bytes": 5927,
+      "sha256": "68c34ef2d6e5a227f7cff18436a42c6739b1470ce12f059f168d9bb69fc8d49c"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/16a2902bb11289328a73c07cc8e309bd18111bae6fde9a8d80e55e75d4618635.source": {
+      "bytes": 11799,
+      "sha256": "c0c0d700a1080b274a2ff7c734f6ebf6a4479f05de9dc8554606eaed4630a4d2"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/19eaac5cb55f2f404cbfce1cf56802e462a997ec7a72bbb1a8b9df493ffa682d.source": {
+      "bytes": 15145,
+      "sha256": "3a424e6cb4177886c8790821cf15345f488764bc215eb29719c80002ef24cdc1"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/1b599c4825492755f9bf08c8fcb1ec1c4cd7d315a46f68fe9205f194bfe9f2a1.source": {
+      "bytes": 7974,
+      "sha256": "e5fd590af171c79e303f768ccd3bfc52e55f036a856a0edc46dd17254c941364"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/244bd10d3c2fb71bcff0682aa51faa53961248fe9cd7ed791bb48b281d390af6.source": {
+      "bytes": 4856,
+      "sha256": "5408ccec737678d045d421f84a56e1ce03192a42c55440ffef07bec356aaec89"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/259ec4af568a8b3bd8a944918f94b5ceda9a7356a5897027451daf63543d6cf4.source": {
+      "bytes": 4944,
+      "sha256": "c1639742269628afed11342bdcfa4617e6046ad56e3de3e5118aa85aebe9f4d1"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/2c5b84460c0ba496a07029f8b5e132f7699d7328bdf50550360a7594acc2b65c.source": {
+      "bytes": 20146,
+      "sha256": "594a62ef00084d9e3796ae96139dd6728f5a5b9c8d67fd11e7f1a58309e299ad"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/2dfd32dd08600ae4af7d1c84424951202760106d555fc2e557b8a1f670f9aeb1.source": {
+      "bytes": 28007,
+      "sha256": "e1263f19e164e2646cecdf452da74bb00721966cf53e0d0f004faaac73fb1363"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/312bb77b1fe94e7d0611a24d9f25fc197b450caef709dfd4c036aa9da11c73f8.source": {
+      "bytes": 4879,
+      "sha256": "3c05402c5e282e06c2218f2469b1f38e1b84c783b9387aec7740c60b287d82c9"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/3280bfd1be7055c24cf09831fb43076ef22e0b9d15aa156410baa155e74a1188.source": {
+      "bytes": 8268,
+      "sha256": "7cbe645ed7e1161d31eb32ea467d8220b592c0acfa6107f0194487f0ddbf954b"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/3ac45e491576b4b25449c8278c97a9cd43e617378fe1009524b37c4c8f92b617.source": {
+      "bytes": 4552,
+      "sha256": "aba601b887236d5e135392e0c49370df3b5a9ac5c66ab2d44156b3244f2dcef3"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/40bb689bfd42ca4ba9e9ea11001a7ddf0ccc6888319fbcc52d534a9ce3eb824f.source": {
+      "bytes": 1708,
+      "sha256": "81dc02d55ae8000461ab90bb9689d2600ba51f2ea9ac9fb019386995c07e3e4a"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/4d2a8eefdf2a9783512a35da4dc7676a66404b6f3826a8af9aad038722da6823.source": {
+      "bytes": 550,
+      "sha256": "90c8fd2858e72ff17eefdb5e0e15b53f353ea09aa7cd328392af72e5fc505dc3"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/55e1d7d72c94508bdfaa78be9b9e0301de514bb9280ef85e7c4f7d0a2bb09bde.source": {
+      "bytes": 22058,
+      "sha256": "27d22bb674fe615e67670eab21b02cc4dfd811d6021dddf79db358e4746b679b"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/5db6d13c2da341eb7660a5e987525e87cd921b405ff4005715e01a95ebb9fb70.source": {
+      "bytes": 191,
+      "sha256": "fd83f7e823cfbb03ac2da937ec83f01b4a6ddaac220a4fa1ffd6c6c3842c5890"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/5e1f4d1aa7caea8e74df8eef3af4de966d40a3fd3ec34071b53107beff63a296.source": {
+      "bytes": 3368,
+      "sha256": "8318a170a1d4bf21c3cb4deb1f8661f1dc7cf4eb688e4ec9a1e7ea16bfc3b5cf"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/65e1a73f67223e5c9b417cce18cbd4cb348cb7e08fc32fd001377686ba553887.source": {
+      "bytes": 1986,
+      "sha256": "083ec946e238cb5ff120d8d80b907513b512eceba840b15dac3efe0e836d71ee"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/6d5983613f0b5305eb5452d8922b8242dd93f678eda182020d6d45d73bbeda07.source": {
+      "bytes": 18914,
+      "sha256": "25e82bbc250ef4549f4b0d619470a7ef86ed8905a32257e56cf45a96fdc4cf77"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/6e2570a578952a6c69098a7b00e467a625442dfec2ed00be1649d9a2577378c8.source": {
+      "bytes": 2402,
+      "sha256": "5ce0302528260ed6a40ec3ebf5e27d3bc108242d9dca57e8cdbe80fe34e13410"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/754bae14af1a95c501a47eec92e5e604dac0657a4af1481a0ab68ceff4bd3065.source": {
+      "bytes": 8148,
+      "sha256": "ed24c3faa8abda78ee6df53f011475ab9565a2e3ace64e714bd412c90160742c"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/78ad5cff2d35859f921fda506396f273d7d36414e72d1d739357bdde879636ff.source": {
+      "bytes": 56363,
+      "sha256": "688d6f22d942fbe4f0ec8bc0a5d860763f443d9f1b1eabecedf62625659cbdea"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/7f4350608484d5ea1b618c663ab6f000e926e52b325ca124e5713de86d36d333.source": {
+      "bytes": 15949,
+      "sha256": "245ec29da577aefefebdb728c32a7d7407e4ff43889e038d2ab6e6349f5153f0"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/7fd52fe814ba07b296259d8ece73d85387420bdc40fa414bedcf181998b273b5.source": {
+      "bytes": 15478,
+      "sha256": "5dc9a64468c1ac31e59066c7d3597eeb8ea4ac8fc19a257a74c431624300b487"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/80349525ec2278b5134d38c157d5a1f3eb2dac94d1b193f00c100ceb80f9558f.source": {
+      "bytes": 1143,
+      "sha256": "fbdbebc96b136efc6165cba1ac2b311b0c52413aaef59ae9ec750748f13c9e9a"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/817676afe3612ae2d2f3069692a9daac8793311b99825e25b441b2224f86c08c.source": {
+      "bytes": 56577,
+      "sha256": "d20d05f0cb503679f51d3dca56971d999eb9ab4c9f259e342389ab43a48efb8b"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/860db0d57bd5b56ba1015ae4e443ef241c31d820269f8b64c149c2b5727772d6.source": {
+      "bytes": 1322,
+      "sha256": "fba61ceeeb257a3fe5f63310f21e14fc26c4be647583dcf8e74cbc7fb7e43e8a"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/8787d5954f4ed46b995c5d73174eca13921bd275e7953696b930c0741dd9847b.source": {
+      "bytes": 828,
+      "sha256": "626785d4eda75e9435f0ac21a780ae3b11f8b27dc36934e637a5c2305f906531"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/88523772f61f6915653cff912221263075061ae965a18824f61e14fb607b099e.source": {
+      "bytes": 3262,
+      "sha256": "718cc0c55d3f9ae09047adf82dad8200e7143649726fca1fc86a7b027a209058"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/8ab9e67bdd28132e395cd526ca4582df5160aa2e4cf095c9961884ef6c064632.source": {
+      "bytes": 1621,
+      "sha256": "3578568e27b9c1e2f4a7f9a53fdb4bc8ac095db75cc86e966bb1deec2792158e"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/8bf0bfacfb32dceadd5a042a87dcdd5f7bf2b51b81f909775b8627b77d7f38c9.source": {
+      "bytes": 34732,
+      "sha256": "b4d878373b8e72bc62bd36901663bec786d1ef2e73ca875c12435cbb49803ee7"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/8d4318c8ca6a8ad3aa553b7df2869ec431c674f7f1d411003b1db1f8550ea06f.source": {
+      "bytes": 1438,
+      "sha256": "9673f62eac2d0fe3010f9d23148be7b8113319fdf4c4490015cd9feae2ecaad4"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/8d6a3f7eb9d903c72f4a64705a58c4241153baff27f882acb4e5f74f4001a0ad.source": {
+      "bytes": 2170,
+      "sha256": "e2c04610e4ba14f7ed615ba89ce2eeb7cc1aa90e128a5103416cd0eb32423dc5"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/8e7aee7b9e3c7a4a878df03edc1062f9ba2bf5f7f309e9a997b869c9bc0bcb51.source": {
+      "bytes": 19495,
+      "sha256": "ff4941e630b082942c537270e33ac3a8f6241e74b219d8ea7c70fd5240e93c89"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/9145ea412f1e4d0543795b31b344947b9076c626366f2967e979b07349e26322.source": {
+      "bytes": 4126,
+      "sha256": "bdc9d39fd8bf1a350c0249f726c5f61bef64b122b93a0fbc172b0328dc01f594"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/934bd84b1f3eee7559a78dd026f1af7d533fa0063d3ad1c6c97cde42f0bc799d.source": {
+      "bytes": 7499,
+      "sha256": "f853579f77a11272de2f7883123b3c37b22d5f783abd096aac85db137267d94d"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/99310f736942b8100600c2f8eae0e43a3be78dc1591d292dcb9f667f7ec6f08b.source": {
+      "bytes": 1663,
+      "sha256": "6c3e9858b9dad03ccd61445ab0bff0eb6ddfa5e731e044f93350fe6c6b2ad8d5"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/9cef90b571076a1d50cd66ce3eb608971b08f0572fbfb2b1ebf2944de28ede54.source": {
+      "bytes": 1603,
+      "sha256": "a8cb0d737276f6a41071a0776ee1d8aa13cf02fa7c79ea096d202b14ea792e31"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/a0e6a622b582986336392a9dbbbd77e03b9c86ea882997ae0b13ea0fd13f0e8b.source": {
+      "bytes": 1043,
+      "sha256": "23df637689cea742a7f94fbed16355384b6cb4d9b47ae8d17acf65a41cdf5dc1"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/a289d82d9286bc62ef01514efc4c0af59100d7caf77e2670916a5da07bb3f3c6.source": {
+      "bytes": 11381,
+      "sha256": "54160d4847b89c581cf048ba96d55c8fb499fd5d9f82128831d2e68417d4aab0"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/a6c74ebadd4158cdcf971888b233c2b16894cad619dc15fb0405a095f56d8094.source": {
+      "bytes": 13227,
+      "sha256": "3d430a6f9cde66d0b791444c6164e7559ccf62b7cdc3a6325882408c6806e26c"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/a8482ee7dc1d8def15820a7e0dde8e04a6e8e06ef50d5e2991ee9e7f4950b8a8.source": {
+      "bytes": 74807,
+      "sha256": "109a9cbdd1ad615f4cc193cd16c89beced784dc29790a584a48e9142e6abb928"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/a96720b6abb3a04d9181135321fe9ddca793331ef884bec1fde8df826c5c00e5.source": {
+      "bytes": 2115,
+      "sha256": "c800311872ecba642f6d013b290eda83ba6cd8df8061e25cdca1dd4adcbed8b5"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/ad7e5e0401700edcbc33de96e567e5fac75c08822c470dc00d52b6fa7ec8ddf2.source": {
+      "bytes": 22720,
+      "sha256": "bfb60c7515f54e4e181c0418998ed2d4fb73436255ffe86c0050928b5153183f"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/b1837f3f0e33426f7727469ee72681b580d5d1328c9d70f277ebdacfc88eee1b.source": {
+      "bytes": 6431,
+      "sha256": "c83d3b8e31345c0aacd37442954a7f2434312ee48f98a8b9ae4fc8aad26d0c99"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/b36944cb88be22a561d09c6c69ee3c2bc4442450f92c5c5a5243f0535295b9ac.source": {
+      "bytes": 13356,
+      "sha256": "349afd63c8be2cb8a522e4a04e9f444b65ed1fc7f4dabba5b4b61fd8c11d0c42"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/b7a5220aff4444d19029f735e89314480a484823e499801ab315214dbed2382f.source": {
+      "bytes": 81539,
+      "sha256": "151cbc66c42c0948fab5c594e7efb902c96d20d4fb26cd7e080ed74cf90699c8"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/b92af32b7588847ef2ccdc11dc47ee6c2b6d8285a164a0103f03ef58523df202.source": {
+      "bytes": 33109,
+      "sha256": "d9098505d49b58f0500fd4ca55daaa635e805269ac1bf6f586a911f291d70ac3"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/c141557d0e8491aee2b12c5e900977b1fa352637dc46fa4a1f7e274eb9d7dd46.source": {
+      "bytes": 1427,
+      "sha256": "9522209670086adfbb11379416078a7f4dafe154043e320cd435fa1811aaabfb"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/c581b5d12e44c9f5ef143371a686f3fc12c911168bd93bf73fbeb722a2a2976d.source": {
+      "bytes": 2461,
+      "sha256": "3e21ae6a8faab3ed470ae0de19360da6b4e21a0a0f8572f502f7e13d590186f8"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/c96c2afa85436f2e972bf64aea970a3c2a5fde0995ba4875eabe0d5c5dbf99ab.source": {
+      "bytes": 9294,
+      "sha256": "d588bdac3c8e1adc88df3dc92c950a1bfa29663d15f9221f58e2aa553b05a422"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/d27d976dda8ec2c74d6a5da72e364819f3ff8226fabb5b517095312692636f38.source": {
+      "bytes": 31724,
+      "sha256": "b9929d29ea35ed3eb7cf770d5f407796888136f5259ed5eb567e9762bcaee893"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/d32b28fd8c724c23a8dd7cf6b972f249fb69fc22522aadb0e13d13cc81d4cc03.source": {
+      "bytes": 3801,
+      "sha256": "40f6a6453461aef8f31b61a4a6698862578b74f8b11a084708336923d7808e18"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/d4807ed6de85e58335f92dead89cd35ca61e8c94f7e5b57749e4f5fc95e6030d.source": {
+      "bytes": 9314,
+      "sha256": "2d9e18e577a6062646268e7f7228264c28bd9b972c186e1af81b8357179c0ab4"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/d62bd009036c9f5d7e5a8f400889b985c8812d1cdeb2c14446ab35860d704abe.source": {
+      "bytes": 56541,
+      "sha256": "3257cd857653560773947d70b65c8b8bf8ef43f920ed449587fa662224d859e1"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/d74817f764b6625cc1ce0518e8070d21093c58adf02849528b0f85d42ad55db1.source": {
+      "bytes": 17100,
+      "sha256": "5cfbaabf3dc0d75835aaafc37fcd87a92f3dba451e002732747b602fda122958"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/d75b7ca3c4d8f9323178e875fd372ee0517156d7561f4d6f5da5cef803f7e8bb.source": {
+      "bytes": 13348,
+      "sha256": "075c74184a89416b62318d9ccf3e6cfb1ed971bc12c0594a0669b0724e319270"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/dc79320d767dd9ad3c8617d8eef4b85ecc2d98e78e182fc4b491b01695c18cb3.source": {
+      "bytes": 8423,
+      "sha256": "38809428b76fafa79db9f65b7248cc0c02c9b696e7410fc4ab1699940768f1b2"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/dfc79c1adc3a128ae6f3a3393ecc3cdb7a52f9c5ab64da8730b964d47f8b5f86.source": {
+      "bytes": 2789,
+      "sha256": "7cd11e81e5705eefd296668aa8069b4272cfc08b2763d00a7ec103daf8f250e9"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/e2b7961f27da91e48e6621191f923be8310caea04108a6864f455e9d9cc992b7.source": {
+      "bytes": 58992,
+      "sha256": "abe9fe01c6b9eaac553ea69ab9f858dc0aca7926952ce9c8bbfe31d3d3cb0822"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/e6aa82029191a9ffcff69134a2e7e7ddd930cd4441d137313dd845c2f8deb88a.source": {
+      "bytes": 2913,
+      "sha256": "730b681b5f13fd2519fef9e418423097dda7843466fa524fa7a5b718d3af4802"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/e73e55f3d62ffff72cafed5790cb406e052dbf73e60d89c81e255160645eb61e.source": {
+      "bytes": 2191,
+      "sha256": "6f90dc1475f1ebed6e67e42c51682fa30df0147d8f723a7435313f88540a157e"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/ea4bdcab75e88542ddc80f765366aa6aa18ed5b1ba3617bcc350c8325870ab2c.source": {
+      "bytes": 863,
+      "sha256": "746551630d8678ae31a999bf9318003d9329388b7cd9d3fa1cdc725ffc9dc2ee"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/ed336f3b2131e085099475bfb19d2b913f90c69d131a61f5f7a307789ee037bd.source": {
+      "bytes": 21494,
+      "sha256": "357b60be627fb7f65b2e338dc58dfa5a2fe769956c7a1c777fb57bd173cfa401"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/ee43ddc5d5c0ee2a9a0b3d90abc7f12b4c1bdf487b5abf4f8fd3cc19f970b5cb.source": {
+      "bytes": 6174,
+      "sha256": "6154c2865bec97e61a92d8284be7e8ba21818f6edc95f5d72adb5dcf3e9532ca"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/ee6634100751ff678dd5127763046a3a91682bec4c819f432f3b0faa813ad375.source": {
+      "bytes": 52986,
+      "sha256": "2e3cf11fb179c0a116bb8690961899c6125f5be31c619d73da5d88452352f5e3"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/eecf92bcb6b21e7c6d84bc4ef87fc2318a5f4776aaec6190e306d09a9c07d354.source": {
+      "bytes": 1116,
+      "sha256": "4ea0f67d3e467f5d6a327616e22a3c2da8e03d47a3c3660916275f2842f521ea"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.mth3c3vi-98065-6f4ba4ded1.baseline/fe2fdfeaf25bf50844c67141e129d1a259b44f98e1ddb870dac65e466fce0812.source": {
+      "bytes": 23050,
+      "sha256": "97b63d6c1a405738c3900937448e61554bf6c71a9c265b3b5e072b01af47664c"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_29cf2ecc-e070-4c4b-b4d0-c40665376a11.json": {
+      "bytes": 692,
+      "sha256": "0fe621649d3dc02777fa67eac607279dc3d16f63529524885b2e281b4c2f4535"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.continue.json": {
+      "bytes": 175,
+      "sha256": "22df76bdafbc2b4c55ad4d6379667765c58bfae9de7c562d978716278433cc19"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.json": {
+      "bytes": 9130,
+      "sha256": "9fec226001c3ef7e41a90889cb44da9ca5c54880cf11d7495932ddf448a9a894"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/037a227278ac4a74f0e6ecdc75ce91f9b39fa5a9585d67d2602587dc82283a4f.source": {
+      "bytes": 36164,
+      "sha256": "4ca15edc740fe17132871f87dce3fd9f3588d0d6a4f44a79a763a82f8aefeb37"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/0a0df9ce1d2191c0f652347af5bfbe7a1389c0a087fe1cf11dda222bd9dc33c6.source": {
+      "bytes": 15305,
+      "sha256": "7b31e449409ead7c3d7e8bc295dfea3aca1203df4943d6c624f47c82ccde700c"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/0ccb3160cca2ece5c06c41e95cb14718893a6354dcbc3d6281bf9a198ee35593.source": {
+      "bytes": 5927,
+      "sha256": "68c34ef2d6e5a227f7cff18436a42c6739b1470ce12f059f168d9bb69fc8d49c"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/16a2902bb11289328a73c07cc8e309bd18111bae6fde9a8d80e55e75d4618635.source": {
+      "bytes": 11799,
+      "sha256": "c0c0d700a1080b274a2ff7c734f6ebf6a4479f05de9dc8554606eaed4630a4d2"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/19eaac5cb55f2f404cbfce1cf56802e462a997ec7a72bbb1a8b9df493ffa682d.source": {
+      "bytes": 15145,
+      "sha256": "3a424e6cb4177886c8790821cf15345f488764bc215eb29719c80002ef24cdc1"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/1b599c4825492755f9bf08c8fcb1ec1c4cd7d315a46f68fe9205f194bfe9f2a1.source": {
+      "bytes": 7974,
+      "sha256": "e5fd590af171c79e303f768ccd3bfc52e55f036a856a0edc46dd17254c941364"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/244bd10d3c2fb71bcff0682aa51faa53961248fe9cd7ed791bb48b281d390af6.source": {
+      "bytes": 4856,
+      "sha256": "5408ccec737678d045d421f84a56e1ce03192a42c55440ffef07bec356aaec89"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/259ec4af568a8b3bd8a944918f94b5ceda9a7356a5897027451daf63543d6cf4.source": {
+      "bytes": 28365,
+      "sha256": "968b48ed9de7a49f0222c821d918240261c0438d5a2321f9a4df3ee7572ee570"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/2c5b84460c0ba496a07029f8b5e132f7699d7328bdf50550360a7594acc2b65c.source": {
+      "bytes": 20146,
+      "sha256": "594a62ef00084d9e3796ae96139dd6728f5a5b9c8d67fd11e7f1a58309e299ad"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/2dfd32dd08600ae4af7d1c84424951202760106d555fc2e557b8a1f670f9aeb1.source": {
+      "bytes": 28007,
+      "sha256": "e1263f19e164e2646cecdf452da74bb00721966cf53e0d0f004faaac73fb1363"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/312bb77b1fe94e7d0611a24d9f25fc197b450caef709dfd4c036aa9da11c73f8.source": {
+      "bytes": 4879,
+      "sha256": "3c05402c5e282e06c2218f2469b1f38e1b84c783b9387aec7740c60b287d82c9"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/3280bfd1be7055c24cf09831fb43076ef22e0b9d15aa156410baa155e74a1188.source": {
+      "bytes": 8268,
+      "sha256": "7cbe645ed7e1161d31eb32ea467d8220b592c0acfa6107f0194487f0ddbf954b"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/3ac45e491576b4b25449c8278c97a9cd43e617378fe1009524b37c4c8f92b617.source": {
+      "bytes": 4552,
+      "sha256": "aba601b887236d5e135392e0c49370df3b5a9ac5c66ab2d44156b3244f2dcef3"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/40bb689bfd42ca4ba9e9ea11001a7ddf0ccc6888319fbcc52d534a9ce3eb824f.source": {
+      "bytes": 1708,
+      "sha256": "81dc02d55ae8000461ab90bb9689d2600ba51f2ea9ac9fb019386995c07e3e4a"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/4d2a8eefdf2a9783512a35da4dc7676a66404b6f3826a8af9aad038722da6823.source": {
+      "bytes": 580,
+      "sha256": "c513fad77fb28e956d106533805098458726efa638acc0987a1441e571a09af0"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/55e1d7d72c94508bdfaa78be9b9e0301de514bb9280ef85e7c4f7d0a2bb09bde.source": {
+      "bytes": 22058,
+      "sha256": "27d22bb674fe615e67670eab21b02cc4dfd811d6021dddf79db358e4746b679b"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/5db6d13c2da341eb7660a5e987525e87cd921b405ff4005715e01a95ebb9fb70.source": {
+      "bytes": 191,
+      "sha256": "fd83f7e823cfbb03ac2da937ec83f01b4a6ddaac220a4fa1ffd6c6c3842c5890"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/5e1f4d1aa7caea8e74df8eef3af4de966d40a3fd3ec34071b53107beff63a296.source": {
+      "bytes": 3368,
+      "sha256": "8318a170a1d4bf21c3cb4deb1f8661f1dc7cf4eb688e4ec9a1e7ea16bfc3b5cf"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/65e1a73f67223e5c9b417cce18cbd4cb348cb7e08fc32fd001377686ba553887.source": {
+      "bytes": 1986,
+      "sha256": "083ec946e238cb5ff120d8d80b907513b512eceba840b15dac3efe0e836d71ee"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/6d5983613f0b5305eb5452d8922b8242dd93f678eda182020d6d45d73bbeda07.source": {
+      "bytes": 18914,
+      "sha256": "25e82bbc250ef4549f4b0d619470a7ef86ed8905a32257e56cf45a96fdc4cf77"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/6e2570a578952a6c69098a7b00e467a625442dfec2ed00be1649d9a2577378c8.source": {
+      "bytes": 2402,
+      "sha256": "5ce0302528260ed6a40ec3ebf5e27d3bc108242d9dca57e8cdbe80fe34e13410"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/754bae14af1a95c501a47eec92e5e604dac0657a4af1481a0ab68ceff4bd3065.source": {
+      "bytes": 8148,
+      "sha256": "ed24c3faa8abda78ee6df53f011475ab9565a2e3ace64e714bd412c90160742c"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/78ad5cff2d35859f921fda506396f273d7d36414e72d1d739357bdde879636ff.source": {
+      "bytes": 56363,
+      "sha256": "688d6f22d942fbe4f0ec8bc0a5d860763f443d9f1b1eabecedf62625659cbdea"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/7f4350608484d5ea1b618c663ab6f000e926e52b325ca124e5713de86d36d333.source": {
+      "bytes": 15949,
+      "sha256": "245ec29da577aefefebdb728c32a7d7407e4ff43889e038d2ab6e6349f5153f0"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/7fd52fe814ba07b296259d8ece73d85387420bdc40fa414bedcf181998b273b5.source": {
+      "bytes": 15478,
+      "sha256": "5dc9a64468c1ac31e59066c7d3597eeb8ea4ac8fc19a257a74c431624300b487"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/80349525ec2278b5134d38c157d5a1f3eb2dac94d1b193f00c100ceb80f9558f.source": {
+      "bytes": 1143,
+      "sha256": "fbdbebc96b136efc6165cba1ac2b311b0c52413aaef59ae9ec750748f13c9e9a"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/817676afe3612ae2d2f3069692a9daac8793311b99825e25b441b2224f86c08c.source": {
+      "bytes": 56577,
+      "sha256": "d20d05f0cb503679f51d3dca56971d999eb9ab4c9f259e342389ab43a48efb8b"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/860db0d57bd5b56ba1015ae4e443ef241c31d820269f8b64c149c2b5727772d6.source": {
+      "bytes": 1322,
+      "sha256": "fba61ceeeb257a3fe5f63310f21e14fc26c4be647583dcf8e74cbc7fb7e43e8a"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/8787d5954f4ed46b995c5d73174eca13921bd275e7953696b930c0741dd9847b.source": {
+      "bytes": 828,
+      "sha256": "626785d4eda75e9435f0ac21a780ae3b11f8b27dc36934e637a5c2305f906531"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/88523772f61f6915653cff912221263075061ae965a18824f61e14fb607b099e.source": {
+      "bytes": 3262,
+      "sha256": "718cc0c55d3f9ae09047adf82dad8200e7143649726fca1fc86a7b027a209058"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/8ab9e67bdd28132e395cd526ca4582df5160aa2e4cf095c9961884ef6c064632.source": {
+      "bytes": 1621,
+      "sha256": "3578568e27b9c1e2f4a7f9a53fdb4bc8ac095db75cc86e966bb1deec2792158e"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/8bf0bfacfb32dceadd5a042a87dcdd5f7bf2b51b81f909775b8627b77d7f38c9.source": {
+      "bytes": 34732,
+      "sha256": "b4d878373b8e72bc62bd36901663bec786d1ef2e73ca875c12435cbb49803ee7"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/8d4318c8ca6a8ad3aa553b7df2869ec431c674f7f1d411003b1db1f8550ea06f.source": {
+      "bytes": 1438,
+      "sha256": "9673f62eac2d0fe3010f9d23148be7b8113319fdf4c4490015cd9feae2ecaad4"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/8d6a3f7eb9d903c72f4a64705a58c4241153baff27f882acb4e5f74f4001a0ad.source": {
+      "bytes": 2170,
+      "sha256": "e2c04610e4ba14f7ed615ba89ce2eeb7cc1aa90e128a5103416cd0eb32423dc5"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/8e7aee7b9e3c7a4a878df03edc1062f9ba2bf5f7f309e9a997b869c9bc0bcb51.source": {
+      "bytes": 19495,
+      "sha256": "ff4941e630b082942c537270e33ac3a8f6241e74b219d8ea7c70fd5240e93c89"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/9145ea412f1e4d0543795b31b344947b9076c626366f2967e979b07349e26322.source": {
+      "bytes": 4126,
+      "sha256": "bdc9d39fd8bf1a350c0249f726c5f61bef64b122b93a0fbc172b0328dc01f594"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/934bd84b1f3eee7559a78dd026f1af7d533fa0063d3ad1c6c97cde42f0bc799d.source": {
+      "bytes": 7499,
+      "sha256": "f853579f77a11272de2f7883123b3c37b22d5f783abd096aac85db137267d94d"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/99310f736942b8100600c2f8eae0e43a3be78dc1591d292dcb9f667f7ec6f08b.source": {
+      "bytes": 1663,
+      "sha256": "6c3e9858b9dad03ccd61445ab0bff0eb6ddfa5e731e044f93350fe6c6b2ad8d5"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/9cef90b571076a1d50cd66ce3eb608971b08f0572fbfb2b1ebf2944de28ede54.source": {
+      "bytes": 1603,
+      "sha256": "a8cb0d737276f6a41071a0776ee1d8aa13cf02fa7c79ea096d202b14ea792e31"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/a0e6a622b582986336392a9dbbbd77e03b9c86ea882997ae0b13ea0fd13f0e8b.source": {
+      "bytes": 12567,
+      "sha256": "9f08606f6e8df39db76033fd5f0b6e87f45a15599a41aa8dc7455435b1c72fe5"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/a289d82d9286bc62ef01514efc4c0af59100d7caf77e2670916a5da07bb3f3c6.source": {
+      "bytes": 11381,
+      "sha256": "54160d4847b89c581cf048ba96d55c8fb499fd5d9f82128831d2e68417d4aab0"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/a6c74ebadd4158cdcf971888b233c2b16894cad619dc15fb0405a095f56d8094.source": {
+      "bytes": 13227,
+      "sha256": "3d430a6f9cde66d0b791444c6164e7559ccf62b7cdc3a6325882408c6806e26c"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/a8482ee7dc1d8def15820a7e0dde8e04a6e8e06ef50d5e2991ee9e7f4950b8a8.source": {
+      "bytes": 205617,
+      "sha256": "2070117bd505cf364ea00003f7284d64e5968420eae21a21df232ca17b45c66e"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/a96720b6abb3a04d9181135321fe9ddca793331ef884bec1fde8df826c5c00e5.source": {
+      "bytes": 2115,
+      "sha256": "c800311872ecba642f6d013b290eda83ba6cd8df8061e25cdca1dd4adcbed8b5"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/ad7e5e0401700edcbc33de96e567e5fac75c08822c470dc00d52b6fa7ec8ddf2.source": {
+      "bytes": 22720,
+      "sha256": "bfb60c7515f54e4e181c0418998ed2d4fb73436255ffe86c0050928b5153183f"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/b1837f3f0e33426f7727469ee72681b580d5d1328c9d70f277ebdacfc88eee1b.source": {
+      "bytes": 6431,
+      "sha256": "c83d3b8e31345c0aacd37442954a7f2434312ee48f98a8b9ae4fc8aad26d0c99"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/b36944cb88be22a561d09c6c69ee3c2bc4442450f92c5c5a5243f0535295b9ac.source": {
+      "bytes": 13356,
+      "sha256": "349afd63c8be2cb8a522e4a04e9f444b65ed1fc7f4dabba5b4b61fd8c11d0c42"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/b8b3219db7e2fed89787362493853974e26241904399f421649fb00703f900ba.source": {
+      "bytes": 10300,
+      "sha256": "a5d00e7a87367106b8648862202afd5335aaa1081cbfc0e344a2c77de10101f0"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/b92af32b7588847ef2ccdc11dc47ee6c2b6d8285a164a0103f03ef58523df202.source": {
+      "bytes": 33109,
+      "sha256": "d9098505d49b58f0500fd4ca55daaa635e805269ac1bf6f586a911f291d70ac3"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/c141557d0e8491aee2b12c5e900977b1fa352637dc46fa4a1f7e274eb9d7dd46.source": {
+      "bytes": 1427,
+      "sha256": "9522209670086adfbb11379416078a7f4dafe154043e320cd435fa1811aaabfb"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/c581b5d12e44c9f5ef143371a686f3fc12c911168bd93bf73fbeb722a2a2976d.source": {
+      "bytes": 2461,
+      "sha256": "3e21ae6a8faab3ed470ae0de19360da6b4e21a0a0f8572f502f7e13d590186f8"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/c96c2afa85436f2e972bf64aea970a3c2a5fde0995ba4875eabe0d5c5dbf99ab.source": {
+      "bytes": 9294,
+      "sha256": "d588bdac3c8e1adc88df3dc92c950a1bfa29663d15f9221f58e2aa553b05a422"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/d27d976dda8ec2c74d6a5da72e364819f3ff8226fabb5b517095312692636f38.source": {
+      "bytes": 31724,
+      "sha256": "b9929d29ea35ed3eb7cf770d5f407796888136f5259ed5eb567e9762bcaee893"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/d32b28fd8c724c23a8dd7cf6b972f249fb69fc22522aadb0e13d13cc81d4cc03.source": {
+      "bytes": 3801,
+      "sha256": "40f6a6453461aef8f31b61a4a6698862578b74f8b11a084708336923d7808e18"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/d4807ed6de85e58335f92dead89cd35ca61e8c94f7e5b57749e4f5fc95e6030d.source": {
+      "bytes": 9314,
+      "sha256": "2d9e18e577a6062646268e7f7228264c28bd9b972c186e1af81b8357179c0ab4"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/d62bd009036c9f5d7e5a8f400889b985c8812d1cdeb2c14446ab35860d704abe.source": {
+      "bytes": 56541,
+      "sha256": "3257cd857653560773947d70b65c8b8bf8ef43f920ed449587fa662224d859e1"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/d74817f764b6625cc1ce0518e8070d21093c58adf02849528b0f85d42ad55db1.source": {
+      "bytes": 17100,
+      "sha256": "5cfbaabf3dc0d75835aaafc37fcd87a92f3dba451e002732747b602fda122958"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/d75b7ca3c4d8f9323178e875fd372ee0517156d7561f4d6f5da5cef803f7e8bb.source": {
+      "bytes": 13348,
+      "sha256": "075c74184a89416b62318d9ccf3e6cfb1ed971bc12c0594a0669b0724e319270"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/dc79320d767dd9ad3c8617d8eef4b85ecc2d98e78e182fc4b491b01695c18cb3.source": {
+      "bytes": 8423,
+      "sha256": "38809428b76fafa79db9f65b7248cc0c02c9b696e7410fc4ab1699940768f1b2"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/df03ce0563d170606e44daa8c6784b9f2a4b0288da9bcec6519c4b012d4c2953.source": {
+      "bytes": 1169,
+      "sha256": "73919d3d8643e54868e47e7b6364858a43bdf0a025f4fd615c632625dc303933"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/e2b7961f27da91e48e6621191f923be8310caea04108a6864f455e9d9cc992b7.source": {
+      "bytes": 58992,
+      "sha256": "abe9fe01c6b9eaac553ea69ab9f858dc0aca7926952ce9c8bbfe31d3d3cb0822"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/e6aa82029191a9ffcff69134a2e7e7ddd930cd4441d137313dd845c2f8deb88a.source": {
+      "bytes": 2913,
+      "sha256": "730b681b5f13fd2519fef9e418423097dda7843466fa524fa7a5b718d3af4802"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/e73e55f3d62ffff72cafed5790cb406e052dbf73e60d89c81e255160645eb61e.source": {
+      "bytes": 2191,
+      "sha256": "6f90dc1475f1ebed6e67e42c51682fa30df0147d8f723a7435313f88540a157e"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/ea4bdcab75e88542ddc80f765366aa6aa18ed5b1ba3617bcc350c8325870ab2c.source": {
+      "bytes": 863,
+      "sha256": "746551630d8678ae31a999bf9318003d9329388b7cd9d3fa1cdc725ffc9dc2ee"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/ed336f3b2131e085099475bfb19d2b913f90c69d131a61f5f7a307789ee037bd.source": {
+      "bytes": 21494,
+      "sha256": "357b60be627fb7f65b2e338dc58dfa5a2fe769956c7a1c777fb57bd173cfa401"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/ee43ddc5d5c0ee2a9a0b3d90abc7f12b4c1bdf487b5abf4f8fd3cc19f970b5cb.source": {
+      "bytes": 6174,
+      "sha256": "6154c2865bec97e61a92d8284be7e8ba21818f6edc95f5d72adb5dcf3e9532ca"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/ee6634100751ff678dd5127763046a3a91682bec4c819f432f3b0faa813ad375.source": {
+      "bytes": 52986,
+      "sha256": "2e3cf11fb179c0a116bb8690961899c6125f5be31c619d73da5d88452352f5e3"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/eecf92bcb6b21e7c6d84bc4ef87fc2318a5f4776aaec6190e306d09a9c07d354.source": {
+      "bytes": 1116,
+      "sha256": "4ea0f67d3e467f5d6a327616e22a3c2da8e03d47a3c3660916275f2842f521ea"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_322b92c7-f44d-41d6-bc4b-7ba637747969.mvenum85-177-c7563608d2.baseline/fe2fdfeaf25bf50844c67141e129d1a259b44f98e1ddb870dac65e466fce0812.source": {
+      "bytes": 23050,
+      "sha256": "97b63d6c1a405738c3900937448e61554bf6c71a9c265b3b5e072b01af47664c"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.continue.json": {
+      "bytes": 177,
+      "sha256": "d1489a426e38cd9af2268e95778abc24115a45266bfee15d32bad6722c54bbda"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.json": {
+      "bytes": 9133,
+      "sha256": "9993edb412af7f499e415081a0e530c6a12cd382b26a6751e6edaa267da8f6fc"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/037a227278ac4a74f0e6ecdc75ce91f9b39fa5a9585d67d2602587dc82283a4f.source": {
+      "bytes": 36164,
+      "sha256": "4ca15edc740fe17132871f87dce3fd9f3588d0d6a4f44a79a763a82f8aefeb37"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/0a0df9ce1d2191c0f652347af5bfbe7a1389c0a087fe1cf11dda222bd9dc33c6.source": {
+      "bytes": 15305,
+      "sha256": "7b31e449409ead7c3d7e8bc295dfea3aca1203df4943d6c624f47c82ccde700c"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/0ccb3160cca2ece5c06c41e95cb14718893a6354dcbc3d6281bf9a198ee35593.source": {
+      "bytes": 5927,
+      "sha256": "68c34ef2d6e5a227f7cff18436a42c6739b1470ce12f059f168d9bb69fc8d49c"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/16a2902bb11289328a73c07cc8e309bd18111bae6fde9a8d80e55e75d4618635.source": {
+      "bytes": 11799,
+      "sha256": "c0c0d700a1080b274a2ff7c734f6ebf6a4479f05de9dc8554606eaed4630a4d2"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/19eaac5cb55f2f404cbfce1cf56802e462a997ec7a72bbb1a8b9df493ffa682d.source": {
+      "bytes": 15145,
+      "sha256": "3a424e6cb4177886c8790821cf15345f488764bc215eb29719c80002ef24cdc1"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/1b599c4825492755f9bf08c8fcb1ec1c4cd7d315a46f68fe9205f194bfe9f2a1.source": {
+      "bytes": 7974,
+      "sha256": "e5fd590af171c79e303f768ccd3bfc52e55f036a856a0edc46dd17254c941364"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/244bd10d3c2fb71bcff0682aa51faa53961248fe9cd7ed791bb48b281d390af6.source": {
+      "bytes": 4856,
+      "sha256": "5408ccec737678d045d421f84a56e1ce03192a42c55440ffef07bec356aaec89"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/259ec4af568a8b3bd8a944918f94b5ceda9a7356a5897027451daf63543d6cf4.source": {
+      "bytes": 4189,
+      "sha256": "78261a13dd96b926586e3c7b0c675d94ba4603bf28e6530e9720e199c888fe7a"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/2c5b84460c0ba496a07029f8b5e132f7699d7328bdf50550360a7594acc2b65c.source": {
+      "bytes": 20146,
+      "sha256": "594a62ef00084d9e3796ae96139dd6728f5a5b9c8d67fd11e7f1a58309e299ad"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/2dfd32dd08600ae4af7d1c84424951202760106d555fc2e557b8a1f670f9aeb1.source": {
+      "bytes": 28007,
+      "sha256": "e1263f19e164e2646cecdf452da74bb00721966cf53e0d0f004faaac73fb1363"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/312bb77b1fe94e7d0611a24d9f25fc197b450caef709dfd4c036aa9da11c73f8.source": {
+      "bytes": 4879,
+      "sha256": "3c05402c5e282e06c2218f2469b1f38e1b84c783b9387aec7740c60b287d82c9"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/3280bfd1be7055c24cf09831fb43076ef22e0b9d15aa156410baa155e74a1188.source": {
+      "bytes": 8268,
+      "sha256": "7cbe645ed7e1161d31eb32ea467d8220b592c0acfa6107f0194487f0ddbf954b"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/3ac45e491576b4b25449c8278c97a9cd43e617378fe1009524b37c4c8f92b617.source": {
+      "bytes": 4552,
+      "sha256": "aba601b887236d5e135392e0c49370df3b5a9ac5c66ab2d44156b3244f2dcef3"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/40bb689bfd42ca4ba9e9ea11001a7ddf0ccc6888319fbcc52d534a9ce3eb824f.source": {
+      "bytes": 1708,
+      "sha256": "81dc02d55ae8000461ab90bb9689d2600ba51f2ea9ac9fb019386995c07e3e4a"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/4d2a8eefdf2a9783512a35da4dc7676a66404b6f3826a8af9aad038722da6823.source": {
+      "bytes": 550,
+      "sha256": "90c8fd2858e72ff17eefdb5e0e15b53f353ea09aa7cd328392af72e5fc505dc3"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/55e1d7d72c94508bdfaa78be9b9e0301de514bb9280ef85e7c4f7d0a2bb09bde.source": {
+      "bytes": 22058,
+      "sha256": "27d22bb674fe615e67670eab21b02cc4dfd811d6021dddf79db358e4746b679b"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/5db6d13c2da341eb7660a5e987525e87cd921b405ff4005715e01a95ebb9fb70.source": {
+      "bytes": 191,
+      "sha256": "fd83f7e823cfbb03ac2da937ec83f01b4a6ddaac220a4fa1ffd6c6c3842c5890"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/5e1f4d1aa7caea8e74df8eef3af4de966d40a3fd3ec34071b53107beff63a296.source": {
+      "bytes": 3368,
+      "sha256": "8318a170a1d4bf21c3cb4deb1f8661f1dc7cf4eb688e4ec9a1e7ea16bfc3b5cf"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/65e1a73f67223e5c9b417cce18cbd4cb348cb7e08fc32fd001377686ba553887.source": {
+      "bytes": 1986,
+      "sha256": "083ec946e238cb5ff120d8d80b907513b512eceba840b15dac3efe0e836d71ee"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/6d5983613f0b5305eb5452d8922b8242dd93f678eda182020d6d45d73bbeda07.source": {
+      "bytes": 18914,
+      "sha256": "25e82bbc250ef4549f4b0d619470a7ef86ed8905a32257e56cf45a96fdc4cf77"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/6e2570a578952a6c69098a7b00e467a625442dfec2ed00be1649d9a2577378c8.source": {
+      "bytes": 2402,
+      "sha256": "5ce0302528260ed6a40ec3ebf5e27d3bc108242d9dca57e8cdbe80fe34e13410"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/754bae14af1a95c501a47eec92e5e604dac0657a4af1481a0ab68ceff4bd3065.source": {
+      "bytes": 8148,
+      "sha256": "ed24c3faa8abda78ee6df53f011475ab9565a2e3ace64e714bd412c90160742c"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/78ad5cff2d35859f921fda506396f273d7d36414e72d1d739357bdde879636ff.source": {
+      "bytes": 56363,
+      "sha256": "688d6f22d942fbe4f0ec8bc0a5d860763f443d9f1b1eabecedf62625659cbdea"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/7f4350608484d5ea1b618c663ab6f000e926e52b325ca124e5713de86d36d333.source": {
+      "bytes": 15949,
+      "sha256": "245ec29da577aefefebdb728c32a7d7407e4ff43889e038d2ab6e6349f5153f0"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/7fd52fe814ba07b296259d8ece73d85387420bdc40fa414bedcf181998b273b5.source": {
+      "bytes": 15478,
+      "sha256": "5dc9a64468c1ac31e59066c7d3597eeb8ea4ac8fc19a257a74c431624300b487"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/80349525ec2278b5134d38c157d5a1f3eb2dac94d1b193f00c100ceb80f9558f.source": {
+      "bytes": 1143,
+      "sha256": "fbdbebc96b136efc6165cba1ac2b311b0c52413aaef59ae9ec750748f13c9e9a"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/817676afe3612ae2d2f3069692a9daac8793311b99825e25b441b2224f86c08c.source": {
+      "bytes": 56577,
+      "sha256": "d20d05f0cb503679f51d3dca56971d999eb9ab4c9f259e342389ab43a48efb8b"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/860db0d57bd5b56ba1015ae4e443ef241c31d820269f8b64c149c2b5727772d6.source": {
+      "bytes": 1322,
+      "sha256": "fba61ceeeb257a3fe5f63310f21e14fc26c4be647583dcf8e74cbc7fb7e43e8a"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/8787d5954f4ed46b995c5d73174eca13921bd275e7953696b930c0741dd9847b.source": {
+      "bytes": 828,
+      "sha256": "626785d4eda75e9435f0ac21a780ae3b11f8b27dc36934e637a5c2305f906531"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/88523772f61f6915653cff912221263075061ae965a18824f61e14fb607b099e.source": {
+      "bytes": 3262,
+      "sha256": "718cc0c55d3f9ae09047adf82dad8200e7143649726fca1fc86a7b027a209058"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/8ab9e67bdd28132e395cd526ca4582df5160aa2e4cf095c9961884ef6c064632.source": {
+      "bytes": 1621,
+      "sha256": "3578568e27b9c1e2f4a7f9a53fdb4bc8ac095db75cc86e966bb1deec2792158e"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/8bf0bfacfb32dceadd5a042a87dcdd5f7bf2b51b81f909775b8627b77d7f38c9.source": {
+      "bytes": 34732,
+      "sha256": "b4d878373b8e72bc62bd36901663bec786d1ef2e73ca875c12435cbb49803ee7"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/8d4318c8ca6a8ad3aa553b7df2869ec431c674f7f1d411003b1db1f8550ea06f.source": {
+      "bytes": 1438,
+      "sha256": "9673f62eac2d0fe3010f9d23148be7b8113319fdf4c4490015cd9feae2ecaad4"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/8d6a3f7eb9d903c72f4a64705a58c4241153baff27f882acb4e5f74f4001a0ad.source": {
+      "bytes": 2170,
+      "sha256": "e2c04610e4ba14f7ed615ba89ce2eeb7cc1aa90e128a5103416cd0eb32423dc5"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/8e7aee7b9e3c7a4a878df03edc1062f9ba2bf5f7f309e9a997b869c9bc0bcb51.source": {
+      "bytes": 19495,
+      "sha256": "ff4941e630b082942c537270e33ac3a8f6241e74b219d8ea7c70fd5240e93c89"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/9145ea412f1e4d0543795b31b344947b9076c626366f2967e979b07349e26322.source": {
+      "bytes": 4126,
+      "sha256": "bdc9d39fd8bf1a350c0249f726c5f61bef64b122b93a0fbc172b0328dc01f594"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/934bd84b1f3eee7559a78dd026f1af7d533fa0063d3ad1c6c97cde42f0bc799d.source": {
+      "bytes": 7499,
+      "sha256": "f853579f77a11272de2f7883123b3c37b22d5f783abd096aac85db137267d94d"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/99310f736942b8100600c2f8eae0e43a3be78dc1591d292dcb9f667f7ec6f08b.source": {
+      "bytes": 1663,
+      "sha256": "6c3e9858b9dad03ccd61445ab0bff0eb6ddfa5e731e044f93350fe6c6b2ad8d5"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/9cef90b571076a1d50cd66ce3eb608971b08f0572fbfb2b1ebf2944de28ede54.source": {
+      "bytes": 1603,
+      "sha256": "a8cb0d737276f6a41071a0776ee1d8aa13cf02fa7c79ea096d202b14ea792e31"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/a0e6a622b582986336392a9dbbbd77e03b9c86ea882997ae0b13ea0fd13f0e8b.source": {
+      "bytes": 894,
+      "sha256": "84a61370918e59018a0b987c5918c4426d790a2688c0c55a187b2b0c38135dfa"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/a289d82d9286bc62ef01514efc4c0af59100d7caf77e2670916a5da07bb3f3c6.source": {
+      "bytes": 11381,
+      "sha256": "54160d4847b89c581cf048ba96d55c8fb499fd5d9f82128831d2e68417d4aab0"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/a6c74ebadd4158cdcf971888b233c2b16894cad619dc15fb0405a095f56d8094.source": {
+      "bytes": 13227,
+      "sha256": "3d430a6f9cde66d0b791444c6164e7559ccf62b7cdc3a6325882408c6806e26c"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/a8482ee7dc1d8def15820a7e0dde8e04a6e8e06ef50d5e2991ee9e7f4950b8a8.source": {
+      "bytes": 70399,
+      "sha256": "a2c9392cae77e1833711dc2312da89cc792744e31abc6b6049fed6b176df2b02"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/a96720b6abb3a04d9181135321fe9ddca793331ef884bec1fde8df826c5c00e5.source": {
+      "bytes": 2115,
+      "sha256": "c800311872ecba642f6d013b290eda83ba6cd8df8061e25cdca1dd4adcbed8b5"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/ad7e5e0401700edcbc33de96e567e5fac75c08822c470dc00d52b6fa7ec8ddf2.source": {
+      "bytes": 22720,
+      "sha256": "bfb60c7515f54e4e181c0418998ed2d4fb73436255ffe86c0050928b5153183f"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/b1837f3f0e33426f7727469ee72681b580d5d1328c9d70f277ebdacfc88eee1b.source": {
+      "bytes": 6431,
+      "sha256": "c83d3b8e31345c0aacd37442954a7f2434312ee48f98a8b9ae4fc8aad26d0c99"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/b36944cb88be22a561d09c6c69ee3c2bc4442450f92c5c5a5243f0535295b9ac.source": {
+      "bytes": 13356,
+      "sha256": "349afd63c8be2cb8a522e4a04e9f444b65ed1fc7f4dabba5b4b61fd8c11d0c42"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/b7a5220aff4444d19029f735e89314480a484823e499801ab315214dbed2382f.source": {
+      "bytes": 81539,
+      "sha256": "151cbc66c42c0948fab5c594e7efb902c96d20d4fb26cd7e080ed74cf90699c8"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/b92af32b7588847ef2ccdc11dc47ee6c2b6d8285a164a0103f03ef58523df202.source": {
+      "bytes": 33109,
+      "sha256": "d9098505d49b58f0500fd4ca55daaa635e805269ac1bf6f586a911f291d70ac3"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/c141557d0e8491aee2b12c5e900977b1fa352637dc46fa4a1f7e274eb9d7dd46.source": {
+      "bytes": 1427,
+      "sha256": "9522209670086adfbb11379416078a7f4dafe154043e320cd435fa1811aaabfb"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/c581b5d12e44c9f5ef143371a686f3fc12c911168bd93bf73fbeb722a2a2976d.source": {
+      "bytes": 2461,
+      "sha256": "3e21ae6a8faab3ed470ae0de19360da6b4e21a0a0f8572f502f7e13d590186f8"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/c96c2afa85436f2e972bf64aea970a3c2a5fde0995ba4875eabe0d5c5dbf99ab.source": {
+      "bytes": 9294,
+      "sha256": "d588bdac3c8e1adc88df3dc92c950a1bfa29663d15f9221f58e2aa553b05a422"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/d27d976dda8ec2c74d6a5da72e364819f3ff8226fabb5b517095312692636f38.source": {
+      "bytes": 31724,
+      "sha256": "b9929d29ea35ed3eb7cf770d5f407796888136f5259ed5eb567e9762bcaee893"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/d32b28fd8c724c23a8dd7cf6b972f249fb69fc22522aadb0e13d13cc81d4cc03.source": {
+      "bytes": 3801,
+      "sha256": "40f6a6453461aef8f31b61a4a6698862578b74f8b11a084708336923d7808e18"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/d4807ed6de85e58335f92dead89cd35ca61e8c94f7e5b57749e4f5fc95e6030d.source": {
+      "bytes": 9314,
+      "sha256": "2d9e18e577a6062646268e7f7228264c28bd9b972c186e1af81b8357179c0ab4"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/d62bd009036c9f5d7e5a8f400889b985c8812d1cdeb2c14446ab35860d704abe.source": {
+      "bytes": 56541,
+      "sha256": "3257cd857653560773947d70b65c8b8bf8ef43f920ed449587fa662224d859e1"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/d74817f764b6625cc1ce0518e8070d21093c58adf02849528b0f85d42ad55db1.source": {
+      "bytes": 17100,
+      "sha256": "5cfbaabf3dc0d75835aaafc37fcd87a92f3dba451e002732747b602fda122958"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/d75b7ca3c4d8f9323178e875fd372ee0517156d7561f4d6f5da5cef803f7e8bb.source": {
+      "bytes": 13348,
+      "sha256": "075c74184a89416b62318d9ccf3e6cfb1ed971bc12c0594a0669b0724e319270"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/dc79320d767dd9ad3c8617d8eef4b85ecc2d98e78e182fc4b491b01695c18cb3.source": {
+      "bytes": 8423,
+      "sha256": "38809428b76fafa79db9f65b7248cc0c02c9b696e7410fc4ab1699940768f1b2"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/dfc79c1adc3a128ae6f3a3393ecc3cdb7a52f9c5ab64da8730b964d47f8b5f86.source": {
+      "bytes": 2789,
+      "sha256": "7cd11e81e5705eefd296668aa8069b4272cfc08b2763d00a7ec103daf8f250e9"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/e2b7961f27da91e48e6621191f923be8310caea04108a6864f455e9d9cc992b7.source": {
+      "bytes": 58992,
+      "sha256": "abe9fe01c6b9eaac553ea69ab9f858dc0aca7926952ce9c8bbfe31d3d3cb0822"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/e6aa82029191a9ffcff69134a2e7e7ddd930cd4441d137313dd845c2f8deb88a.source": {
+      "bytes": 2913,
+      "sha256": "730b681b5f13fd2519fef9e418423097dda7843466fa524fa7a5b718d3af4802"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/e73e55f3d62ffff72cafed5790cb406e052dbf73e60d89c81e255160645eb61e.source": {
+      "bytes": 2191,
+      "sha256": "6f90dc1475f1ebed6e67e42c51682fa30df0147d8f723a7435313f88540a157e"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/ea4bdcab75e88542ddc80f765366aa6aa18ed5b1ba3617bcc350c8325870ab2c.source": {
+      "bytes": 863,
+      "sha256": "746551630d8678ae31a999bf9318003d9329388b7cd9d3fa1cdc725ffc9dc2ee"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/ed336f3b2131e085099475bfb19d2b913f90c69d131a61f5f7a307789ee037bd.source": {
+      "bytes": 21494,
+      "sha256": "357b60be627fb7f65b2e338dc58dfa5a2fe769956c7a1c777fb57bd173cfa401"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/ee43ddc5d5c0ee2a9a0b3d90abc7f12b4c1bdf487b5abf4f8fd3cc19f970b5cb.source": {
+      "bytes": 6174,
+      "sha256": "6154c2865bec97e61a92d8284be7e8ba21818f6edc95f5d72adb5dcf3e9532ca"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/ee6634100751ff678dd5127763046a3a91682bec4c819f432f3b0faa813ad375.source": {
+      "bytes": 52986,
+      "sha256": "2e3cf11fb179c0a116bb8690961899c6125f5be31c619d73da5d88452352f5e3"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/eecf92bcb6b21e7c6d84bc4ef87fc2318a5f4776aaec6190e306d09a9c07d354.source": {
+      "bytes": 1116,
+      "sha256": "4ea0f67d3e467f5d6a327616e22a3c2da8e03d47a3c3660916275f2842f521ea"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.mtgwubfi-58055-6c9f6d7b22.baseline/fe2fdfeaf25bf50844c67141e129d1a259b44f98e1ddb870dac65e466fce0812.source": {
+      "bytes": 23050,
+      "sha256": "97b63d6c1a405738c3900937448e61554bf6c71a9c265b3b5e072b01af47664c"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_577d2acb-765a-4b73-90f6-ff77a12863b5.json": {
+      "bytes": 1418,
+      "sha256": "79e7c591c9649a59cbbee17883cb97a25fcd74d1b0baf5783fec37ff792ff2f6"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_870d090f-278f-43a3-ad05-22894852cae6.json": {
+      "bytes": 218,
+      "sha256": "ac5603887248c1ba23e838931a5f4d97d58dc850ea4d41cf7b679d3ff9af6418"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_c1ce10e5-7254-40db-9048-62f0e6c1c2ec.json": {
+      "bytes": 1293,
+      "sha256": "54f79718d2aeca71f6145f4017d27fc8ea865dd3a5664096045402e163e27711"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_c1ce10e5-7254-40db-9048-62f0e6c1c2ec.mv7t538z-19450-bf7af2aebb.baseline/259ec4af568a8b3bd8a944918f94b5ceda9a7356a5897027451daf63543d6cf4.source": {
+      "bytes": 32737,
+      "sha256": "30504580e5c3e34407e72e0232f063f1d715dd7527ebaa6e60763d8b91597f2d"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_c1ce10e5-7254-40db-9048-62f0e6c1c2ec.mv7t538z-19450-bf7af2aebb.baseline/a0e6a622b582986336392a9dbbbd77e03b9c86ea882997ae0b13ea0fd13f0e8b.source": {
+      "bytes": 13762,
+      "sha256": "6897014c611bc6b4d9e5a37c99b9032b7f8dfad46624052710f1825e76672815"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_c1ce10e5-7254-40db-9048-62f0e6c1c2ec.mv7t538z-19450-bf7af2aebb.baseline/a8482ee7dc1d8def15820a7e0dde8e04a6e8e06ef50d5e2991ee9e7f4950b8a8.source": {
+      "bytes": 217056,
+      "sha256": "af56b8c7ff233d78f298bea111e712834de9f03b7cf492b8c2d009d0d83c45ac"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_c2543e92-fb31-4d55-a91d-e31e85de324d.json": {
+      "bytes": 694,
+      "sha256": "cfbc78ecf8fe3cfa9c656d52e1e154a8f8937c550fa621f5134b5d12672fcbdc"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_c814a3af-d1b1-4e84-b5e0-0a3905d5a5c7.continue.json": {
+      "bytes": 177,
+      "sha256": "2fc895acbd15c850950dabc86ec13b40baeb9dbba138a9bb21b82cf0ec951a93"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_c814a3af-d1b1-4e84-b5e0-0a3905d5a5c7.json": {
+      "bytes": 990,
+      "sha256": "b692de376d20fa0a1261b5df0e1db797e7409552ce1a61bb0d242e179aa2914a"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_c814a3af-d1b1-4e84-b5e0-0a3905d5a5c7.muanssvq-42759-6fedb6fbcb.baseline/a8482ee7dc1d8def15820a7e0dde8e04a6e8e06ef50d5e2991ee9e7f4950b8a8.source": {
+      "bytes": 172179,
+      "sha256": "cca36b3b632294aea05845ad6f81f4e5781a794c5b882337e718ac77d0c41be5"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_d76f24b3-f55c-4b8d-b797-a3cbd64821e4.json": {
+      "bytes": 763,
+      "sha256": "ea61b3c8571382c85214ed0767ab061bc61e3618dd075064d3f0d29d726566c0"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_daa4cac2-f43e-4e60-ba15-bebfa8154481.json": {
+      "bytes": 4288,
+      "sha256": "c85a06fea22767f5f4730ca563667d74e338a2b58e14a5551ed5e8d1d8dd5cda"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_daa4cac2-f43e-4e60-ba15-bebfa8154481.mur31fo3-15927-b4dd4b861d.baseline/259ec4af568a8b3bd8a944918f94b5ceda9a7356a5897027451daf63543d6cf4.source": {
+      "bytes": 27930,
+      "sha256": "34c408e5de9f4dce7064bd6f1e9092d443c090a27077dd3465a55809899f0371"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_daa4cac2-f43e-4e60-ba15-bebfa8154481.mur31fo3-15927-b4dd4b861d.baseline/a0e6a622b582986336392a9dbbbd77e03b9c86ea882997ae0b13ea0fd13f0e8b.source": {
+      "bytes": 11743,
+      "sha256": "398c692cb2e6c0f5e3d9b3143955dae553ffc5a6bd11b9d2da6afa1d69a7df4d"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_daa4cac2-f43e-4e60-ba15-bebfa8154481.mur31fo3-15927-b4dd4b861d.baseline/a8482ee7dc1d8def15820a7e0dde8e04a6e8e06ef50d5e2991ee9e7f4950b8a8.source": {
+      "bytes": 186013,
+      "sha256": "6e0fb60b4b8099fe0cb499ce3e69e02998c211061f2d46e773e14e91a7fdc983"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.continue.json": {
+      "bytes": 177,
+      "sha256": "960dbf94b9f388e49c056d50be324e45ac7590d452ec2e0f25201b71d8027841"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.json": {
+      "bytes": 8774,
+      "sha256": "4daa4641ddac73264a582cbaf99fe6c6fd6dfd9ada31ea99e6a880804f131571"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/037a227278ac4a74f0e6ecdc75ce91f9b39fa5a9585d67d2602587dc82283a4f.source": {
+      "bytes": 36164,
+      "sha256": "4ca15edc740fe17132871f87dce3fd9f3588d0d6a4f44a79a763a82f8aefeb37"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/0a0df9ce1d2191c0f652347af5bfbe7a1389c0a087fe1cf11dda222bd9dc33c6.source": {
+      "bytes": 15305,
+      "sha256": "7b31e449409ead7c3d7e8bc295dfea3aca1203df4943d6c624f47c82ccde700c"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/0ccb3160cca2ece5c06c41e95cb14718893a6354dcbc3d6281bf9a198ee35593.source": {
+      "bytes": 5927,
+      "sha256": "68c34ef2d6e5a227f7cff18436a42c6739b1470ce12f059f168d9bb69fc8d49c"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/16a2902bb11289328a73c07cc8e309bd18111bae6fde9a8d80e55e75d4618635.source": {
+      "bytes": 11799,
+      "sha256": "c0c0d700a1080b274a2ff7c734f6ebf6a4479f05de9dc8554606eaed4630a4d2"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/19eaac5cb55f2f404cbfce1cf56802e462a997ec7a72bbb1a8b9df493ffa682d.source": {
+      "bytes": 15145,
+      "sha256": "3a424e6cb4177886c8790821cf15345f488764bc215eb29719c80002ef24cdc1"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/1b599c4825492755f9bf08c8fcb1ec1c4cd7d315a46f68fe9205f194bfe9f2a1.source": {
+      "bytes": 7974,
+      "sha256": "e5fd590af171c79e303f768ccd3bfc52e55f036a856a0edc46dd17254c941364"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/244bd10d3c2fb71bcff0682aa51faa53961248fe9cd7ed791bb48b281d390af6.source": {
+      "bytes": 4856,
+      "sha256": "5408ccec737678d045d421f84a56e1ce03192a42c55440ffef07bec356aaec89"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/259ec4af568a8b3bd8a944918f94b5ceda9a7356a5897027451daf63543d6cf4.source": {
+      "bytes": 2564,
+      "sha256": "76d3b814d2d235cb761f946a061e687e66157ef8a51075d33a73684965ac9c8e"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/2c5b84460c0ba496a07029f8b5e132f7699d7328bdf50550360a7594acc2b65c.source": {
+      "bytes": 20146,
+      "sha256": "594a62ef00084d9e3796ae96139dd6728f5a5b9c8d67fd11e7f1a58309e299ad"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/2dfd32dd08600ae4af7d1c84424951202760106d555fc2e557b8a1f670f9aeb1.source": {
+      "bytes": 28007,
+      "sha256": "e1263f19e164e2646cecdf452da74bb00721966cf53e0d0f004faaac73fb1363"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/312bb77b1fe94e7d0611a24d9f25fc197b450caef709dfd4c036aa9da11c73f8.source": {
+      "bytes": 4879,
+      "sha256": "3c05402c5e282e06c2218f2469b1f38e1b84c783b9387aec7740c60b287d82c9"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/3280bfd1be7055c24cf09831fb43076ef22e0b9d15aa156410baa155e74a1188.source": {
+      "bytes": 8268,
+      "sha256": "7cbe645ed7e1161d31eb32ea467d8220b592c0acfa6107f0194487f0ddbf954b"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/3ac45e491576b4b25449c8278c97a9cd43e617378fe1009524b37c4c8f92b617.source": {
+      "bytes": 4552,
+      "sha256": "aba601b887236d5e135392e0c49370df3b5a9ac5c66ab2d44156b3244f2dcef3"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/40bb689bfd42ca4ba9e9ea11001a7ddf0ccc6888319fbcc52d534a9ce3eb824f.source": {
+      "bytes": 1708,
+      "sha256": "81dc02d55ae8000461ab90bb9689d2600ba51f2ea9ac9fb019386995c07e3e4a"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/4d2a8eefdf2a9783512a35da4dc7676a66404b6f3826a8af9aad038722da6823.source": {
+      "bytes": 287,
+      "sha256": "d170be9011581a21c236cc30b739536c4690b0d77971b6b5ba75b84fd5dc0dfa"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/55e1d7d72c94508bdfaa78be9b9e0301de514bb9280ef85e7c4f7d0a2bb09bde.source": {
+      "bytes": 22058,
+      "sha256": "27d22bb674fe615e67670eab21b02cc4dfd811d6021dddf79db358e4746b679b"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/5db6d13c2da341eb7660a5e987525e87cd921b405ff4005715e01a95ebb9fb70.source": {
+      "bytes": 191,
+      "sha256": "fd83f7e823cfbb03ac2da937ec83f01b4a6ddaac220a4fa1ffd6c6c3842c5890"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/5e1f4d1aa7caea8e74df8eef3af4de966d40a3fd3ec34071b53107beff63a296.source": {
+      "bytes": 3368,
+      "sha256": "8318a170a1d4bf21c3cb4deb1f8661f1dc7cf4eb688e4ec9a1e7ea16bfc3b5cf"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/65e1a73f67223e5c9b417cce18cbd4cb348cb7e08fc32fd001377686ba553887.source": {
+      "bytes": 2143,
+      "sha256": "ad650fcb3f6fd698ba5910c06227d243eec0c0fad36583c71ad38c3e49f20bea"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/6d5983613f0b5305eb5452d8922b8242dd93f678eda182020d6d45d73bbeda07.source": {
+      "bytes": 18914,
+      "sha256": "25e82bbc250ef4549f4b0d619470a7ef86ed8905a32257e56cf45a96fdc4cf77"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/6e2570a578952a6c69098a7b00e467a625442dfec2ed00be1649d9a2577378c8.source": {
+      "bytes": 2402,
+      "sha256": "5ce0302528260ed6a40ec3ebf5e27d3bc108242d9dca57e8cdbe80fe34e13410"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/754bae14af1a95c501a47eec92e5e604dac0657a4af1481a0ab68ceff4bd3065.source": {
+      "bytes": 8148,
+      "sha256": "ed24c3faa8abda78ee6df53f011475ab9565a2e3ace64e714bd412c90160742c"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/78ad5cff2d35859f921fda506396f273d7d36414e72d1d739357bdde879636ff.source": {
+      "bytes": 56363,
+      "sha256": "688d6f22d942fbe4f0ec8bc0a5d860763f443d9f1b1eabecedf62625659cbdea"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/7f4350608484d5ea1b618c663ab6f000e926e52b325ca124e5713de86d36d333.source": {
+      "bytes": 15949,
+      "sha256": "245ec29da577aefefebdb728c32a7d7407e4ff43889e038d2ab6e6349f5153f0"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/7fd52fe814ba07b296259d8ece73d85387420bdc40fa414bedcf181998b273b5.source": {
+      "bytes": 15478,
+      "sha256": "5dc9a64468c1ac31e59066c7d3597eeb8ea4ac8fc19a257a74c431624300b487"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/80349525ec2278b5134d38c157d5a1f3eb2dac94d1b193f00c100ceb80f9558f.source": {
+      "bytes": 1143,
+      "sha256": "fbdbebc96b136efc6165cba1ac2b311b0c52413aaef59ae9ec750748f13c9e9a"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/817676afe3612ae2d2f3069692a9daac8793311b99825e25b441b2224f86c08c.source": {
+      "bytes": 56577,
+      "sha256": "d20d05f0cb503679f51d3dca56971d999eb9ab4c9f259e342389ab43a48efb8b"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/860db0d57bd5b56ba1015ae4e443ef241c31d820269f8b64c149c2b5727772d6.source": {
+      "bytes": 1322,
+      "sha256": "fba61ceeeb257a3fe5f63310f21e14fc26c4be647583dcf8e74cbc7fb7e43e8a"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/8787d5954f4ed46b995c5d73174eca13921bd275e7953696b930c0741dd9847b.source": {
+      "bytes": 828,
+      "sha256": "626785d4eda75e9435f0ac21a780ae3b11f8b27dc36934e637a5c2305f906531"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/88523772f61f6915653cff912221263075061ae965a18824f61e14fb607b099e.source": {
+      "bytes": 3262,
+      "sha256": "718cc0c55d3f9ae09047adf82dad8200e7143649726fca1fc86a7b027a209058"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/8ab9e67bdd28132e395cd526ca4582df5160aa2e4cf095c9961884ef6c064632.source": {
+      "bytes": 1621,
+      "sha256": "3578568e27b9c1e2f4a7f9a53fdb4bc8ac095db75cc86e966bb1deec2792158e"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/8bf0bfacfb32dceadd5a042a87dcdd5f7bf2b51b81f909775b8627b77d7f38c9.source": {
+      "bytes": 34732,
+      "sha256": "b4d878373b8e72bc62bd36901663bec786d1ef2e73ca875c12435cbb49803ee7"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/8d4318c8ca6a8ad3aa553b7df2869ec431c674f7f1d411003b1db1f8550ea06f.source": {
+      "bytes": 1438,
+      "sha256": "9673f62eac2d0fe3010f9d23148be7b8113319fdf4c4490015cd9feae2ecaad4"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/8d6a3f7eb9d903c72f4a64705a58c4241153baff27f882acb4e5f74f4001a0ad.source": {
+      "bytes": 2170,
+      "sha256": "e2c04610e4ba14f7ed615ba89ce2eeb7cc1aa90e128a5103416cd0eb32423dc5"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/8e7aee7b9e3c7a4a878df03edc1062f9ba2bf5f7f309e9a997b869c9bc0bcb51.source": {
+      "bytes": 19495,
+      "sha256": "ff4941e630b082942c537270e33ac3a8f6241e74b219d8ea7c70fd5240e93c89"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/9145ea412f1e4d0543795b31b344947b9076c626366f2967e979b07349e26322.source": {
+      "bytes": 4126,
+      "sha256": "bdc9d39fd8bf1a350c0249f726c5f61bef64b122b93a0fbc172b0328dc01f594"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/934bd84b1f3eee7559a78dd026f1af7d533fa0063d3ad1c6c97cde42f0bc799d.source": {
+      "bytes": 7499,
+      "sha256": "f853579f77a11272de2f7883123b3c37b22d5f783abd096aac85db137267d94d"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/99310f736942b8100600c2f8eae0e43a3be78dc1591d292dcb9f667f7ec6f08b.source": {
+      "bytes": 1663,
+      "sha256": "6c3e9858b9dad03ccd61445ab0bff0eb6ddfa5e731e044f93350fe6c6b2ad8d5"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/9cef90b571076a1d50cd66ce3eb608971b08f0572fbfb2b1ebf2944de28ede54.source": {
+      "bytes": 1603,
+      "sha256": "a8cb0d737276f6a41071a0776ee1d8aa13cf02fa7c79ea096d202b14ea792e31"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/a289d82d9286bc62ef01514efc4c0af59100d7caf77e2670916a5da07bb3f3c6.source": {
+      "bytes": 11381,
+      "sha256": "54160d4847b89c581cf048ba96d55c8fb499fd5d9f82128831d2e68417d4aab0"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/a6c74ebadd4158cdcf971888b233c2b16894cad619dc15fb0405a095f56d8094.source": {
+      "bytes": 13227,
+      "sha256": "3d430a6f9cde66d0b791444c6164e7559ccf62b7cdc3a6325882408c6806e26c"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/a8482ee7dc1d8def15820a7e0dde8e04a6e8e06ef50d5e2991ee9e7f4950b8a8.source": {
+      "bytes": 35097,
+      "sha256": "283ee9aff3487f562a12aaf8b4f228110c44c6763c07e5c21bf186cb705bda51"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/a96720b6abb3a04d9181135321fe9ddca793331ef884bec1fde8df826c5c00e5.source": {
+      "bytes": 2115,
+      "sha256": "c800311872ecba642f6d013b290eda83ba6cd8df8061e25cdca1dd4adcbed8b5"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/ad7e5e0401700edcbc33de96e567e5fac75c08822c470dc00d52b6fa7ec8ddf2.source": {
+      "bytes": 22720,
+      "sha256": "bfb60c7515f54e4e181c0418998ed2d4fb73436255ffe86c0050928b5153183f"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/b1837f3f0e33426f7727469ee72681b580d5d1328c9d70f277ebdacfc88eee1b.source": {
+      "bytes": 6431,
+      "sha256": "c83d3b8e31345c0aacd37442954a7f2434312ee48f98a8b9ae4fc8aad26d0c99"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/b36944cb88be22a561d09c6c69ee3c2bc4442450f92c5c5a5243f0535295b9ac.source": {
+      "bytes": 13356,
+      "sha256": "349afd63c8be2cb8a522e4a04e9f444b65ed1fc7f4dabba5b4b61fd8c11d0c42"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/b92af32b7588847ef2ccdc11dc47ee6c2b6d8285a164a0103f03ef58523df202.source": {
+      "bytes": 33109,
+      "sha256": "d9098505d49b58f0500fd4ca55daaa635e805269ac1bf6f586a911f291d70ac3"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/c141557d0e8491aee2b12c5e900977b1fa352637dc46fa4a1f7e274eb9d7dd46.source": {
+      "bytes": 1427,
+      "sha256": "9522209670086adfbb11379416078a7f4dafe154043e320cd435fa1811aaabfb"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/c581b5d12e44c9f5ef143371a686f3fc12c911168bd93bf73fbeb722a2a2976d.source": {
+      "bytes": 2461,
+      "sha256": "3e21ae6a8faab3ed470ae0de19360da6b4e21a0a0f8572f502f7e13d590186f8"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/c96c2afa85436f2e972bf64aea970a3c2a5fde0995ba4875eabe0d5c5dbf99ab.source": {
+      "bytes": 9294,
+      "sha256": "d588bdac3c8e1adc88df3dc92c950a1bfa29663d15f9221f58e2aa553b05a422"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/d27d976dda8ec2c74d6a5da72e364819f3ff8226fabb5b517095312692636f38.source": {
+      "bytes": 31724,
+      "sha256": "b9929d29ea35ed3eb7cf770d5f407796888136f5259ed5eb567e9762bcaee893"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/d32b28fd8c724c23a8dd7cf6b972f249fb69fc22522aadb0e13d13cc81d4cc03.source": {
+      "bytes": 3801,
+      "sha256": "40f6a6453461aef8f31b61a4a6698862578b74f8b11a084708336923d7808e18"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/d4807ed6de85e58335f92dead89cd35ca61e8c94f7e5b57749e4f5fc95e6030d.source": {
+      "bytes": 9314,
+      "sha256": "2d9e18e577a6062646268e7f7228264c28bd9b972c186e1af81b8357179c0ab4"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/d62bd009036c9f5d7e5a8f400889b985c8812d1cdeb2c14446ab35860d704abe.source": {
+      "bytes": 56541,
+      "sha256": "3257cd857653560773947d70b65c8b8bf8ef43f920ed449587fa662224d859e1"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/d74817f764b6625cc1ce0518e8070d21093c58adf02849528b0f85d42ad55db1.source": {
+      "bytes": 17100,
+      "sha256": "5cfbaabf3dc0d75835aaafc37fcd87a92f3dba451e002732747b602fda122958"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/d75b7ca3c4d8f9323178e875fd372ee0517156d7561f4d6f5da5cef803f7e8bb.source": {
+      "bytes": 13348,
+      "sha256": "075c74184a89416b62318d9ccf3e6cfb1ed971bc12c0594a0669b0724e319270"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/dc79320d767dd9ad3c8617d8eef4b85ecc2d98e78e182fc4b491b01695c18cb3.source": {
+      "bytes": 8423,
+      "sha256": "38809428b76fafa79db9f65b7248cc0c02c9b696e7410fc4ab1699940768f1b2"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/e2b7961f27da91e48e6621191f923be8310caea04108a6864f455e9d9cc992b7.source": {
+      "bytes": 58992,
+      "sha256": "abe9fe01c6b9eaac553ea69ab9f858dc0aca7926952ce9c8bbfe31d3d3cb0822"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/e6aa82029191a9ffcff69134a2e7e7ddd930cd4441d137313dd845c2f8deb88a.source": {
+      "bytes": 2913,
+      "sha256": "730b681b5f13fd2519fef9e418423097dda7843466fa524fa7a5b718d3af4802"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/e73e55f3d62ffff72cafed5790cb406e052dbf73e60d89c81e255160645eb61e.source": {
+      "bytes": 2191,
+      "sha256": "6f90dc1475f1ebed6e67e42c51682fa30df0147d8f723a7435313f88540a157e"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/ea4bdcab75e88542ddc80f765366aa6aa18ed5b1ba3617bcc350c8325870ab2c.source": {
+      "bytes": 863,
+      "sha256": "746551630d8678ae31a999bf9318003d9329388b7cd9d3fa1cdc725ffc9dc2ee"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/ed336f3b2131e085099475bfb19d2b913f90c69d131a61f5f7a307789ee037bd.source": {
+      "bytes": 21494,
+      "sha256": "357b60be627fb7f65b2e338dc58dfa5a2fe769956c7a1c777fb57bd173cfa401"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/ee43ddc5d5c0ee2a9a0b3d90abc7f12b4c1bdf487b5abf4f8fd3cc19f970b5cb.source": {
+      "bytes": 6174,
+      "sha256": "6154c2865bec97e61a92d8284be7e8ba21818f6edc95f5d72adb5dcf3e9532ca"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/ee6634100751ff678dd5127763046a3a91682bec4c819f432f3b0faa813ad375.source": {
+      "bytes": 52986,
+      "sha256": "2e3cf11fb179c0a116bb8690961899c6125f5be31c619d73da5d88452352f5e3"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/eecf92bcb6b21e7c6d84bc4ef87fc2318a5f4776aaec6190e306d09a9c07d354.source": {
+      "bytes": 1116,
+      "sha256": "4ea0f67d3e467f5d6a327616e22a3c2da8e03d47a3c3660916275f2842f521ea"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_dc95d985-d451-45bc-9496-1b634bd4c460.mt9tye05-90062-08c4de16ab.baseline/fe2fdfeaf25bf50844c67141e129d1a259b44f98e1ddb870dac65e466fce0812.source": {
+      "bytes": 23050,
+      "sha256": "97b63d6c1a405738c3900937448e61554bf6c71a9c265b3b5e072b01af47664c"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/sess_e36e561c-739f-4407-9e6d-86659df06a88.json": {
+      "bytes": 218,
+      "sha256": "df5af765c251588fa0369aac320fd5176f4db8cef2b88423f2a1b736523b4d8b"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-state/session_42c5a13b9177a4e87b7f1a44fe9c9152.json": {
+      "bytes": 218,
+      "sha256": "cff875e14e9d4605cf271b9cfc818beb50cc35245e3764f09c08ef5f8054ba14"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-status/sess_0ba2bf9e-8b3a-490f-b68b-3e3ab9fde04a-2ddef9cf2a.json": {
+      "bytes": 394,
+      "sha256": "afb968d3e2d8cf8659ee313ac8a49d427f426eae4b86253e592e4ff471d1dd27"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-status/sess_125712f1-c2fa-469c-a205-d6d4ea2d9bc9-4bad02aa16.json": {
+      "bytes": 420,
+      "sha256": "518b4b86c9f59c59e2a1a3b740bd9f7dc71c58b9581feb78b6b53ef609b9fa63"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-status/sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e-82a38a464a.json": {
+      "bytes": 450,
+      "sha256": "b13a38432dababc34df761e80f0f002af0dee0297d8f1bed41f844b2a026b994"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-status/sess_29cf2ecc-e070-4c4b-b4d0-c40665376a11-90b08408c0.json": {
+      "bytes": 408,
+      "sha256": "c2a3f5a2a4e48ec579217e731171e0deaddada2c0976e34c3cb2b0ff863a83f2"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-status/sess_322b92c7-f44d-41d6-bc4b-7ba637747969-a57889f609.json": {
+      "bytes": 476,
+      "sha256": "8ab30c56405bf8d2bdc96cee1e8cfa57410f4312e5cb97e2184be377706841ce"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-status/sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd-35a95494d7.json": {
+      "bytes": 396,
+      "sha256": "8013cd7f87dbf5f06d9bd34651b15a083dc4193330d87b6e1ad34e0b0bf497f2"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-status/sess_577d2acb-765a-4b73-90f6-ff77a12863b5-acb7fe09c6.json": {
+      "bytes": 1012,
+      "sha256": "80de9caf925dc5bb50f6b5c8ad314bd3f02eeb31bf9c3e09416c3ee21de1dde4"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-status/sess_919c9041-42e5-43ba-aa73-9af9c923fedf-c36b887b7b.json": {
+      "bytes": 475,
+      "sha256": "ec4769dc7c84505e47b0d6d9f79a7e157ac0ac3ebb35c55376076a73191ab03b"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-status/sess_c1ce10e5-7254-40db-9048-62f0e6c1c2ec-6021061281.json": {
+      "bytes": 453,
+      "sha256": "77a107779be4feefffd906d215d521ba817069b081a3e9d38fa01bbe2d6a27a2"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-status/sess_c2543e92-fb31-4d55-a91d-e31e85de324d-40f0a9cb01.json": {
+      "bytes": 408,
+      "sha256": "919aba80ce1c56f51b4994cad4f3032cd763fa67895dd399c846016ff0ec5285"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-status/sess_c814a3af-d1b1-4e84-b5e0-0a3905d5a5c7-75ad0ccd17.json": {
+      "bytes": 446,
+      "sha256": "752442e1e5ff52c4cb59ab652b4ebd5e77042201185050826961e8dd5f2fe6bc"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-status/sess_d76f24b3-f55c-4b8d-b797-a3cbd64821e4-26fdcede08.json": {
+      "bytes": 431,
+      "sha256": "5e52f1d82d308f62b23c8e6289eda5d302b8785e062452abd2470addc9e2500f"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-status/sess_daa4cac2-f43e-4e60-ba15-bebfa8154481-0f5c90aa31.json": {
+      "bytes": 389,
+      "sha256": "3fe82c720969a505bfc86c9b0c32995c9796b69ccb9c104588704736f0628648"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-status/sess_e36e561c-739f-4407-9e6d-86659df06a88-4feb9be834.json": {
+      "bytes": 458,
+      "sha256": "04fb1e6ddbb147ca4bda2e5b0fc127b52be50e312754a337ce9b70d366f131e4"
+    },
+    "new/tiger_sentence_native/.mimosa/hook-status/session_45d162e418a59c57599c98f83227e745-65d0f27adc.json": {
+      "bytes": 391,
+      "sha256": "f39e5e372683a5be271133d3626b6e3b31af8526b08625f158b61d113be70764"
+    },
+    "new/tiger_sentence_native/.mimosa/reports/task-review-sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e-20260831T100007590Z-67827-4080a5537b7a.json": {
+      "bytes": 5196,
+      "sha256": "ac4895ae83ef2bc30df30440a1450a5b3263c0cb68859a7f7ce9791d982abc1c"
+    },
+    "new/tiger_sentence_native/.mimosa/reports/task-review-sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e.json": {
+      "bytes": 5196,
+      "sha256": "ac4895ae83ef2bc30df30440a1450a5b3263c0cb68859a7f7ce9791d982abc1c"
+    },
+    "new/tiger_sentence_native/.mimosa/reports/task-review-sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd-20260831T064059652Z-48041-f97c6f1d6640.json": {
+      "bytes": 4336,
+      "sha256": "5f995ba343dd4b321dcd785807af7af17c604b450376af1a4064d0695676d926"
+    },
+    "new/tiger_sentence_native/.mimosa/reports/task-review-sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd-20260831T070930916Z-55703-a0a646a32847.json": {
+      "bytes": 3806,
+      "sha256": "9167381558b07c76743984692c45ad9fe6d590a07f357d4c8745272280594d8f"
+    },
+    "new/tiger_sentence_native/.mimosa/reports/task-review-sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd-20260831T071934829Z-57707-fd7e9996bc1e.json": {
+      "bytes": 3806,
+      "sha256": "0344930a9c2a2fd9248820b7b30afd56c4b736dfb7ab2ee8613f457f1729df11"
+    },
+    "new/tiger_sentence_native/.mimosa/reports/task-review-sess_4d02660c-ff75-4806-a1e4-266a4eaf32dd.json": {
+      "bytes": 3806,
+      "sha256": "0344930a9c2a2fd9248820b7b30afd56c4b736dfb7ab2ee8613f457f1729df11"
+    },
+    "new/tiger_sentence_native/.mimosa/reports/task-review-sess_c814a3af-d1b1-4e84-b5e0-0a3905d5a5c7-20260920T045316703Z-52960-dff7f53245e0.json": {
+      "bytes": 3768,
+      "sha256": "40f8362889c12f219e1c4d1ff8328a629092da97fcf3ed589ac6ae5053234487"
+    },
+    "new/tiger_sentence_native/.mimosa/reports/task-review-sess_c814a3af-d1b1-4e84-b5e0-0a3905d5a5c7.json": {
+      "bytes": 3768,
+      "sha256": "40f8362889c12f219e1c4d1ff8328a629092da97fcf3ed589ac6ae5053234487"
+    },
+    "new/tiger_sentence_native/.mimosa/reports/task-review-session_45d162e418a59c57599c98f83227e745-20261021T015122557Z-99258-a2ec12061102.json": {
+      "bytes": 4333,
+      "sha256": "4790f5e90bf3f939bdfd9f69002acd5a3a7327814b8862e331cb7efb8f54e0ec"
+    },
+    "new/tiger_sentence_native/.mimosa/reports/task-review-session_45d162e418a59c57599c98f83227e745.json": {
+      "bytes": 4333,
+      "sha256": "4790f5e90bf3f939bdfd9f69002acd5a3a7327814b8862e331cb7efb8f54e0ec"
+    },
+    "new/tiger_sentence_native/QWEN35_SCORER.md": {
+      "bytes": 9594,
+      "sha256": "8010ca60875e93ad58938170c4610d98408bb475d240e4ff5cb4571c3704cc39"
+    },
+    "new/tiger_sentence_native/QWEN_RERANKER_PLAN.md": {
+      "bytes": 39512,
+      "sha256": "d894563431c8c1b40ec12f2dd2dc326beadbce673a1e841c5bc2e0fd842a7b62"
+    },
+    "new/tiger_sentence_native/README.md": {
+      "bytes": 22971,
+      "sha256": "2427e37efc11db80f73b1147d569df9bb572cefb43b67031b5b98f2b3c659cc2"
+    },
+    "new/tiger_sentence_native/bench_decode.cc": {
+      "bytes": 10300,
+      "sha256": "a5d00e7a87367106b8648862202afd5335aaa1081cbfc0e344a2c77de10101f0"
+    },
+    "new/tiger_sentence_native/build.sh": {
+      "bytes": 580,
+      "sha256": "c513fad77fb28e956d106533805098458726efa638acc0987a1441e571a09af0"
+    },
+    "new/tiger_sentence_native/data/tiger/tiger.lexicon.txt": {
+      "bytes": 220671,
+      "sha256": "7544c1e432534b864884a6620f5f064f4e69253da3fa9e52eb457d3605877afb"
+    },
+    "new/tiger_sentence_native/eval/corpus-manifest.json": {
+      "bytes": 387,
+      "sha256": "13974007c9ad6ef116e567997babef5b56a8699fd6e418ee6c820fefa5162650"
+    },
+    "new/tiger_sentence_native/eval/latest-report.md": {
+      "bytes": 4709,
+      "sha256": "07e716571ac22d09109d99366aabb149ea01e992dbd2140f784154d7870e59d7"
+    },
+    "new/tiger_sentence_native/libtigerengine.dylib": {
+      "bytes": 351696,
+      "sha256": "e5df2d0a23ce9eca099247321b316145e5356a766cbe9e172e9adbe3f1f3e7d4"
+    },
+    "new/tiger_sentence_native/mohu_runtime.lua": {
+      "bytes": 3673,
+      "sha256": "cafbb522646d82bf10409b0c7f5b7a0ea4c569a55a01531746d2428a5c43ac93"
+    },
+    "new/tiger_sentence_native/mohu_sentence.lua": {
+      "bytes": 244,
+      "sha256": "b1117c0c03d3eba7a9885d358dc6ec255169737df2aa975d9d56852e000cfccb"
+    },
+    "new/tiger_sentence_native/mohu_tiger.lexicon.r1.txt": {
+      "bytes": 384088,
+      "sha256": "68f10c31b904b31b506f49f6ecec58fb28bb4222f26e3692919623f544293fa2"
+    },
+    "new/tiger_sentence_native/mohu_tiger.lexicon.txt": {
+      "bytes": 4169598,
+      "sha256": "93551eeb44c6cfb8e7fc7bcb6ed4f38a3054d8cacdd2255d3d995326a5445fc9"
+    },
+    "new/tiger_sentence_native/mohu_tiger_sentence.lua": {
+      "bytes": 91817,
+      "sha256": "d3beab3cb6a18e9190bd5099796a701fdbfca4d8135cdb7dbdf2fbf808ef5609"
+    },
+    "new/tiger_sentence_native/nativetest.cc": {
+      "bytes": 1986,
+      "sha256": "083ec946e238cb5ff120d8d80b907513b512eceba840b15dac3efe0e836d71ee"
+    },
+    "new/tiger_sentence_native/probe_decode.cc": {
+      "bytes": 1169,
+      "sha256": "73919d3d8643e54868e47e7b6364858a43bdf0a025f4fd615c632625dc303933"
+    },
+    "new/tiger_sentence_native/tigerengine.cc": {
+      "bytes": 224943,
+      "sha256": "68e37fe9a09ee7def3c4944467c393c88827a265d85ad51a107e8c5fdb8c70e5"
+    },
+    "new/tiger_sentence_native/tigerengine.h": {
+      "bytes": 14756,
+      "sha256": "5fad6f6b4548d589cbf5dcbe0001a7ff925a74bee4a9046f73813faad6d027cb"
+    },
+    "new/tiger_sentence_native/tigerengine_lua.cc": {
+      "bytes": 33714,
+      "sha256": "b15b8a104610da130c493084101f823897e76192895e281948730c577bdb75ed"
+    },
+    "lvyww/README.md": {
+      "bytes": 10843,
+      "sha256": "ecb46fcb24b602b75bbd2a108a9e9afe63412116507965f685b27236e6aaadc5"
+    },
+    "lvyww/lua/tiger_sentence.lua": {
+      "bytes": 153738,
+      "sha256": "aa33c65742341cbd7881ec31581fcd4c22c15ceec20507e4ea1d6fca51625425"
+    },
+    "lvyww/lua/tiger_sentence_cache.lua": {
+      "bytes": 1436,
+      "sha256": "8ebd209588fb62d0bf888e752b95d8588ecbcdef2af40f8b009865fc3c41da7c"
+    },
+    "lvyww/lua/tiger_sentence_learning.lua": {
+      "bytes": 19872,
+      "sha256": "335e530bb42b8fa2c432b900a0e5ff9d7509e74a8674d099456083088b36f85e"
+    },
+    "lvyww/lua/tiger_sentence_ngram.lua": {
+      "bytes": 21276,
+      "sha256": "a3d59e09fbff3b09b0ac79ef66b7560210b5503c2af38eb5615069d6465cb361"
+    },
+    "lvyww/models/sentence-ngram-mobile.bin": {
+      "bytes": 224475584,
+      "sha256": "e3953f8f1526b871eb81fe887a8ae4a6edf79edffd33e388b95e2915adadb2d3"
+    },
+    "lvyww/rime.lua": {
+      "bytes": 279,
+      "sha256": "419df2e184b58ee557138b0026bd7bedc4b9c502013b5b44bac9a045e1dfb04f"
+    },
+    "lvyww/tiger_sentence.char_ranks.txt": {
+      "bytes": 80771,
+      "sha256": "bd64e4bf333b2096a9a61fd5ece868e37912057bd1a812d75b2d5ccb4c994dcf"
+    },
+    "lvyww/tiger_sentence.codes.txt": {
+      "bytes": 130935,
+      "sha256": "1d3e9b0ce0e4a603be3f220c71acecad846f020e87a52723ecb3814f6b53ac0e"
+    },
+    "lvyww/tiger_sentence.full_code_whitelist.txt": {
+      "bytes": 727,
+      "sha256": "05d257457898146262f7dbf264103c70a8cf2ee92d188b770ad13232b293f566"
+    },
+    "lvyww/tiger_sentence.schema.yaml": {
+      "bytes": 3424,
+      "sha256": "701d1cccbb20b980de8a8570809ef07539d23c9eb3fb605ba5fd0c9fc8e04594"
+    },
+    "lvyww/tiger_sentence.supplement.txt": {
+      "bytes": 294,
+      "sha256": "538f7d60ae378235628a86e7ef20d24396453488fde950a88e52fdb6f558a5ac"
+    },
+    "orig/README.md": {
+      "bytes": 5929,
+      "sha256": "580e9aac130a3dbea358ca1a3c2564b2223dcd62740eafcb725818d3d70fb506"
+    },
+    "orig/lua/tiger_sentence.lua": {
+      "bytes": 43307,
+      "sha256": "3be3dcf9911f96934052eede976efb003bfaea6fa6a87bc172739ce74dc664d9"
+    },
+    "orig/lua/tiger_sentence_kn.lua": {
+      "bytes": 16385,
+      "sha256": "224be59645656561f5213cb9620b7b68b899cc8958ab041787afe7868e6622e9"
+    },
+    "orig/lua/tiger_sentence_lexicon.lua": {
+      "bytes": 861440,
+      "sha256": "645754501bd8fb251df3ee725083e950811820a288f5c52c9d00badb78c4fd1d"
+    },
+    "orig/lua/tiger_sentence_ranks.lua": {
+      "bytes": 329629,
+      "sha256": "d5bb506ad3b34ba08050aad87453ac4c05c6d4f1ab24e30d04f183bb1e9d51fa"
+    },
+    "orig/lua/tiger_sentence_supplement.lua": {
+      "bytes": 5373,
+      "sha256": "7ee6f6cca46c65fa8a95f832116cd06296161b31029edf6ab101f95d7a7a6e50"
+    },
+    "orig/models/sentence-ngram-mobile.bin": {
+      "bytes": 224475584,
+      "sha256": "e3953f8f1526b871eb81fe887a8ae4a6edf79edffd33e388b95e2915adadb2d3"
+    },
+    "orig/rime.lua": {
+      "bytes": 155,
+      "sha256": "1eb21b59a1c629efdab6a31253465e7dc6758a04e4758962e42e7fbb968d6508"
+    },
+    "orig/tiger_sentence.schema.yaml": {
+      "bytes": 1920,
+      "sha256": "4ea4283670b9bb3ce8547bba9406b3cf0562d2c18abe74b3b580d1cec277e832"
+    },
+    "orig/tiger_sentence.supplement.txt": {
+      "bytes": 255,
+      "sha256": "d21a1c3a23f839abbfca9be1622c81afcf8a2555a3db892c7d306118a7d0ea78"
+    },
+    "orig/版本信息.txt": {
+      "bytes": 821,
+      "sha256": "e9f7b440cc972762bb838241099fac40251ff2908cb768caddbfd735d981269f"
+    },
+    "corpus.tsv": {
+      "bytes": 1384435,
+      "sha256": "0e6ec4a942c3e8a80b471e117e6e76578e887874aae309530f8346440f4a9679"
+    },
+    "driver.lua": {
+      "bytes": 8218,
+      "sha256": "e4c9c2f418c573dbddb1331aeda7b433dca6cad85a3e10007264046d40be8d90"
+    },
+    "new/tiger_sentence_native/mohu-sentence-ngram-v5.bin": {
+      "bytes": 389671262,
+      "sha256": "622e5da2d05c2c6e1d3aad287eda5168f3d20cbec95e9979372dd73e3eaa3897"
+    }
+  }
+}

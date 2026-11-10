@@ -25,3 +25,4 @@ mohu_flypy.dict.yaml
 mohu_zrm_custom_phrases.txt
 mohu_flypy_custom_phrases.txt
 .mimosa/
+dist/

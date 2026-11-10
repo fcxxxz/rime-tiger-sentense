@@ -1,0 +1,191 @@
+{
+  "metrics": {
+    "new": {
+      "sentences": 10000,
+      "characters": 126663,
+      "keys": 297366,
+      "wrong_sentences": 5,
+      "wrong_commit_events": 9,
+      "final_correct": 9983,
+      "commits": 90632,
+      "coverage": 0.8832097771251273,
+      "correct_prefix_coverage": 0.8831071425751799,
+      "pending_keys_mean": 3.554777614118628,
+      "pending_chars_mean": 1.180488018132537,
+      "final_pending_keys_mean": 3.6528,
+      "final_pending_chars_mean": 1.4793,
+      "no_commit_sentences": 13,
+      "low_coverage_sentences": 58,
+      "latency_mean_ms": 1.8727264280381686,
+      "latency_max_ms": 35.413999999999,
+      "latency_samples": 74345,
+      "pending_keys_p50": 3,
+      "final_pending_chars_p50": 1,
+      "latency_p50_ms": 0.218,
+      "pending_keys_p90": 6,
+      "final_pending_chars_p90": 2,
+      "latency_p90_ms": 7.695,
+      "pending_keys_p99": 8,
+      "final_pending_chars_p99": 5,
+      "latency_p99_ms": 14.674
+    },
+    "lvyww": {
+      "sentences": 10000,
+      "characters": 126663,
+      "keys": 297366,
+      "wrong_sentences": 10,
+      "wrong_commit_events": 23,
+      "final_correct": 9812,
+      "commits": 60356,
+      "coverage": 0.5978936232364621,
+      "correct_prefix_coverage": 0.5975462447597167,
+      "pending_keys_mean": 7.4053018838737446,
+      "pending_chars_mean": 2.7647814477781587,
+      "final_pending_keys_mean": 12.3335,
+      "final_pending_chars_mean": 5.0932,
+      "no_commit_sentences": 252,
+      "low_coverage_sentences": 747,
+      "latency_mean_ms": 5.493792538487936,
+      "latency_max_ms": 73.16,
+      "latency_samples": 74345,
+      "pending_keys_p50": 5,
+      "final_pending_chars_p50": 3,
+      "latency_p50_ms": 4.616,
+      "pending_keys_p90": 18,
+      "final_pending_chars_p90": 12,
+      "latency_p90_ms": 12.527,
+      "pending_keys_p99": 40,
+      "final_pending_chars_p99": 21,
+      "latency_p99_ms": 19.873
+    },
+    "orig": {
+      "sentences": 10000,
+      "characters": 126663,
+      "keys": 297366,
+      "wrong_sentences": 17,
+      "wrong_commit_events": 32,
+      "final_correct": 9812,
+      "commits": 55028,
+      "coverage": 0.5941435146806882,
+      "correct_prefix_coverage": 0.5936461318617118,
+      "pending_keys_mean": 8.190331107120517,
+      "pending_chars_mean": 3.150131487796184,
+      "final_pending_keys_mean": 12.3159,
+      "final_pending_chars_mean": 5.1407,
+      "no_commit_sentences": 160,
+      "low_coverage_sentences": 581,
+      "latency_mean_ms": 8.34273032222917,
+      "latency_max_ms": 76.169999999991,
+      "latency_samples": 74345,
+      "pending_keys_p50": 6,
+      "final_pending_chars_p50": 3,
+      "latency_p50_ms": 7.541,
+      "pending_keys_p90": 17,
+      "final_pending_chars_p90": 11,
+      "latency_p90_ms": 17.728,
+      "pending_keys_p99": 38,
+      "final_pending_chars_p99": 20,
+      "latency_p99_ms": 26.714
+    }
+  },
+  "paired": {
+    "new_vs_lvyww": {
+      "both_wrong_early": 0,
+      "new_only_wrong_early": 5,
+      "lvyww_only_wrong_early": 10,
+      "both_final_correct": 9809,
+      "new_only_final_correct": 174,
+      "lvyww_only_final_correct": 3,
+      "new_less_final_pending": 7331,
+      "lvyww_less_final_pending": 142
+    },
+    "new_vs_orig": {
+      "both_wrong_early": 4,
+      "new_only_wrong_early": 1,
+      "orig_only_wrong_early": 13,
+      "both_final_correct": 9810,
+      "new_only_final_correct": 173,
+      "orig_only_final_correct": 2,
+      "new_less_final_pending": 8752,
+      "orig_less_final_pending": 42
+    },
+    "lvyww_vs_orig": {
+      "both_wrong_early": 4,
+      "lvyww_only_wrong_early": 6,
+      "orig_only_wrong_early": 13,
+      "both_final_correct": 9801,
+      "lvyww_only_final_correct": 11,
+      "orig_only_final_correct": 11,
+      "lvyww_less_final_pending": 4101,
+      "orig_less_final_pending": 2026
+    }
+  },
+  "by_length": [
+    {
+      "length": "4-8",
+      "sentences": 2838,
+      "new": {
+        "wrong_sentences": 2,
+        "final_correct": 2830,
+        "coverage": 0.793173610051376,
+        "final_pending_chars_mean": 1.4326990838618745
+      },
+      "lvyww": {
+        "wrong_sentences": 5,
+        "final_correct": 2779,
+        "coverage": 0.6559845363446767,
+        "final_pending_chars_mean": 2.383016208597604
+      },
+      "orig": {
+        "wrong_sentences": 6,
+        "final_correct": 2780,
+        "coverage": 0.5945877206368584,
+        "final_pending_chars_mean": 2.8083157152924594
+      }
+    },
+    {
+      "length": "9-15",
+      "sentences": 4450,
+      "new": {
+        "wrong_sentences": 3,
+        "final_correct": 4445,
+        "coverage": 0.8742606149341142,
+        "final_pending_chars_mean": 1.4474157303370787
+      },
+      "lvyww": {
+        "wrong_sentences": 2,
+        "final_correct": 4375,
+        "coverage": 0.7121132259638848,
+        "final_pending_chars_mean": 3.3139325842696628
+      },
+      "orig": {
+        "wrong_sentences": 6,
+        "final_correct": 4374,
+        "coverage": 0.6842557345046364,
+        "final_pending_chars_mean": 3.634606741573034
+      }
+    },
+    {
+      "length": "16-30",
+      "sentences": 2712,
+      "new": {
+        "wrong_sentences": 0,
+        "final_correct": 2708,
+        "coverage": 0.9231610462718944,
+        "final_pending_chars_mean": 1.5803834808259587
+      },
+      "lvyww": {
+        "wrong_sentences": 3,
+        "final_correct": 2658,
+        "coverage": 0.47252550242922964,
+        "final_pending_chars_mean": 10.84882005899705
+      },
+      "orig": {
+        "wrong_sentences": 5,
+        "final_correct": 2658,
+        "coverage": 0.5112318255974471,
+        "final_pending_chars_mean": 10.052728613569322
+      }
+    }
+  ]
+}
