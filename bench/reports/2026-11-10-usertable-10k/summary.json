@@ -1,0 +1,672 @@
+{
+  "metrics": {
+    "base": {
+      "sentences": 10000,
+      "characters": 111269,
+      "keys": 279438,
+      "final_correct": 9937,
+      "wrong_sentences": 10,
+      "wrong_commit_events": 35,
+      "coverage": 0.8402609891344399,
+      "final_pending_chars_mean": 1.7774,
+      "latency_mean_ms": 3.676435173455292,
+      "final_acc": 0.9937,
+      "pending_keys_p50": 4,
+      "latency_p50_ms": 0.983,
+      "pending_keys_p90": 6,
+      "latency_p90_ms": 10.768,
+      "pending_keys_p99": 12,
+      "latency_p99_ms": 18.815
+    },
+    "ranks": {
+      "sentences": 10000,
+      "characters": 111269,
+      "keys": 279438,
+      "final_correct": 9920,
+      "wrong_sentences": 8,
+      "wrong_commit_events": 21,
+      "coverage": 0.8156090195831723,
+      "final_pending_chars_mean": 2.0517,
+      "latency_mean_ms": 6.351661391793511,
+      "final_acc": 0.992,
+      "pending_keys_p50": 4,
+      "latency_p50_ms": 4.889,
+      "pending_keys_p90": 6,
+      "latency_p90_ms": 15.417,
+      "pending_keys_p99": 21,
+      "latency_p99_ms": 27.283
+    },
+    "compete": {
+      "sentences": 10000,
+      "characters": 111269,
+      "keys": 265153,
+      "final_correct": 9892,
+      "wrong_sentences": 10,
+      "wrong_commit_events": 21,
+      "coverage": 0.7695764318902839,
+      "final_pending_chars_mean": 2.5639,
+      "latency_mean_ms": 6.2668215860276835,
+      "final_acc": 0.9892,
+      "pending_keys_p50": 4,
+      "latency_p50_ms": 4.664,
+      "pending_keys_p90": 7,
+      "latency_p90_ms": 15.458,
+      "pending_keys_p99": 28,
+      "latency_p99_ms": 27.971
+    }
+  },
+  "by_group": {
+    "has_one_key": {
+      "sentences": 6686,
+      "base": {
+        "final_correct": 6641,
+        "final_acc": 0.9932695183966497,
+        "wrong_sentences": 7,
+        "coverage": 0.8513860177828697,
+        "keys": 202899
+      },
+      "ranks": {
+        "final_correct": 6634,
+        "final_acc": 0.9922225545916841,
+        "wrong_sentences": 5,
+        "coverage": 0.8252347388608005,
+        "keys": 202899
+      },
+      "compete": {
+        "final_correct": 6616,
+        "final_acc": 0.989530361950344,
+        "wrong_sentences": 7,
+        "coverage": 0.7655101989987796,
+        "keys": 188762
+      }
+    },
+    "has_demoted": {
+      "sentences": 924,
+      "base": {
+        "final_correct": 918,
+        "final_acc": 0.9935064935064936,
+        "wrong_sentences": 1,
+        "coverage": 0.8643305682611055,
+        "keys": 32082
+      },
+      "ranks": {
+        "final_correct": 918,
+        "final_acc": 0.9935064935064936,
+        "wrong_sentences": 1,
+        "coverage": 0.8392123420420188,
+        "keys": 32082
+      },
+      "compete": {
+        "final_correct": 900,
+        "final_acc": 0.974025974025974,
+        "wrong_sentences": 2,
+        "coverage": 0.7246298162648267,
+        "keys": 30653
+      }
+    },
+    "has_collision": {
+      "sentences": 643,
+      "base": {
+        "final_correct": 639,
+        "final_acc": 0.9937791601866252,
+        "wrong_sentences": 1,
+        "coverage": 0.8691223376890627,
+        "keys": 24287
+      },
+      "ranks": {
+        "final_correct": 639,
+        "final_acc": 0.9937791601866252,
+        "wrong_sentences": 1,
+        "coverage": 0.8424735055046816,
+        "keys": 24287
+      },
+      "compete": {
+        "final_correct": 625,
+        "final_acc": 0.9720062208398134,
+        "wrong_sentences": 2,
+        "coverage": 0.7134478855849368,
+        "keys": 22863
+      }
+    },
+    "neither": {
+      "sentences": 3033,
+      "base": {
+        "final_correct": 3017,
+        "final_acc": 0.9947246950214309,
+        "wrong_sentences": 3,
+        "coverage": 0.8070320653543024,
+        "keys": 68744
+      },
+      "ranks": {
+        "final_correct": 3007,
+        "final_acc": 0.9914276294098252,
+        "wrong_sentences": 3,
+        "coverage": 0.7862309713175226,
+        "keys": 68744
+      },
+      "compete": {
+        "final_correct": 3001,
+        "final_acc": 0.9894493900428618,
+        "wrong_sentences": 3,
+        "coverage": 0.7825601900169143,
+        "keys": 68601
+      }
+    }
+  },
+  "paired": {
+    "base_vs_ranks": {
+      "base_only_final_correct": 20,
+      "ranks_only_final_correct": 3,
+      "both_final_correct": 9917,
+      "base_only_wrong_early": 3,
+      "ranks_only_wrong_early": 1
+    },
+    "base_vs_compete": {
+      "base_only_final_correct": 63,
+      "compete_only_final_correct": 18,
+      "both_final_correct": 9874,
+      "base_only_wrong_early": 3,
+      "compete_only_wrong_early": 3
+    },
+    "ranks_vs_compete": {
+      "ranks_only_final_correct": 43,
+      "compete_only_final_correct": 15,
+      "both_final_correct": 9877,
+      "ranks_only_wrong_early": 0,
+      "compete_only_wrong_early": 2
+    }
+  },
+  "char_stats": {
+    "base": {
+      "吐": {
+        "correct": 7,
+        "total": 8,
+        "acc": 0.875
+      },
+      "首": {
+        "correct": 78,
+        "total": 78,
+        "acc": 1.0
+      },
+      "匕": {
+        "correct": 1,
+        "total": 1,
+        "acc": 1.0
+      },
+      "就": {
+        "correct": 423,
+        "total": 423,
+        "acc": 1.0
+      },
+      "种": {
+        "correct": 188,
+        "total": 189,
+        "acc": 0.9947089947089947
+      },
+      "说": {
+        "correct": 326,
+        "total": 327,
+        "acc": 0.9969418960244648
+      },
+      "我": {
+        "correct": 1304,
+        "total": 1304,
+        "acc": 1.0
+      },
+      "汽": {
+        "correct": 28,
+        "total": 28,
+        "acc": 1.0
+      },
+      "羊": {
+        "correct": 10,
+        "total": 10,
+        "acc": 1.0
+      },
+      "办": {
+        "correct": 79,
+        "total": 79,
+        "acc": 1.0
+      },
+      "皇": {
+        "correct": 24,
+        "total": 24,
+        "acc": 1.0
+      },
+      "都": {
+        "correct": 288,
+        "total": 288,
+        "acc": 1.0
+      },
+      "和": {
+        "correct": 574,
+        "total": 574,
+        "acc": 1.0
+      },
+      "如": {
+        "correct": 219,
+        "total": 219,
+        "acc": 1.0
+      },
+      "络": {
+        "correct": 24,
+        "total": 24,
+        "acc": 1.0
+      },
+      "近": {
+        "correct": 65,
+        "total": 65,
+        "acc": 1.0
+      },
+      "审": {
+        "correct": 26,
+        "total": 26,
+        "acc": 1.0
+      },
+      "的": {
+        "correct": 3979,
+        "total": 3982,
+        "acc": 0.9992466097438473
+      },
+      "存": {
+        "correct": 23,
+        "total": 23,
+        "acc": 1.0
+      },
+      "轼": {
+        "correct": 1,
+        "total": 1,
+        "acc": 1.0
+      },
+      "是": {
+        "correct": 1854,
+        "total": 1855,
+        "acc": 0.9994609164420485
+      },
+      "得": {
+        "correct": 288,
+        "total": 288,
+        "acc": 1.0
+      },
+      "敌": {
+        "correct": 8,
+        "total": 8,
+        "acc": 1.0
+      },
+      "道": {
+        "correct": 288,
+        "total": 289,
+        "acc": 0.9965397923875432
+      },
+      "为": {
+        "correct": 520,
+        "total": 523,
+        "acc": 0.994263862332696
+      },
+      "中": {
+        "correct": 482,
+        "total": 482,
+        "acc": 1.0
+      },
+      "强": {
+        "correct": 122,
+        "total": 122,
+        "acc": 1.0
+      },
+      "者": {
+        "correct": 182,
+        "total": 182,
+        "acc": 1.0
+      },
+      "题": {
+        "correct": 130,
+        "total": 130,
+        "acc": 1.0
+      },
+      "一": {
+        "correct": 1411,
+        "total": 1413,
+        "acc": 0.9985845718329794
+      },
+      "能": {
+        "correct": 332,
+        "total": 332,
+        "acc": 1.0
+      },
+      "来": {
+        "correct": 611,
+        "total": 611,
+        "acc": 1.0
+      }
+    },
+    "ranks": {
+      "吐": {
+        "correct": 7,
+        "total": 8,
+        "acc": 0.875
+      },
+      "首": {
+        "correct": 78,
+        "total": 78,
+        "acc": 1.0
+      },
+      "匕": {
+        "correct": 1,
+        "total": 1,
+        "acc": 1.0
+      },
+      "就": {
+        "correct": 423,
+        "total": 423,
+        "acc": 1.0
+      },
+      "种": {
+        "correct": 188,
+        "total": 189,
+        "acc": 0.9947089947089947
+      },
+      "说": {
+        "correct": 326,
+        "total": 327,
+        "acc": 0.9969418960244648
+      },
+      "我": {
+        "correct": 1304,
+        "total": 1304,
+        "acc": 1.0
+      },
+      "汽": {
+        "correct": 28,
+        "total": 28,
+        "acc": 1.0
+      },
+      "羊": {
+        "correct": 10,
+        "total": 10,
+        "acc": 1.0
+      },
+      "办": {
+        "correct": 79,
+        "total": 79,
+        "acc": 1.0
+      },
+      "皇": {
+        "correct": 24,
+        "total": 24,
+        "acc": 1.0
+      },
+      "都": {
+        "correct": 288,
+        "total": 288,
+        "acc": 1.0
+      },
+      "和": {
+        "correct": 574,
+        "total": 574,
+        "acc": 1.0
+      },
+      "如": {
+        "correct": 219,
+        "total": 219,
+        "acc": 1.0
+      },
+      "络": {
+        "correct": 24,
+        "total": 24,
+        "acc": 1.0
+      },
+      "近": {
+        "correct": 65,
+        "total": 65,
+        "acc": 1.0
+      },
+      "审": {
+        "correct": 26,
+        "total": 26,
+        "acc": 1.0
+      },
+      "的": {
+        "correct": 3979,
+        "total": 3982,
+        "acc": 0.9992466097438473
+      },
+      "存": {
+        "correct": 23,
+        "total": 23,
+        "acc": 1.0
+      },
+      "轼": {
+        "correct": 1,
+        "total": 1,
+        "acc": 1.0
+      },
+      "是": {
+        "correct": 1854,
+        "total": 1855,
+        "acc": 0.9994609164420485
+      },
+      "得": {
+        "correct": 288,
+        "total": 288,
+        "acc": 1.0
+      },
+      "敌": {
+        "correct": 8,
+        "total": 8,
+        "acc": 1.0
+      },
+      "道": {
+        "correct": 288,
+        "total": 289,
+        "acc": 0.9965397923875432
+      },
+      "为": {
+        "correct": 520,
+        "total": 523,
+        "acc": 0.994263862332696
+      },
+      "中": {
+        "correct": 482,
+        "total": 482,
+        "acc": 1.0
+      },
+      "强": {
+        "correct": 122,
+        "total": 122,
+        "acc": 1.0
+      },
+      "者": {
+        "correct": 182,
+        "total": 182,
+        "acc": 1.0
+      },
+      "题": {
+        "correct": 130,
+        "total": 130,
+        "acc": 1.0
+      },
+      "一": {
+        "correct": 1411,
+        "total": 1413,
+        "acc": 0.9985845718329794
+      },
+      "能": {
+        "correct": 332,
+        "total": 332,
+        "acc": 1.0
+      },
+      "来": {
+        "correct": 611,
+        "total": 611,
+        "acc": 1.0
+      }
+    },
+    "compete": {
+      "吐": {
+        "correct": 7,
+        "total": 8,
+        "acc": 0.875
+      },
+      "首": {
+        "correct": 76,
+        "total": 78,
+        "acc": 0.9743589743589743
+      },
+      "匕": {
+        "correct": 1,
+        "total": 1,
+        "acc": 1.0
+      },
+      "就": {
+        "correct": 423,
+        "total": 423,
+        "acc": 1.0
+      },
+      "种": {
+        "correct": 185,
+        "total": 189,
+        "acc": 0.9788359788359788
+      },
+      "说": {
+        "correct": 324,
+        "total": 327,
+        "acc": 0.9908256880733946
+      },
+      "我": {
+        "correct": 1304,
+        "total": 1304,
+        "acc": 1.0
+      },
+      "汽": {
+        "correct": 28,
+        "total": 28,
+        "acc": 1.0
+      },
+      "羊": {
+        "correct": 10,
+        "total": 10,
+        "acc": 1.0
+      },
+      "办": {
+        "correct": 74,
+        "total": 79,
+        "acc": 0.9367088607594937
+      },
+      "皇": {
+        "correct": 23,
+        "total": 24,
+        "acc": 0.9583333333333334
+      },
+      "都": {
+        "correct": 288,
+        "total": 288,
+        "acc": 1.0
+      },
+      "和": {
+        "correct": 573,
+        "total": 574,
+        "acc": 0.9982578397212544
+      },
+      "如": {
+        "correct": 218,
+        "total": 219,
+        "acc": 0.9954337899543378
+      },
+      "络": {
+        "correct": 24,
+        "total": 24,
+        "acc": 1.0
+      },
+      "近": {
+        "correct": 63,
+        "total": 65,
+        "acc": 0.9692307692307692
+      },
+      "审": {
+        "correct": 26,
+        "total": 26,
+        "acc": 1.0
+      },
+      "的": {
+        "correct": 3978,
+        "total": 3982,
+        "acc": 0.9989954796584631
+      },
+      "存": {
+        "correct": 23,
+        "total": 23,
+        "acc": 1.0
+      },
+      "轼": {
+        "correct": 1,
+        "total": 1,
+        "acc": 1.0
+      },
+      "是": {
+        "correct": 1853,
+        "total": 1855,
+        "acc": 0.9989218328840971
+      },
+      "得": {
+        "correct": 288,
+        "total": 288,
+        "acc": 1.0
+      },
+      "敌": {
+        "correct": 8,
+        "total": 8,
+        "acc": 1.0
+      },
+      "道": {
+        "correct": 287,
+        "total": 289,
+        "acc": 0.9930795847750865
+      },
+      "为": {
+        "correct": 522,
+        "total": 523,
+        "acc": 0.9980879541108987
+      },
+      "中": {
+        "correct": 482,
+        "total": 482,
+        "acc": 1.0
+      },
+      "强": {
+        "correct": 122,
+        "total": 122,
+        "acc": 1.0
+      },
+      "者": {
+        "correct": 181,
+        "total": 182,
+        "acc": 0.9945054945054945
+      },
+      "题": {
+        "correct": 129,
+        "total": 130,
+        "acc": 0.9923076923076923
+      },
+      "一": {
+        "correct": 1411,
+        "total": 1413,
+        "acc": 0.9985845718329794
+      },
+      "能": {
+        "correct": 332,
+        "total": 332,
+        "acc": 1.0
+      },
+      "来": {
+        "correct": 611,
+        "total": 611,
+        "acc": 1.0
+      }
+    }
+  },
+  "keys_per_arm": {
+    "base": 279438,
+    "ranks": 279438,
+    "compete": 265153
+  }
+}

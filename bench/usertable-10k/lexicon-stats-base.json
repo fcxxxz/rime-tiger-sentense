@@ -1,0 +1,10 @@
+{
+  "inject": false,
+  "single_char_rows": 113246,
+  "unique_chars": 99144,
+  "one_key_chars": 26,
+  "lexicon_rows": 113246,
+  "injected_2code": [],
+  "promoted_2code": [],
+  "demoted_by_code": {}
+}
