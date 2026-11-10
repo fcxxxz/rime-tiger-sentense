@@ -1368,6 +1368,10 @@ struct LexEntry {
   // qx→qo、wz→wk）指回源读音头。为空时按码头两字母归一——旧码表同一
   // 读音的两种码形会被当成两个读音、总频翻倍，主读音先验被错罚 ln2。
   std::string reading_key;
+  // allow_secondary: 定向豁免档位过滤（一简字 2 码次选参与组句）。
+  // 码表装载时，对单字且 rank==2 的行，若该字有 1 键码存在则置位。
+  // 组句边在 all_ranks=false 下仍允许 rank 2 且此位为真的条目进入。
+  bool allow_secondary = false;
   // 第 4 列原始值：多字行=词典权重、字行=字频名次（0/20001=未知占位）。
   int lex_weight_raw = -1;
   // 词形整段命中权重占比（词典权重 / 同码最大已知权重，地板 0.35）：
@@ -1558,6 +1562,21 @@ struct Lexicon {
       const std::string& code = kv.first;
       for (size_t l = 1; l < code.size(); ++l)
         proper_prefixes.insert(code.substr(0, l));
+    }
+    // 定向豁免：收集有 1 键码的单字，给它们的 2 码 rank2 条目打标记。
+    std::unordered_set<uint32_t> one_key_chars;
+    for (const auto& kv : codes) {
+      if (kv.first.size() != 1) continue;
+      for (const auto& e : kv.second)
+        if (e.chars.size() == 1) one_key_chars.insert(e.chars[0]);
+    }
+    for (auto& kv : codes) {
+      if (kv.first.size() != 2) continue;
+      for (auto& e : kv.second) {
+        if (e.rank == 2 && e.chars.size() == 1 &&
+            one_key_chars.count(e.chars[0]))
+          e.allow_secondary = true;
+      }
     }
     finalize_reading_priors();
     finalize_word_form_shares();
@@ -3096,8 +3115,12 @@ struct Engine {
         std::vector<LexEntry> filtered;
         if (!(selected_rank == 0 && (allow_all || edge_whole_input))) {
           int want = selected_rank > 0 ? selected_rank : 1;
-          for (const auto& e : candidates)
-            if (e.rank == want) filtered.push_back(e);
+          for (const auto& e : candidates) {
+            // 定向豁免：allow_secondary 标记的 rank 2 单字（一简字 2 码次选）
+            // 在 all_ranks=false 下仍允许参与组句边。
+            if (e.rank == want || (e.rank == 2 && e.allow_secondary))
+              filtered.push_back(e);
+          }
           chosen = &filtered;
         }
         if (source_truncated && !chosen->empty())

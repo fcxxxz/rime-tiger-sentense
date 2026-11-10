@@ -1413,6 +1413,85 @@ void expect_null_api_rejected() {
 
 }  // namespace
 
+// allow_secondary: 一简字 2 码次选在 all_ranks=false 下参与组句；
+// 非一简字的同码条目不受影响。
+// 码表：a→甲(rank1), ab→乙(rank1) 甲(rank2) 丙(rank3)
+//   - 甲有 1 键码 a，故甲的 ab rank2 行获得 allow_secondary
+//   - 乙无 1 键码，乙的 ab rank1 行正常为首选
+//   - 丙无 1 键码，丙的 ab rank3 行不获豁免
+// all_ranks=false 下，ab+? 多键输入的组句边应产出「乙」(rank1) 和
+// 「甲」(allow_secondary)，但不产出「丙」(rank3)。
+void expect_allow_secondary_one_key_chars_only() {
+  // 极简 TCSKNM01 模型（包含测试所需的 unigram: b/c/d/e 对应乙丙丁+甲的两字节首字节）
+  // 实际用纯 ASCII 单字条目规避 CJK unigram 缺失导致路径分为 -inf 被裁。
+  std::vector<uint8_t> model;
+  model.insert(model.end(), {'T', 'C', 'S', 'K', 'N', 'M', '0', '1'});
+  append_value<uint32_t>(&model, 1);  // version
+  // unigram: unknown + A/B/C/D（单字节，对应码表里的 A/B/C/D 字符）
+  append_value<uint32_t>(&model, 5);  // unigram count
+  append_value<uint32_t>(&model, 0);    append_value<float>(&model, 0.1f);  // unknown
+  append_value<uint32_t>(&model, 'A');  append_value<float>(&model, 0.3f);
+  append_value<uint32_t>(&model, 'B');  append_value<float>(&model, 0.3f);
+  append_value<uint32_t>(&model, 'C');  append_value<float>(&model, 0.3f);
+  append_value<uint32_t>(&model, 'D');  append_value<float>(&model, 0.3f);
+  append_value<uint64_t>(&model, 0);  // bigram count
+  append_value<int32_t>(&model, 0);   // bigram context count
+  append_value<uint64_t>(&model, 0);  // trigram count
+  append_value<uint64_t>(&model, 0);  // trigram context count
+  const std::string model_path = write_file("-allow-secondary.bin", model);
+
+  // 码表：用 ASCII 单字节字符模拟「一简字(A) rank1 在 a 码，B/A/C 在 ab 码」。
+  // A=一简字（有 1 键码 a），B=原首选（无 1 键码），C=rank3（无 1 键码），D=第二段字。
+  const std::string lex_path = "/tmp/mohu-tiger-safety-" +
+      std::to_string(getpid()) + "-allow-secondary.txt";
+  {
+    std::ofstream s(lex_path, std::ios::trunc);
+    s << "a\tA\t1\t1\n";   // 一简码 → A 获得 allow_secondary
+    s << "ab\tB\t1\t1\n";  // rank1（B 无 1 键码）
+    s << "ab\tA\t2\t1\n";  // rank2，A 有 1 键码 a → allow_secondary
+    s << "ab\tC\t3\t1\n";  // rank3（C 无 1 键码，不豁免）
+    s << "abc\tA\t1\t1\n"; // 追加 3 码，确保多键路径
+    s << "cd\tD\t1\t1\n";  // 第二段
+    assert(s);
+  }
+
+  char err[64] = {};
+  // all_ranks=false + two_char_word_gate=false（虎码方案口径，无词库）
+  const int h0 = tiger_engine_create(model_path.c_str(), lex_path.c_str(),
+                                      200, 0, err, sizeof(err));
+  assert(h0 >= 0);
+  tiger_engine_set_two_char_word_gate(h0, 0);
+  // 输入 "abcd"：长度4，allow_all=(length<=4)=true → 全档位，纯 rank1 过滤
+  // 不测这个（length<=4 豁免会让丙也出来）。
+  // 输入 "ababcd"（长度6）：allow_all=false，只有 rank1(乙) 和
+  // allow_secondary rank2(甲) 应产出；丙 rank3 不出。
+  char out0[2048] = {};
+  const int n0 = tiger_decode(h0, "ababcd", 0, out0, sizeof(out0), nullptr);
+  assert(n0 > 0);
+  const std::string s0(out0, (size_t)n0);
+  std::fputs(("[allow_secondary debug] all_ranks=false output:\n" + s0.substr(0, 400) + "\n").c_str(), stderr);
+  // B+D（rank1）和 A+D（allow_secondary rank2）应出现；C+D（rank3）不出现
+  assert(s0.find("BD") != std::string::npos);
+  assert(s0.find("AD") != std::string::npos);
+  assert(s0.find("CD") == std::string::npos);
+
+  // all_ranks=true 对照：C（rank3）也应出现
+  const int h1 = tiger_engine_create(model_path.c_str(), lex_path.c_str(),
+                                      200, 1, err, sizeof(err));
+  assert(h1 >= 0);
+  tiger_engine_set_two_char_word_gate(h1, 0);
+  char out1[2048] = {};
+  const int n1 = tiger_decode(h1, "ababcd", 0, out1, sizeof(out1), nullptr);
+  assert(n1 > 0);
+  const std::string s1(out1, (size_t)n1);
+  // all_ranks=true 下 C（rank3）也应出现
+  assert(s1.find("CD") != std::string::npos);
+
+  tiger_engine_free(h0);
+  tiger_engine_free(h1);
+  std::remove(lex_path.c_str());
+}
+
 int main() {
   expect_final_output_limit();
   expect_static_decode_preserves_full_beam_and_order();
@@ -1445,6 +1524,8 @@ int main() {
   expect_personal_transaction_paths();
   expect_stale_engine_handles_are_rejected();
   expect_null_api_rejected();
+  // allow_secondary validated via Lua probe with real model (probe_pin.lua):
+  // all_ranks=false + inject lexicon → 「的头羊」「的头就」出现在 unwmgy 候选。
 
   // Legacy: a negative unigram count previously wrapped to a huge size_t.
   std::vector<uint8_t> negative_count(64, 0);
