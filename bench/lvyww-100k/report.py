@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""渲染三方十万句对照 report.md（数据来自 summary.json / manifest.json）"""
+"""渲染三方同码对照 report.md（数据来自 summary.json / manifest.json，规模见 manifest n）"""
 from pathlib import Path
 import json
 
@@ -33,7 +33,7 @@ m = S['metrics']
 for c, _ in COLS:
     m[c]['final_acc'] = m[c]['final_correct'] / m[c]['sentences']
 
-lines = ['# 魔虎整句 vs tiger-sentense-rime：三方十万句同码对照（2026-11-10）', '']
+lines = [f'# 魔虎整句 vs tiger-sentense-rime：三方同码对照 {M["n"]:,} 句（2026-11-10）', '']
 lines += [f'三方完整运行同一批 **{M["n"]:,} 句、{m["new"]["characters"]:,} 字、{m["new"]["keys"]:,} 键**，'
           f'逐句配对核验（共同 rank-1 单字 {M["common_rank1_characters"]:,} 个）。'
           '固定码表、固定模型、关闭个人学习的离线逐键测评。', '']

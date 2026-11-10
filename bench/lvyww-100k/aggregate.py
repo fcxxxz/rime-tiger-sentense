@@ -7,8 +7,9 @@ import csv, hashlib, json, math
 B = Path('/tmp/tiger-lvyww-100k-20261110')
 MODES = ['new', 'lvyww', 'orig']
 SHARDS = 8
-PER = 12500
-N = 100000
+_manifest = __import__('json').loads((B / 'manifest.json').read_text())
+PER = _manifest['sentences_per_shard']
+N = _manifest['n']
 LABEL = {'new': '魔虎整句（本仓）', 'lvyww': 'tiger-sentense-rime 发布包', 'orig': '虎整原版（参照）'}
 
 

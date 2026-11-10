@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""三方十万句对照基准 staging + 语料生成（2026-11-10）。
+"""三方同码对照基准 staging + 语料生成（2026-11-10；规模 N 见常量，
+2026-11-10 应用户要求由 100,000 缩至 10,000 定方向，权威定稿可放大）。
 
-被测三方（同一批 100,000 句、同一共同 rank-1 码流、逐句配对）：
+被测三方（同一批句、同一共同 rank-1 码流、逐句配对）：
   new    本仓（整句/）：原生引擎 + V5 TCSKNM04，提前上屏出厂默认
   lvyww  lvyww/tiger-sentense-rime 官方发布包 20260915-3dd98bd
          （TCSKNM02 三阶 224,475,584B；HEAD 需要的五阶模型未随 Release
@@ -12,7 +13,7 @@
 共同单字集合 = 三方码表 rank-1 码的交集（每字取「长度、字典序」最短公共码，
 码长 ≥2，不用一码简码）。语料池从本仓 corpus/fenci/（V5 训练分词语料，
 源自魔虎仓 research/lm_sentence_compare/corpus/fenci/）重建：文件名排序、
-逐行去重、4–30 字、全字可编码。seed=20261110 抽 100,000 句。
+逐行去重、4–30 字、全字可编码。seed=20261110 抽样（与规模无关的同种子独立抽样）。
 
 注意：池的行序由 fenci 文件名排序决定，与旧 792,441 句池（/tmp 已失）不
 可复现同序，本批语料与 2026-10-26 报告的语料不同批，数字不可横比。
@@ -25,7 +26,7 @@ OURS = Path('/Users/fuchuxuan/输入法/整句')
 LVYWW = OURS / 'competitors/tsr-release/tiger-sentense-rime'
 ORIG = Path('/Users/fuchuxuan/Downloads/Rime虎整句-20260826')
 SEED = 20261110
-N = 100_000
+N = 10_000  # 2026-11-10 用户要求缩小规模：先 1 万句定方向，权威定稿可放大回 10 万
 SHARDS = 8
 PER = N // SHARDS
 
