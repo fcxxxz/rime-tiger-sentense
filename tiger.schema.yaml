@@ -1,0 +1,282 @@
+# Rime schema: tiger
+# encoding: utf-8
+#
+# 【虎码·整句】单方案（自 fcxxxz/rime-tiger 移植后并入魔虎框架）。
+# 整句（sentence 开关，默认开）：连续虎码经原生引擎（libtigerengine +
+# v5 字元三元模型，data/tiger/tiger.lexicon.txt）出整句候选，字母键由
+# tiger_mode_proc 接管追加，不受 4 码顶功限制；引擎不可用时自动退化为
+# 纯单字模式。整句关：虎码单字顶屏（max_code_length 4 / auto_clear /
+# 唯一候选自动上屏，与上游手感一致）。
+# 提前上屏（early_commit 开关，默认开）：整句模式下按置信度自动提交
+# 稳定前缀（tiger_mode_proc 消费引擎 n_early 提案）。
+# 用户词管理用魔虎套件：`编码// + 空格` 或 `编码 + Ctrl+;` 加词
+# （mohu_pin）、Shift+Delete 删词（两段式含引擎反学习）、Ctrl+方向键
+# 调序置顶（mohu_candidate_override）、`==` 打开管理器
+# （mohu_candidate_manager）。
+# 码表数据层合并：常用字与全字集在 tiger 主码表（常用字带简码，生僻字
+# 挂四码全码）；字集切换沿用魔虎 extended_charset 开关（Ctrl+X）。
+# 敲 ` 键进入全拼反查。
+
+schema:
+  author:
+    - fcxxxz <https://github.com/fcxxxz/rime-tiger>（虎码单字上游）
+    - 荒 <space_proc3 / symbol_proc>
+  dependencies:
+    - mohu_zrm
+    - mohu_flypy
+    - mohu_pinyin
+    - mohu_charset
+  description: |
+    虎码整句（魔虎框架）
+    连续虎码出整句；Ctrl+T 关整句即单字顶屏模式。
+    常用字与全字集合并为一张码表：常用字带简码，
+    生僻字挂四码全码；不打满编码不出现。
+    Ctrl+X 切换 常用字/全字集。
+    敲 ` 键进入全拼反查；== 打开候选管理。
+  name: "虎码·整句"
+  schema_id: tiger
+  # 显式版本号须高于小狼毫自带副本（0.9），否则部署时用户副本会被清进 trash/。
+  version: "2.0"
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中文, 西文 ]
+  - name: full_shape
+    states: [ 半角, 全角 ]
+  - name: ascii_punct
+    states: [ 。，, ．， ]
+  - name: emoji
+    states: [ 🈚, 🈶 ]
+  - name: extended_charset
+    states: [ 常用字, 全字集 ]
+  - name: chaifen
+    states: [ 拆隐, 拆显 ]
+  - name: pinyinhint
+    states: [ 拼隐, 拼显 ]
+  # 整句模式：开＝连续虎码整句；关＝单字顶屏（4 码/空码/符号顶字）。
+  - name: sentence
+    reset: 1
+    states: [ 单字, 整句 ]
+  # 提前上屏：整句模式下按置信度自动提交稳定前缀（虎整句同款规则）。
+  - name: early_commit
+    reset: 1
+    states: [ 不提前, 提前上屏 ]
+  # 反查码式（Ctrl+R 循环切换；rev_flypy×rev_full 组合编码三态）
+  - name: rev_flypy
+    reset: 0
+    states: [ 自然码, 小鹤 ]
+  - name: rev_full
+    reset: 0
+    states: [ 双拼, 全拼 ]
+
+engine:
+  processors:
+    - lua_processor@*mohu_pin*pin_processor              # 加词（//万灵药）
+    - ascii_composer
+    - lua_processor@*mohu_candidate_manager*manager_processor  # == 管理器入口
+    - lua_processor@*mohu_candidate_override*override_processor  # 删词/调序/置顶
+    - lua_processor@*option_sync                         # 跨窗口同步功能开关
+    - recognizer
+    - lua_processor@*tiger_mode_proc*processor        # 整句模式字母接管+提前上屏
+    - lua_processor@*tiger_reverse_mode*processor     # Ctrl+R 循环反查码式
+    - lua_processor@*space_proc3                         # 标顶空码不上屏
+    - lua_processor@*symbol_proc                         # 候选唯一时符号顶字
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - affix_segmentor@reverse_lookup
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - lua_translator@*mohu_candidate_manager*manager_translator  # 候选管理菜单
+    # 嵌入魔虎反查（` 前缀）：三码式共用 reverse_lookup tag，质量带区分
+    # （zrm 1000 / flypy 2000 / pinyin 3000），tiger_reverse_gate 按当前
+    # 码式放行；prism 复用魔虎双拼方案编译产物，辅码与句中辅打法天然继承。
+    - script_translator@rev_zrm
+    - script_translator@rev_flypy
+    - table_translator@rev_pinyin
+    - lua_translator@*mohu_sentence*translator          # 原生整句（sentence 开关门控）
+    - table_translator
+    - lua_translator@*mohu_pin*panacea_translator       # 加词万灵药
+  filters:
+    - lua_filter@*mohu_charset_filter                    # 常用字/全字集（extended_charset 开关，与魔虎同机制）
+    - lua_filter@*tiger_reverse_mode*filter         # 反查码式门控（Ctrl+R 循环）
+    - lua_filter@*mohu_pin*pin_filter                    # 置顶词注入
+    - lua_filter@*mohu_candidate_override*override_order_filter  # 调序
+    - lua_filter@*mohu_candidate_override*override_filter        # 隐藏/恢复
+    - reverse_lookup_filter@rev_tiger_comment            # 反查候选注释虎码
+    - simplifier@chaifen                                 # 虎码拆分注释
+    - simplifier@pinyinhint                              # 拼音注释
+    - simplifier@emoji                                   # emoji 联想
+    - lua_filter@*candidate_shadow_filter                # 多滤镜候选压成单层，保留满码顶屏
+    - lua_filter@*tiger_progress_hint*filter             # 空窗时补联想预判+进度候选（shs→说话/说出/说…）
+    - uniquifier
+
+speller:
+  # 整句开时字母由 tiger_mode_proc 接管，以下顶功配置只在单字模式生效：
+  # 达到最长码时后码顶上清屏；候选唯一自动上屏。
+  auto_clear: max_length
+  auto_select: true
+  max_code_length: 4
+  # / 与 = 不入码表，供 == 管理器与 / 符号命令前缀（recognizer 接管）。
+  alphabet: ";'=zyxwvutsrqponmlkjihgfedcba/"
+  # 分号引导的快符（;q ：“ 等，住在 tiger.user 层）自动上屏。
+  auto_select_pattern: ^;\w+
+
+translator:
+  dictionary: tiger.extended
+  enable_charset_filter: false
+  enable_encoder: false
+  enable_sentence: false
+  encode_commit_history: false
+  enable_user_dict: false
+  # 编码补全关闭：短码只出简码，生僻字只挂四码全码——全字集与常用字
+  # 合并的关键开关，打开会被全字集前缀补全淹没。
+  enable_completion: false
+  comment_format:
+    - "xform/~/ /"
+
+# 原生整句引擎（与魔虎双拼方案共用 libtigerengine、v5 模型与用户学习层；
+# 词表独立：mohu/data/tiger/tiger.lexicon.txt，由 tiger.dict.yaml 生成）。
+tiger:
+  scheme: tiger
+  # 整句开关关时翻译器整体让位（单字模式 table 独占）。
+  when_option: sentence
+  # 虎整对齐：多段组句边只取每码 rank 1（卩/钅/釒这类同码 2+ 档的部首
+  # 变形字不再拼进句子，只在裸打整段命中或数字选重时可达）；≤4 键改
+  # 码表序平局+模型分排序（ojjg 首选 几个 而非全码字 矬），整段单字加
+  # 固定奖励保居首。注意字符串 "false"：conf 经 get_string 读布尔 false
+  # 得 nil 会静默回退默认 true。
+  all_ranks: "false"
+  # 短码（≤4 键）与单字也由引擎出候选：一简/其余档位与 Rime 表同源同序，
+  # uniquifier 去重后引擎排序（含词序先验）主导；引擎缺席时 table 兜底。
+  native_short_codes: true
+  # 关闭「两字组合终态必须命中词表」门控（魔然对齐方案 A）：虎码词表仅
+  # 数百简词、无词库，字符自由组合即正确行为；不关的话「打字」类两字
+  # 终态（uawhi=ua打+whi字）会被整条丢弃（整句 5 键查询全空）。
+  # 注意用字符串 "false"：conf 经 get_string 读布尔 false 得 nil 会静默
+  # 回退默认 true。
+  two_char_word_gate: "false"
+
+# 嵌入魔虎反查（` 前缀，Ctrl+R 循环 自然码双拼 → 小鹤双拼 → 全拼）。
+# affix_segmentor 剥前后缀打 reverse_lookup tag；三个 script_translator
+# 复用魔虎编译好的 prism（辅码/句中辅打法随 prism 继承），质量带区分码式，
+# tiger_reverse_gate 只放行当前码式；reverse_lookup_filter 注虎码注释。
+reverse_lookup:
+  tag: reverse_lookup
+  prefix: "`"
+  suffix: "'"
+  tips: "〔魔虎反查〕"
+
+rev_zrm:
+  tags: [reverse_lookup]
+  dictionary: mohu_zrm.words
+  prism: mohu_zrm
+  enable_user_dict: false
+  enable_sentence: true
+  initial_quality: 1000
+
+rev_flypy:
+  tags: [reverse_lookup]
+  dictionary: mohu_flypy.words
+  prism: mohu_flypy
+  enable_user_dict: false
+  enable_sentence: true
+  initial_quality: 2000
+
+rev_pinyin:
+  # mohu_pinyin 是 table 方案（单字全拼，无音节化 prism），全拼反查走
+  # 表查询语义：整拼精确命中 + 前缀补全（查字找虎码为主用途）。
+  tags: [reverse_lookup]
+  dictionary: mohu_pinyin
+  enable_user_dict: false
+  enable_completion: true
+  initial_quality: 3000
+
+rev_tiger_comment:
+  tags: [reverse_lookup]
+  dictionary: tiger
+  overwrite_comment: true
+  comment_format:
+    - "xform/^/〔/"
+    - "xform/$/〕/"
+
+# 魔虎用户词套件配置（共享 mohu.yaml；调序库独立——虎码码空间与双拼不同）
+mohu:
+  candidate_manager:
+    __include: mohu:/candidate_manager
+  candidate_override:
+    __include: mohu:/candidate_override
+    db_name: tiger_candidate_override
+  pin:
+    __include: mohu:/pin
+    # 独立置顶库：虎码码空间与双拼不同（mohu 的 b=不 置顶会串进虎码 b=如）。
+    db_name: tiger_pin
+
+smart_candidate_selection:
+  enabled: true  # 次选键跳过符号联想
+
+key_binder:
+  bindings:
+    - { accept: space, send: space, when: has_menu }    # 有候选时空格上屏首选
+    - { accept: semicolon, send: 2, when: has_menu }    # 分号次选
+    - { when: has_menu, accept: apostrophe, send: 3 }   # 引号三选
+    - { when: composing, accept: Tab, send: Escape }    # tab 清屏
+    - { when: has_menu, accept: minus, send: Page_Up }  # - 向后翻页
+    - { when: has_menu, accept: equal, send: Page_Down } # = 向前翻页
+    # 整句/单字与提前上屏的切换走 Squirrel 输入法菜单（switches 里的
+    # 「单字/整句」「不提前/提前上屏」）。Ctrl+T 是魔虎套件的置顶键
+    # （mohu_pin 处理器首位已接管），绑在这里会在无候选时漏触发、无声
+    # 改变整句模式（2026-10-27 用户实测发现的「突然变 4 码定长」来源）。
+    - { when: composing, accept: "Control+y", toggle: early_commit }    # 提前上屏开关
+    - { when: composing, accept: "Control+x", toggle: extended_charset }  # 常用字/全字集切换（与魔虎同键）
+    - { accept: "Control+j", toggle: chaifen, when: composing }
+    - { accept: "Control+p", toggle: pinyinhint, when: composing }
+    - { accept: "Control+i", toggle: emoji, when: composing }
+    - { when: always, accept: "Control+period", toggle: ascii_punct }
+    - { when: always, accept: "Shift+space", toggle: full_shape }
+
+recognizer:
+  import_preset: default
+  patterns:
+    candidate_manager: "^==[hopwlu]?[a-z]*$"
+    punct: '^/([0-9]0?|[A-Za-z]*)$'
+    reverse_lookup: "^`[a-z;'/]*'?$"
+
+punctuator:
+  import_preset: symbols
+
+# 虎码拆分注释（复用魔虎的 tiger 拆分数据）
+chaifen:
+  option_name: chaifen
+  opencc_config: mohu_chaifen.json
+  tips: char
+  show_in_comment: true
+  comment_format:
+    - "xform/-/ /"
+    - "xform/〕〔/｜/"
+
+# 拼音注释
+pinyinhint:
+  option_name: pinyinhint
+  opencc_config: mohu_pinyinhint.json
+  tips: char
+  show_in_comment: true
+  comment_format:
+    - "xform/-/ /"
+    - "xform/〕〔/｜/"
+
+# emoji 联想
+emoji:
+  opencc_config: mohu_emoji.json
+  option_name: emoji
+  tips: none

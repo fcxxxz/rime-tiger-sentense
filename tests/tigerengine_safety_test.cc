@@ -1,0 +1,1503 @@
+#include <cassert>
+#include <cerrno>
+#include <cstdint>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <fstream>
+#include <limits>
+#include <string>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <vector>
+
+#include "tigerengine.h"
+
+namespace {
+
+std::string write_file(const std::string& suffix, const std::vector<uint8_t>& data) {
+  std::string path = "/tmp/mohu-tiger-safety-" + std::to_string(getpid()) + suffix;
+  std::ofstream stream(path, std::ios::binary | std::ios::trunc);
+  assert(stream);
+  stream.write(reinterpret_cast<const char*>(data.data()), static_cast<std::streamsize>(data.size()));
+  assert(stream);
+  return path;
+}
+
+void expect_create_rejects_without_signal(const std::vector<uint8_t>& model, const char* name) {
+  const std::string model_path = write_file(std::string("-") + name + ".bin", model);
+  const std::string lexicon_path = write_file(std::string("-") + name + ".txt", {'a', '\t', 0xe7, 0x94, 0xb2, '\n'});
+  const pid_t child = fork();
+  assert(child >= 0);
+  if (child == 0) {
+    char error[512] = {};
+    const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                           error, sizeof(error));
+    if (handle >= 0) tiger_engine_free(handle);
+    _exit(handle < 0 ? 0 : 1);
+  }
+  int status = 0;
+  assert(waitpid(child, &status, 0) == child);
+  assert(WIFEXITED(status));
+  assert(WEXITSTATUS(status) == 0);
+}
+
+void expect_mobile_bad_successor_modes(const std::vector<uint8_t>& model,
+                                       const char* name) {
+  const std::string model_path = write_file(std::string("-") + name + ".bin", model);
+  const std::string lexicon_path = write_file(
+      std::string("-") + name + ".txt", {'a', '\t', 0xe7, 0x94, 0xb2, '\n'});
+  const char* previous = std::getenv("MOHU_TIGER_STRICT_VALIDATE");
+  const std::string previous_value = previous ? previous : "";
+  const bool had_previous = previous != nullptr;
+  unsetenv("MOHU_TIGER_STRICT_VALIDATE");
+  char error[512] = {};
+  const int lazy = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                       error, sizeof(error));
+  assert(lazy >= 0);
+  char output[4096] = {};
+  assert(tiger_decode_full(lazy, "a", 0, output, sizeof(output)) < 0);
+  assert(std::strstr(tiger_last_error(), "invalid n-gram page") != nullptr);
+  tiger_engine_free(lazy);
+  setenv("MOHU_TIGER_STRICT_VALIDATE", "1", 1);
+  std::memset(error, 0, sizeof(error));
+  const int strict = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                         error, sizeof(error));
+  assert(strict < 0);
+  assert(error[0] != '\0');
+  if (had_previous) setenv("MOHU_TIGER_STRICT_VALIDATE", previous_value.c_str(), 1);
+  else unsetenv("MOHU_TIGER_STRICT_VALIDATE");
+}
+
+void put_u32(std::vector<uint8_t>* data, size_t offset, uint32_t value) {
+  std::memcpy(data->data() + offset, &value, sizeof(value));
+}
+
+void put_u64(std::vector<uint8_t>* data, size_t offset, uint64_t value) {
+  std::memcpy(data->data() + offset, &value, sizeof(value));
+}
+
+template <typename T>
+void append_value(std::vector<uint8_t>* data, const T& value) {
+  const size_t offset = data->size();
+  data->resize(offset + sizeof(value));
+  std::memcpy(data->data() + offset, &value, sizeof(value));
+}
+
+std::string write_many_candidate_lexicon() {
+  const std::string path = "/tmp/mohu-tiger-safety-" + std::to_string(getpid()) +
+                           "-many-candidates.txt";
+  std::ofstream stream(path, std::ios::trunc);
+  assert(stream);
+  for (int index = 0; index < 25; ++index)
+    stream << "a\tcandidate" << index << "\t1\t1\n";
+  assert(stream);
+  return path;
+}
+
+std::string write_final_adjustment_lexicon() {
+  const std::string path = "/tmp/mohu-tiger-safety-" + std::to_string(getpid()) +
+                           "-final-adjustment.txt";
+  std::ofstream stream(path, std::ios::trunc);
+  assert(stream);
+  // The last entry is common (no isolation penalty), while the first twenty
+  // are deliberately rare.  Its pre-EOS score is slightly lower, so it is
+  // the 21st state before final adjustments but should enter the exposed
+  // top-20 after the +2 isolation difference.
+  for (int index = 0; index < 20; ++index)
+    stream << "a\t" << static_cast<char>('a' + index) << "\t1\t5000\n";
+  stream << "a\tZ\t1\t1\n";
+  assert(stream);
+  return path;
+}
+
+std::string write_many_early_lexicon() {
+  const std::string path = "/tmp/mohu-tiger-safety-" + std::to_string(getpid()) +
+                           "-many-early.txt";
+  std::ofstream stream(path, std::ios::trunc);
+  assert(stream);
+  for (int index = 0; index < 25; ++index)
+    stream << "ab\t" << static_cast<char>('a' + index) << "\t1\t1\n";
+  stream << "xy\tz\t1\t1\n";
+  assert(stream);
+  return path;
+}
+
+std::string write_many_consensus_lexicon() {
+  const std::string path = "/tmp/mohu-tiger-safety-" + std::to_string(getpid()) +
+                           "-many-consensus.txt";
+  std::ofstream stream(path, std::ios::trunc);
+  assert(stream);
+  stream << "ab\t共\t1\t1\n";
+  for (int index = 0; index < 25; ++index)
+    stream << "cd\t" << static_cast<char>('a' + index) << "\t1\t1\n";
+  // 二字组合终态的词条可见性行（2026-09-20 方案 A 门控）：abcd 输入的
+  // 组合终态文本是 共X，需在词表中存在才不被引擎丢弃。zz 为占位码，
+  // 仅提供 freq_rank 可见性，不参与实际匹配。
+  for (int index = 0; index < 25; ++index)
+    stream << "zz\t共" << static_cast<char>('a' + index) << "\t1\t1\n";
+  assert(stream);
+  return path;
+}
+
+std::string write_single_candidate_lexicon() {
+  const std::string path = "/tmp/mohu-tiger-safety-" + std::to_string(getpid()) +
+                           "-single-candidate.txt";
+  std::ofstream stream(path, std::ios::trunc);
+  assert(stream);
+  stream << "a\tcandidate\t1\t1\n";
+  assert(stream);
+  return path;
+}
+
+std::string write_overflowing_rank_lexicon() {
+  const std::string path = "/tmp/mohu-tiger-safety-" + std::to_string(getpid()) +
+                           "-overflowing-rank.txt";
+  std::ofstream stream(path, std::ios::trunc);
+  assert(stream);
+  stream << "a\tcandidate\t999999999999999999999999\t999999999999999999999999\n";
+  assert(stream);
+  return path;
+}
+
+std::string write_sentence_segmentation_lexicon() {
+  const std::string path = "/tmp/mohu-tiger-safety-" + std::to_string(getpid()) +
+                           "-sentence-segmentation.txt";
+  std::ofstream stream(path, std::ios::trunc);
+  assert(stream);
+  stream << "m\t没有\t1\t1\n";
+  stream << "jm\t紧密\t1\t1\n";
+  stream << "jh\t结合\t1\t1\n";
+  stream << "mj\t满\t1\t1\n";
+  stream << "mj\t慢\t2\t2\n";
+  stream << "mjh\t慢\t1\t2\n";
+  stream << "mjh\t每句话\t2\t20001\n";
+  stream << "mjmj\t慢慢\t1\t1\n";
+  assert(stream);
+  return path;
+}
+
+std::string write_incremental_phrase_lexicon() {
+  const std::string path = "/tmp/mohu-tiger-safety-" + std::to_string(getpid()) +
+                           "-incremental-phrase.txt";
+  std::ofstream stream(path, std::ios::trunc);
+  assert(stream);
+  // The two-key phrase is valid only when "ab" is the complete input.  When
+  // the composition grows to "abcd", the full rebuild must use the ordinary
+  // two-key edge instead of carrying that terminal phrase into the sentence.
+  stream << "ab\t甲\t1\t1\n";
+  stream << "cd\t丁\t1\t1\n";
+  stream << "ab\t甲乙\t1\t1\n";
+  // 二字组合终态 甲丁 的词条可见性行（方案 A 门控；zz 为占位码）。
+  stream << "zz\t甲丁\t1\t1\n";
+  assert(stream);
+  return path;
+}
+
+std::string write_intermediate_prune_lexicon() {
+  const std::string path = "/tmp/mohu-tiger-safety-" + std::to_string(getpid()) +
+                           "-intermediate-prune.txt";
+  std::ofstream stream(path, std::ios::trunc);
+  assert(stream);
+  // Two alternatives at the first edge fan out to eight alternatives at the
+  // middle edge.  A beam of two must prune the middle bucket; the truncation
+  // proof has to reach the final edge even though that bucket is never
+  // normalized again before emit().
+  stream << "ab\tA\t1\t1\n";
+  stream << "ab\tZ\t1\t1\n";
+  for (char value = 'b'; value <= 'i'; ++value)
+    stream << "cd\t" << value << "\t1\t1\n";
+  stream << "ef\tc\t1\t1\n";
+  assert(stream);
+  return path;
+}
+
+std::string write_many_candidate_model() {
+  std::vector<uint8_t> model;
+  model.insert(model.end(), {'T', 'C', 'S', 'K', 'N', 'M', '0', '1'});
+  append_value<uint32_t>(&model, 1);  // version
+  append_value<uint32_t>(&model, 1);  // unigram count
+  append_value<uint32_t>(&model, 0);  // unknown unigram key
+  append_value<float>(&model, 0.1f);  // unknown unigram probability
+  append_value<uint64_t>(&model, 0);  // bigram count
+  append_value<int32_t>(&model, 0);   // bigram context count
+  append_value<uint64_t>(&model, 0);  // trigram count
+  append_value<uint64_t>(&model, 0);  // trigram context count
+  return write_file("-many-candidates.bin", model);
+}
+
+std::string write_final_adjustment_model() {
+  std::vector<uint8_t> model;
+  model.insert(model.end(), {'T', 'C', 'S', 'K', 'N', 'M', '0', '1'});
+  append_value<uint32_t>(&model, 1);  // version
+  append_value<uint32_t>(&model, 22); // unigram count (unknown + a..t + Z)
+  append_value<uint32_t>(&model, 0);  // unknown unigram key
+  append_value<float>(&model, 0.1f);  // unknown unigram probability
+  for (uint32_t key = static_cast<uint32_t>('a'); key <= static_cast<uint32_t>('t'); ++key) {
+    append_value<uint32_t>(&model, key);
+    append_value<float>(&model, 0.2f);
+  }
+  append_value<uint32_t>(&model, static_cast<uint32_t>('Z'));
+  append_value<float>(&model, 0.05f);
+  append_value<uint64_t>(&model, 0);  // bigram count
+  append_value<int32_t>(&model, 0);   // bigram context count
+  append_value<uint64_t>(&model, 0);  // trigram count
+  append_value<uint64_t>(&model, 0);  // trigram context count
+  return write_file("-final-adjustment.bin", model);
+}
+
+std::string write_nonfinite_model() {
+  std::vector<uint8_t> model;
+  model.insert(model.end(), {'T', 'C', 'S', 'K', 'N', 'M', '0', '1'});
+  append_value<uint32_t>(&model, 1);
+  append_value<uint32_t>(&model, 1);
+  append_value<uint32_t>(&model, 0);
+  append_value<float>(&model, std::numeric_limits<float>::quiet_NaN());
+  append_value<uint64_t>(&model, 0);
+  append_value<int32_t>(&model, 0);
+  append_value<uint64_t>(&model, 0);
+  append_value<uint64_t>(&model, 0);
+  return write_file("-nonfinite.bin", model);
+}
+
+std::vector<uint8_t> make_mhknm01_model() {
+  std::vector<uint8_t> model(120, 0);
+  std::memcpy(model.data(), "MHKNM01", 7);
+  put_u32(&model, 8, 1);       // version
+  put_u32(&model, 12, 120);    // header size
+  put_u32(&model, 24, 3);      // vocabulary count
+  put_u32(&model, 28, 1);      // embedding dimension
+  put_u32(&model, 32, 64);     // index stride
+  put_u64(&model, 40, 120);    // vocabulary offset
+
+  for (const char* word : {"<s>", "</s>", "甲"}) {
+    const uint32_t length = static_cast<uint32_t>(std::strlen(word));
+    append_value<uint32_t>(&model, length);
+    model.insert(model.end(), word, word + length);
+  }
+  const uint64_t uni_offset = model.size();
+  for (float probability : {0.1f, 0.2f, 0.9f}) append_value<float>(&model, probability);
+  const uint64_t empty_section = model.size();
+  const uint64_t embedding_offset = model.size();
+  for (int index = 0; index < 3; ++index) {
+    model.push_back(index == 2 ? 1 : 0);
+    append_value<float>(&model, 1.0f);
+  }
+  put_u64(&model, 16, model.size());  // file size
+  put_u64(&model, 48, uni_offset);
+  put_u64(&model, 56, empty_section);  // bigram blocks
+  put_u64(&model, 64, empty_section);  // bigram index
+  put_u64(&model, 72, empty_section);  // trigram blocks
+  put_u64(&model, 80, embedding_offset);
+  return model;
+}
+
+std::string write_mhknm01_model() {
+  return write_file("-mhknm01.bin", make_mhknm01_model());
+}
+
+std::string write_mhknm01_lexicon() {
+  const std::string path = "/tmp/mohu-tiger-safety-" + std::to_string(getpid()) +
+                           "-mhknm01.txt";
+  std::ofstream stream(path, std::ios::trunc);
+  assert(stream);
+  stream << "ab\t甲\t1\t1\n";
+  assert(stream);
+  return path;
+}
+
+void expect_mhknm01_loads_and_decodes() {
+  const std::string model_path = write_mhknm01_model();
+  const std::string lexicon_path = write_mhknm01_lexicon();
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                         error, sizeof(error));
+  assert(handle >= 0);
+  char output[4096] = {};
+  assert(tiger_decode_full(handle, "ab", 0, output, sizeof(output)) == 1);
+  assert(std::strstr(output, "\n甲\t") != nullptr);
+  tiger_engine_free(handle);
+}
+
+void expect_malformed_mhknm01_rejected() {
+  std::vector<uint8_t> model = make_mhknm01_model();
+  put_u64(&model, 80, model.size() + 1);  // embedding section outside the file
+  expect_create_rejects_without_signal(model, "mhknm01-bad-embedding");
+}
+
+void expect_final_output_limit() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_many_candidate_lexicon();
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                         error, sizeof(error));
+  assert(handle >= 0);
+  char output[4096] = {};
+  double elapsed = 0;
+  const int count = tiger_decode(handle, "a", 0, output, sizeof(output), &elapsed);
+  assert(count == 20);
+  int truncated = 0;
+  int early_truncated = 0;
+  int uses_incomplete = 0;
+  int prefers_incomplete = 0;
+  int final_count = 0;
+  int early_count = 0;
+  assert(std::sscanf(output, "%d %d %d %d %d %d", &truncated, &early_truncated,
+                     &uses_incomplete, &prefers_incomplete, &final_count,
+                     &early_count) == 6);
+  assert(truncated == 1);
+  assert(final_count == 20);
+  tiger_engine_free(handle);
+}
+
+void expect_static_decode_preserves_full_beam_and_order() {
+  // Reuse both fixtures: one proves the >20-row contract, the other proves
+  // that static output still applies final (EOS/isolation) ordering.
+  const std::string models[] = {write_many_candidate_model(), write_final_adjustment_model()};
+  const std::string lexicons[] = {write_many_candidate_lexicon(), write_final_adjustment_lexicon()};
+  const int expected_counts[] = {25, 21};
+  for (int fixture = 0; fixture < 2; ++fixture) {
+    char error[512] = {};
+    const int handle = tiger_engine_create(models[fixture].c_str(), lexicons[fixture].c_str(),
+                                           200, 1, error, sizeof(error));
+    assert(handle >= 0);
+    char ordinary[8192] = {};
+    char output[8192] = {};
+    double elapsed = -1;
+    assert(tiger_decode(handle, "a", 0, ordinary, sizeof(ordinary), &elapsed) == 20);
+    assert(tiger_decode_static(handle, "a", output, sizeof(output), &elapsed) ==
+           expected_counts[fixture]);
+    assert(elapsed >= 0 && elapsed < std::numeric_limits<double>::infinity());
+    int truncated, early_truncated, incomplete, prefers_incomplete, final_count, early_count;
+    assert(std::sscanf(output, "%d %d %d %d %d %d", &truncated, &early_truncated,
+                       &incomplete, &prefers_incomplete, &final_count, &early_count) == 6);
+    assert(truncated == 0 && early_truncated == 0);
+    assert(incomplete == 0 && prefers_incomplete == 0 && early_count == 0);
+    assert(final_count == expected_counts[fixture]);
+    const char* ordinary_rows = std::strchr(ordinary, '\n');
+    const char* static_rows = std::strchr(output, '\n');
+    assert(ordinary_rows != nullptr && static_rows != nullptr);
+    // Compare every column of the ordinary top twenty in the same order.
+    assert(std::strncmp(ordinary_rows + 1, static_rows + 1,
+                        std::strlen(ordinary_rows + 1)) == 0);
+    int rows = 0;
+    for (const char* row = static_rows + 1; *row;) {
+      const char* end = std::strchr(row, '\n');
+      assert(end != nullptr && end > row);
+      ++rows;
+      row = end + 1;
+    }
+    assert(rows == expected_counts[fixture]);
+    if (fixture == 0) {
+      for (int index = 0; index < 25; ++index) {
+        const std::string needle = "\ncandidate" + std::to_string(index) + "\t";
+        assert(std::strstr(output, needle.c_str()) != nullptr);
+      }
+    } else {
+      assert(std::strncmp(static_rows + 1, "Z\t", 2) == 0);
+    }
+    char after[8192] = {};
+    assert(tiger_decode(handle, "a", 0, after, sizeof(after), &elapsed) == 20);
+    assert(std::strcmp(ordinary, after) == 0);
+    tiger_engine_free(handle);
+  }
+}
+
+void expect_static_cache_reuse_matches_cold_oracle() {
+  // Keep a second engine cold so every static result is compared with an
+  // isolated full rebuild, including the retained rows hidden by ordinary's
+  // top-20 ABI view.
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_many_candidate_lexicon();
+  char error[512] = {};
+  const int warm = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                       error, sizeof(error));
+  const int cold = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                       error, sizeof(error));
+  assert(warm >= 0 && cold >= 0);
+
+  auto decode_ordinary = [](int handle, const char* raw) {
+    char output[16384] = {};
+    double elapsed = -1;
+    const int count = tiger_decode(handle, raw, 0, output, sizeof(output), &elapsed);
+    assert(count >= 0);
+    return std::string(output);
+  };
+  auto compare_static = [&](const char* raw) {
+    char warm_output[16384] = {};
+    char cold_output[16384] = {};
+    double warm_elapsed = -1;
+    double cold_elapsed = -1;
+    const int warm_count = tiger_decode_static(warm, raw, warm_output, sizeof(warm_output),
+                                               &warm_elapsed);
+    const int cold_count = tiger_decode_static(cold, raw, cold_output, sizeof(cold_output),
+                                               &cold_elapsed);
+    assert(warm_count == cold_count);
+    assert(std::strcmp(warm_output, cold_output) == 0);
+    assert(warm_elapsed >= 0 && warm_elapsed < std::numeric_limits<double>::infinity());
+    assert(cold_elapsed >= 0 && cold_elapsed < std::numeric_limits<double>::infinity());
+    return std::string(warm_output);
+  };
+  auto compare_static_preserves_ordinary = [&](const char* raw) {
+    const std::string before = decode_ordinary(warm, raw);
+    const std::string static_output = compare_static(raw);
+    assert(!static_output.empty());
+    const std::string after = decode_ordinary(warm, raw);
+    assert(before == after);
+    return static_output;
+  };
+
+  // The first ordinary full decode establishes the exact reuse preconditions;
+  // uppercase/whitespace then exercises the normalized-raw cache identity.
+  char warm_full[16384] = {};
+  assert(tiger_decode_full(warm, "a", 0, warm_full, sizeof(warm_full)) >= 0);
+  compare_static_preserves_ordinary(" A \n");
+  const std::string static_a = compare_static_preserves_ordinary("a");
+  assert(static_a.find("\ncandidate24\t") != std::string::npos);
+
+  // Append, revert, repeat, and invalid-to-valid transitions must never leave
+  // a stale frontier.  The fixture has only the one-key code, so "ab" is an
+  // intentionally invalid append that still exercises cache invalidation.
+  const std::string ordinary_a = decode_ordinary(warm, "a");
+  compare_static_preserves_ordinary("ab");
+  compare_static_preserves_ordinary("a");
+  assert(decode_ordinary(warm, "a") == ordinary_a);
+  compare_static_preserves_ordinary("a");
+  compare_static_preserves_ordinary("33");
+  compare_static_preserves_ordinary("a");
+
+  // Context and score setters invalidate the ordinary frontier.  Mirror each
+  // mutation on the cold oracle, then compare the full static serialized view.
+  assert(tiger_engine_set_decode_context(warm, "上下文", 0) == 1);
+  assert(tiger_engine_set_decode_context(cold, "上下文", 0) == 1);
+  assert(tiger_decode_full(warm, "a", 0, warm_full, sizeof(warm_full)) >= 0);
+  compare_static_preserves_ordinary("a");
+  assert(tiger_engine_set_user_model_weight(warm, 1.0) == 1);
+  assert(tiger_engine_set_user_model_weight(cold, 1.0) == 1);
+  assert(tiger_decode_full(warm, "a", 0, warm_full, sizeof(warm_full)) >= 0);
+  compare_static_preserves_ordinary("a");
+
+  // User learning makes the reuse precondition false.  Static output must
+  // still match the cold isolated oracle, while ordinary output survives the
+  // temporary static workspace and remains byte-for-byte stable.
+  assert(tiger_engine_update_user_model(warm, "candidate0") == 1);
+  assert(tiger_decode_full(warm, "a", 0, warm_full, sizeof(warm_full)) >= 0);
+  compare_static_preserves_ordinary("a");
+
+  // Personal mutation likewise forces isolation and must not leak the personal
+  // edge into the static view.  The ordinary result is checked around it.
+  assert(tiger_engine_set_personal_lexicon(warm, "a\tpersonal\t8\n") == 0);
+  assert(tiger_decode_full(warm, "a", 0, warm_full, sizeof(warm_full)) >= 0);
+  const std::string static_after_personal = compare_static_preserves_ordinary("a");
+  assert(static_after_personal.find("personal") == std::string::npos);
+
+  tiger_engine_free(warm);
+  tiger_engine_free(cold);
+}
+
+void expect_final_adjustment_is_applied_before_top20_limit() {
+  const std::string model_path = write_final_adjustment_model();
+  const std::string lexicon_path = write_final_adjustment_lexicon();
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                         error, sizeof(error));
+  assert(handle >= 0);
+  char output[8192] = {};
+  double elapsed = 0;
+  assert(tiger_decode(handle, "a", 0, output, sizeof(output), &elapsed) == 20);
+  assert(std::strstr(output, "\nZ\t") != nullptr);
+  tiger_engine_free(handle);
+}
+
+void expect_early_output_cap_is_marked_truncated() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_many_early_lexicon();
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                         error, sizeof(error));
+  assert(handle >= 0);
+  char output[8192] = {};
+  double elapsed = 0;
+  assert(tiger_decode(handle, "abx", 1, output, sizeof(output), &elapsed) >= 0);
+  int truncated = 0;
+  int early_truncated = 0;
+  int uses_incomplete = 0;
+  int prefers_incomplete = 0;
+  int final_count = 0;
+  int early_count = 0;
+  int visible_consensus = 0;
+  int consensus_complete = 0;
+  size_t consensus_bytes = 0;
+  size_t consensus_raw = 0;
+  assert(std::sscanf(output, "%d %d %d %d %d %d %d %zu %zu %d",
+                     &truncated, &early_truncated, &uses_incomplete,
+                     &prefers_incomplete, &final_count, &early_count,
+                     &consensus_complete, &consensus_bytes, &consensus_raw,
+                     &visible_consensus) == 10);
+  assert(uses_incomplete == 1);
+  assert(early_truncated == 1);
+  assert(early_count == 20);
+  assert(consensus_complete == 1);
+  assert(consensus_bytes == 0 && consensus_raw == 0);
+  assert(visible_consensus == 1);
+  tiger_engine_free(handle);
+}
+
+void expect_truncated_output_exposes_safe_consensus_summary() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_many_consensus_lexicon();
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                         error, sizeof(error));
+  assert(handle >= 0);
+  char output[8192] = {};
+  double elapsed = 0;
+  assert(tiger_decode(handle, "abcd", 0, output, sizeof(output), &elapsed) == 20);
+  int truncated = 0;
+  int early_truncated = 0;
+  int uses_incomplete = 0;
+  int prefers_incomplete = 0;
+  int final_count = 0;
+  int early_count = 0;
+  int consensus_complete = 0;
+  size_t consensus_bytes = 0;
+  size_t consensus_raw = 0;
+  int visible_consensus = 0;
+  assert(std::sscanf(output, "%d %d %d %d %d %d %d %zu %zu %d",
+                     &truncated, &early_truncated, &uses_incomplete,
+                     &prefers_incomplete, &final_count, &early_count,
+                     &consensus_complete, &consensus_bytes, &consensus_raw,
+                     &visible_consensus) == 10);
+  assert(truncated == 1 && final_count == 20 && early_count == 0);
+  assert(consensus_complete == 1);
+  assert(consensus_bytes == 3);  // UTF-8 byte length of "共"
+  assert(consensus_raw == 2);
+  assert(visible_consensus == 0);
+  tiger_engine_free(handle);
+}
+
+void expect_raw_length_rejected() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_single_candidate_lexicon();
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                         error, sizeof(error));
+  assert(handle >= 0);
+  const std::string long_raw(129, 'a');
+  char output[1 << 20] = {};
+  double elapsed = 0;
+  assert(tiger_decode(handle, long_raw.c_str(), 0, output, sizeof(output), &elapsed) < 0);
+  assert(tiger_decode_full(handle, long_raw.c_str(), 0, output, sizeof(output)) < 0);
+  tiger_engine_free(handle);
+}
+
+void expect_overflowing_lexicon_numbers_use_defaults() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_overflowing_rank_lexicon();
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                         error, sizeof(error));
+  assert(handle >= 0);
+  char output[4096] = {};
+  double elapsed = 0;
+  assert(tiger_decode(handle, "a", 0, output, sizeof(output), &elapsed) == 1);
+  // Invalid/overflowing rank values fall back to rank 1 instead of invoking
+  // undefined signed conversion behavior.
+  assert(std::strstr(output, "\t1\t") != nullptr);
+  tiger_engine_free(handle);
+}
+
+void expect_nonfinite_model_rejected() {
+  const std::string model_path = write_nonfinite_model();
+  const std::string lexicon_path = write_single_candidate_lexicon();
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                         error, sizeof(error));
+  assert(handle >= 0);
+  char output[4096] = {};
+  double elapsed = 0;
+  assert(tiger_decode(handle, "a", 0, output, sizeof(output), &elapsed) < 0);
+  assert(std::strstr(output, "nan") == nullptr);
+  tiger_engine_free(handle);
+}
+
+void expect_multi_key_input_rejects_single_key_edges() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_sentence_segmentation_lexicon();
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                         error, sizeof(error));
+  assert(handle >= 0);
+
+  char output[8192] = {};
+  double elapsed = 0;
+  assert(tiger_decode(handle, "m", 0, output, sizeof(output), &elapsed) == 1);
+  assert(std::strstr(output, "\n没有\t") != nullptr);
+
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "mjh", 0, output, sizeof(output)) == 2);
+  assert(std::strstr(output, "\n每句话\t") != nullptr);
+
+  for (const char* raw : {"mj", "mjm", "mjmj", "mjmjh"})
+    assert(tiger_decode(handle, raw, 0, output, sizeof(output), &elapsed) >= 0);
+  assert(std::strstr(output, "\n慢慢\t") != nullptr);
+  assert(std::strstr(output, "没有紧密结合") == nullptr);
+  assert(std::strstr(output, "每句话") == nullptr);
+
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "mjmjh", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "\n慢慢\t") != nullptr);
+  assert(std::strstr(output, "没有紧密结合") == nullptr);
+  assert(std::strstr(output, "每句话") == nullptr);
+  tiger_engine_free(handle);
+}
+
+void expect_incremental_extension_matches_full_rebuild() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_incremental_phrase_lexicon();
+  char error[512] = {};
+  const int incremental = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                              error, sizeof(error));
+  const int fresh = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                        error, sizeof(error));
+  assert(incremental >= 0 && fresh >= 0);
+
+  char incremental_output[8192] = {};
+  char fresh_output[8192] = {};
+  double elapsed = 0;
+  assert(tiger_decode(incremental, "ab", 0, incremental_output,
+                      sizeof(incremental_output), &elapsed) >= 1);
+  assert(tiger_decode(incremental, "abcd", 0, incremental_output,
+                      sizeof(incremental_output), &elapsed) >= 1);
+  assert(tiger_decode_full(fresh, "abcd", 0, fresh_output, sizeof(fresh_output)) >= 1);
+  // A terminal phrase from the shorter composition must not leak into the
+  // longer sentence.  Comparing the complete serialized result also covers
+  // pathmap and score metadata, not only the displayed text.
+  assert(std::strcmp(incremental_output, fresh_output) == 0);
+  assert(std::strstr(incremental_output, "甲乙丁") == nullptr);
+  assert(std::strstr(incremental_output, "甲丁") != nullptr);
+
+  // The inverse transition must also rebuild: the phrase suppressed while
+  // the input was longer becomes a valid complete candidate after backspace.
+  assert(tiger_decode(incremental, "ab", 0, incremental_output,
+                      sizeof(incremental_output), &elapsed) >= 1);
+  assert(tiger_decode_full(fresh, "ab", 0, fresh_output, sizeof(fresh_output)) >= 1);
+  assert(std::strcmp(incremental_output, fresh_output) == 0);
+  assert(std::strstr(incremental_output, "甲乙") != nullptr);
+  tiger_engine_free(incremental);
+  tiger_engine_free(fresh);
+}
+
+void expect_intermediate_prune_propagates_truncation() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_intermediate_prune_lexicon();
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 2, 1,
+                                         error, sizeof(error));
+  assert(handle >= 0);
+  char output[8192] = {};
+  double elapsed = 0;
+  assert(tiger_decode_full(handle, "abcdef", 1, output, sizeof(output)) >= 1);
+  int truncated = 0;
+  int early_truncated = 0;
+  int uses_incomplete = 0;
+  int prefers_incomplete = 0;
+  int final_count = 0;
+  int early_count = 0;
+  int consensus_complete = 0;
+  size_t consensus_bytes = 0;
+  size_t consensus_raw = 0;
+  int visible_consensus = 0;
+  assert(std::sscanf(output, "%d %d %d %d %d %d %d %zu %zu %d",
+                     &truncated, &early_truncated, &uses_incomplete,
+                     &prefers_incomplete, &final_count, &early_count,
+                     &consensus_complete, &consensus_bytes, &consensus_raw,
+                     &visible_consensus) == 10);
+  assert(truncated == 1);
+  assert(consensus_complete == 0);
+  assert(visible_consensus == 1);
+  tiger_engine_free(handle);
+}
+
+void expect_invalid_input_clears_incremental_state() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_incremental_phrase_lexicon();
+  const pid_t child = fork();
+  assert(child >= 0);
+  if (child == 0) {
+    char error[512] = {};
+    const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                           error, sizeof(error));
+    if (handle < 0) _exit(2);
+    char output[8192] = {};
+    double elapsed = 0;
+    // Move from a valid composition through numeric/empty input and then
+    // back to letters.  None of the invalid raws may leave a reusable state
+    // frontier behind.
+    if (tiger_decode(handle, "ab", 1, output, sizeof(output), &elapsed) < 0)
+      _exit(3);
+    if (tiger_decode(handle, "", 1, output, sizeof(output), &elapsed) < 0)
+      _exit(4);
+    if (tiger_decode(handle, "33", 1, output, sizeof(output), &elapsed) < 0)
+      _exit(5);
+    // "33cd" has no valid path because the numeric prefix is not a code.  A
+    // stale bucket from "ab" would incorrectly produce the "丁" continuation.
+    const int count = tiger_decode(handle, "33cd", 1, output, sizeof(output), &elapsed);
+    if (count != 0 || std::strstr(output, "甲") != nullptr)
+      _exit(6);
+    tiger_engine_free(handle);
+    _exit(0);
+  }
+  int status = 0;
+  assert(waitpid(child, &status, 0) == child);
+  assert(WIFEXITED(status));
+  assert(WEXITSTATUS(status) == 0);
+}
+
+void expect_include_early_is_part_of_decode_cache_identity() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_incremental_phrase_lexicon();
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                         error, sizeof(error));
+  assert(handle >= 0);
+  char output[8192] = {};
+  double elapsed = 0;
+  assert(tiger_decode(handle, "abc", 1, output, sizeof(output), &elapsed) >= 0);
+  int truncated = 0;
+  int early_truncated = 0;
+  int uses_incomplete = 0;
+  int prefers_incomplete = 0;
+  int final_count = 0;
+  int early_count = 0;
+  assert(std::sscanf(output, "%d %d %d %d %d %d", &truncated, &early_truncated,
+                     &uses_incomplete, &prefers_incomplete, &final_count,
+                     &early_count) == 6);
+  assert(early_count > 0);
+
+  // The same normalized raw with early disabled must not reuse the previous
+  // result or expose its incomplete candidates.
+  assert(tiger_decode(handle, "abc", 0, output, sizeof(output), &elapsed) >= 0);
+  assert(std::sscanf(output, "%d %d %d %d %d %d", &truncated, &early_truncated,
+                     &uses_incomplete, &prefers_incomplete, &final_count,
+                     &early_count) == 6);
+  assert(early_count == 0 && uses_incomplete == 0);
+  tiger_engine_free(handle);
+}
+
+void expect_final_candidates_include_pathmaps() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_sentence_segmentation_lexicon();
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                         error, sizeof(error));
+  assert(handle >= 0);
+  char output[8192] = {};
+  assert(tiger_decode_full(handle, "mjh", 0, output, sizeof(output)) >= 1);
+  const char* line_start = std::strchr(output, '\n');
+  assert(line_start != nullptr && line_start[1] != '\0');
+  ++line_start;
+  const char* line_end = std::strchr(line_start, '\n');
+  assert(line_end != nullptr);
+  int tabs = 0;
+  const char* fifth_tab = nullptr;
+  const char* sixth_tab = nullptr;
+  for (const char* cursor = line_start; cursor < line_end; ++cursor) {
+    if (*cursor == '\t') {
+      ++tabs;
+      if (tabs == 5) fifth_tab = cursor;
+      if (tabs == 6) sixth_tab = cursor;
+    }
+  }
+  // 行格式：text/segmented/score/conf/max_rank/pathmap/personal/learning
+  // （末列学习污染标记，0/1；虎整 learning_affected 对应物）。
+  assert(tabs == 7 && fifth_tab != nullptr && sixth_tab != nullptr);
+  assert(fifth_tab + 1 < line_end && fifth_tab[1] != '\t');
+  assert(sixth_tab + 1 < line_end &&
+         (sixth_tab[1] == '0' || sixth_tab[1] == '1'));
+  assert(line_end - 1 > sixth_tab + 1 &&
+         (line_end[-1] == '0' || line_end[-1] == '1'));
+  tiger_engine_free(handle);
+}
+
+std::string write_personal_overlay_lexicon() {
+  const std::string path = "/tmp/mohu-tiger-safety-" + std::to_string(getpid()) +
+                           "-personal-overlay.txt";
+  std::ofstream stream(path, std::ios::trunc);
+  assert(stream);
+  stream << "ab\t甲\t1\t1\n";
+  stream << "cd\t丁\t1\t1\n";
+  stream << "ef\t戊\t1\t1\n";
+  // 二字组合终态的词条可见性行（方案 A 门控；zz 为占位码）——覆盖
+  // 甲丁/丁戊/戊甲 及逆序，各安全用例的静态组合在个人词快照变化后
+  // 仍需可见。
+  stream << "zz\t甲丁\t1\t1\n";
+  stream << "zz\t丁戊\t1\t1\n";
+  stream << "zz\t戊甲\t1\t1\n";
+  stream << "zz\t丁甲\t1\t1\n";
+  stream << "zz\t戊丁\t1\t1\n";
+  stream << "zz\t甲戊\t1\t1\n";
+  assert(stream);
+  return path;
+}
+
+void expect_static_decode_isolates_learning_and_personal_edges() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_personal_overlay_lexicon();
+  {
+    std::ofstream stream(lexicon_path, std::ios::app);
+    assert(stream);
+    stream << "abcd\t甲丁\t1\t1\n";
+    assert(stream);
+  }
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                         error, sizeof(error));
+  assert(handle >= 0);
+  assert(tiger_engine_set_user_model_weight(handle, 0.5) == 1);
+  // Check the injected OOV and composed sentence before the boosted whole hit,
+  // so each isolation failure identifies the specific path that leaked.
+  const char* raws[] = {"cdef", "abcdef", "abcd"};
+  std::string baseline[3];
+  char output[8192] = {};
+  double elapsed = -1;
+  for (int index = 0; index < 3; ++index) {
+    assert(tiger_decode_static(handle, raws[index], output, sizeof(output), &elapsed) == 1);
+    baseline[index] = output;
+    assert(tiger_decode(handle, raws[index], 0, output, sizeof(output), &elapsed) == 1);
+    assert(baseline[index] == output);
+  }
+
+  // Learning must have an observable effect in the ordinary path; otherwise
+  // equality with the no-learning static baseline would be a vacuous check.
+  for (int repeat = 0; repeat < 8; ++repeat)
+    assert(tiger_engine_update_user_model(handle, "甲丁戊") == 1);
+  assert(tiger_decode(handle, "abcdef", 0, output, sizeof(output), &elapsed) == 1);
+  assert(baseline[1] != output);
+  for (int index = 0; index < 3; ++index) {
+    assert(tiger_decode_static(handle, raws[index], output, sizeof(output), &elapsed) == 1);
+    assert(baseline[index] == output);
+  }
+
+  // Cover both a static entry whose boost/preedit fields were changed and an
+  // OOV edge that is present only because adjust_personal injected it.
+  assert(tiger_engine_adjust_personal(handle, "abcd", "甲丁", 8) == 1);
+  assert(tiger_engine_adjust_personal(handle, "cdef", "丙丁", 8) == 1);
+  assert(tiger_decode(handle, "cdef", 0, output, sizeof(output), &elapsed) == 2);
+  assert(std::strstr(output, "\n丙丁\t") != nullptr);
+
+  size_t snapshot_size = 0;
+  char* snapshot = tiger_engine_user_model_export(handle, &snapshot_size);
+  assert(snapshot != nullptr && snapshot_size > 0);
+  const std::string user_before(snapshot, snapshot_size);
+  std::free(snapshot);
+  for (int index = 0; index < 3; ++index) {
+    char before[8192] = {};
+    char after[8192] = {};
+    const int count = tiger_decode(handle, raws[index], 0, before, sizeof(before), &elapsed);
+    assert(count >= 1);
+    // The same raw exercises result-cache isolation; another raw exercises
+    // workspace restoration before extending/backspacing the live composition.
+    assert(tiger_decode_static(handle, raws[index], output, sizeof(output), &elapsed) == 1);
+    if (baseline[index] != output)
+      std::fprintf(stderr, "static decode changed after personal learning for %s\nbefore:\n%safter:\n%s",
+                   raws[index], baseline[index].c_str(), output);
+    assert(baseline[index] == output);
+    assert(std::strstr(output, "丙丁") == nullptr);
+    assert(tiger_decode_static(handle, "ab", output, sizeof(output), &elapsed) == 1);
+    assert(tiger_decode(handle, raws[index], 0, after, sizeof(after), &elapsed) == count);
+    assert(std::strcmp(before, after) == 0);
+    // A cache hit alone could hide a leaked static flag or discarded overlay.
+    assert(tiger_decode_full(handle, raws[index], 0, after, sizeof(after)) == count);
+    assert(std::strcmp(before, after) == 0);
+  }
+  snapshot = tiger_engine_user_model_export(handle, &snapshot_size);
+  assert(snapshot != nullptr);
+  assert(user_before == std::string(snapshot, snapshot_size));
+  std::free(snapshot);
+  tiger_engine_free(handle);
+}
+
+void expect_static_decode_rejects_exact_personal_tail() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_personal_overlay_lexicon();
+  {
+    std::ofstream stream(lexicon_path, std::ios::app);
+    stream << "ghijkl\t戊\t1\t1\n";
+    assert(stream);
+  }
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(),
+                                         200, 1, error, sizeof(error));
+  assert(handle >= 0);
+  assert(tiger_engine_adjust_personal(handle, "ghij", "丙丁", 1) == 1);
+  char output[8192] = {};
+  double elapsed = 0;
+  assert(tiger_decode_static(handle, "abghij", output, sizeof(output), &elapsed) == 0);
+  int truncated, early_truncated, uses_incomplete, prefers_incomplete, finals, early;
+  assert(std::sscanf(output, "%d %d %d %d %d %d", &truncated, &early_truncated,
+                     &uses_incomplete, &prefers_incomplete, &finals, &early) == 6);
+  assert(uses_incomplete == 0 && early == 0);
+  tiger_engine_free(handle);
+}
+
+void expect_personal_overlay_replacement_and_internal_edges() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_personal_overlay_lexicon();
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                         error, sizeof(error));
+  assert(handle >= 0);
+
+  char output[8192] = {};
+  assert(tiger_engine_set_personal_lexicon(handle, "abcd\t甲乙\t8\n") == 0);
+  assert(tiger_decode_full(handle, "abcd", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲乙") != nullptr);
+
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "abcdef", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲乙") != nullptr);
+
+  // Replacing the snapshot with an empty payload must remove the old edge and
+  // invalidate any cached result built with the previous overlay.
+  assert(tiger_engine_set_personal_lexicon(handle, "") == 0);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "abcd", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲乙") == nullptr);
+
+  // Malformed rows are ignored without making a valid snapshot update fail.
+  assert(tiger_engine_set_personal_lexicon(handle,
+                                           "odd\trow\t1\nxy\t坏\\xff\t2\n") == 0);
+  assert(tiger_engine_set_personal_lexicon(handle, nullptr) < 0);
+  tiger_engine_free(handle);
+  assert(tiger_engine_set_personal_lexicon(handle, "abcd\t甲乙\t1\n") < 0);
+}
+
+void expect_personal_overlay_large_payload_is_accepted() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_single_candidate_lexicon();
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                         error, sizeof(error));
+  assert(handle >= 0);
+  std::string large_payload;
+  for (int index = 0; index < 6000; ++index) {
+    std::string text;
+    for (int repeat = 0; repeat < 62; ++repeat) text += "\xe7\x94\xb2";
+    text += std::to_string(index);
+    large_payload += "abcd\t" + text + "\t1\n";
+  }
+  assert(large_payload.size() > (1u << 20));
+  assert(tiger_engine_set_personal_lexicon(handle, large_payload.c_str()) == 0);
+  tiger_engine_free(handle);
+}
+
+void expect_personal_preedit_has_verified_syllable_boundaries() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_personal_overlay_lexicon();
+  {
+    std::ofstream stream(lexicon_path, std::ios::app);
+    stream << "abcd\t甲丁\t1\t1\n";
+  }
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(),
+                                         200, 1, error, sizeof(error));
+  assert(handle >= 0);
+  char output[8192] = {};
+
+  assert(tiger_engine_set_personal_lexicon(handle, "abcd\t甲丁\t8\n") == 0);
+  assert(tiger_decode_full(handle, "abcd", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲丁\tab cd\t") != nullptr);
+  assert(tiger_decode_full(handle, "abcdef", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲丁戊\tab cd ef\t") != nullptr);
+  // personal 行随行带学习污染标记（第 8 列 = 1）。
+  assert(std::strstr(output, "6:4,9:6\t1\t1\n") != nullptr);
+  assert(tiger_decode_full(handle, "abcd1", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲丁\tab cd1\t") != nullptr);
+
+  assert(tiger_engine_set_personal_lexicon(handle, "") == 0);
+  assert(tiger_decode_full(handle, "abcd", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲丁\tabcd\t") != nullptr);
+  assert(tiger_engine_adjust_personal(handle, "abcdef", "甲丁戊", 1) == 1);
+  assert(tiger_decode_full(handle, "abcdef", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲丁戊\tab cd ef\t") != nullptr);
+
+  assert(tiger_engine_set_personal_lexicon(handle, "abcdef\t甲乙戊\t8\n") == 0);
+  assert(tiger_decode_full(handle, "abcdef", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲乙戊\tabcdef\t") != nullptr);
+  assert(tiger_engine_set_personal_lexicon(handle, "abcd\t甲丁戊\t8\n") == 0);
+  assert(tiger_decode_full(handle, "abcd", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲丁戊\tabcd\t") != nullptr);
+  tiger_engine_free(handle);
+}
+
+void expect_personal_edge_deltas_are_immediate() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_personal_overlay_lexicon();
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                         error, sizeof(error));
+  assert(handle >= 0);
+  char output[8192] = {};
+
+  assert(tiger_engine_adjust_personal(handle, "jmkyfu", "简快符", 1) == 1);
+  assert(tiger_engine_adjust_personal(handle, "jmkyfu", "简快符", 1) == 1);
+  assert(tiger_decode_full(handle, "jmkyfu", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "简快符") != nullptr);
+
+  tiger_engine_free(handle);
+}
+
+// 增量刷新路径：无增长 no-op、纯增长、频次变化、收缩回退全量重建，
+// 各状态下解码行为都必须与整表替换语义一致。
+void expect_personal_incremental_refresh_paths() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_personal_overlay_lexicon();
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                         error, sizeof(error));
+  assert(handle >= 0);
+  char output[8192] = {};
+
+  // 基础应用：个人词甲乙可作为完整输入命中。
+  assert(tiger_engine_set_personal_lexicon(handle, "abcd\t甲乙\t8\n") == 0);
+  assert(tiger_decode_full(handle, "abcd", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲乙") != nullptr);
+
+  // 无增长不刷新：相同负载重复应用，行为不得回退。
+  assert(tiger_engine_set_personal_lexicon(handle, "abcd\t甲乙\t8\n") == 0);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "abcd", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲乙") != nullptr);
+
+  // 纯增长：追加个人词丙丁后，新旧词同时可用。
+  assert(tiger_engine_set_personal_lexicon(handle,
+                                           "abcd\t甲乙\t8\ncdef\t丙丁\t5\n") == 0);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "abcd", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲乙") != nullptr);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "cdef", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "丙丁") != nullptr);
+
+  // 频次变化：commits 提升只更新 boost，词仍然可解。
+  assert(tiger_engine_set_personal_lexicon(handle,
+                                           "abcd\t甲乙\t20\ncdef\t丙丁\t5\n") == 0);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "abcd", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲乙") != nullptr);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "cdef", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "丙丁") != nullptr);
+
+  // 收缩：移除丙丁必须回退全量重建，其边消失而甲乙保留。
+  assert(tiger_engine_set_personal_lexicon(handle, "abcd\t甲乙\t20\n") == 0);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "cdef", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "丙丁") == nullptr);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "abcd", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲乙") != nullptr);
+
+  tiger_engine_free(handle);
+}
+
+// 行数上限截断不得被误判为「用户删词」：由 adjust_personal 在两次快照之间
+// 即时注入、从未出现在任何负载里的键，在下一次负载仍不含它时不得触发整表
+// 重建，其词边必须保留；而曾经出现在负载里的键消失，仍必须回退重建。
+void expect_personal_truncation_does_not_force_rebuild() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_personal_overlay_lexicon();
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                         error, sizeof(error));
+  assert(handle >= 0);
+  char output[8192] = {};
+
+  // 负载只含「甲乙」，模拟 personal_lexicon_max_rows 把其余词截断在头部之外。
+  assert(tiger_engine_set_personal_lexicon(handle, "abcd\t甲乙\t8\n") == 0);
+  assert(tiger_decode_full(handle, "abcd", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲乙") != nullptr);
+
+  // 上屏即时注入一个不在负载里的新词（提交次数 1，排不进头部）。
+  assert(tiger_engine_adjust_personal(handle, "cdef", "丙丁", 1) == 1);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "cdef", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "丙丁") != nullptr);
+
+  // 下一轮负载依旧不含它（被截断）：这是「不在负载里」，不是「被删掉」，
+  // 绝不能整表重建——重建会抹掉这条即时词边。
+  assert(tiger_engine_set_personal_lexicon(handle, "abcd\t甲乙\t9\n") == 0);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "cdef", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "丙丁") != nullptr);
+
+  // 对照：曾经出现在负载里的键消失，必须照旧回退重建（甲乙消失）。
+  assert(tiger_engine_set_personal_lexicon(handle, "") == 0);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "abcd", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲乙") == nullptr);
+
+  tiger_engine_free(handle);
+}
+
+// 真删词走外科式撤销：静态命中复位、纯个人条目擦除、码长/前缀引用计数
+// 归还之后，引擎必须与「从未见过被删词」的新引擎逐字节一致——这正是旧
+// 「底稿深拷贝 + 重放」路径的语义。丙丁（4 键）与静态码共享前缀，甲乙丁
+// （6 键）引入全新码长；cdabc/efabcd 的续写尾探测依赖 proper_prefixes，
+// 撤销残留即分叉。
+void expect_personal_surgical_undo_matches_fresh_rebuild() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_personal_overlay_lexicon();
+  char error[512] = {};
+  const int undone = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(),
+                                         200, 1, error, sizeof(error));
+  const int fresh = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(),
+                                        200, 1, error, sizeof(error));
+  assert(undone >= 0 && fresh >= 0);
+
+  assert(tiger_engine_set_personal_lexicon(
+             undone, "cdef\t丙丁\t8\nabcdef\t甲乙丁\t9\n") == 0);
+  assert(tiger_engine_set_personal_lexicon(undone, "cdef\t丙丁\t8\n") == 0);
+  assert(tiger_engine_set_personal_lexicon(fresh, "cdef\t丙丁\t8\n") == 0);
+
+  char undone_output[8192] = {};
+  char fresh_output[8192] = {};
+  double elapsed = 0;
+  for (const char* raw : {"cdef", "abcdef", "abcd", "ab", "cd", "ef"}) {
+    assert(tiger_decode_full(undone, raw, 0, undone_output,
+                             sizeof(undone_output)) >= 0);
+    assert(tiger_decode_full(fresh, raw, 0, fresh_output,
+                             sizeof(fresh_output)) >= 0);
+    assert(std::strcmp(undone_output, fresh_output) == 0);
+  }
+  for (const char* raw : {"cdabc", "efabcd", "abc"}) {
+    assert(tiger_decode(undone, raw, 1, undone_output,
+                        sizeof(undone_output), &elapsed) >= 0);
+    assert(tiger_decode(fresh, raw, 1, fresh_output,
+                        sizeof(fresh_output), &elapsed) >= 0);
+    assert(std::strcmp(undone_output, fresh_output) == 0);
+  }
+  std::memset(undone_output, 0, sizeof(undone_output));
+  assert(tiger_decode_full(undone, "abcdef", 0, undone_output,
+                           sizeof(undone_output)) >= 1);
+  assert(std::strstr(undone_output, "甲乙丁") == nullptr);
+
+  // 删而复加：同一键重新应用后词边恢复。
+  assert(tiger_engine_set_personal_lexicon(
+             undone, "cdef\t丙丁\t8\nabcdef\t甲乙丁\t9\n") == 0);
+  std::memset(undone_output, 0, sizeof(undone_output));
+  assert(tiger_decode_full(undone, "abcdef", 0, undone_output,
+                           sizeof(undone_output)) >= 1);
+  assert(std::strstr(undone_output, "甲乙丁") != nullptr);
+
+  tiger_engine_free(undone);
+  tiger_engine_free(fresh);
+}
+
+// 静态命中的个人词删词后必须完整复位 personal/personal_boost/
+// personal_full_syllables 三字段（rank/text/chars 从未被覆盖层改写），
+// 与从未污染的静态引擎逐字节一致。static_keys 判错的方向是把静态条目
+// 整条 erase——甲丁必须仍在候选里。
+void expect_personal_static_hit_undo_resets_fields() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_personal_overlay_lexicon();
+  {
+    std::ofstream stream(lexicon_path, std::ios::app);
+    stream << "abcd\t甲丁\t1\t1\n";
+  }
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(),
+                                         200, 1, error, sizeof(error));
+  const int pristine = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(),
+                                           200, 1, error, sizeof(error));
+  assert(handle >= 0 && pristine >= 0);
+
+  assert(tiger_engine_set_personal_lexicon(handle, "abcd\t甲丁\t8\n") == 0);
+  assert(tiger_engine_set_personal_lexicon(handle, "") == 0);
+
+  char undone_output[8192] = {};
+  char pristine_output[8192] = {};
+  for (const char* raw : {"abcd", "abcdef", "ab"}) {
+    assert(tiger_decode_full(handle, raw, 0, undone_output,
+                             sizeof(undone_output)) >= 0);
+    assert(tiger_decode_full(pristine, raw, 0, pristine_output,
+                            sizeof(pristine_output)) >= 0);
+    assert(std::strcmp(undone_output, pristine_output) == 0);
+  }
+  // 静态条目必须整条仍在（static_keys 判错的代价是整条 erase）。
+  std::memset(undone_output, 0, sizeof(undone_output));
+  assert(tiger_decode_full(handle, "abcd", 0, undone_output,
+                           sizeof(undone_output)) >= 1);
+  assert(std::strstr(undone_output, "甲丁") != nullptr);
+
+  tiger_engine_free(handle);
+  tiger_engine_free(pristine);
+}
+
+// adjust_personal 即时注入、从未进入负载的词边，在其他键真删词的刷新后
+// 必须保留：外科撤销只动消失的键。旧「整表重建」分支会把非负载个人词
+// 一并抹掉——那只是重建手法的副作用，不是期望语义。注入词随后进入负载
+// 再消失，仍必须被正常撤销。戊乙选不可静态组合的文本，出现/消失即判据。
+void expect_personal_undo_keeps_adjust_injected_edges() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_personal_overlay_lexicon();
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(),
+                                         200, 1, error, sizeof(error));
+  assert(handle >= 0);
+  char output[8192] = {};
+
+  assert(tiger_engine_set_personal_lexicon(
+             handle, "abcd\t甲乙\t8\ncdef\t丙丁\t5\n") == 0);
+  assert(tiger_engine_adjust_personal(handle, "efab", "戊乙", 3) == 1);
+
+  // 丙丁真删词；戊乙从未进入负载，必须存活。
+  assert(tiger_engine_set_personal_lexicon(handle, "abcd\t甲乙\t8\n") == 0);
+  assert(tiger_decode_full(handle, "efab", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "戊乙") != nullptr);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "cdef", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "丙丁") == nullptr);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "abcd", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲乙") != nullptr);
+
+  // 注入词进入负载后再消失：构成真删词，必须被撤销。
+  assert(tiger_engine_set_personal_lexicon(
+             handle, "abcd\t甲乙\t8\nefab\t戊乙\t3\n") == 0);
+  assert(tiger_engine_set_personal_lexicon(handle, "abcd\t甲乙\t8\n") == 0);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "efab", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "戊乙") == nullptr);
+
+  tiger_engine_free(handle);
+}
+
+// 分片事务协议：与整体路径等价、事务中解码用旧快照、abort 回退、
+// 半行块拒绝、缺 begin 拒绝、事务收缩、no-op 提交。
+void expect_personal_transaction_paths() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_personal_overlay_lexicon();
+  char error[512] = {};
+  const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                         error, sizeof(error));
+  assert(handle >= 0);
+  char output[8192] = {};
+
+  // 无事务时 append/commit 必须失败。
+  assert(tiger_engine_personal_append(handle, "abcd\t甲乙\t8\n") == -1);
+  assert(tiger_engine_personal_commit(handle) == -1);
+
+  // 半行块（不以换行结尾）必须被拒绝，且不破坏后续正确块。
+  assert(tiger_engine_personal_begin(handle) == 0);
+  assert(tiger_engine_personal_append(handle, "abcd\t甲乙\t8") == -1);
+  assert(tiger_engine_personal_append(handle, "abcd\t甲乙\t8\ncdef\t丙丁\t5\n") == 0);
+
+  // 事务提交前解码必须仍用旧快照：甲乙/丙丁都不可见。
+  assert(tiger_decode_full(handle, "abcd", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲乙") == nullptr);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "cdef", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "丙丁") == nullptr);
+
+  // commit 后两个个人词同时可用（与整体路径语义一致）。
+  assert(tiger_engine_personal_commit(handle) == 0);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "abcd", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲乙") != nullptr);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "cdef", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "丙丁") != nullptr);
+
+  // no-op 提交：同样的行集再走一遍事务，行为不变。
+  assert(tiger_engine_personal_begin(handle) == 0);
+  assert(tiger_engine_personal_append(handle, "abcd\t甲乙\t8\ncdef\t丙丁\t5\n") == 0);
+  assert(tiger_engine_personal_commit(handle) == 0);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "abcd", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲乙") != nullptr);
+
+  // abort 回退：喂入但放弃，新词不出现（cdef 静态可分解为 丁戊）。
+  assert(tiger_engine_personal_begin(handle) == 0);
+  assert(tiger_engine_personal_append(handle, "cdef\t新词\t9\n") == 0);
+  assert(tiger_engine_personal_abort(handle) == 0);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "cdef", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "新词") == nullptr);
+
+  // 事务收缩：只保留甲乙，丙丁的边必须消失。
+  assert(tiger_engine_personal_begin(handle) == 0);
+  assert(tiger_engine_personal_append(handle, "abcd\t甲乙\t8\n") == 0);
+  assert(tiger_engine_personal_commit(handle) == 0);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "cdef", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "丙丁") == nullptr);
+  std::memset(output, 0, sizeof(output));
+  assert(tiger_decode_full(handle, "abcd", 0, output, sizeof(output)) >= 1);
+  assert(std::strstr(output, "甲乙") != nullptr);
+
+  tiger_engine_free(handle);
+  // stale handle 上的全部事务调用必须失败。
+  assert(tiger_engine_personal_begin(handle) == -1);
+  assert(tiger_engine_personal_append(handle, "abcd\t甲乙\t8\n") == -1);
+  assert(tiger_engine_personal_commit(handle) == -1);
+  assert(tiger_engine_personal_abort(handle) == -1);
+}
+
+void expect_stale_engine_handles_are_rejected() {
+  const std::string model_path = write_many_candidate_model();
+  const std::string lexicon_path = write_single_candidate_lexicon();
+  char error[512] = {};
+  const int first = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                        error, sizeof(error));
+  assert(first >= 0);
+  tiger_engine_free(first);
+  const int second = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                         error, sizeof(error));
+  assert(second != first);
+  char output[4096] = {};
+  double elapsed = 0;
+  assert(tiger_decode(first, "a", 0, output, sizeof(output), &elapsed) < 0);
+  assert(tiger_engine_set_personal_lexicon(first, "ab\t甲乙\t1\n") < 0);
+  tiger_engine_free(second);
+}
+
+void expect_null_api_rejected() {
+  const std::string model_path = write_file("-null-api.bin", {
+      'T', 'C', 'S', 'K', 'N', 'M', '0', '1',
+      1, 0, 0, 0, 1, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0,
+  });
+  const std::string lexicon_path = write_file("-null-api.txt", {'a', '\t', 0xe7, 0x94, 0xb2, '\n'});
+  const pid_t child = fork();
+  assert(child >= 0);
+  if (child == 0) {
+    char error[512] = {};
+    if (tiger_engine_create(nullptr, lexicon_path.c_str(), 200, 1, error, sizeof(error)) >= 0)
+      _exit(1);
+    if (tiger_engine_create(model_path.c_str(), nullptr, 200, 1, error, sizeof(error)) >= 0)
+      _exit(1);
+    const int handle = tiger_engine_create(model_path.c_str(), lexicon_path.c_str(), 200, 1,
+                                           error, sizeof(error));
+    if (handle < 0) _exit(2);
+    char output[256] = {};
+    double elapsed = 0;
+    if (tiger_decode(handle, nullptr, 0, output, sizeof(output), &elapsed) >= 0)
+      _exit(1);
+    if (tiger_decode(handle, "a", 0, nullptr, sizeof(output), &elapsed) >= 0)
+      _exit(1);
+    if (tiger_decode_full(handle, nullptr, 0, output, sizeof(output)) >= 0)
+      _exit(1);
+    if (tiger_decode_full(handle, "a", 0, nullptr, sizeof(output)) >= 0)
+      _exit(1);
+    if (tiger_engine_set_personal_lexicon(handle, nullptr) >= 0)
+      _exit(1);
+    if (tiger_engine_adjust_personal(handle, nullptr, "个人", 1) >= 0)
+      _exit(1);
+    if (tiger_engine_adjust_personal(handle, "abcd", nullptr, 1) >= 0)
+      _exit(1);
+    tiger_engine_free(handle);
+    _exit(0);
+  }
+  int status = 0;
+  assert(waitpid(child, &status, 0) == child);
+  assert(WIFEXITED(status));
+  assert(WEXITSTATUS(status) == 0);
+}
+
+
+}  // namespace
+
+int main() {
+  expect_final_output_limit();
+  expect_static_decode_preserves_full_beam_and_order();
+  expect_static_cache_reuse_matches_cold_oracle();
+  expect_static_decode_isolates_learning_and_personal_edges();
+  expect_static_decode_rejects_exact_personal_tail();
+  expect_final_adjustment_is_applied_before_top20_limit();
+  expect_early_output_cap_is_marked_truncated();
+  expect_truncated_output_exposes_safe_consensus_summary();
+  expect_raw_length_rejected();
+  expect_overflowing_lexicon_numbers_use_defaults();
+  expect_nonfinite_model_rejected();
+  expect_mhknm01_loads_and_decodes();
+  expect_malformed_mhknm01_rejected();
+  expect_multi_key_input_rejects_single_key_edges();
+  expect_incremental_extension_matches_full_rebuild();
+  expect_intermediate_prune_propagates_truncation();
+  expect_invalid_input_clears_incremental_state();
+  expect_include_early_is_part_of_decode_cache_identity();
+  expect_final_candidates_include_pathmaps();
+  expect_personal_overlay_replacement_and_internal_edges();
+  expect_personal_preedit_has_verified_syllable_boundaries();
+  expect_personal_overlay_large_payload_is_accepted();
+  expect_personal_edge_deltas_are_immediate();
+  expect_personal_incremental_refresh_paths();
+  expect_personal_truncation_does_not_force_rebuild();
+  expect_personal_surgical_undo_matches_fresh_rebuild();
+  expect_personal_static_hit_undo_resets_fields();
+  expect_personal_undo_keeps_adjust_injected_edges();
+  expect_personal_transaction_paths();
+  expect_stale_engine_handles_are_rejected();
+  expect_null_api_rejected();
+
+  // Legacy: a negative unigram count previously wrapped to a huge size_t.
+  std::vector<uint8_t> negative_count(64, 0);
+  std::memcpy(negative_count.data(), "TCSKNM01", 8);
+  put_u32(&negative_count, 8, 1);
+  put_u32(&negative_count, 12, UINT32_MAX);
+  expect_create_rejects_without_signal(negative_count, "legacy-negative-count");
+
+  // Mobile: a formally ordered but out-of-file unigram offset must be rejected.
+  std::vector<uint8_t> bad_offset(104, 0);
+  std::memcpy(bad_offset.data(), "TCSKNM02", 8);
+  put_u32(&bad_offset, 8, 1);       // version
+  put_u32(&bad_offset, 12, 104);    // header size
+  put_u64(&bad_offset, 16, bad_offset.size());
+  put_u32(&bad_offset, 24, 64);     // index stride
+  put_u32(&bad_offset, 32, 1);       // unigram count
+  put_u32(&bad_offset, 40, 4096);    // unigram offset outside file
+  put_u32(&bad_offset, 44, 0);       // reserved/alignment
+  put_u32(&bad_offset, 48, 0);       // bi context count
+  put_u32(&bad_offset, 52, 0);       // bi index count
+  put_u64(&bad_offset, 56, 64);      // bi blocks
+  put_u64(&bad_offset, 64, 64);      // bi index
+  put_u32(&bad_offset, 72, 0);       // tri context count
+  put_u32(&bad_offset, 80, 0);       // tri index count
+  put_u64(&bad_offset, 84, 80);      // tri blocks
+  put_u64(&bad_offset, 92, 96);      // tri index
+  expect_create_rejects_without_signal(bad_offset, "mobile-bad-offset");
+
+  // Mobile: a page successor count that runs past the block section is rejected at create time.
+  std::vector<uint8_t> bad_successor(256, 0);
+  std::memcpy(bad_successor.data(), "TCSKNM02", 8);
+  put_u32(&bad_successor, 8, 1);
+  put_u32(&bad_successor, 12, 104);
+  put_u64(&bad_successor, 16, bad_successor.size());
+  put_u32(&bad_successor, 24, 64);
+  put_u32(&bad_successor, 32, 1);
+  put_u32(&bad_successor, 40, 104);
+  put_u32(&bad_successor, 48, 1);
+  put_u32(&bad_successor, 52, 1);
+  put_u64(&bad_successor, 56, 120);
+  put_u64(&bad_successor, 64, 152);
+  put_u32(&bad_successor, 72, 0);
+  put_u32(&bad_successor, 80, 0);
+  put_u64(&bad_successor, 88, 168);
+  put_u64(&bad_successor, 96, 208);
+  put_u64(&bad_successor, 104, 1);  // unigram key/logp bytes
+  put_u64(&bad_successor, 120, 0);  // context key
+  put_u32(&bad_successor, 128, 0);  // lambda bits
+  put_u32(&bad_successor, 132, UINT32_MAX);
+  put_u64(&bad_successor, 152, 0);  // index key
+  put_u64(&bad_successor, 160, 120);  // page offset
+  expect_mobile_bad_successor_modes(bad_successor, "mobile-bad-successor");
+
+  std::puts("tigerengine safety tests passed");
+  return 0;
+}

@@ -1,0 +1,189 @@
+schema: mohu_flypy
+source_dir: ../dist-flypy
+script: |
+  function eq(left, right)
+    print('Left  = ' .. tostring(left))
+    print('Right = ' .. tostring(right))
+    return left == right
+  end
+
+  function has_text(candidates, text)
+    for _, candidate in ipairs(candidates) do
+      if candidate.text == text then return true end
+    end
+    return false
+  end
+
+  function text_index(candidates, text)
+    for index, candidate in ipairs(candidates) do
+      if candidate.text == text then return index end
+    end
+    return nil
+  end
+
+deploy:
+  curated_short_codes_multi:
+    patch:
+      switches/@4/reset: 1
+    tests:
+      - send: tz
+        assert: cand[1].text == '头' and cand[2].text == '投资' and cand[2].comment == '⚡️'
+      - send: hd
+        assert: cand[1].text == '还' and cand[2].text == '很多' and cand[2].comment == '⚡️' and cand[3].text == '回答' and cand[3].comment == '⚡️'
+      - send: gs
+        assert: cand[1].text == '共' and cand[2].text == '公司' and cand[2].comment == '⚡️'
+      - send: zh
+        assert: cand[1].text == '脏' and cand[2].text == '最后' and cand[2].comment == '⚡️'
+      - send: tg
+        assert: cand[1].text == '疼' and cand[2].text == '通过' and cand[2].comment == '⚡️'
+      - send: dj
+        assert: cand[1].text == '但' and cand[2].text == '大家' and cand[2].comment == '⚡️'
+      - send: ku
+        assert: cand[1].text == '哭' and cand[2].text == '开始' and cand[2].comment == '⚡️'
+      - send: gz
+        assert: cand[1].text == '够' and cand[2].text == '工作' and cand[2].comment == '⚡️'
+      - send: lu
+        assert: cand[1].text == '路' and cand[2].text == '老师' and cand[2].comment == '⚡️'
+      - send: cw
+        assert: cand[1].text == '错误' and cand[1].comment == '⚡️' and has_text(cand, '𤭢')
+      - send: ix
+        assert: cand[1].text == '出现' and cand[1].comment == '⚡️' and has_text(cand, '欻')
+      - send: rx
+        assert: cand[1].text == '如下' and cand[1].comment == '⚡️' and has_text(cand, '挼')
+      - send: df
+        assert: cand[1].text == '地方' and cand[1].comment == '⚡️' and has_text(cand, '扽')
+      - send: bl
+        assert: cand[1].text == '本来' and cand[1].comment == '⚡️' and has_text(cand, '𰻝')
+      - send: cwz
+        assert: cand[1].text == '𤭢' and cand[1].comment == '⚡️'
+      - send: ixc
+        assert: cand[1].text == '欻' and cand[1].comment == '⚡️'
+      - send: rxu
+        assert: cand[1].text == '挼' and cand[1].comment == '⚡️'
+      - send: dfu
+        assert: cand[1].text == '扽' and cand[1].comment == '⚡️'
+      - send: ble
+        assert: cand[1].text == '𰻝' and cand[1].comment == '⚡️'
+
+  curated_short_codes_unique:
+    patch:
+      switches/@4/reset: 1
+      switches/@10/reset: 1
+    tests:
+      - send: tz
+        assert: cand[1].text == '头' and cand[2].text == '投资' and cand[2].comment == '⚡️'
+      - send: hd
+        assert: cand[1].text == '还' and cand[2].text == '很多' and cand[2].comment == '⚡️' and cand[3].text == '回答' and cand[3].comment == '⚡️'
+      - send: gs
+        assert: cand[1].text == '共' and cand[2].text == '公司' and cand[2].comment == '⚡️'
+      - send: zh
+        assert: cand[1].text == '脏' and cand[2].text == '最后' and cand[2].comment == '⚡️'
+      - send: tg
+        assert: cand[1].text == '疼' and cand[2].text == '通过' and cand[2].comment == '⚡️'
+      - send: dj
+        assert: cand[1].text == '但' and cand[2].text == '大家' and cand[2].comment == '⚡️'
+      - send: ku
+        assert: cand[1].text == '哭' and cand[2].text == '开始' and cand[2].comment == '⚡️'
+      - send: gz
+        assert: cand[1].text == '够' and cand[2].text == '工作' and cand[2].comment == '⚡️'
+      - send: lu
+        assert: cand[1].text == '路' and cand[2].text == '老师' and cand[2].comment == '⚡️'
+      - send: cw
+        assert: cand[1].text == '错误' and cand[1].comment == '⚡️' and has_text(cand, '𤭢')
+      - send: ix
+        assert: cand[1].text == '出现' and cand[1].comment == '⚡️' and has_text(cand, '欻')
+      - send: rx
+        assert: cand[1].text == '如下' and cand[1].comment == '⚡️' and has_text(cand, '挼')
+      - send: df
+        assert: cand[1].text == '地方' and cand[1].comment == '⚡️' and has_text(cand, '扽')
+      - send: bl
+        assert: cand[1].text == '本来' and cand[1].comment == '⚡️' and has_text(cand, '𰻝')
+      - send: cwz
+        assert: cand[1].text == '𤭢' and cand[1].comment == '⚡️'
+      - send: ixc
+        assert: cand[1].text == '欻' and cand[1].comment == '⚡️'
+      - send: rxu
+        assert: cand[1].text == '挼' and cand[1].comment == '⚡️'
+      - send: dfu
+        assert: cand[1].text == '扽' and cand[1].comment == '⚡️'
+      - send: ble
+        assert: cand[1].text == '𰻝' and cand[1].comment == '⚡️'
+
+  aux_hint_default_off:
+    tests:
+      - send: yzuif
+        assert: cand[1].text == '有事' and cand[1].comment == ''
+
+  aux_hint:
+    patch:
+      switches/@11/reset: 1
+      # 词组辅助码提示依赖词辅开启
+      mohu/enable_word_filter: true
+    tests:
+      - send: yzuif
+        assert: cand[1].text == '有事' and cand[1].comment == 'nf'
+
+  default:
+    tests:
+      - send: nihc
+        assert: has_text(cand, '你好')
+      - send: xnxb
+        assert: has_text(cand, '小心')
+      # 全拼反查：` 或 ohm 引导无声调全拼；注释来自固顶码表（简码+全码辅码）
+      - send: ohmhuo
+        assert: has_text(cand, '火')
+      - send: "`huo"
+        assert: has_text(cand, '火')
+      # 词全拼可查：整句词表+派生棱镜，逐键增量；注释给出小鹤简码打法
+      - send: "`nih"
+        assert: has_text(cand, '你好')
+      - send: "`nihao"
+        assert: has_text(cand, '你好')
+      - send: "`aerbaniya"
+        assert: has_text(cand, '阿尔巴尼亚')
+      - send: yuiv
+        assert: cand[1].text == '予'
+      - send: jmjq
+        assert: cand[1].text == '件'
+      - send: yjhx
+        assert: cand[1].text == '演化' and text_index(cand, '恹') > 1
+      # 飞键：小鹤 xq→xo(xiu)、qx→qo(qia)；qie(qp)/wei(ww) 不设飞键
+      - send: hdxo
+        assert: has_text(cand, '害羞')
+      - send: wwxo
+        assert: has_text(cand, '维修')
+      - send: xoxi
+        assert: has_text(cand, '休息')
+      - send: qohc
+        assert: has_text(cand, '恰好')
+      - send: qo
+        assert: has_text(cand, '恰')
+
+  four_code_word_first:
+    patch:
+      smart/user_dict: mohu_fixed_position_mira_flypy
+    tests:
+      - send: 'nihc'
+        assert: eq(cand[1].text, '你好') and text_index(cand, '怩') > 1
+
+  classics_luoshenfu:
+    tests:
+      - send: xqdrhedu
+        assert: has_text(cand, '修短合度')
+      - send: yyjieeee
+        assert: has_text(cand, '云髻峨峨')
+      - send: xiyiphhl
+        assert: has_text(cand, '徙倚彷徨')
+      - send: qmhxfuyu
+        assert: has_text(cand, '铅华弗御')
+
+  composition_yield:
+    # 小鹤同规则（0.18.0）：vgsh 读音无词、拼装让位给 这个时候；
+    # yybd 读音有词、不换——与自然码 yybd 行为相反，验证方案各自生效。
+    tests:
+      - send: vgsh
+        assert: eq(cand[1].text, '这个时候')
+      - send: yybd
+        assert: not eq(cand[1].text, '源源不断') and has_text(cand, '源源不断')
+
+# yaml-language-server: $schema=https://raw.githubusercontent.com/rimeinn/mira/refs/heads/master/spec/mira.schema.json

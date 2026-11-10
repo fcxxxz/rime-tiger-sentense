@@ -1,0 +1,67 @@
+# Rime default settings
+# encoding: utf-8
+
+config_version: '1.0.mohu'
+
+schema_list:
+  - schema: mohu_zrm
+  - schema: mohu_flypy
+  # 虎码·整句：连续虎码整句（原生引擎），Ctrl+T 切单字顶屏；` 反查。
+  - schema: tiger
+  # 声虎·整句：声母+虎码123位四码定长，同虎整框架（原生引擎）。
+  - schema: shenghu
+  # - schema: luna_pinyin
+  # - schema: luna_pinyin_simp
+  # - schema: luna_pinyin_fluency
+  # - schema: bopomofo
+  # - schema: bopomofo_tw
+  # - schema: cangjie5
+  # - schema: stroke
+  # - schema: terra_pinyin
+
+switcher:
+  caption: 〔方案选单〕
+  hotkeys:
+    - Control+grave
+    - Control+Shift+grave
+    - F4
+  # 开关持久化不走 librime 的 save_options/user.yaml：那会与
+  # lua/option_sync.lua + lua/option_state_data.lua（跨应用同步的唯一来源）
+  # 形成双写，重启恢复时两份状态互相打架。用户状态文件不随包分发。
+  fold_options: true
+  abbreviate_options: true
+  option_list_separator: '／'
+
+menu:
+  page_size: 5
+
+punctuator:
+  full_shape:
+    __include: punctuation:/full_shape
+  half_shape:
+    __include: punctuation:/half_shape
+
+key_binder:
+  bindings:
+    __patch:
+      - key_bindings:/emacs_editing
+      - key_bindings:/move_by_word_with_tab
+      - key_bindings:/paging_with_minus_equal
+      - key_bindings:/numbered_mode_switch
+      # - key_bindings:/paging_with_comma_period
+
+recognizer:
+  patterns:
+    email: "^([A-Za-z][-_.0-9A-Za-z]*|)@.*$"
+    uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
+    url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
+
+ascii_composer:
+  good_old_caps_lock: true
+  switch_key:
+    Shift_L: commit_code
+    Shift_R: commit_text
+    Control_L: noop
+    Control_R: noop
+    Caps_Lock: clear
+    Eisu_toggle: clear

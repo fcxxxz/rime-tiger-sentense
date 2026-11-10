@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "mimosa-hook-status/v1",
+  "recordedAt": "2026-08-31T09:59:28.025Z",
+  "sessionId": "sess_1f6131f4-cc5d-4b11-bff8-1e00b5962a7e",
+  "event": "PostToolUse",
+  "toolName": "Edit",
+  "file": "/Users/fuchuxuan/PycharmProjects/rime-mohu/research/lm_sentence_compare/report.md",
+  "outcome": "clear",
+  "coverage": "complete",
+  "findingCount": 0,
+  "durationMs": 4,
+  "hostState": "hook_complete",
+  "reportHint": ".mimosa/reports/"
+}

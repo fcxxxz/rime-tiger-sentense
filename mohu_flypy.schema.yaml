@@ -1,0 +1,538 @@
+schema:
+  schema_id: mohu_flypy
+  # 【主方案配置】小鹤交互配置直接维护；仅 sentence_core 编译垫片由自然码派生。
+  name: 魔虎·小鹤
+  version: "20260829"
+  author:
+    - 小鹤双拼方案：鹤氏
+    - 魔然作者：ksqsf
+    - 魔虎方案制作：晴
+  description: |
+    基于小鹤双拼和虎码12字根做辅码的魔虎整句输入方案。
+  dependencies:
+    # mohu_flypy_sentence_core 在发布包中为无名称的 compile-only 垫片：
+    # 本方案引擎均为 lua 翻译器，mohu_flypy.words 码表与 mohu_flypy 棱镜
+    # 依赖该方案的标准翻译器在部署时编译。
+    - mohu_flypy_sentence_core
+    - mohu_charset
+    - tiger
+
+switches:
+  - name: ascii_mode
+    states: [ 中文, 西文 ]
+  - name: full_shape
+    states: [ 半角, 全角 ]
+  - name: ascii_punct
+    states: [ 。，, ．， ]
+  - name: emoji
+    states: [ 🈚, 🈶 ]
+  - name: extended_charset
+    states: [ 常用字, 全字集 ]
+  - name: inflexible
+    states: [ 动词, 固词 ] # 「固词」表示「固顶词」
+    # 动词模式四码有单字撞码时，单字/二字词按主表顺序；没有单字撞码时
+    # 二字词仍用智能排序。>2 字的四码简词作为首选后的补充候选（⚡️）。
+    # 固词模式优先输出码表候选。完整双拼词不因来自码表而显示简快码标记；
+    # 真正的简码与其他短码打法提示仍保留。
+  - name: chaifen
+    states: [ 不拆, 扌斥 ]
+  - name: pinyinhint
+    states: [ 🔇, 🔊 ]
+  - name: unicode_comment
+    states: [ U关, U开 ]
+  - name: contextual_order
+    states: [ 单次候选调频, 跨候选调频 ]
+  - name: quick_code_hint
+    states: [ 简码提示关, 简码提示 ]
+  - name: aux_hint
+    states: [ 辅助码提示关, 辅助码提示 ]
+  - name: candidate_override_management
+    states: [ 常规, 候选管理 ]
+    reset: 0
+
+engine:
+  processors:
+    - lua_processor@*mohu_pin*pin_processor
+    # Squirrel 不投递普通键的 keyUp；捕获模式由 pin 独占 Shift，
+    # 其他模式须让 ascii_composer 先看到 Shift 组合键，避免误判为单敲 Shift。
+    - ascii_composer
+    - lua_processor@*mohu_candidate_manager*manager_processor
+    - lua_processor@*mohu_candidate_override*override_processor
+    - lua_processor@*option_sync
+    - lua_processor@*mohu_tab_nav  # 方向键/Tab 音节导航与 Shift+字母补辅码：native 候选无 librime spans，1.16 navigator 跳不动，这里接管
+    - key_binder
+    - lua_processor@*mohu_processor
+    - recognizer
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - matcher@recognizer_emoji
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - lua_translator@*mohu_symbol_hint
+    - lua_translator@*mohu_candidate_manager*manager_translator
+    - punct_translator
+    - reverse_lookup_translator@reverse_tiger
+    - reverse_lookup_translator@reverse_tiger_backtick
+    - table_translator@custom_phrase       # 自定义短语
+    - lua_translator@*mohu_sentence*translator
+    - lua_translator@*mohu_express_translator@with_reorder # 翻译器
+    - lua_translator@*mohu_shijian        # 日期orq 节气ojq 星期oxq 时间osj
+    - lua_translator@*mohu_number         # 数字转大写, 大写S引导, 如 S123
+    - lua_translator@*mohu_unicode        # Unicode输入, 大写U引导, 如 U9b54
+    - lua_translator@*mohu_pin*panacea_translator
+  filters:
+    - lua_filter@*mohu_charset_filter
+    - lua_filter@*mohu_pin*pin_filter
+    - lua_filter@*mohu_reorder_filter
+    - lua_filter@*mohu_word_order_filter
+    # 整句显示裁剪（搜狗式：首条整句+词组）。2026-09-09 三轮回归已修
+    # （音节容量豁免/类型无关判定，12 项单测），2026-09-14 重新接线启用。
+    - lua_filter@*mohu_sentence_visibility_filter
+    # 合并后的码表/native/smart 单字共同遵守出简让全；显式调序仍优先。
+    - lua_filter@*mohu_ijrq_filter
+    - lua_filter@*mohu_candidate_override*override_order_filter
+    - lua_filter@*mohu_candidate_override*override_filter
+    - lua_filter@*mohu_completion_filter  # 长词补全限额；显式置顶/调序优先
+    - lua_filter@*mohu_hint_filter
+    - simplifier@emoji
+    - lua_filter@*mohu_charset_filter@post_conversion
+    - simplifier@chaifen
+    - simplifier@pinyinhint
+    - lua_filter@*mohu_charset_comment_filter  # Unicode 区位提示
+    - lua_filter@*mohu_unicode_display_filter  # Unicode 编码提示
+    - uniquifier
+
+navigator:
+  # 在音节跳转时，跳过音节末尾的分隔符 ' ，设为 after_delimiter 恢复 Rime 默认行为
+  syllable_jump_position: before_delimiter
+
+speller:
+  # 允许进入编码串的字符集合；不在这里的按键由其他组件处理。
+  alphabet: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/=;'
+  # 音节分隔符；用于明确编码分段。
+  delimiter: " '"
+  # 是否允许拼写器自动选择候选；还受下面的匹配条件约束。
+  auto_select: true
+  # 只有编码匹配此正则时才允许自动选择，不是所有输入都自动上屏。
+  auto_select_pattern: ^;(\w+|;)
+  # 编码变换规则，引用的补丁按顺序组合生成拼写索引。
+  algebra:
+    __patch:
+      - mohu:/algebra/user_force_top?
+      - mohu:/algebra/user_sentence_top?
+      - mohu:/algebra/fly_flypy?
+      - mohu:/algebra/generate_code
+      - mohu:/algebra/user_sentence_bottom?
+      - mohu:/algebra/user_force_bottom?
+
+# smart：主力智能翻译器。
+# 用户正常输入时，mohu_express_translator 会优先调用它。
+# 它使用 mohu_flypy.words 词典，可以输出单字、词语和整句；也可以读取用户词典。
+# 它负责“按当前输入组织句子”和上下文排序，不等于固定码的前缀补全。
+smart:
+  # 系统词典名，对应同名 dict.yaml；空字符串表示不加载系统词典。
+  dictionary: mohu_flypy.words
+  # 用户词典名，用于保存学习记录；是否启用还受 enable_user_dict 控制。
+  user_dict: mohu_flypy_tiger_prefix2
+  # 拼写索引名，负责将输入编码映射到词典音节；不是另一份词库。
+  prism: mohu_flypy
+  # 候选初始质量分偏移；越大通常越靠前，最终顺序还受后续过滤器影响。
+  initial_quality: 5
+  # 造句搜索时保留的同音候选数量；不是整个候选菜单的数量上限。
+  max_homophones: 7
+  # 允许显示拼写提示的候选最大字数；0 表示关闭此类提示。
+  spelling_hints: 3
+  # 是否使用上下文感知的候选排序；不是编码前缀补全，也不是上屏后预测下一个词。
+  contextual_suggestions: true
+  # 是否输出未完成编码的补全候选。开启（与 moran 默认一致）：1 键时
+  # smart 流会出现整字母桶的单字洪流（'w' 实测 2,889 个），必须配合
+  # word_order filter 的扫描上界（word_order_scan_limit）才不会
+  # 被整流抽干——2026-09-14 已修复并量化，见
+  # docs/reports/2026-09-14-perkey-latency.md。
+  enable_completion: true
+  # 词组补全显式开启（librime 默认亦为开）：打满 4 个完整音节后更长的
+  # 词条会作为补全候选出现；配合 reorder/word_order 的扫描上界防护。
+  enable_word_completion: true
+  # 只调整输入框中编码的显示格式，不修改实际输入或词典编码。
+  preedit_format:
+    - xform/([a-z][a-z][a-z][a-z])o/$1°/
+  # 词典查询的核心词长参数（音节数），不是输入框最多能输入的按键数。
+  core_word_length: 4
+  # 词长限制参数（音节数），不是候选数量；整句可以由多个词组成。
+  max_word_length: 10
+  # 智能翻译器最多生成的整句候选数；不限制词典候选总数。
+  max_sentences: 2
+
+# smart_static：smart 的静态副本。
+# 它使用同一套系统词典，但关闭用户词典，避免学习记录影响结果。
+# 长输入或需要稳定对照结果时使用；它仍然可以补全和造句，区别只是没有用户调频。
+smart_static:
+  # 系统词典名，对应同名 dict.yaml；空字符串表示不加载系统词典。
+  dictionary: mohu_flypy.words
+  # 用户词典名，用于保存学习记录；是否启用还受 enable_user_dict 控制。
+  user_dict: ""
+  # 拼写索引名，负责将输入编码映射到词典音节；不是另一份词库。
+  prism: mohu_flypy
+  # 候选初始质量分偏移；越大通常越靠前，最终顺序还受后续过滤器影响。
+  initial_quality: 5
+  # 造句搜索时保留的同音候选数量；不是整个候选菜单的数量上限。
+  max_homophones: 7
+  # 允许显示拼写提示的候选最大字数；0 表示关闭此类提示。
+  spelling_hints: 3
+  # 是否使用上下文感知的候选排序；不是编码前缀补全，也不是上屏后预测下一个词。
+  contextual_suggestions: true
+  # 只调整输入框中编码的显示格式，不修改实际输入或词典编码。
+  preedit_format:
+    - xform/([a-z][a-z][a-z][a-z])o/$1°/
+  # 词典查询的核心词长参数（音节数），不是输入框最多能输入的按键数。
+  core_word_length: 4
+  # 词长限制参数（音节数），不是候选数量；整句可以由多个词组成。
+  max_word_length: 10
+  # 智能翻译器最多生成的整句候选数；不限制词典候选总数。
+  max_sentences: 2
+  # 是否使用用户词典学习与调频；false 不等于禁用系统词典。
+  enable_user_dict: false
+
+# 单一字词码表；编码与同码初始顺序直接在 mohu_flypy.dict.yaml 维护。
+translator:
+  dictionary: mohu_flypy
+  prism: mohu_flypy.codes
+  initial_quality: 100
+  enable_completion: false
+  enable_sentence: false
+  enable_user_dict: false
+  enable_encoder: false
+
+custom_phrase: # 自定义短语
+  # 系统词典名，对应同名 dict.yaml；空字符串表示不加载系统词典。
+  dictionary: ""
+  # 用户词典名，用于保存学习记录；是否启用还受 enable_user_dict 控制。
+  user_dict: mohu_flypy_custom_phrases
+  # 词典数据库类型：stabledb 用于稳定短语表，tabledb 用于码表用户词典。
+  db_class: stabledb
+  # 是否输出未完成编码的补全候选；true 开启，false 关闭，仅作用于本翻译器。
+  enable_completion: false
+  # 是否按当前输入编码拼接词典字词自动造句；不是上屏后预测下一个词。
+  enable_sentence: false
+  # 候选初始质量分偏移；越大通常越靠前，最终顺序还受后续过滤器影响。
+  initial_quality: 1000
+
+tiger:
+  # 原生整句引擎使用的双拼方案标识（zrm 自然码，flypy 小鹤）。
+  scheme: flypy
+  # 原生候选的类型标记，供后续过滤器识别来源。
+  candidate_type: mohu_flypy
+  # 原生引擎动态库路径；空字符串使用加载器的默认查找路径。
+  engine_lib: ""
+  # 原生语言模型资源路径，不是用户词典。
+  model: mohu/model
+  # 原生整句引擎的编码词表路径。
+  lexicon: mohu/data/flypy/mohu_flypy.lexicon.txt
+  # 束搜索宽度；扩大可保留更多搜索路径，也会增加计算开销。
+  beam: 200
+  # 长输入时是否允许全部词条档位参与竞争。
+  all_ranks: true
+  # 读音先验权重：码表第 5 列（读音条件简频）→ log P(读音|字) 并入路径
+  # 分，压制多音字罕用读音（如「万」mò）拼出的首选；0 关闭。
+  reading_prior_weight: 1.0
+  # 组合读音罚分权重：单字边参与多段组合路径时读音先验再加一次（平方
+  # 先验）。搭配证据取自主读音语料（vgxju 的「整车」证据全部来自
+  # zhěngchē，P(车|整) 领先 P(句|整) 约 3.4 nats），占比不小的次读音
+  # （车 jū≈4.3%）单次先验压不住；整段单边（单字直打、整词命中）不受
+  # 影响；0 关闭并保持旧行为。1.3 为车马炮（jumapc）保持首选的安全
+  # 上界附近值（1.5 时被局麻炮反超）。
+  composed_reading_prior_weight: 1.3
+  # 词边先验权重：静态多字词可作长句句中内部边，每条内部词边加该有界
+  # 分——「词典里有这个词」在路径分中投票，压住「只吃一口气」类错词与
+  # 后文跨词界粘连的反杀；0 关闭并逐字节保持旧行为。
+  word_edge_weight: 1.5
+  # 词边词频梯度（2026-10-14 方案 B 收尾）：≤10 键（≤5 字）短输入且无
+  # 词形整段命中时，静态内部词边在固定分之上按词典权重梯度追加有界分，
+  # 压「焊后+热情」类强搭配字链对真词边的反杀；≥12 键整句区间与词形
+  # 整段命中输入不受影响（见 mohu_zrm.schema.yaml 同键注释与网格数据）。
+  # 0 关闭并逐字节保持旧行为。
+  word_edge_freq_weight: 20
+  # 文本词典先验权重：候选完整文本是词表多字条目（任意码形——如「同一
+  # 个」只挂简码 tyg）时，输出分加该有界分。词长候选上词典证据应基本压
+  # 住上下文搭配杠杆（实测 祖国/和平+tsyige 时 P(统|ctx) 搭配差达
+  # 4.5 nats，1.5 不够翻）；词边先验按编码内部边投票，此项按「整候选
+  # 是否成词」投票；0 关闭。OOV 词由个人词学习路径（boost 上限 12+先验）
+  # 追回，两次提交可反超。
+  text_lexicon_weight: 6.5
+  # 词形整段命中权威：输入恰被一条全码词典词（≥3 字）整段覆盖（如 ba ge rf 的
+  # 八个人）时，按码内词典权重占比给该路径加有界分——text_lexicon 的
+  # 全局对数梯度对 2 倍词频差只值 ~0.32 nats，翻不过字符模型对高频
+  # 单字的偏好（「把+个人」组合反杀「八个人」差 0.34）；码内线性占比
+  # 增强同码高权重词的排序证据。组合路径与长句切分不受影响；
+  # 二字词形仍走词频梯度；0 关闭。
+  word_form_weight: 6.5
+  # 长句内部个人词边封顶（nats）：仅作用于「命中静态同码真词」的个人词
+  # （注入词 rank 99 不算）——词典已认识该词时，用户提交不再拥有改写
+  # 长句首选的力度（实测 认得×3 即把「人人的脸都憋得发紫」翻成「人认
+  # 得…」，正解边距仅 3.44 nats，而 boost log1p(n)×5 封顶 12）。OOV
+  # 自造词（魔虎——静态码表没有、只有这条通道能进句）、整段命中边与
+  # 单字调频保持全额；12=旧行为，0=该类内部边零分。
+  personal_edge_internal_cap: 1.5
+  # BOS 上下文用户增益封顶（nats）：词级独立提交（如 rfde+空格 上屏
+  # 「认得」）把每个提交都当「句子开头」喂用户模型，长句头两字的用户
+  # 增益会被单词重复提交灌满而翻无关键（实测真实快照 +「认得」独立
+  # 提交 ×200、或边×50+trigram×50 即翻「人人的脸都憋得发紫」）。此预算
+  # 只封路径头两字的 BOS 上下文增益；句中 interior 学习、整词个人边与
+  # 真句首习惯（≤1.5）不受影响；0=关闭。
+  bos_user_gain_cap: 1.5
+  # 上下文翻译器切换长输入处理分支的编码长度门槛。
+  long_input_length: 5
+  # 候选初始质量分偏移；越大通常越靠前，最终顺序还受后续过滤器影响。
+  initial_quality: 50
+  # 从哪个配置段读取个人词典设置；smart 表示复用智能词典配置。
+  personal_lexicon_namespace: smart
+  # 刻意不设 personal_lexicon_max_rows：一旦设置就会回退到「整体扫描 + 全局
+  # 排序」路径，且行数截断会被误判成删词、每轮刷新触发整表重建，表现为打字时
+  # 周期性卡顿。根因与验证见 docs/reports/2026-09-11-personal-lexicon-refresh-lag.md。
+  # 用户调频层：上屏文本喂入内存三元计数表，与静态模型按权重融合
+  user_model: true
+  # 独立选词只影响整词；句内学习与跨候选越位需要真实搭配证据。
+  learning_context_guard: true
+  user_model_weight: 0.85          # 静态模型权重（1.0 = 关闭用户层）
+  # 单条解码路径的用户 trigram 累计正增益上限（nats）。防止历史词链
+  # 把冷启动自由句抬几十 nats；0 关闭封顶。个人词边与用户计数不删除。
+  user_model_gain_cap: 6.0
+  user_model_snapshot: mohu/config/user-ngram.snapshot
+  user_model_snapshot_interval: 64 # 每 N 次中文上屏写一次快照
+  # 跨候选调频：contextual_order 开关打开时，上屏历史尾部喂引擎作解码
+  # 左上文。窗口为汉字数；V5 字符级三元模型结构窗口=2，大于 2 无增益。
+  decode_context_chars: 2
+  # 存在上文时是否让 native 接管 4 键纯双拼词码（默认 false：保留 smart
+  # 已学词频权威；实测字符级模型裸排 4 键低于词库词频约 7pp）。
+  decode_context_takeover: false
+  # 是否允许词序重排功能；实际是否重排还受运行时开关和候选保护规则控制。
+  word_order: true
+  # 词序重排检查的候选窗口大小；不是菜单最多显示的候选数。
+  word_order_candidates: 20
+  # 重排时对原有位置的惩罚权重；0 不加该项位置惩罚。
+  word_order_rank_penalty: 1.0
+  # 整句候选的菜单前排条数（搜狗式：首条整句 + 词组）。重排仍用完整
+  # 候选池（word_order_candidates）；超配额的句形候选押后到词组之后、
+  # 可翻页到达（不删除，2026-09-15 前 0.1.x 直接丢弃导致学习词不可选）；
+  # 0 = 全部按原始顺序显示。
+  # sentence_min_chars：计入配额的最小候选字数（默认 3；两字词与辅码
+  # 消歧输入不裁）。
+  sentence_visible_candidates: 1
+  sentence_min_chars: 3
+  # 押后句形候选的显示上限：全码 3 字输入（qygfda→X跟打 20 条变体）
+  # 没有词组候选可垫，押后尾部原样跟出等于没裁；只保留押后队列中排名
+  # 最前的 N 条。-1 = 全部保留（默认），0 = 押后句形全部不显示。
+  # 只裁显示层：引擎评分池、重排、≤4 字个人词可见性均不受影响。
+  sentence_deferred_candidates: 3
+
+chaifen:
+  option_name: chaifen
+  opencc_config: mohu_chaifen.json
+  tips: char
+  show_in_comment: true
+  comment_format:
+    - "xform/-/ /"
+    - "xform/〕〔/｜/"
+
+pinyinhint:
+  option_name: pinyinhint
+  opencc_config: mohu_pinyinhint.json
+  tips: char
+  show_in_comment: true
+  comment_format:
+    __include: :/chaifen/comment_format
+
+emoji:
+  opencc_config: mohu_emoji.json
+  option_name: emoji
+  tips: none
+  tags: [has_emoji]
+
+reverse_format:
+  target: smart
+  comment_format:
+    - xform/(\w\w);(\w\w)/$1[$2]/
+  preedit_format:
+    - xform/^o(lf|bh|cj|vy|hm)//
+
+reverse_tiger:
+  # 本翻译器响应的输入分段标签；需与分段器识别出的标签对应。
+  tag: reverse_tiger
+  # 系统词典名，对应同名 dict.yaml；空字符串表示不加载系统词典。
+  dictionary: tiger
+  # 是否输出未完成编码的补全候选；true 开启，false 关闭，仅作用于本翻译器。
+  enable_completion: true
+  # 进入此反查或造词功能的引导字符；不是补全候选的匹配前缀。
+  prefix: "ohm"
+  # 进入此功能时显示的提示文字。
+  tips: 〔虎〕
+  __include: reverse_format
+
+reverse_tiger_backtick:
+  # 本翻译器响应的输入分段标签；需与分段器识别出的标签对应。
+  tag: reverse_tiger_backtick
+  # 系统词典名，对应同名 dict.yaml；空字符串表示不加载系统词典。
+  dictionary: tiger
+  # 是否输出未完成编码的补全候选；true 开启，false 关闭，仅作用于本翻译器。
+  enable_completion: true
+  # 进入此反查或造词功能的引导字符；不是补全候选的匹配前缀。
+  prefix: "`"
+  # 进入此功能时显示的提示文字。
+  tips: 〔虎〕
+  __include: reverse_format
+  # 只调整输入框中编码的显示格式，不修改实际输入或词典编码。
+  preedit_format:
+    - xform/^`//
+
+punctuator:
+  import_preset: symbols
+
+key_binder:
+  import_preset: default
+  custom_bindings:
+    __append:
+      # 在这里添加只在本方案中生效的按键绑定，如
+      # - { when: has_menu, accept: apostrophe, send: '3' }  # 单引号3选
+  bindings:
+    __patch:
+      - :/key_binder/custom_bindings?
+      - mohu:/key_bindings/mohu_tab
+      - mohu:/key_bindings/mohu_switches
+      - mohu:/key_bindings/mohu_keypad
+      - mohu:/key_bindings/mohu_toggle_inflexible
+      # 大写字母追加辅码已由 lua/mohu_tab_nav 接管（key_binder 的
+      # send_sequence 在 librime 1.16 长句上会把字母插进句首），不再
+      # 引用 mohu_capital_for_last_syllable；字词/裁剪方案仍用旧绑定。
+
+recognizer:
+  import_preset: default
+  patterns:
+    candidate_manager: "^==[hopwlu]?[a-z]*$"
+
+    unicode: "^U[a-fA-F0-9]+"
+    number: "^S[0-9\\.]+"
+    shijian: "^N[0-9]+"
+    uppercase: "[A-Z][-_+.'A-Za-z]*$"
+    punct: '^/([0-9]0?|[A-Za-z]*)$'
+
+    # 反查
+    reverse_tiger: "^ohm[a-z]+$"
+    reverse_tiger_backtick: "^`[a-z]+$"
+    # ojp 引导日语输入
+
+recognizer_emoji:
+  patterns:
+    # CAVEAT: 分号快符由码表自动上屏
+    # CAVEAT: ^o 只保留 ^ou 和 ^o$，避免反查被干扰
+    has_emoji: '(^[a-np-z][a-z/]*$)|(^[a-z]$)|(^ou[a-z/]*$)'
+
+mohu:
+  candidate_manager:
+    __include: mohu:/candidate_manager
+    memory_namespace: smart
+
+  # 简快码提示符
+  # 修改为 "" 可取消提示符
+  # 建议在熟悉简码后再取消
+  quick_code_indicator: "⚡️"
+
+  # 在造词/造句选字过程中亦使用固顶简快码，默认开启
+  # 若设为 false，则造词时过程中完全不使用简码
+  # 通常来说，不应该禁用该选项。如果你有禁用它的理由，请告知开发者，以免该选项在未来被删除。
+  quick_code_in_sentence_making: true
+
+  # 词辅功能
+  # 当输入二字或三字词时，允许词末输入 *一位* 辅助码筛选词语。
+  # 例如输入 lmjxz 得到「连接」，输入 lmjxj 得到「链接」。
+  # 但是与字辅输入方法不同，词辅在生效后 *不能* 在句末继续输入形成整
+  # 句——这个功能仅用于「词语筛选」。本方案默认关闭，未匹配的第五码
+  # 仍按下一音节处理。
+  #
+  # 开启后，词辅筛选的词语会带有辅助码提示，例如「链接」后会有「jf」，
+  # 意思是输入 j *或* f 都可以定位到这个词，而不是说要同时输入 jf 两个码
+  # （相反，同时输入 jf 两码后反而无法得到该选项）。
+  enable_word_filter: false
+  # 重设词辅匹配提示符为其他字符串。
+  # 即输入 lmjxz 时被词辅匹配的候选「连接」的提示符，不影响辅助码提示功能的输出。
+  # 设为 "" 完全取消提示。
+  # 设为 {} 表示不重设词辅提示符。
+  word_filter_match_indicator: {}
+
+  # 「出简让全」相关设置
+  # 当一个字具有简码时，打其全码（不论是 yyxx 还是 yyxxo）都会导致该
+  # 字让出首位，而被推迟到后位。
+  ijrq:
+    enable: true       # 是否启用单字的出简让全？
+    #defer: 5          # 延迟多少位？若不设置该项，或值小于等于 0，则推迟到第二页的首选
+    show_hint: true    # 若让全，则提示简码打法
+    suffix: "o"        # YYXX + suffix 的单字码会被让全；如需以斜杠输入单字，可改为 "/"
+    # 词语级「让全」，对二、三、四字词有效
+    # 例：假设 lmjx 的输出是 1.连接 2.链接
+    # 想要「链接」时，增加 f ，但是由于这两个候选仍然共享 lmjxf 编码，因此顺序不变。
+    # 若开启词语级让全，则 lmjxf 的首选会被调整为「链接」
+    enable_word: false
+    # 延迟候选个数。必须是大于等于 1 的整数才有效果。
+    enable_word_defer: 1
+    # 仅在设定 *毫秒* 之后，才有词语级让全效果
+    # 该值可以设定为「检视候选发现错误 -> 然后补充辅助码」的时长
+    #     （根据个人情况设定，一般为 200 上下）
+    # （仅 librime >= 1.14 可用）
+    enable_word_delay: 0
+
+  # 单字或词辅的辅助码提示，由方案菜单中的「辅助码提示」开关控制
+  # 
+  # 单字辅助码会显示出所有可能的辅助码，且不显示拆分
+  # 建议使用 Ctrl+i 切换辅助码拆分提示功能
+  #
+  # 词辅助码提示仅在开启 enable_word_filter 时生效
+  # 具体提示格式请参考上面「词辅功能」的说明
+  # 简快码提示（包括字和词）
+  # 例如 输入 yy te er 英特尔 会提示「⚡yte」，即使用 yte 可以打出这个词
+  # 默认值 null 表示使用 quick_code_indicator 提示简快码，若有需要可重设为其他提示符或 ""
+  quick_code_hint_indicator: null
+  # 取消单字的简快码提示
+  quick_code_hint_skip_chars: false
+
+  # 输入四码时，如果固顶码表中含有对应条目，则注入到首选之后。
+  inject_table_chars: true    # 是否输出固顶码表单字，例：输入 cisa 时，首屏显示「词」
+  inject_table_words: true    # 是否输出简码码表词语，例：输入 lmsd 时，次选为「两面三刀」
+  # 长词补全数量（不含正常首选、简码词和普通词组）；-1 不限，0 关闭。
+  word_completion_limit: 3
+  # 普通四码的单字/二字词撞码顺序直接采用主码表行序；出简让全仍单独生效。
+  # (仅*动词模式*) 是否优先输出单字或词组
+  inject_prioritize: "any"    # char 优先单字, word 优先词组，其他取值理解为按码表顺序
+
+  # 内置候选调序、软删除与恢复。
+  candidate_override:
+    __include: mohu:/candidate_override
+
+  pin:
+    __include: mohu:/pin
+
+  # 「常用字」字符集设置
+  # 不影响「全字集」：全字集仍显示*所有*字符
+  #
+  # both: 允许繁体和简体同时显示
+  # simp: 只显示简化字
+  # trad: 只显示繁体字
+  charset: simp
+
+  # 重复略码功能
+  # 一些输入中存在字词重复，如「好不好」「看了看」「想一想」。
+  # 略码提供了替代的输入方法，在输入完一些字后，按对应 Shift+<对应键> 调用响应功能。
+  # 默认提供的略码有：
+  # B: 输入 hkB 直接上屏「好不好」。
+  # L: 输入 kjL 直接上屏「看了看」。
+  # Y: 输入 xdY 直接上屏「想一想」。
+  # V: 输入 uoV 直接上屏「说着说着」。
+  # Q: 输入 pkQ 直接上屏「跑来跑去」。
+  # （如需要自定义/增加/删除略码，请编辑 mohu_processor.lua 中的 shorthands 定义。）
+  shorthands: false

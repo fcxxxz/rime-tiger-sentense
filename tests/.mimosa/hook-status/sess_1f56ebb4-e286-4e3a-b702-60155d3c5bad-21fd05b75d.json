@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "mimosa-hook-status/v1",
+  "recordedAt": "2026-10-13T12:55:56.270Z",
+  "sessionId": "sess_1f56ebb4-e286-4e3a-b702-60155d3c5bad",
+  "event": "PostToolUse",
+  "toolName": "Edit",
+  "file": "mohu_zrm.test.yaml",
+  "outcome": "clear",
+  "coverage": "complete",
+  "findingCount": 0,
+  "durationMs": 2,
+  "hostState": "hook_complete",
+  "reportHint": ".mimosa/reports/"
+}

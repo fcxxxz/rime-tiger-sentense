@@ -1,0 +1,111 @@
+schema: tiger
+# 指向构建产物 dist-zrm（make dist-zrm）：根目录 dist/ 是历史遗留的陈旧
+# 快照，会让集成测试跑在旧代码上（同 mohu_candidate_override.test.yaml
+# 的 2026-10-13 教训）。mira 宿主（Lua 5.5）装载不了 5.4 的 dylib，整句
+# 引擎在 mira 下优雅降级——本文件只断言 table 路径与魔虎套件行为；
+# 引擎整句行为由 lua 5.4 冒烟（tigerengine-* 目标）覆盖。
+source_dir: ../dist-zrm
+script: |
+  function has_text(candidates, text)
+    for _, candidate in ipairs(candidates) do
+      if candidate.text == text then return true end
+    end
+    return false
+  end
+  function has_not_text(candidates, text)
+    return not has_text(candidates, text)
+  end
+  function has_comment(candidates, pattern)
+    for _, candidate in ipairs(candidates) do
+      if candidate.comment:find(pattern, 1, true) then return true end
+    end
+    return false
+  end
+
+deploy:
+  # 默认（常用字 + 整句开，mira 下引擎降级＝table 路径）：常用字简码正常，
+  # 生僻字隐藏
+  default:
+    tests:
+      - send: fi
+        assert: has_text(cand, '一')
+      # 嵌入魔虎反查（zrm 包默认自然码双拼）：`ho 出火，句中辅打法 `ho;ch
+      # 仍出火；reverse_lookup_filter 注虎码注释（〔ch〕）。
+      - send: '`ho'
+        assert: has_text(cand, '火')
+      - send: '`ho;ch'
+        assert: has_text(cand, '火')
+      - send: '`ho'
+        assert: has_comment(cand, '〔ch〕')
+      # Ctrl+R 循环反查码式：mira 宿主里 mohu_pinyin 不随依赖编译，zrm 包
+      # 可用列表仅 [自然码]，循环为空转（正确行为）；三式循环与缺席码式
+      # 跳过的逻辑由 tests/tiger_reverse_mode_test.lua 单测覆盖，真实部署
+      # （mohu_pinyin 按依赖编译）另行验证。
+      # 码表合并（rime-tiger 移植版）：一简出常用字；tiger.user 层 ; 快符可用；
+      # 生僻字在常用字模式下隐藏。
+      - send: u
+        assert: has_text(cand, '的')
+      # 覆盖表带简词：sort: original 保持行内次序（来/那个、的/工作）
+      - send: a
+        assert: cand[1].text == '来' and cand[2].text == '那个'
+      - send: u
+        assert: cand[1].text == '的' and cand[2].text == '工作'
+      - send: ';'
+        assert: has_text(cand, '：')
+      # 虎整句裸表（2026-10-23）：常用字集外的字（䎣=avjr）隐藏
+      - send: avjr
+        assert: has_not_text(cand, '䎣')
+  # 全字集（extended_charset 置 1）：常用字集外的字可达
+  full_charset:
+    patch:
+      "switches/@4/reset": 1
+    tests:
+      - send: avjr
+        assert: has_text(cand, '䎣')
+  # 整句关（switches/@7 = sentence）：单字顶屏模式配置生效，table 照常出字
+  sentence_off:
+    patch:
+      "switches/@7/reset": 0
+    tests:
+      - send: u
+        assert: cand[1].text == '的' and cand[2].text == '工作'
+      - send: a
+        assert: cand[1].text == '来' and cand[2].text == '那个'
+
+  # 魔虎套件·调序（Ctrl+减号上移 / Ctrl+等号下移，独立 LevelDb）
+  reorder_ctrl_minus_equal:
+    patch:
+      mohu/candidate_override/db_name: tiger_candidate_override_mira_reorder
+    tests:
+      - send: u
+        assert: cand[1].text == '的' and cand[2].text == '工作'
+      - send: 'u{Down}{Control+minus}'
+        assert: cand[1].text == '工作' and cand[2].text == '的'
+      - send: u
+        assert: cand[1].text == '工作' and cand[2].text == '的'
+      - send: 'u{Control+equal}'
+        assert: cand[1].text == '的' and cand[2].text == '工作'
+
+  # 魔虎套件·删词（两段式 Shift+Delete：两秒内第二按才写隐藏记录）
+  override_delete:
+    patch:
+      mohu/candidate_override/db_name: tiger_candidate_override_mira_delete
+    tests:
+      - send: u
+        assert: cand[1].text == '的'
+      - send: 'u{Shift+Delete}{Shift+Delete}'
+        assert: has_not_text(cand, '的')
+      - send: 'u{Control+Shift+M}'
+        assert: has_comment(cand, '恢复')
+      - send: 'u{Control+Shift+M}{Down}{Shift+Delete}'
+        assert: has_text(cand, '的')
+
+  # 魔虎套件·== 候选管理器
+  manager:
+    patch:
+      mohu/candidate_override/db_name: tiger_candidate_override_mira_manager
+    tests:
+      - send: '=='
+        assert: has_text(cand, '隐藏的内置词') and has_text(cand, '手动调序')
+
+# yaml-language-server: $schema=https://raw.githubusercontent.com/rimeinn/mira/refs/heads/master/spec/mira.schema.json

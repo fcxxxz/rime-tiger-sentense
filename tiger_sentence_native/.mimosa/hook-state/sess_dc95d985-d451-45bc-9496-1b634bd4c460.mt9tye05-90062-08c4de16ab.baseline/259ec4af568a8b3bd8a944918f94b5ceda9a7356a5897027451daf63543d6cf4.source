@@ -1,0 +1,94 @@
+// libtigerengine 的 Lua 5.4 绑定（luaopen_tigerengine）。
+// 编译用 -undefined dynamic_lookup，加载时绑定宿主（librime-lua）的 Lua 符号。
+// Lua 侧用法：
+//   local t = require("tigerengine")            -- 或 package.loadlib(path, "luaopen_tigerengine")()
+//   local h, err = t.create(model, lexicon, beam, all_ranks)
+//   local text, ms = t.decode(h, raw, include_early)
+//   text 首行: truncated early_truncated uses_incomplete prefers_incomplete n_final n_early
+//   其后每候选: text \t segmented \t score \t confidence \t max_rank \t pathmap
+//   t.status(h), t.last_error(), t.free(h)
+#include "lua-5.4.6/src/lua.hpp"
+
+#include <cstring>
+
+extern "C" {
+int tiger_engine_create(const char*, const char*, int, int, char*, int);
+void tiger_engine_free(int);
+int tiger_decode(int, const char*, int, char*, int, double*);
+int tiger_status(int, char*, int);
+const char* tiger_last_error();
+}
+
+namespace {
+
+char g_out[1 << 20];  // 单线程：Rime 引擎内 Lua 串行调用
+
+int l_create(lua_State* L) {
+  const char* model = luaL_checkstring(L, 1);
+  const char* lex = luaL_checkstring(L, 2);
+  int beam = (int)luaL_optinteger(L, 3, 200);
+  int all_ranks = luaL_opt(L, lua_toboolean, 4, 1);
+  char err[512] = {0};
+  int h = tiger_engine_create(model, lex, beam, all_ranks, err, sizeof(err));
+  if (h < 0) {
+    lua_pushnil(L);
+    lua_pushstring(L, err);
+    return 2;
+  }
+  lua_pushinteger(L, h);
+  return 1;
+}
+
+int l_free(lua_State* L) {
+  tiger_engine_free((int)luaL_checkinteger(L, 1));
+  return 0;
+}
+
+int l_decode(lua_State* L) {
+  int h = (int)luaL_checkinteger(L, 1);
+  const char* raw = luaL_checkstring(L, 2);
+  int early = lua_toboolean(L, 3);
+  double ms = 0;
+  int rc = tiger_decode(h, raw, early, g_out, sizeof(g_out), &ms);
+  if (rc < 0) {
+    lua_pushnil(L);
+    lua_pushstring(L, tiger_last_error());
+    return 2;
+  }
+  lua_pushstring(L, g_out);
+  lua_pushnumber(L, ms);
+  return 2;
+}
+
+int l_status(lua_State* L) {
+  int h = (int)luaL_checkinteger(L, 1);
+  char buf[1024];
+  if (tiger_status(h, buf, sizeof(buf)) != 0) {
+    lua_pushnil(L);
+    return 1;
+  }
+  lua_pushstring(L, buf);
+  return 1;
+}
+
+int l_last_error(lua_State* L) {
+  lua_pushstring(L, tiger_last_error());
+  return 1;
+}
+
+}  // namespace
+
+extern "C" {
+int luaopen_tigerengine(lua_State* L) {
+  static const luaL_Reg funcs[] = {
+      {"create", l_create},
+      {"free", l_free},
+      {"decode", l_decode},
+      {"status", l_status},
+      {"last_error", l_last_error},
+      {nullptr, nullptr},
+  };
+  luaL_newlib(L, funcs);
+  return 1;
+}
+}

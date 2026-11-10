@@ -1,0 +1,328 @@
+-- Mohu Word Order Filter
+-- Copyright (c) 2026 ksqsf
+--
+-- Ver: 0.1.0
+--
+-- This file is part of Project Mohu
+-- Licensed under GPLv3
+--
+-- 默认 V5 跨候选调频：contextual_order 开启且上屏历史含汉字时，用引擎
+-- 对菜单前 N 个 smart 候选批量取上下文续写分，按「模型分 − rank_penalty ×
+-- (名次−1)」融合后稳定重排——词频权威保留，模型只在上下文条件下提升
+-- 续写概率更高的候选（重排，不顶替；−7.3pp 接管实验的教训）。
+-- learning_context_guard 开启时，次选还须有前文末字与候选前两字的
+-- 真实搭配记录；纯回退分不允许翻首选，防止独立词学习泛化到新语境。
+--
+-- 评分信号（tiger/word_order_signal）：
+--   char（默认）＝ 字符续写裸分 Σ logP(候选字|上文末 2 字)，octagram 同型
+--     机制；用主字符模型，无词层依赖、无 OOV 概念，延迟与内存零增量。
+--     离线实测修好率约为 word 信号的 3 倍（40.3% vs 13.2% @修反 ≤1%）。
+--   word ＝ 词级分 logP(词|上文末 2 词)（需容器词层或显式
+--     word_scorer_model；OOV −20 无信号不参与重排）。
+--
+-- 稳定边界：punct / pinned / 简码与固顶标记（⚡️/📌）/ 单字保持原位；
+-- native 引擎候选仅在配置神经模型且本次神经融合成功时参与重排。只重排
+-- 顺序：不删候选、不改文本、不新建候选。
+--
+-- 可用性：旧 dylib、引擎未就绪、评分出错 → 逐字节直通；评分出错后本
+-- env 内不再重试。配置：tiger/word_order（默认开）、
+-- tiger/word_order_candidates（默认 20）、tiger/word_order_rank_penalty
+-- （默认 1.0，离线网格：0.95 时修好 45.7%/修反 1.5%，1.4 时 40.3%/1.0%）。
+--
+-- 挂接：mohu_*.schema.yaml filters 列表，mohu_reorder_filter 之后、
+-- candidate_override 之前（用户显式覆盖优先于模型重排）。
+
+local ok_tiger, tiger = pcall(require, "mohu_sentence")
+if not ok_tiger or type(tiger) ~= "table" then tiger = nil end
+
+local F = {}
+-- 注意：yield 是 librime-lua 运行时注入的全局，不能在模块加载期提为
+-- upvalue（会捕获 nil）；保持函数内直接引用（与 mohu_reorder_filter 一致）。
+
+local native_sentence_types = {
+  mohu_zrm = true,
+  mohu_flypy = true,
+  mohu_zrm_personal = true,
+  mohu_flypy_personal = true,
+}
+
+local function passthrough(input)
+  for cand in input:iter() do yield(cand) end
+end
+
+local function read_history(env)
+  local context = env.engine and env.engine.context
+  if not context then return "" end
+  local hist = context.commit_history
+  if not hist then return "" end
+  local text
+  if type(hist.latest_text) == "function" then
+    local ok, value = pcall(hist.latest_text, hist)
+    if ok then text = value end
+  elseif type(hist.latest_text) == "string" then
+    text = hist.latest_text
+  end
+  if type(text) == "string" and text ~= "" and
+      text:find("[\228-\233]") ~= nil then
+    return text
+  end
+  return ""
+end
+
+local function consumes_current_input(env, candidate, genuine)
+  local context = env.engine and env.engine.context
+  local raw = context and context.input
+  if type(raw) ~= "string" then return false end
+  local finish = tonumber(candidate._end or genuine._end) or #raw
+  return finish == #raw
+end
+
+local function config_flag(cfg, key, default)
+  local ok, value = pcall(cfg.get_string, cfg, key)
+  if ok and (value == "true" or value == "1") then return true end
+  if ok and (value == "false" or value == "0") then return false end
+  local ok_int, n = pcall(cfg.get_int, cfg, key)
+  if ok_int and type(n) == "number" then return n ~= 0 end
+  return default
+end
+
+local function config_number(cfg, key, default, lo, hi)
+  local value
+  local ok_int, n = pcall(cfg.get_int, cfg, key)
+  if ok_int and type(n) == "number" then value = n end
+  if value == nil then
+    local ok_str, s = pcall(cfg.get_string, cfg, key)
+    if ok_str then value = tonumber(s) end
+  end
+  if type(value) ~= "number" or value ~= value then return default end
+  return math.min(hi, math.max(lo, value))
+end
+
+function F.init(env)
+  local cfg = env.engine.schema.config
+  env._wo_enabled = config_flag(cfg, "tiger/word_order", true)
+  env._wo_context_guard = config_flag(cfg, "tiger/learning_context_guard", true)
+  env._wo_limit = math.floor(config_number(cfg, "tiger/word_order_candidates", 20, 2, 50))
+  -- 收集窗口的扫描上界：防止候选流前部全是不可重排候选（补全单字洪流）
+  -- 时无界拉干整条流。默认为窗口的 8 倍；正常菜单的前缀（简码/固顶）远小于此。
+  env._wo_scan_limit = math.floor(config_number(cfg, "tiger/word_order_scan_limit",
+    env._wo_limit * 8, env._wo_limit, 2000))
+  -- 扫描时间上界（毫秒）：候选数上界之外再封顶墙钟时间，保证不同首
+  -- 字母桶、不同单候选处理成本下扫描开销一致有界。
+  env._wo_scan_ms = config_number(cfg, "tiger/word_order_scan_ms", 2.0, 0.5, 50.0)
+  env._wo_penalty = config_number(cfg, "tiger/word_order_rank_penalty", 1.0, 0.0, 100.0)
+  -- 评分信号：char = 字符续写分（octagram 同型，默认；用主字符模型，
+  -- 无词层/无 OOV 概念，实测修好率约为词信号 3 倍）；word = 词级分
+  -- （需容器词层或显式 word_scorer_model，OOV −20 无信号不参与）。
+  env._wo_signal = "char"
+  pcall(function()
+    local s = cfg:get_string("tiger/word_order_signal") or ""
+    if s == "word" then env._wo_signal = "word" end
+  end)
+  env._wo_quick = ""
+  env._wo_pin = ""
+  pcall(function()
+    env._wo_quick = cfg:get_string("mohu/quick_code_indicator") or "⚡️"
+    env._wo_pin = cfg:get_string("mohu/pin/indicator") or "📌"
+  end)
+end
+
+function F.fini(env)
+end
+
+-- 候选是否参与评分：多字、非 punct/pinned/native、无简码/固顶标记。
+local function reorderable(env, cand)
+  -- A shadow may retain a genuine lexical phrase for learning while its
+  -- outer identity records a pin with no visible indicator.
+  if cand.type == "pinned" or cand.type == "mohu_table_full_word" then return false end
+  local g = cand.get_genuine and cand:get_genuine() or cand
+  local t = g.type
+  if t == "punct" or t == "pinned" then return false end
+  if native_sentence_types[t] then return false end
+  local text = g.text
+  if type(text) ~= "string" or text == "" then return false end
+  local len = utf8.len(text)
+  if not len or len < 2 then return false end
+  if not consumes_current_input(env, cand, g) then return false end
+  local comment = g.comment
+  if type(comment) == "string" and comment ~= "" then
+    if env._wo_quick ~= "" and comment:sub(1, #env._wo_quick) == env._wo_quick then
+      return false
+    end
+    if env._wo_pin ~= "" and comment:sub(1, #env._wo_pin) == env._wo_pin then
+      return false
+    end
+  end
+  return true
+end
+
+local function reorder(input, env)
+  if env._wo_dead then return passthrough(input) end
+  if not env._wo_enabled then return passthrough(input) end
+  if not env._wo_contextual_order then return passthrough(input) end
+  if not tiger or type(tiger.acquire_word_scorer) ~= "function" then
+    return passthrough(input)
+  end
+  local history = read_history(env)
+  if history == nil or history == "" then return passthrough(input) end
+  -- 1 键输入不可能出现 ≥2 字候选（不足一个完整音节，补全也只产出
+  -- 单字），扫描纯属浪费；补全开启时 1 键的字母桶洪流（'w' 实测
+  -- 2,889 个候选）会放大扫描成本。见 2026-09-14 perkey-latency 报告。
+  local raw = env.engine and env.engine.context and env.engine.context.input
+  if type(raw) ~= "string" or #raw < 2 then return passthrough(input) end
+  local score_fn, handle
+  if env._wo_signal == "word" then
+    score_fn, handle = tiger.acquire_word_scorer(env)
+  else
+    if type(tiger.acquire_char_scorer) ~= "function" then
+      return passthrough(input)
+    end
+    score_fn, handle = tiger.acquire_char_scorer(env)
+  end
+  if not (score_fn and handle) then return passthrough(input) end
+
+  local advance, state = input:iter()
+  local exhausted = false
+  local function next_candidate()
+    if exhausted then return nil end
+    local cand = advance(state)
+    if cand == nil then exhausted = true end
+    return cand
+  end
+  local prefix, block = {}, {}
+  local seen_first = false
+  -- 只收集到限额为止，其余流式直通（不占内存）。扫描同样有界：已检视
+  -- 候选超过 scan_limit 仍未凑齐重排窗口时放弃本次重排、直接流式直通。
+  -- 补全开启时 1 键输入的候选流全是不可重排的单字（'w' 桶实测 2,889 个），
+  -- block 永远填不满、无界扫描会把整条流拉干（2026-09-14 定位，见
+  -- docs/reports/2026-09-14-perkey-latency.md）。
+  local scanned = 0
+  local scan_clock = os.clock()
+  while #block < env._wo_limit and scanned < env._wo_scan_limit do
+    if scanned >= 8 and scanned % 8 == 0 and
+        (os.clock() - scan_clock) * 1000 > env._wo_scan_ms then
+      break
+    end
+    local cand = next_candidate()
+    if cand == nil then break end
+    scanned = scanned + 1
+    if not seen_first and reorderable(env, cand) then seen_first = true end
+    if seen_first then
+      block[#block + 1] = cand
+    else
+      prefix[#prefix + 1] = cand
+    end
+  end
+  -- 收集块之后的剩余候选：流式直通。
+  local function drain()
+    for cand in next_candidate do yield(cand) end
+  end
+  -- 前缀（首个可重排候选之前的稳定候选）始终原样输出。
+  local function yield_prefix()
+    for _, c in ipairs(prefix) do yield(c) end
+  end
+
+  -- 找出块内参与重排的槽位与文本。
+  local slots, texts, distinct = {}, {}, {}
+  local distinct_count = 0
+  for i = 1, #block do
+    if reorderable(env, block[i]) then
+      slots[#slots + 1] = i
+      texts[#texts + 1] = block[i].text
+      if not distinct[block[i].text] then
+        distinct[block[i].text] = true
+        distinct_count = distinct_count + 1
+      end
+    end
+  end
+  if #slots < 2 or distinct_count < 2 then
+    yield_prefix()
+    for _, c in ipairs(block) do yield(c) end
+    drain()
+    return
+  end
+  local ok, scores, supported = pcall(score_fn, handle, history, texts)
+  if not ok or type(scores) ~= "table" or #scores ~= #texts then
+    -- 评分失败：直通并停用（可用性：不每键重试报错）。
+    env._wo_dead = true
+    yield_prefix()
+    for _, c in ipairs(block) do yield(c) end
+    drain()
+    return
+  end
+
+  -- An older scorer returns no support table. Present but malformed metadata
+  -- is an invalid batch, not permission to fall back to unguarded promotions.
+  if env._wo_context_guard and env._wo_signal == "char" and supported ~= nil then
+    local valid = type(supported) == "table" and #supported == #texts
+    if valid then
+      for index = 1, #texts do
+        if type(supported[index]) ~= "boolean" then valid = false; break end
+      end
+      for key in pairs(supported) do
+        if type(key) ~= "number" or key % 1 ~= 0 or key < 1 or key > #texts then
+          valid = false; break
+        end
+      end
+    end
+    if not valid then
+      yield_prefix()
+      for _, c in ipairs(block) do yield(c) end
+      drain()
+      return
+    end
+  end
+
+  -- 融合：F_k = 模型分 − rank_penalty × (原名次−1)。候选要越过前面的
+  -- 候选，模型分优势必须超过 rank_penalty × 距离——这就是修反保护阈
+  -- 值。word 信号的 OOV（-20 无信号）不参与、保持原位；char 信号是
+  -- 续写累加分（可为任意负值），无 OOV，全员参与。
+  local penalty = env._wo_penalty
+  local word_signal = env._wo_signal == "word"
+  local active = {}  -- 参与重排的槽位（slots 内序号，升序）＋融合分
+  for k = 1, #slots do
+    local score = tonumber(scores[k])
+    -- Keep the first eligible candidate as the baseline. A later candidate
+    -- needs complete boundary evidence to replace it; fallback-only scores
+    -- leave that candidate's slot unchanged. Older scorers return one table.
+    local eligible = word_signal or not env._wo_context_guard or
+      supported == nil or k == 1 or supported[k] == true
+    if eligible and type(score) == "number" and score == score and
+        (not word_signal or score > -19.9) then
+      active[#active + 1] = { pos = k, s = score - penalty * (k - 1) }
+    end
+  end
+  if #active >= 2 then
+    local ranked = {}
+    for k = 1, #active do ranked[k] = active[k] end
+    table.sort(ranked, function(a, b)
+      if a.s ~= b.s then return a.s > b.s end
+      return a.pos < b.pos  -- 平分稳定：保持词频原序
+    end)
+    -- 第 k 名写回第 k 个参与槽位（active 升序即这些槽位的新占用序）；
+    -- OOV 等未参与槽位保持原候选，不删除、不复制。
+    local ordered = {}
+    for i = 1, #block do ordered[i] = block[i] end
+    for k = 1, #ranked do
+      ordered[slots[active[k].pos]] = block[slots[ranked[k].pos]]
+    end
+    block = ordered
+  end
+
+  yield_prefix()
+  for _, c in ipairs(block) do yield(c) end
+  drain()
+end
+
+function F.func(input, env)
+  local context = env.engine and env.engine.context
+  env._wo_contextual_order = context and context.get_option and
+    context:get_option("contextual_order") == true or false
+  return reorder(input, env)
+end
+
+return F
+
+-- Local Variables:
+-- lua-indent-level: 4
+-- End:

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "mimosa-hook-status/v1",
+  "recordedAt": "2026-09-16T04:37:01.906Z",
+  "sessionId": "sess_d76f24b3-f55c-4b8d-b797-a3cbd64821e4",
+  "event": "PostToolUse",
+  "toolName": "Edit",
+  "file": "/Users/fuchuxuan/PycharmProjects/rime-mohu/tmp_probe2.cc",
+  "outcome": "inconclusive",
+  "coverage": "partial",
+  "findingCount": 0,
+  "durationMs": 4,
+  "hostState": "hook_complete",
+  "reportHint": ".mimosa/reports/"
+}

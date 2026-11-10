@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "mimosa-hook-status/v1",
+  "recordedAt": "2026-09-04T09:27:15.207Z",
+  "sessionId": "sess_c2543e92-fb31-4d55-a91d-e31e85de324d",
+  "event": "PostToolUse",
+  "toolName": "Edit",
+  "file": "/tmp/mohu-abbr-bench/inc_bench.cc",
+  "outcome": "inconclusive",
+  "coverage": "partial",
+  "findingCount": 0,
+  "durationMs": 8,
+  "hostState": "hook_complete",
+  "reportHint": ".mimosa/reports/"
+}

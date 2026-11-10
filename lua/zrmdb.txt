@@ -1,0 +1,9772 @@
+〇	dk
+㐄	vk
+㐎	va
+㐫	zb zm
+㐬	bo
+㑇	jx jb
+㑊	jz jc
+㑌	jn
+㑩	jy jl
+㑺	ju jv
+㒸	hj
+㓁	wh
+㓥	yb yp
+㓦	fu fp
+㕠	wu wr
+㕥	dj
+㕮	dh db
+㖊	db dk
+㖞	dd dj dm
+㗏	dc ds df
+㗑	du df
+㗒	dt dd
+㘄	de dl dy
+㘎	da dh
+㘗	dq du
+㘥	ry ri ra
+㘰	gj
+㘵	gn gr
+㙍	gr
+㙘	gv gb
+㙟	gi gv
+㙦	jx jg jj
+㙳	gn gh gf
+㚅	hf hl
+㚐	mm
+㚢	jb
+㚣	bb
+㚰	bc bf
+㚻	qb
+㚽	uf ub ua
+㛃	ap ab
+㛅	bq
+㛚	bk bt
+㛹	bj bb bf
+㜅	bz bq bi
+㝀	kh
+㝹	yt yw
+㝿	or
+㞎	cm
+㞗	cf ci ck
+㞘	cj ci
+㞞	cw cs cj
+㞢	sf
+㟂	vk
+㟃	va vd vf
+㟖	vn vl
+㟤	vb vk
+㠇	vg vo vy
+㠓	vl vj vw
+㠮	hc hu ho
+㠯	ki
+㡀	fb
+㤅	dh
+㤘	hx hb
+㤙	rn rh
+㤞	hw hr ht
+㤥	hk
+㤭	ht hp hm
+㥄	hg hh
+㥏	hi hh
+㥯	yu yb
+㧀	mc
+㧐	ur
+㧑	ui us
+㧟	uk un
+㧥	uq up
+㧯	uq
+㧱	jd ju
+㨃	ug uh
+㨄	um ud ug
+㩟	uw uq
+㩳	uu ur
+㪗	id ih
+㫚	ne no
+㫰	oi
+㬊	oy or of
+㬎	oi oc
+㬚	ob ov
+㬤	oo oc oi
+㭎	em eb
+㭕	eg ek
+㮙	ed ea
+㮾	ii ie iv
+㯊	ef ec es
+㰀	ex ep
+㱔	sv sl
+㳇	kh kb
+㳘	kb kp
+㳚	kn ki
+㳠	km ku
+㴔	kx kh kb
+㴩	ko km kd
+㵐	kx ke kh
+㵘	kk
+㵲	ke kl
+㶁	ky kk
+㶉	ky kx ki
+㸆	cq cd
+㸌	ct cu
+㹢	ms md
+㹧	mm
+㹭	mo mt ma
+㹴	mf mb mo
+㺄	mj mv
+㺢	mt mu
+㺭	nh
+㻪	nu nv
+㻬	nt na nm
+㽏	kj kz kd
+㽒	qs ql
+㿠	um
+㿢	ov ou
+䀇	ca
+䁖	qp qb
+䂮	ap am
+䃅	mh mq
+䃎	mm ml
+䃰	mw mf mh
+䄉	ft fp fu
+䅟	xk xe xm
+䇽	ru rt
+䌷	id
+䌹	im id
+䍃	ya
+䍉	ad ah
+䍺	gd gh
+䎃	mg mz
+䎖	hr hz hy
+䎜	qq
+䎣	av aj
+䏝	vm vi va
+䏲	vh vt
+䏿	mh mv
+䐃	vr vx
+䐛	vm vq
+䒕	ly
+䒟	lm lz
+䒩	lx
+䓂	ls
+䓖	le ls
+䓛	lc ls
+䓞	lm
+䓤	ln lh le
+䓨	lw la
+䓫	lm lz
+䓬	ly ln lo
+䔽	lk lf lo
+䕷	lz li
+䖋	zj
+䖢	cy ct
+䗖	cl cr cw
+䗛	cj cv cg
+䗪	xl xc
+䗴	cr ct
+䙆	th tm tf
+䙌	tc to
+䛐	af as ad
+䜣	st
+䜩	sl sc sa
+䜺	zl zo
+䝋	jw jf
+䝙	mn mb
+䞍	oa ov
+䞩	pj pd
+䟡	pb pi
+䠀	ps
+䢺	sm st
+䢼	lh lt
+䣘	sg st
+䥽	zs zr
+䦃	zl zo zq
+䦆	zq zr
+䦶	ax ab
+䦷	aj ag
+䩄	be
+䯄	nd nj nm
+䯼	pe pc pm
+䰀	pe pb px
+䲝	wj wz
+䲟	wb wz wf
+䲠	wa wo wi
+䲢	vh vw
+䴓	fr fx
+䴔	ab ax
+䴕	gp gx
+䴖	av ax
+䴗	qm qx
+䴘	xz xx
+䴙	cd cx cn
+䵤	fl fp
+䶭	tn
+䶮	tf tm
+一	fi
+丁	ad
+丂	fa
+七	rq
+丄	gf
+丅	fg
+万	fp
+丈	fb
+三	ts
+上	yf
+下	fy
+丌	lc
+不	cb
+与	fa
+丏	fg fa
+丐	fy fa
+丑	ag
+专	ma
+且	fq
+丕	cf
+世	la
+丘	tf
+丙	fm fj
+业	cy
+丛	jj jf
+东	ry
+丝	ii
+丞	ak af
+丢	tg tk
+两	ml
+严	fc fx
+並	hc
+丧	gh gt
+丨	gs
+个	jg
+丫	hg
+丬	ap
+中	dg
+丰	af
+串	dd dg
+临	pr po
+丶	id
+丸	ki
+丹	mz
+为	is
+主	in
+丼	qi qd
+丽	fv
+举	kh ku
+丿	tp
+乀	id
+乂	bi
+乃	vn
+乄	ai
+久	xi
+乆	aj
+乇	tr
+么	tk
+义	ib
+之	ri
+乌	xu
+乍	wa
+乎	th tn
+乏	tr
+乐	by
+乒	tf tt
+乓	tf ti
+乔	tm tp
+乕	xu xr
+乖	la lv
+乘	xa xv
+乙	ai
+乛	ae
+乜	aa ae
+九	kj
+乞	ea
+也	ey
+习	zx
+乡	ix
+书	aa
+乩	yd ya
+乭	ma
+买	aw am
+乱	aa
+乳	yh ya
+乸	ek
+乾	no na nn
+亅	gs
+了	rl
+亇	xg
+予	iv
+争	xb
+亊	fh fb
+事	fd
+二	me
+亍	wc
+于	fn
+亏	ma
+云	by
+互	fb
+亓	mp
+五	wu
+井	qj
+亖	mm
+亘	fo ff
+亚	fc
+些	sv sm
+亟	rd rr
+亠	zt
+亡	fw
+亢	zo
+交	ab
+亥	kh
+亦	zc
+产	ix
+亨	gr
+亩	zq
+享	gh
+京	gy
+亭	ga
+亮	go
+亲	ie
+亳	gt gr
+亵	tu tk
+亶	zr zf zd
+亸	gh gn
+亹	zp zf zm
+人	jr
+亻	jr
+亾	fw
+亿	ja
+什	jn
+仁	jm
+仂	js
+仃	ja jd
+仄	xj
+仅	jr
+仆	jy
+仇	jk
+仉	jo
+今	ja
+介	jp
+仌	jj
+仍	jv
+从	jj
+仑	jl
+仓	jz
+仔	jh
+仕	jg
+他	je
+仗	jf jb
+付	jk
+仙	jv
+仝	ju
+仞	jp ji
+仟	jl
+仡	je ja
+代	jp
+令	jk
+以	vj
+仨	jt
+仪	ji jb
+仫	jt jk
+们	ja
+仰	jb jz
+仲	jd jg
+仳	jv
+仵	je jn
+件	jq
+价	jj jp
+任	jt
+份	jh
+仿	jl
+企	js
+伈	jh
+伉	jz jo
+伊	jb jt
+伋	jc
+伍	jw
+伎	jc
+伏	jm
+伐	jp
+休	je
+伕	jh
+众	jj
+优	jo
+伙	jc
+会	jb
+伛	jn jb
+伞	jh jn
+伟	jg
+传	jm
+伡	jy
+伢	jl
+伣	je
+伤	je js
+伥	jp
+伦	jj
+伧	jj jz
+伪	ji js
+伫	jw jf
+伬	jc ji
+伭	jz ji
+伯	ju
+估	jc
+伱	jj jy
+伲	jc jv
+伴	jh ju
+伶	jj jk
+伸	jo jg
+伺	ja jf
+伻	je jh
+似	jv jj
+伽	js jd
+伾	jc jf
+佀	jk
+佁	jk jd
+佃	jq
+但	jo
+佈	jn jr
+佉	jg jk
+位	ji
+低	jb ji
+住	ji jn
+佐	jn ju
+佑	jn jd
+体	je jf
+佔	jy jd
+何	jz
+佖	jh jt
+佗	jw jv
+佘	jf
+余	jx
+佚	jt jh
+佛	jt
+作	jw
+佝	jg
+佞	jm jb
+佟	jh jw
+你	jx
+佢	jn
+佣	jt
+佤	jr
+佥	jk jf
+佧	jy jf
+佩	jo jf
+佬	jq
+佯	jg
+佰	jf ju
+佳	jg
+佴	jq
+佶	jg jd
+佷	ji
+佸	ja
+佹	jx jz
+佺	jj jn
+佻	jp jw
+佼	ja jb
+佽	jw je
+佾	jh jv
+使	jf
+侁	jq jp
+侂	jx jt
+侃	jd jo
+侄	jy
+侈	jl
+侉	jm
+例	jg jp
+侍	jg jk
+侏	jt ja
+侑	jn jv
+侔	jk jq
+侖	jl
+侗	jm jf
+侘	jw jr jt
+供	jl jh
+侜	ji
+依	jt
+侠	jh
+侣	jd
+侥	jp jf
+侦	jy jo
+侧	jo jp
+侨	jt jm
+侩	jj jb
+侪	jq
+侬	jw jt
+侮	je jk
+侯	jn jo
+侴	ja jp jg
+侵	jb jw
+侷	jc ja
+侹	jt ju jg
+侻	jh jp jd
+便	jf jo
+係	jt ji
+促	jp
+俄	jt ju
+俅	jf jk
+俊	jk jh
+俍	ji
+俎	jj jf
+俏	jy jv
+俐	jx jp
+俑	jk jt
+俗	jh
+俘	jy jh
+俙	jb jr jn
+俚	jd
+俜	jd ja jf
+保	jd je
+俞	jv jp
+俟	jk jo
+信	js
+俣	jd jf
+俤	jh jt
+俦	ja jk
+俨	jf jc
+俩	jm
+俪	jf jv
+俫	ja jh
+俭	jj jk
+修	jg jh
+俯	jx jk jj
+俱	jq jh
+俳	jr
+俵	ja jt
+俶	jy jr jf
+俸	ja ju ji
+俺	jm jo
+俾	ju jt
+倅	jz jn jj
+個	jr jc
+倌	jw jk
+倍	ji jd
+倏	jg jm jh
+倐	jg jc jh
+倒	jy
+倓	jc
+倔	jc js
+倕	jl jg
+倖	jg
+倘	js
+候	jg jn
+倚	jm jz
+倜	jm jg
+倞	jg jy
+借	jl jo
+倡	jo
+倥	je ju
+倦	jh
+倧	jw jf
+倨	jc
+倩	ja jv
+倪	jp
+倬	jy jn jo
+倭	jx jb
+倮	jq je
+倴	jm jn
+倷	jm jf
+债	ja jo
+倻	jq jt
+值	jn jq
+倾	jv jw
+偁	jy jm
+偃	jn jb jo
+偆	ja jo ji
+假	jc jm
+偈	jo jn
+偊	jt jd
+偌	jl jn
+偍	jo jt
+偎	jq jf
+偏	jm ji
+偐	ji jx
+偓	jc jy
+偕	jv
+做	jc
+停	jg ja
+偡	jz jh
+偢	jx jc
+健	jb ju
+偬	jn je
+偭	jb
+偰	ja jm jp
+偲	jq jh
+偶	jq jv
+偷	jj jv
+偻	jp jb
+偾	jn jl
+偿	js jb
+傀	ja
+傃	ja ji
+傅	jn jk
+傈	jv je
+傉	jf jk
+傍	ji jw
+傎	jn jh jq
+傑	jl jv
+傒	jy jm ji
+傕	jw ju
+傚	ja jh jb
+傝	jo jz
+傢	jw jj
+傣	ja jk ji
+傥	js jp
+傧	jw jh jt
+储	js jq
+傩	jr ju
+催	jv ju
+傭	jx jt jb
+傲	ja jp
+傺	jh jf
+傻	jt jr
+僅	jl jd
+僇	jz je jj
+僎	jv jh
+像	jw
+僔	jh jy
+僕	jc ji jg
+僖	jh jd
+僙	jn
+僚	jm jh
+僜	jh jz
+僝	jc jh
+僦	jg jo jy
+僧	jh jr
+僬	ju jc
+僭	jd jo
+僮	ji jd
+僰	em ej ee
+僳	jv jp
+僵	jf jq
+價	jv jo
+僻	jc jd
+僽	jx jh jc
+儁	ju jm
+儆	jl jg
+儇	jy jf
+儋	jx
+儍	jp jh jm
+儒	jt jl
+儓	jg jy jd
+儗	jv jt jo
+儚	jl jy
+儡	jq
+儦	jx jc
+儳	jw jv
+儴	jt jf jd
+儾	jn jt jd
+儿	pe
+兀	fp
+允	kp
+元	mp
+兄	dp
+充	bp
+兆	pw
+兇	bm bp
+先	qp
+光	mg
+克	cp
+兌	hd hp
+免	wp
+兎	wt
+兑	hd hp
+兔	wt
+兕	mf mp
+兖	ak ap
+兙	cp cn
+党	sp
+兛	cp cl
+兜	ub un
+兝	cp ch
+兞	cp cv
+兡	cp cu cf
+兢	cp cc
+兣	cp cd cx
+入	ju
+全	jn
+八	hb
+公	hk
+六	al
+兮	hf ha
+兰	ht
+共	lh
+兲	nh
+关	hm
+兴	kh
+兵	th
+其	zh
+具	qh
+典	ih
+兹	hi
+养	gi
+兼	hb hc
+兽	hq hf
+冀	av aq
+冁	hq ht hn
+冂	mk
+内	mj
+円	vy
+冇	nm
+冈	mb
+冉	mg
+册	ic
+再	fm fg
+冏	mh md
+冑	dv
+冒	oq
+冓	qf qg qm
+冔	od of
+冕	ow op
+冖	wg
+冗	wo
+写	wf
+军	wy
+农	wt
+冞	wp
+冠	wm wk wp
+冡	wf wj
+冢	wj wi
+冤	ww
+冥	wo wa
+冧	we
+冫	wb
+冬	hw
+冮	wu
+冯	wn
+冰	wk
+冱	wf wb
+冲	wd wg
+决	wn wj
+冴	wl
+况	wd
+冶	wk wd
+冷	wj wk
+冸	wh wu
+冻	wr wy
+冼	wq wp
+冽	wg wp
+净	wx wb
+凃	wj wx
+凄	wf wb
+准	wu
+凇	we wk wh
+凉	wg
+凊	wa wv
+凋	wm wg
+凌	wg wh
+减	wn wf
+凑	wa wi
+凓	wv we
+凘	wz wt wh
+凛	wz
+凝	wv wo
+几	oj
+凡	oi
+凢	to
+凣	go
+凤	or
+凪	os
+凫	xo xj
+凭	jt jg
+凯	vv vo
+凰	ou on
+凳	hz ho
+凵	mk
+凶	bm
+凸	vf
+凹	mf
+出	sm
+击	um
+凼	km
+函	ak am
+凿	cg cm
+刀	pd
+刁	af
+刂	pd
+刃	pi
+分	hp
+切	rp
+刈	bp
+刊	ep
+刌	kp
+刍	xb xj
+刎	ne np
+刑	fl fp
+划	pp
+刓	mp
+刖	vp vd
+列	gp
+刘	vp
+则	op
+刚	mb mp
+创	jz jp
+刜	tp
+初	tp
+删	ip
+判	hu hp
+別	dp
+刨	nv np
+利	xp
+别	ds
+刬	fp
+刭	ru rp
+刮	ap
+到	yp
+刲	gg gp
+刳	mm mp ma
+刵	qp
+制	qr qp
+刷	cr cp
+券	hh hp
+刹	be bp
+刺	em ep
+刻	kp
+刽	jb jp
+刿	vl vp
+剀	vv vp
+剁	oe op
+剂	qp
+剃	ht hp
+剅	zp
+剉	jj jp jg
+削	yv yp
+剋	cp
+剌	xp
+前	hv
+剏	hl hp
+剐	dm dp dj
+剑	jk jf
+剒	lo lp
+剔	on op oe
+剕	rp
+剖	id ip
+剚	fd fp fb
+剜	wl wp wz
+剞	mz mp
+剟	rr rp
+剡	cc cp
+剥	bk bp
+剧	cc cp
+剩	xa
+剪	hv hp
+副	fd fq
+割	wa wp wd
+剳	lj lp ld
+剸	nq np nk
+剹	zj zp ze
+剺	ah ap ax
+剽	vf vp
+剿	oq op oe
+劀	it ip im
+劁	uc up
+劂	xh xp xs
+劃	bq bp bf
+劄	rj rp rd
+劈	cd cp cn
+劏	sq sp
+劐	lu lr
+劓	oq op ol
+劘	zr zp
+劙	bj bp bc
+力	sl
+劝	rs
+办	sh
+功	us
+加	sd
+务	hs
+劢	fp fs
+劣	yt ys
+动	bs
+助	fs
+努	br
+劫	gk gs
+劬	gs
+劭	pd ps
+励	xf xs xp
+劲	ru rs
+劳	lw ls
+劵	hh hs
+劻	nn ns
+劼	gd gs
+劾	ks
+势	uk us ui
+勃	nw ns nh
+勇	kt ks
+勉	wp ws
+勋	do ds
+勍	gy gs
+勐	ha hs
+勒	ts
+勔	bs
+勖	oq os
+勘	zh zs za
+勚	la ls lo
+勝	vh vs
+募	lo ls lm
+勠	zj zs ze
+勤	ld la
+勥	bd bs bc
+勰	ss
+勷	td ts
+勹	nk
+勺	ni
+勼	nk
+勾	nk
+勿	ne
+匀	nw
+匄	nf
+包	nv
+匆	ne ni
+匈	nb nm
+匍	nn
+匏	mm mv ma
+匐	nf nq nd
+匕	vb
+化	jv
+北	av
+匙	ot ov
+匚	nk
+匜	ne
+匝	nr nj
+匠	nt
+匡	nn
+匣	ns
+匦	ny nk
+匪	nr
+匮	nc no
+匹	np
+区	nb
+医	no
+匼	nj nd
+匾	nm ni
+匿	nl nn
+十	ns
+卂	an
+千	lq
+卅	ls
+升	tl
+午	en
+卉	nl
+半	hu
+卌	lx
+卍	aa
+华	jv jn
+协	ns nh
+卐	aa
+卑	ut un
+卒	zj
+卓	yo yn
+单	hq
+卖	na nw
+南	nm ng
+博	nn nk
+卜	yb
+卞	zy
+卟	dy
+占	yd
+卡	yf yy
+卢	yc
+卣	yr yn
+卤	yr yb
+卦	gg gy
+卧	qy
+卩	zj
+卫	zf
+卬	bz
+卮	xf xz
+卯	bm
+印	bf bz
+危	xx
+卲	pd pz
+即	iz
+却	gk gz
+卵	bl
+卷	hh
+卸	az
+卺	ak az af
+卼	fp fx
+卿	bi
+厂	xc
+厃	xx
+厄	xz
+厅	xa
+历	xs
+厉	xf xp
+压	xg xi
+厌	xm
+厍	xy xc
+厔	xy
+厕	xo xp
+厖	xo xe
+厘	xd
+厚	xo xh
+厝	xl xo
+原	xu
+厢	xe xq
+厣	xm xs
+厥	xh xs
+厦	xf xo
+厨	xz xk
+厩	xi xd
+厮	xz xt xh
+厶	ks
+厷	nk
+去	gk
+厾	ag ak
+县	fk
+叁	km kt
+参	km ke
+參	kk ke
+叆	by br bw
+叇	bb bk
+又	ry
+叉	ri
+及	cj
+友	nr
+双	rr
+反	xr
+发	sr
+叒	rr
+叔	yf yr yy
+叕	rr
+取	qr
+受	yw yr
+变	zc
+叙	jx jr
+叚	cm cr cn
+叛	hu hx
+叟	pg pr
+叠	rr
+叡	gh gr gq
+口	dk
+古	cg
+句	gj
+另	ds
+叨	dp
+叩	dz
+只	dh
+叫	di
+召	pd
+叭	dh
+叮	da
+可	zk
+台	kd
+叱	dv
+史	db
+右	nd
+叵	nd
+叶	dn
+号	df
+司	af ad
+叹	dr
+叻	ds dl
+叼	da df
+叽	do
+叾	rd
+吁	df dn
+吃	de
+各	sg
+吅	dd
+吆	di
+合	jd
+吉	gd
+吊	dr
+吋	dk
+同	mf
+名	ld
+后	xf
+吏	fd fb
+吐	dg
+向	tm
+吒	dt dr
+吓	df dy
+吔	de
+吕	dd
+吖	dh dg
+吗	dn
+吚	db dt
+君	bt bd
+吝	vd
+吞	fm fd
+吟	dj da
+吠	dm
+吡	dv
+吣	dh
+吥	dc
+否	cd
+吧	dm
+吨	df ds
+吩	dh dp
+吪	dj dv
+含	ja jd
+听	dt
+吭	dz do
+吮	dk dp
+启	md
+吰	dn dk
+吱	dc
+吲	db dg
+吴	df dm
+吵	dy dt
+吸	dc
+吹	de
+吻	dn de
+吼	dh da
+吽	dq
+吾	wd
+呀	dl
+呃	dx dz
+呆	de
+呇	kd
+呈	dn
+告	qd
+呋	dh
+呌	dj
+呎	dc di
+呐	dm dj
+呒	dd
+呓	dl da
+呔	dm di
+呕	dn db
+呖	dx ds
+呗	do
+员	do
+呙	dm dj
+呛	dj dz
+呜	dx
+呝	dm da
+呢	dc dv
+呣	dk
+呤	dj dk
+呦	di ds
+周	mg md
+呯	de dh
+呱	dy
+呲	ds dv
+味	da
+呴	dg dj
+呵	dz
+呶	db dr
+呷	ds
+呸	dc df
+呻	do dg
+呼	dt dh
+命	jd jz
+呾	do df
+咀	df
+咁	dz
+咂	dn dr
+咄	ds dm
+咅	id
+咆	dn dv
+咇	dh dt
+咉	dm
+咋	dw
+和	xd
+咍	dk dd
+咎	hy hd
+咏	di dk
+咐	dj dk
+咑	du da
+咒	dd do
+咔	dy df
+咕	dc
+咖	ds dd
+咗	dn du
+咙	dt
+咚	dh dw
+咛	dw da
+咝	di
+咠	dq
+咡	dq
+咣	dm
+咤	dw dr dt
+咥	dy
+咦	dm db
+咧	dg dp
+咨	we wd
+咩	dg
+咪	dp
+咫	ci ch cd
+咬	da db
+咭	dg dd
+咮	dt da
+咯	ds
+咱	do
+咲	dh dm
+咳	dk
+咴	dn dc
+咷	dp dw
+咸	nf nd
+咺	df do
+咻	dj de
+咽	dr dm
+咿	dj dt db
+哀	td
+品	dd
+哂	dv
+哃	dm df
+哄	dl dh
+哆	dl
+哇	dg
+哈	dj
+哉	np nd
+哋	dg de
+哌	dx dt
+响	dt dm
+哎	dl db
+哏	di
+哐	dn
+哑	df dc
+哒	dm du
+哓	dp df
+哔	dv dn
+哕	dv dl
+哖	de dv
+哗	dj dn dv
+哙	dj db
+哚	do de
+哜	dq
+哝	dw dt
+哞	dk dq
+哟	di dn
+哢	dn dl
+哥	zz
+哦	dt du
+哧	dg dc
+哨	dy dv
+哩	dd
+哪	da du
+哭	dd dm
+哮	dq dh
+哱	dn dh dw
+哲	ut ud
+哳	du dt
+哺	dn
+哼	dg dr
+哽	df do
+哿	sd sz
+唁	ds
+唆	dk dh
+唇	fd
+唈	dd dm
+唉	dk do
+唏	db dn
+唐	xb xd
+唑	dj
+唔	dw dd
+唗	dp
+唛	da dh
+唝	du do
+唞	du dj
+唠	dl dw
+唡	dm
+唢	dy do
+唣	du dr
+唤	dx
+唦	dk dy
+唧	di dz
+唪	da du di
+唬	dz
+售	ud
+唯	du
+唰	dc dr
+唱	do
+唳	dm
+唵	dm do
+唶	dl do
+唷	db dv
+唸	dj dh da
+唼	di db
+唾	dl dg
+唿	dn dh de
+啁	dm dd dg
+啃	ds dv
+啄	dj di
+商	im
+啇	im ic
+啈	dg
+啉	de
+啊	dt
+啐	dz dn dj
+啕	dn da
+啖	dc
+啗	dx dp
+啙	sv sd
+啛	df db
+啜	dr
+啡	dr
+啤	du dt
+啥	dj da
+啦	du di
+啧	da do
+啪	du
+啫	dq do
+啬	gh gd gr
+啭	dy dm
+啮	dl
+啯	dr dn
+啰	dy dl
+啱	dv dm
+啲	du di dn
+啴	dh dq
+啵	dk dr
+啶	dw dt
+啷	di dt
+啸	db dp
+啻	iw id ir
+啼	di dw
+啾	dx dc
+喀	dw ds
+喁	dq dv
+喂	dq df
+喃	dn dm
+善	gh gd
+喆	gd gg
+喇	dx dp
+喈	dv du
+喉	dj dn
+喊	dn dd df
+喋	dl de da
+喌	dd do
+喎	df dd
+喏	dl dn
+喑	dx
+喓	dv db
+喔	dc dy
+喘	dv dl
+喙	db dj
+喜	hd
+喝	do dn
+喟	dq dv
+喤	du dn
+喧	dw df
+喨	dg do
+喭	di dx
+喰	dq
+喱	dx dd
+喳	de do
+喵	dl dq
+喷	dn dl
+喹	dm dg
+喺	dj dt
+喻	dj dv
+喼	dx db
+喽	dp db
+喾	kw kq
+喿	dd de
+嗄	df dh do
+嗅	do dm
+嗈	do dd
+嗉	da di
+嗌	dk da
+嗍	dh ds
+嗐	dw dd da
+嗑	dg dk
+嗒	dl dj
+嗓	dr
+嗔	dn dq
+嗖	dp dg
+嗙	di dl dw
+嗛	dh dc db
+嗜	dq do
+嗝	dn
+嗞	dh di
+嗟	dg du
+嗡	dh dk
+嗣	di da
+嗤	ds df
+嗥	du dm
+嗦	dn di dw
+嗨	dk de
+嗪	da dx di
+嗫	dq dr
+嗬	dl dz dj
+嗮	do dv
+嗯	dr
+嗰	dj dc dr
+嗱	dj du dd
+嗲	dh dl db
+嗳	dy dw
+嗵	dk dt
+嗷	da dp
+嗻	dx dl
+嗼	dl dm do
+嗽	dx de
+嗾	dl de
+嘀	di dm
+嘁	dn dy
+嘅	di dd
+嘆	dl dd
+嘈	df do dy
+嘉	hs hd
+嘌	dv df
+嘎	df dp do
+嘏	cc cm
+嘑	dz dt
+嘒	da db
+嘘	dz dc
+嘚	dw dk do
+嘛	dz
+嘞	dt ds
+嘟	dq dt do
+嘡	ds dg
+嘢	dd di
+嘣	dv
+嘤	do db
+嘦	dh dv
+嘧	dw dv dh
+嘬	do dq
+嘭	dh de
+嘱	dc dt
+嘲	dn do
+嘴	ds dv
+嘶	dz dt dh
+嘹	dm dh
+嘻	dh dd
+嘿	dp
+噀	dv dh
+噂	dh dy
+噃	dt dp
+噆	dd do
+噇	di dd
+噉	da dq
+噌	dh dr
+噍	du dc
+噎	dg dw
+噏	dj dz dd
+噔	dh dz
+噗	dc di dg
+噘	dx de dh
+噙	dj dv dz
+噜	dw do
+噢	dt dm
+噤	de df
+器	dd
+噩	nd
+噪	dd de
+噫	dx dh
+噬	dr du
+噱	dz dj
+噶	dl do
+噷	dx de
+噻	dw dq
+噼	dc dd
+嚃	dy dk
+嚄	dl du
+嚅	dt dl
+嚆	dl dg
+嚎	dg dj
+嚏	dn dt dw
+嚓	dw dh
+嚚	dd dq
+嚜	dp dg
+嚟	dx dk dp
+嚡	dt dg
+嚣	dd dw
+嚥	dl dc dd
+嚭	hd hc
+嚯	dt du
+嚱	dz
+嚷	dt dd
+嚼	dy
+囊	nd nw
+囌	dl dx dw
+囍	hd hh
+囔	dn dd
+囗	rk
+囘	mv
+囙	rn
+囚	rj
+四	ys
+囝	rh
+回	rd
+囟	tr tb
+因	rm
+囡	rb
+团	rn rt
+囤	rf rs
+囥	rz ro
+囧	rh rm
+囫	rn re
+园	rm rp
+囮	rj rv
+囯	rn
+困	re
+囱	tr th
+围	rg
+囵	rj
+囷	rx
+囸	rf rs
+囹	rj rk
+固	rc
+国	rn
+图	rh rw
+囿	rn rv
+圀	rh rl
+圂	rj
+圃	rn
+圄	rw rd
+圆	rd ro
+圈	rh
+圉	rg
+圊	ra rv
+圌	rv rl
+圐	ry rl
+團	rn rq
+圙	rh rb
+圜	ry rf
+土	gt
+圢	ga
+圣	rg
+在	ng
+圩	gf gn
+圪	ge ga
+圫	gt gr
+圬	gm ga
+圭	gg
+圮	gv
+圯	gv
+地	ge
+圲	gl
+圳	go
+圹	gx
+场	ga
+圻	gt
+圾	gc
+址	gs
+坂	gx gr
+均	gn gw
+坉	gf gs
+坊	gl
+坋	gh gp
+坌	hp hg
+坍	gm gz
+坎	ge
+坏	gc
+坐	jj jg
+坑	gz go
+坒	vv vg
+坖	mp mg
+块	gn
+坚	pr pg
+坛	gb
+坜	gx gs
+坝	go
+坞	gx
+坟	gv
+坠	tj tg
+坡	gr
+坢	gh gu
+坤	go gg
+坥	gf
+坦	go gf
+坨	gw gv
+坩	gz
+坪	ge gh
+坫	gy gd
+坬	gy
+坭	gc gv
+坯	gc gf
+坰	gm gd
+坳	gi gs
+坶	gk
+坷	gz
+坻	gb gi
+坼	gt gi
+坽	gj gk
+垂	ll lg
+垃	gi
+垄	tg
+垅	gt
+垆	gy gc
+垇	gm gf
+垈	jp jg
+型	fl fg fp
+垌	gm gf
+垍	go
+垎	gs
+垏	gb
+垒	kk kg
+垓	gk
+垕	xf xg xd
+垙	gm
+垚	gg
+垛	go ge
+垝	gx
+垞	gw gr gt
+垟	gg
+垠	gi
+垡	jp jg
+垢	gx gf
+垣	gf go
+垤	gy
+垦	ig
+垧	gt gm
+垩	fc fg
+垫	uk ug ui
+垭	gf gc
+垮	gm ga
+垯	gm gu
+垰	gy gf
+垱	gy gb
+垲	gv
+垴	gz gb
+垵	gw gb
+垸	gw gm
+垺	gy gh
+垽	kt kg
+垾	go ge
+垿	gx gi
+埂	gf go
+埃	gk go
+埆	gx gt
+埇	gk gt
+埋	gd
+埌	gi
+城	gn ga
+埏	gt gs
+埒	gy gk
+埔	gn
+埕	gd gn
+埗	gs
+埘	go gk
+埙	gd go
+埚	gd gm
+埝	gj ga
+域	gp gd
+埠	gt gk
+埤	gu gt
+埪	ge gu
+埫	gs
+埭	gb gk
+埮	gc
+埯	gm go
+埴	gn gf gq
+埵	gl gg
+埸	go ge gn
+培	gi gd
+基	zh zg
+埻	gg gh
+埼	gm gz
+埽	gb gw
+堀	gc gm gs
+堂	sg
+堃	ll lg
+堄	gp
+堆	gu
+堇	ld la
+堉	gb gv
+堋	gv
+堌	gr gc
+堍	gw
+堎	gg gh
+堐	gx gg
+堑	yt yg
+堕	tn tg tv
+堘	gh gg
+堙	gv gg
+堞	gl ga
+堠	gj gn
+堡	jd jg je
+堤	go gt
+堦	gv gu
+堧	gl gm
+堨	go gf gn
+堩	gh gf
+堪	gz
+堰	gn gb go
+堲	iz ig
+堵	gq go
+堶	gn gu
+堺	gq gj
+堼	gg gk
+堽	gy gs gf
+堾	ga gi
+塃	gl go gf
+塄	gy gl
+塅	gu gf
+塆	gz gb gc
+塈	id ig
+塌	go gz
+塍	vh vg
+塑	hs hg hv
+塔	gl gj
+塕	gh gz gk
+塗	kj kg kx
+塘	gx gb
+塚	gw gj
+塝	gi gw
+塞	wq wg wh
+塟	lg lv
+塥	gn
+塨	gl gh
+填	gn gq
+塬	gx gy gu
+塮	gz gk
+塱	ii ig iv
+塽	gm gb
+塾	gh gg gk
+墀	gc gk
+墁	go gy
+境	gx
+墅	di dg
+墈	gz gs gh
+墉	gx gt gb
+墋	gk
+墐	gl gd
+墒	gi gm
+墓	lo lg lm
+墕	gf gc gs
+墘	gn ga go
+墙	gg gh
+墚	gk gp
+增	gh gr
+墟	gz gc
+墡	gg gd gh
+墣	gc gi gg
+墦	gt gp
+墨	pg
+墩	gg gh
+墫	gh gy
+墬	tb tg tj
+墺	gt gm
+墼	ym yg yr
+壁	cd cg cn
+壅	zi zg zu
+壇	gz gr
+壎	gl gp
+壑	gh gg gr
+壕	gg gj
+壜	go gb gt
+壤	gt gd
+壩	gt
+士	gs
+壬	tg
+壮	ag
+声	gc
+壳	gw go
+壴	hu
+壶	gw gc
+壸	gw gc gf
+壹	gw gz
+壿	gh gk gy
+夂	hi
+处	hy
+夆	ha
+备	hq
+夋	kh
+夌	gh
+复	eo eh
+夏	fo fh
+夐	xm xj
+夔	ho hs
+夕	lx
+外	ly
+夙	og
+多	ll
+夜	zj zv
+够	gl
+夤	lw lh lf
+夥	qe ql
+大	md
+天	fm
+太	mi
+夫	hf
+夬	nj
+夭	tm
+央	mm
+夯	ms
+失	th
+头	wm
+夶	mm
+夷	mb
+夸	mm ma
+夹	hh
+夺	mk
+夼	mo
+夿	mm
+奀	cm
+奁	mn mb
+奂	xm
+奄	mo ma
+奅	mb
+奆	mn
+奇	mz
+奈	mf
+奉	ai au
+奋	mq
+奎	mg
+奏	ai af
+契	ap am
+奓	ml
+奔	mn ml
+奕	zc zm
+奖	al am
+套	mp
+奘	ag am
+奚	yi ym
+奠	hy hm
+奡	fo fm
+奢	mq mo
+奣	fm fo
+奤	mb
+奥	tm tp
+奭	mf mu
+女	bn
+奴	br
+奶	bv
+奸	be
+她	be
+奻	bb
+好	bh
+妁	bn bi
+如	bd
+妃	bv
+妄	fb
+妆	ab
+妇	bb
+妈	bn
+妊	bt bg
+妍	bf bl
+妑	bm
+妒	bm
+妓	bc
+妖	bt bm
+妗	bj ba
+妘	bb
+妙	by bt
+妞	ba bg
+妣	bv
+妤	bi
+妥	yb
+妧	bm bp
+妨	bl
+妩	bd
+妪	bn bb
+妫	bi bs
+妭	bn bi br
+妮	bc bv
+妯	bd
+妲	bo bf
+妳	bx by
+妷	bt bh
+妸	bz
+妹	ba
+妺	bf be
+妻	fb
+妾	ib
+姁	bg
+姆	bk
+姈	bj bk
+姊	bt
+始	bk bd
+姐	bf
+姑	bc
+姒	bv bj
+姓	bl
+委	xb
+姕	sv sb
+姗	bi
+姘	bh bl
+姚	bp bw
+姛	bm bf
+姜	gb
+姝	bt ba
+姞	bg bd
+姣	ba bb
+姤	bx bf
+姥	bq
+姦	bb
+姧	bb be
+姨	bm bb
+姩	be bv
+姪	by
+姬	bq
+姮	bf bo
+姱	bm ba
+姶	bj bd
+姹	bw br bt
+姻	br bm
+姽	bx
+姿	we wb
+娀	bp bn
+威	nf nb
+娃	bg
+娄	pb
+娅	bf bc
+娆	bp bf
+娇	bt bp bm
+娈	zc zb
+娉	bd ba bf
+娌	bd
+娑	ky kb kt
+娒	be bk
+娓	bc bv
+娖	bp
+娘	bi
+娚	bq bs
+娜	ba bu
+娟	bd bv
+娠	bf
+娣	bh bt
+娥	bt bu
+娩	bw bp
+娰	bj bv
+娱	bd bf
+娲	bd bm
+娴	ba be
+娵	bq br
+娶	qr qb
+娸	bz bh
+娼	bo
+娿	tz tb
+婀	bt bz
+婆	kr kb
+婉	bw bl
+婊	ba bt
+婋	bz
+婌	by br bf
+婍	bm bz
+婕	bf bb
+婗	bp
+婘	bh bz
+婚	bb bo
+婞	bg
+婠	bw bk
+婢	bu bt
+婤	bm bg
+婥	by bn bo
+婧	ba bv
+婪	ee eb
+婫	bo bv
+婬	by bg bt
+婳	bf bm bq
+婴	oo ob
+婵	bh bn bq
+婶	bw bo
+婷	bg ba
+婺	it ib ih
+婻	bn bg bm
+婼	bl bn
+婿	bt bv
+媂	bi bw
+媄	bg bm
+媆	bl bm
+媒	bz be
+媓	bu bn
+媕	bj bl bd
+媖	bl bm
+媚	bc bq
+媛	by bf
+媞	bo bt
+媟	bl ba
+媢	bo bq
+媪	bo ba
+媭	ew eb
+媮	bj bv
+媱	by ba
+媲	bt br
+媳	bo bh
+媵	vh vb
+媸	bs bf
+媺	bv bh bf
+媾	bq bf
+媿	ba
+嫁	bw bj
+嫂	bp bg
+嫄	bx bu
+嫉	ba bo
+嫋	bb bw
+嫌	bh bb
+嫏	bi bt
+嫐	bq bb bs
+嫑	cv cb
+嫒	by bw
+嫔	bw bt
+嫕	bn bo
+嫖	bv bf
+嫘	bq bi
+嫚	bo by
+嫛	no nb nr
+嫜	bx bn
+嫠	ah ab ax
+嫡	bi bm
+嫣	bf bs
+嫦	bs br
+嫩	bx bh
+嫪	bz be bj
+嫫	bl bo
+嫭	bz bn bt
+嫮	bt ba bm
+嫱	bg bh
+嫳	fh fb
+嫽	bm by bh
+嬉	bh bd
+嬖	cd cb cn
+嬗	bz br
+嬛	by bt bf
+嬢	bt bf bh
+嬥	bz bu
+嬬	bt bl
+嬲	qs qb
+嬴	fd fi fv
+嬷	bz bt
+嬿	bl bd
+孀	bt be
+孃	bt bf bd
+孅	bj bf
+子	hi
+孑	rf ri
+孓	ri
+孔	ha
+孕	vh
+孖	hh
+字	wh
+存	ng nh
+孙	hy
+孚	yh
+孛	nw nh
+孜	hh
+孝	qh
+孟	ha
+孢	hn hv
+季	xh
+孤	hy
+孥	br bh
+学	kw
+孩	hk
+孪	zc zh
+孬	cb ch
+孰	gh gi gk
+孱	ch
+孳	hi hh
+孵	by bh
+孺	ht hl
+孽	lt lh lk
+宀	wg
+宁	wa
+它	wv
+宄	wk
+宅	wt wr
+宇	wf wn
+守	wk
+安	wb
+宋	we
+完	wm wp
+宍	wa
+宏	wn wk
+宓	wh wt
+宕	wm
+宗	wf
+官	wk
+宙	wd
+定	wt
+宛	wl wz
+宜	wf
+宝	wn wi
+实	ww
+宠	wt
+审	wo wg
+客	ws
+宣	wf wo
+室	wy
+宥	wn wv
+宦	wq
+宧	wq
+宪	wq wp
+宫	wd
+宬	wn wa
+宰	wn
+害	wa wd
+宴	wo wb
+宵	wy wv
+家	wj
+宸	wf
+容	wh
+宽	wl
+宾	wt wh
+宿	wj wf
+寀	wy we
+寁	wf ws wb
+寂	wy wf
+寄	wm wz
+寅	wf wh wd
+密	wh wt
+寇	wm wh wp
+富	wf wd
+寐	wa
+寒	wq
+寓	wq wv
+寔	wo wt
+寝	wa wb
+寞	wl wo
+察	wh wf
+寡	ww wp
+寤	wa ww
+寥	wz wj
+寨	wq we wh
+寮	wm wh
+寰	wy wt wf
+寸	kc
+对	rk
+寺	gk
+寻	bk
+导	vk
+寿	ak
+封	gg gk
+尃	nk
+射	zk
+将	al ak
+尉	cf ck
+尊	hy hk
+小	yx
+少	yt
+尒	jy
+尔	xy
+尕	vy
+尖	ym
+尘	yg
+尚	ss
+尛	yy
+尜	ym yy
+尝	sb
+尞	mh my mo
+尢	oy
+尤	oy
+尥	on oi
+尧	pf pp
+尨	oe
+尪	on
+尬	oj op
+就	gy
+尴	op or
+尸	cs
+尹	bt
+尺	ci
+尻	ck
+尼	cv
+尽	ci cw
+尾	cv
+尿	ck
+局	ca cd
+屁	cv
+层	cb
+屃	co
+屄	ce
+居	cc
+屈	cs cm
+屉	cl ca
+届	cd
+屋	cy
+屌	cd cr
+屍	cg cv
+屎	cp
+屏	ch cl
+屐	cw cc
+屑	cy cv
+展	cl
+屙	ct cz
+属	ct
+屠	cq co
+屡	cp cb
+屣	cw cs
+履	cw ce
+屦	cw cp
+屮	sc
+屯	fs
+屰	hs
+山	vs
+屲	tv
+屴	vs
+屹	ve va
+屺	vv
+屻	vp vi
+屼	vf vp
+屾	vv
+屿	vf va
+岁	vl
+岂	vv
+岃	vp vi
+岈	vl
+岊	mv
+岌	vc
+岍	vf vl
+岐	vc
+岑	vj va
+岔	hp hv
+岕	vj vp
+岖	vn vb
+岗	vm vb
+岘	ve
+岙	tm tv
+岚	vo vb
+岛	xv
+岜	vm
+岞	vw
+岠	vn
+岡	mh mv
+岢	vz
+岣	vg vj
+岦	vi
+岧	vp vd
+岨	vf
+岩	vm
+岫	vd
+岬	vs
+岭	vj vk
+岱	jp jv
+岳	tf tv
+岵	vc
+岷	vd
+岸	vx ve
+岽	vr vy
+岿	vp vb
+峁	vb vm
+峂	vh vw
+峃	kw kv
+峄	vr vu
+峉	vs
+峋	vn vo
+峎	vi
+峒	vm vd vf
+峗	vx vz
+峘	vf vo
+峙	vg vk
+峛	vg vp
+峡	vh
+峣	vp vf
+峤	vt vm
+峥	vx vb
+峦	zc zv
+峧	va vb
+峨	vt vu
+峪	vh
+峬	vn
+峭	vy vv
+峰	vh va
+峱	ma mv mg
+峻	vk vh
+峿	vw vd
+崀	vi
+崁	vg ve
+崂	vl vs vw
+崃	va vh
+崄	vj vf vk
+崆	ve vu
+崇	vw vf
+崌	vc
+崎	vm vz
+崐	vo vv
+崑	vo vv
+崒	vz vn vj
+崔	vu
+崖	vx vg
+崚	vg vh
+崛	vc vs
+崞	vg vh
+崟	vz
+崡	va vk
+崤	vb vn
+崦	vm va vo
+崧	ve vh
+崩	vv
+崭	vy vt
+崮	vr vc
+崴	vn vb vf
+崶	vg vk
+崽	vq vh
+崾	vv vb
+崿	vd va
+嵁	vz vh
+嵅	vn vd vf
+嵇	xo xv
+嵊	vx va
+嵋	vc vq
+嵌	vz ve
+嵎	vq vv
+嵖	ve vf vo
+嵘	vl ve vw
+嵚	vz ve
+嵛	vj vv
+嵝	vp vb
+嵩	vg
+嵫	vh vi
+嵬	va
+嵯	vg vu
+嵲	vo ve
+嵴	vw
+嶂	vx vn
+嶅	ap av ah
+嶍	vz vu
+嶒	vh vr
+嶓	vt vq vp
+嶕	vu vc
+嶙	vp vl
+嶝	vh vz
+嶟	vh vy
+嶦	vx vs
+嶨	pb
+嶰	vx vt
+嶲	vu vm
+嶷	vv vt vo
+嶽	vm vs
+巅	vn vq
+巇	vz
+巉	vw vv
+巍	vx va vb
+巎	vf vh vo
+巛	oc
+川	oc
+州	oo
+巟	fo
+巡	ou
+巢	oq oe
+巣	kq ke
+工	ug
+左	nu
+巧	uf ua
+巨	nn
+巩	uo ui
+巫	uj
+巭	us uh
+差	gu
+巯	ru ro rb
+己	vj
+已	vi
+巳	vs
+巴	mb
+巷	lh lv
+巽	vv vl
+巾	rj
+币	tr
+市	zr
+布	nr
+帅	pr
+帆	ro ri
+师	pf
+帋	br
+希	bn br
+帏	rg rw
+帐	rp
+帑	br
+帔	rr
+帕	ru
+帖	ry rd
+帘	er
+帙	rt rh
+帚	bw br
+帛	ur
+帜	rd rh
+帝	iw ir
+帡	rh rl
+带	lw
+帧	ry ro
+帨	rh rd
+帩	ry rv
+席	xl xr
+帮	at
+帱	ra rk
+帵	rw rz rl
+帷	ru ri
+常	sr
+帻	ra ro
+帼	rr rn
+帽	ro
+幂	wo wm
+幄	rc ry
+幅	rf rd
+幈	rc rh
+幌	ro rm
+幔	ro ry
+幕	lo lr lm
+幖	rv rf
+幛	rx rn
+幞	rc ri rg
+幡	rt rp
+幢	ri rd
+幧	rd re
+幪	rl rw
+干	eg
+平	eh
+年	ev
+幵	ee
+并	hl
+幸	gg
+幹	no ne nn
+幺	iy
+幻	ia
+幼	is
+幽	vi
+幾	ii in
+广	xg
+庀	xv
+広	xk xs
+庄	xg
+庆	xm
+庇	xv
+床	xe
+庋	xc
+序	xi
+庐	xm
+庑	xd
+库	xy
+应	xk
+底	xb xi
+庖	xn xv
+店	xy xd
+庙	xd
+庚	xb xj
+府	xj xk
+庞	xt
+废	xs xr
+庠	xg
+庤	xg xk
+庥	xj xe
+度	xl xr
+座	xj
+庭	xt xg
+庱	xg xh
+庳	xu xn xt
+庵	xm xo
+庶	xl xc
+康	xb xk
+庸	xb xt
+庹	xl xi xc
+庼	xv xw
+庾	xp xj
+廆	xa
+廉	xh xc xb
+廊	xi
+廋	xp xg
+廑	xl xd
+廒	xa xp
+廓	xg xh
+廖	xz xe xj
+廙	xq xl
+廛	xd xg xh
+廠	xs xh
+廢	xh xr xb
+廣	xn
+廨	xx xt
+廪	xz xr
+廴	uy
+延	ts tu
+廷	tg tu
+建	bu
+廻	rd ru
+廾	lc
+廿	ln
+开	fl
+弁	kl
+异	vl
+弃	bl
+弄	nl
+弆	gk gl
+弇	jd jl
+弈	zc zl
+弊	fh fl
+弋	pi
+弌	pf
+弍	pm
+弎	pt
+式	pu
+弑	be bu bp
+弓	bg
+弔	bg bs
+引	bg
+弗	tf
+弘	bk
+弛	be
+弜	bb
+弝	bm
+弟	ht
+张	bp
+弢	bs br
+弥	bx
+弦	bz bi
+弧	by
+弨	bp bd
+弩	br bb
+弪	br bu
+弭	bq
+弮	hh hb
+弯	zc zb
+弱	bw
+弶	bg by
+弸	bv
+弹	bh bq
+强	bd bc
+弼	bf bu
+弿	wq wb wh
+彀	gw gf
+彅	bh bv
+彐	bj
+归	pb
+当	yb
+彔	bk bs
+录	bk
+彖	bj
+彗	aa ab
+彘	bv bo
+彝	bp bi
+彟	bk bl
+彡	es
+形	fl fe
+彤	mz me
+彦	ix ie
+彧	pd pe pf
+彩	ye
+彪	ze
+彫	mg me md
+彬	ee
+彭	he
+彰	xn xe
+影	og
+彳	wc
+彷	wl
+役	wr
+彻	wr
+彼	wr
+彿	wt
+往	wi wn
+征	wf ws
+徂	wf wq
+徃	wl
+径	wr wu
+待	wg wk
+徇	wn wo
+很	wi
+徉	wg wy
+徊	wr wd
+律	wb
+後	wi wh
+徐	wj wx
+徒	wp
+徕	wa wh
+得	wo
+徘	wr
+徙	ws
+徛	wm wz
+徜	ws
+御	wa wz
+徨	wu wn
+復	we wh wo
+循	wx wn
+徭	wy wa
+微	wv wf
+徯	wy wm wi
+徵	wv wh wf
+德	wn
+徼	wu wl
+徽	wv wh wf
+心	hx
+忄	hx
+必	ht
+忆	ha
+忉	hp
+忌	vh
+忍	pi ph
+忏	hl
+忐	yf yh
+忑	fy fh
+忒	ph
+忖	hk
+志	gh
+忘	fh
+忙	hf
+忝	fm fh
+忞	vh
+忠	dg dh
+忡	hd hg
+忣	hc
+忤	he hn
+忧	ho
+忨	hm hp
+忪	hh hk
+快	hn
+忭	hz hy
+忮	hc hi
+忱	hw hp
+忳	hf hs
+念	ja jh
+忸	ha hg
+忺	he
+忻	ht
+忽	ne nh
+忾	hv
+忿	hp hh
+怀	hc
+态	mi mh
+怂	jj jh
+怃	hd
+怄	hn hb
+怅	hp
+怆	hj hz
+怊	hp hd
+怍	hw
+怎	wh
+怏	hm
+怒	br bh
+怔	hf hs
+怕	hu
+怖	hn hr
+怗	hy hd
+怙	hc
+怛	ho hf
+怜	hj hk
+思	qh
+怞	hd
+怠	kd kh
+怡	hk hd
+急	xb xh
+怦	he hh
+性	hl
+怨	lz lh
+怩	hc hv
+怪	hr hg
+怫	ht hf
+怯	hg hk
+怱	ne nh ni
+怳	hd hp
+怵	he hi
+怹	je jh
+总	hd
+怼	rk rh
+怿	hr hu
+恁	jt jh jg
+恂	hn ho
+恃	hg hk
+恇	hn
+恋	zc zh
+恍	hm
+恏	bh
+恐	uo uh ui
+恒	hf ho
+恓	hv
+恔	ha hb
+恕	bd bh
+恖	tr th tb
+恙	gh
+恚	gg gh
+恝	ap ah
+恟	hn hm hb
+恢	hn hc
+恣	we wh
+恤	ht ha
+恥	qh
+恧	lh
+恨	hi
+恩	rm rh
+恪	hs
+恫	hm hf
+恬	ha
+恭	lh
+息	oh
+恰	hj
+恳	ih
+恶	fc fh
+恸	hb hs
+恹	hx hm
+恺	hv
+恻	ho hp
+恼	hz hb
+恽	hw hy
+恿	kt kh
+悃	hr he
+悄	hy hv
+悆	jx jh
+悈	hp hl
+悉	tp th
+悌	hh ht
+悍	ho he
+悒	hd hm
+悔	he hk
+悕	hb hn
+悖	hn hw
+悚	hx
+悛	hk hh
+悝	hd
+悟	hw hd
+悠	jg jh
+悢	hi
+患	dd dh dg
+悦	hh hd
+您	jx jy
+悫	gw gh go
+悬	fk fh
+悭	hp hr
+悯	ha hv
+悰	hw hf
+悱	hr
+悲	rh
+悴	hz hj
+悸	hx hh
+悻	hg
+悼	hy ho
+悽	hf hb
+悾	he hu
+情	ha
+惆	hm hd hg
+惇	hg hh
+惊	hg hy
+惋	hw hl
+惎	zh
+惑	pd ph pf
+惓	hh hz
+惔	hc
+惕	ho hn
+惗	hj ha
+惘	hm hh
+惙	hr
+惚	hn he
+惛	hb ho
+惜	hl ho
+惝	hs
+惟	hu
+惠	nq nk
+惢	hh
+惦	hx hy
+惧	hq hh
+惨	hk hm
+惩	wf wh ws
+惫	hq hh
+惬	hn hh
+惭	hy ht
+惮	hh hq
+惯	hk ho
+惰	hn hu
+想	eq eh
+惴	hv hl
+惶	hu hn
+惷	ai ah ao
+惹	ln lh ld
+惺	ho hl
+惼	hm hi
+愀	hx hc
+愁	xc xh
+愃	hw hf
+愆	pk ph
+愈	jv jh jp
+愉	hj hv
+愊	hf hd
+愍	dh
+愎	he ho
+意	xh
+愐	hb hm
+愒	ho hf hn
+愔	hx
+愕	hd
+愚	qv qh
+感	nf
+愠	ho ha
+愣	hy hl
+愤	hn hl
+愦	hc ho
+愧	ha
+愫	ha hi
+愬	hs hh hv
+愭	hq ho
+愽	hn hk
+愿	xu xy
+慄	hv he
+慆	hy hp
+慇	zr zh
+慈	hi hh
+慊	hh hc hb
+慌	hl hf
+慎	hn hq
+慑	hq hr
+慓	hv hf
+慕	lo lh lm
+慜	ek eh
+慝	nl nh nn
+慠	ha hp
+慢	ho hr hy
+慥	hq hd
+慧	aa ab
+慨	hi hd
+慬	hl hd
+慭	ah am
+慰	cf ch ck
+慵	hx ht hb
+慷	hx hb
+慼	ny nh nf
+慽	hn hy
+慾	he hh
+憃	ai ah ap
+憇	az ah
+憋	fh
+憎	hh hr
+憏	hh hf
+憔	hu hc
+憕	hh hz
+憙	hd hh
+憝	gh
+憧	hi hd
+憨	aq ah
+憩	ao ah
+憬	ho hg
+憭	hm hy hh
+憯	hd ho
+憱	hg ho hy
+憷	he
+憺	hx hs
+憾	hn hf
+懁	hy hf
+懂	hl
+懃	ld lh la
+懆	hd he
+懈	hx ht
+懊	ht hm
+懋	ei eh et
+懑	kl kh km
+懒	hx
+懔	hz hr
+懞	hl hw
+懦	ht hl
+懵	hl hy
+懽	hl hu hd
+懿	gw gh gz
+戆	xn xh
+戈	pg
+戊	nu
+戋	fp
+戌	nf
+戍	ni nd
+戎	pn
+戏	rp
+成	na
+我	tu
+戒	pl
+戕	ap
+或	pd pf
+戗	jz jp
+战	yd yp
+戚	ny nf
+戛	fo fp
+戟	no np nn
+戡	zh zp za
+戢	dq dp
+戣	hf hp hm
+戤	vr vp va
+戥	ol op
+截	np nu
+戬	fc fp fo
+戭	wf wp wd
+戮	zj ze
+戳	zu zp
+戴	np nq
+户	mh
+戽	mj
+戾	mm
+房	ml
+所	mt
+扁	mi
+扂	my md
+扃	mm md
+扅	ml
+扆	mt
+扇	mz
+扈	md mm
+扉	mr
+扊	mc
+手	us
+扌	us
+才	nt
+扎	ua
+扑	uy
+扒	uh
+打	ua
+扔	uv
+托	ut ur
+扛	uu
+扞	ue
+扠	ur ui
+扣	ud
+扤	uf up
+扦	ul uq
+执	uk ui
+扩	ux
+扪	ua
+扫	ub
+扬	ua ue
+扭	ua ug
+扮	uh up
+扯	us
+扰	uo
+扳	ux ur
+扶	uh
+批	uv
+扺	ub
+扼	ux uz
+扽	uf us
+找	up
+承	ak
+技	uc
+抃	uz uy
+抄	uy ut
+抆	uv
+抇	uo
+抈	uv
+抉	un uj
+把	um
+抏	um up
+抑	ub uz
+抒	ui
+抓	uy
+抔	uc
+投	ur
+抖	uj
+抗	uz uo
+折	ut
+抙	uu
+抚	ud
+抛	uk us
+抟	um ua
+抠	un ub
+抡	uj
+抢	uj uz
+护	um
+报	uz
+抦	uf uj um
+抨	ue uh
+披	ur
+抬	uk ud
+抱	un uv
+抵	ub ui
+抶	ut uh
+抹	uf ue
+抻	uo ug
+押	us
+抽	ud
+抿	ud
+拂	ut
+拃	uw ua
+拄	ui un
+担	uo uf
+拆	ut ui
+拇	uk
+拈	uy ud
+拉	ui
+拊	uj uk
+拌	uh uu
+拍	uu
+拎	uj uk
+拏	br bu
+拐	ud us
+拒	un
+拓	um
+拔	un ur
+拖	ue
+拗	ui us
+拘	ug
+拙	us um
+拚	uk ul
+招	up ud
+拜	uf ua
+拟	uv uj
+拢	ut
+拣	ur uy
+拤	uy uf
+拥	ut
+拦	uh ut
+拧	uw ua
+拨	us ur
+择	ur uu
+括	ua
+拭	up uu
+拮	ug ud
+拯	ua uk
+拱	ul uh
+拳	hh hu
+拴	uj un
+拶	uo ul
+拷	uq uf
+拼	uh ul
+拽	uo ua
+拾	uj
+拿	jd ju
+持	ug uk
+挂	ug
+指	uv
+挈	ap au
+按	uw ub
+挊	uy uf
+挎	um
+挑	up uw
+挓	uw ur ut
+挖	ue ua
+挙	kh ku
+挚	uk uu ui
+挛	zc zu
+挜	uf uc
+挝	uk uu
+挞	um uu
+挟	uh
+挠	up uf
+挡	uy ub
+挢	ut um
+挣	ux ub
+挤	uq
+挥	uw uy
+挦	ub uk
+挨	uk uo
+挪	ua uu
+挫	uj ug
+振	uf
+挲	ky ku kt
+挵	un ul
+挹	ud um
+挺	ut ug
+挼	uy ub
+挽	uw up
+捂	uw ud
+捃	ub ut
+捄	uf uk
+捅	uk ut
+捆	ur ue
+捉	up
+捋	uy uk
+捌	ud up us
+捍	uo ue
+捎	uy uv
+捏	uo ug
+捐	ud uv
+捕	un
+捞	ul uw
+损	ud uo
+捡	uj uk
+换	ux
+捣	ux uv
+捧	ua ui
+捨	uj ua
+捩	um
+捭	uu ut
+据	uc
+捯	uy up
+捱	ux ug
+捲	uh uz
+捵	ui uh
+捶	ul
+捷	uf ub
+捺	um uf
+捻	uj ua
+捽	uz un uj
+掀	ut ue
+掂	ux ud uy
+掇	ur
+授	uy uw
+掉	uy
+掊	ui ud
+掌	su
+掎	um uz
+掏	un ua
+掐	ux up
+排	ur
+掔	qr qu
+掖	uz uj
+掘	uc us
+掛	ug uy
+掞	uc
+掠	ug uy
+採	uy ue
+探	uw uh
+掣	qr qu qp
+接	ui ub
+控	ue uu
+推	uu
+掩	um uo
+措	ul uo
+掬	un up
+掭	uf um
+掮	um uv
+掯	us uv
+掰	uh uu up
+掱	uu
+掳	uz us
+掴	ur un
+掷	uh um
+掸	uh uq
+掹	uh ua
+掺	uk ue um
+掼	uk uo
+掾	ub uj
+揄	uj uv
+揅	mf mu ml
+揆	uh um uf
+揉	ui ut
+揌	uq uh
+揍	ua um ui
+揎	uw uf
+描	ul uq
+提	uo
+插	ul up
+揕	uz ua uh
+揖	ud uq
+揞	ux
+揠	un ub uo
+握	uc uy
+揢	uw us
+揣	uv ul
+揦	ux up
+揩	uv uu
+揪	ux uc
+揭	uo un
+揲	ul ua
+揳	ua up
+援	uy uf
+揶	uq ut
+揸	ue uo
+揹	ua uv
+揻	un ub uf
+揽	up ur
+揾	uo ua
+揿	uz ue
+搀	uw up
+搁	ua us
+搂	up ub
+搅	uk uw
+搇	uj ut ua
+搉	uw uu
+搋	ux uz
+搌	uc ul
+搏	un uk
+搐	uz uq ui
+搒	ui uw
+搓	ug uu
+搔	ur ui
+搕	ug ua uk
+搛	uh uc ub
+搜	up ug
+搞	ug
+搠	uh us
+搡	ur ue
+搢	uf uo uc
+搥	ut uk
+搦	ub uw
+搪	ux ud ub
+搬	ui ur
+搭	ul uj
+搰	uf
+搳	uw ud ua
+搴	wq wu wh
+携	uu uv
+搽	ul ue uj
+搾	ue uw
+搿	uj uu ud
+摁	ur um
+摄	uq ur
+摅	uz uh
+摆	uy ug
+摇	uy ua
+摈	uw ut
+摊	ur uu
+摏	ua up ui
+摒	uc ul uh
+摔	uz ui
+摘	ui um
+摛	uz ub
+摞	uq ui
+摧	uv uu
+摩	zu
+摭	ux ul
+摴	ut ua um
+摸	ul
+摹	lo lu lm
+摺	uz uu
+摽	uv uf
+撂	uq us
+撄	uo
+撅	ux uh
+撇	uf uh
+撐	us ul
+撑	us uu
+撒	ul uv
+撕	uz uh
+撖	ua uq
+撙	uh uy
+撚	uv um
+撞	ui ud
+撤	ub uv
+撧	ui um ux
+撩	um uy uh
+撬	uv
+播	ut up
+撮	uo uq
+撰	uv uh
+撴	ug uh
+撵	uh uy
+撷	ug uw ud
+撸	uw uo
+撺	ue ud
+撼	un uh uf
+擀	un uo
+擂	ut uq
+擅	uz ur
+操	ud
+擎	lg lu lh
+擐	uy ut uf
+擒	uj uv uz
+擖	ul uf uo
+擗	uc ud
+擘	cd cu cn
+擞	up uh ub
+擢	uz uu
+擤	uo ul uq
+擦	uw uf uh
+擩	ut ul
+擷	ug uw ud
+擿	ui uu um
+攀	eb
+攉	ut uu
+攒	uq up
+攘	ut uf ud
+攥	ur ui uq
+攫	uq ur
+攮	un ud
+支	ci
+攲	mz mc
+攴	hp
+攵	hp
+收	ih
+攷	fa fh
+攸	jg jh
+改	vh
+攻	uh
+攽	hp hh
+放	lh
+政	fs fh
+敁	yd yh
+故	ch
+效	ab ah
+敉	ph pp
+敌	ah
+敏	ek eh
+救	fk fi
+敔	wd wh
+敕	xh
+敖	ap ah
+教	qh
+敛	jk jh jf
+敝	fh
+敞	sh
+敠	rr rh
+敢	aq ah
+散	lv
+敦	gh
+敩	kw kh
+敫	ul uh
+敬	lg lh
+数	pb
+敲	gh
+整	xh xf
+敷	nl nh
+文	vw
+斋	vl
+斌	vf vs vp
+斐	rv
+斑	nv nn
+斓	va vx
+斗	jd
+料	pj
+斛	xt xj
+斜	jx jj
+斝	dd dj dw
+斟	zh zj za
+斠	qf qj qm
+斡	no nj nn
+斤	tj
+斥	ti
+斧	hb ht
+斨	at
+斩	yt
+斫	mt
+断	pa pt
+斯	zh zt
+新	ie
+斲	ct
+斶	ty tn
+方	lf
+於	lj lw
+施	le
+斿	le lh
+旁	iw il
+旂	le lt
+旃	le lz lm
+旄	le lv
+旅	le lt
+旆	le lr lf
+旉	nl
+旋	le lt
+旌	le ll
+旎	le lc
+族	le lo
+旐	le lp
+旒	le lb
+旓	le ly
+旖	le lm
+旗	le lz
+旞	le lu lh
+无	du
+既	id
+日	or
+旦	of
+旧	go
+旨	vo
+早	on
+旬	no
+旭	ko
+旮	ko kr
+旯	ok
+旰	oe og
+旱	oe
+旴	of on
+旵	ov
+时	ok
+旷	ox
+旸	oa oe
+旺	on
+旻	ov
+旿	oe on
+昀	on ow
+昂	ob oz
+昃	ox oj
+昄	ox or
+昆	ov
+昇	ot ol
+昈	om
+昉	ol
+昊	of om
+昌	oo
+昍	oo
+明	ov
+昏	bo
+昒	on oe
+易	on oe
+昔	lo
+昕	ot
+昙	ob
+昚	mh mo
+昝	hy ho
+星	ol
+映	om
+昡	oz oi
+昣	oj oe
+昤	oj ok
+春	ai ao
+昧	oa
+昨	ow
+昪	ok ol
+昫	og
+昭	op od
+是	ot
+昰	of os
+昱	oi
+昳	ot oh
+昴	ob
+昵	oc ov
+昶	ik io
+昺	of oj om
+昼	ci co
+昽	ot
+显	oc
+晁	op ow
+晃	om
+晅	of oo
+晊	oy
+晋	fc fo
+晌	ot om
+晏	ow ob
+晐	ok
+晒	ov
+晓	op of
+晔	oj ov
+晕	ow oy
+晖	ow oy
+晗	oj oa
+晙	ok oh
+晚	ow op
+晞	ob or on
+晟	on oa
+晡	on
+晢	ut uo
+晤	ow od
+晦	oe ok
+晨	of
+晪	oi oh
+晫	oy oo
+晬	oz oj
+普	hc ho
+景	og oy
+晰	oe ot
+晱	oc
+晴	oa ov
+晶	oo
+晷	oh oy
+智	od oo
+晻	om oo
+晾	og oy
+暂	yt yo
+暄	ow of
+暅	oh of
+暇	oc om
+暌	oh of
+暍	oo of on
+暎	ol om
+暑	oq oo
+暕	ox oh
+暖	oy of
+暗	ox
+暝	ow oo
+暧	oy ow
+暨	id if io
+暮	lo lm
+暱	on ol
+暲	ox on
+暴	ol oh
+暵	ol od
+暶	ol oe
+暹	ou
+暾	og oh
+暿	oh od
+曆	xx xo
+曇	ot ob
+曈	oi od
+曌	ov oe
+曙	oy oq
+曚	ol ow
+曛	ol op
+曜	oz ou
+曝	oo ol
+曦	og ox
+曩	ot od
+曰	or
+曱	sj
+曲	yq
+曳	oa ot
+更	fo
+曶	ne no
+曷	on of
+曹	fy fo
+曼	oy or
+曾	hr
+替	hh ho
+最	oq
+朅	gk gf go
+月	vy
+有	nv
+朊	vm vp
+朋	vv
+服	vz
+朏	vs vm
+朐	vg
+朒	vm vj
+朓	vp vw
+朔	hs hv
+朕	vh vm
+朗	ii iv
+朘	vk vh
+望	fv
+朝	no
+期	zh zv
+朣	vi vd
+朤	vv
+朦	vl vw
+木	em
+朩	em
+未	aw
+末	fe
+本	ef
+札	ea
+术	ei
+朱	ta
+朳	eh
+朴	ey
+朵	oe
+朸	es
+机	eo
+朽	ef ea
+朿	em
+杀	be
+杂	ke
+权	er
+杄	el
+杆	ee
+杇	em ea
+杈	er ei
+杉	ee
+杌	ef ep
+李	eh
+杏	ed
+材	en et
+村	ek
+杓	en ei
+杕	em
+杖	ef eb
+杙	ep
+杜	eg
+杞	ev
+束	xs
+杠	eu
+条	he
+来	ah
+杧	ef
+杨	ea
+杩	en
+杪	ey et
+杭	ez eo
+杯	ec
+杰	ec
+東	eo er
+杲	oe
+杳	eo
+杴	ee
+杵	ee en
+杷	em
+杻	ea eg
+杼	ei
+松	eh ek
+板	ex er
+极	ec
+构	en ek
+枅	ef el
+枇	ev
+枉	en
+枋	el
+枍	eh ef
+析	et
+枑	ef eb
+枒	el
+枕	ew ep
+林	ee
+枘	em ej
+枚	eh
+果	qe
+枝	ec
+枞	ej
+枠	ek en
+枢	en eb
+枣	em ew
+枥	ex es
+枧	ee
+枨	ep
+枪	ej ez
+枫	eo eb
+枭	xe
+枯	ec
+枰	ee eh
+枲	kd ke
+枳	ed eh
+枵	ed ef
+架	sd se
+枷	es ed
+枸	eg
+枹	en ev
+柁	ew ev
+柃	ej ek
+柄	ef em
+柈	eh eu
+柊	eh ew
+柏	eu
+某	ze
+柑	ez
+柒	kr ke
+染	kk ke
+柔	it ie
+柖	ep ed
+柘	em
+柙	es
+柚	ed
+柜	en
+柝	et ei
+柞	ew
+柠	ew ea
+柢	eb ei
+查	eo ef
+柩	en ei ex
+柬	xh
+柮	es em
+柯	ez
+柰	ef es
+柱	ei en
+柳	eb
+柴	sv se
+柷	ed ep
+柹	et
+柺	ed es
+柽	er eg
+柾	ef es
+柿	ez er
+栀	ex ef
+栃	ex ep ef
+栅	ei
+标	ef
+栈	ef ep
+栉	el ez
+栊	et
+栋	er ey
+栌	ey ec
+栎	eb ey
+栏	eh et
+栐	ei ek
+树	er ek
+栒	en eo
+栓	ej en
+栖	ev
+栗	ve
+栘	el
+栝	ea
+栞	ee
+栟	eh el
+校	ea eb
+栢	ef eu
+栩	ez
+株	et ea
+栲	eq ef
+栳	eq
+栴	ee ez em
+样	eg
+核	ek
+根	ei
+栻	ep eu
+格	es
+栽	np ne
+栾	zc ze
+栿	ej em
+桀	lv le
+桁	ep
+桂	eg
+桃	ep ew
+桄	em
+桅	ex
+框	en
+案	wb we
+桉	ew eb
+桊	hh he
+桌	yo ye
+桎	ey ei
+桐	em ef
+桑	rr re
+桓	ef eo
+桔	eg ed
+桕	ep
+桜	ek eb
+桠	ef ec
+桡	ep ef
+桢	ey eo
+档	ey eb
+桤	ev
+桥	et em
+桦	ej en ev
+桧	ej eb
+桨	al ae
+桩	ex eg
+桫	ek ey
+桯	ed en
+桲	en eh ew
+桴	ey eh
+桶	ek et
+桷	ex et
+桹	ei
+桺	eb
+桿	eo ee
+梁	kp kh
+梃	et eg
+梅	ee ek
+梆	ea et
+梌	ej ex
+梏	eq ed
+梐	ev eg
+梓	en
+梗	ef eo
+梠	ed
+梢	ey ev
+梣	ev ea ej
+梦	ee el
+梧	ew ed
+梨	xp xe
+梫	eb ew
+梭	ek eh
+梯	eh et
+械	ep el
+梳	eb eo
+梴	et es
+梵	ee eo
+梶	ec ev
+梼	ea ek
+梽	eg eh
+梾	ea eh
+梿	ey eu
+检	ej ek
+棁	eh ed
+棂	eb ec
+棉	eu er
+棋	ez eh
+棍	eo ev
+棐	re
+棑	er
+棒	ea eu ei
+棓	ei ed
+棕	ew ef
+棘	em ee
+棚	ev
+棠	se
+棣	eb ek
+棤	el eo
+棨	mh me
+棪	ec
+棫	ep ef ed
+棬	eh ez
+森	ee
+棰	el
+棱	eg eh
+棵	eq ee
+棹	ey en eo
+棺	ew ek
+棻	lh le lp
+棼	ee ep eh
+棽	ee ea ej
+椀	ew el
+椁	eg eh
+椅	em ez
+椆	em ed eg
+椇	eq eh
+椊	ez en ej
+椋	eg ey
+植	en eq
+椎	eu
+椐	ec
+椑	eu et
+椒	ey ef
+椓	ej ei
+椛	el ej
+椟	en em ea
+椠	yt ye
+椤	ey el
+椥	eo ed
+椪	eh ec
+椭	et en
+椰	eq et
+椴	eu er ef
+椸	el ee
+椹	ez ea eh
+椽	eb ej
+椿	ea eo ei
+楂	ee ef eo
+楒	eq eh
+楔	ea ep
+楗	eb eu
+楙	ei ee et
+楚	ee et
+楛	el ec
+楝	ex eh
+楞	ey el
+楠	en eg em
+楢	eh ey
+楣	ec eq
+楦	ew ef
+楩	ej ef
+楪	el ea
+楫	ed eq
+楬	eo en
+楮	eq eo
+楯	ex eq en
+楱	ea em ei
+極	er ed
+楷	ev eu
+楸	ex ec
+楹	ev er
+楼	ep
+榀	ed
+概	ei ed
+榃	ee eq
+榄	ep ee er
+榅	eo ea
+榆	ej ev
+榇	ei ee
+榈	ea ed
+榉	ek eu eh
+榊	ef eg eo
+榍	ec ey
+榑	en ek
+榔	ei
+榕	ew eh
+榖	gw gr gf
+榘	on oe
+榛	ea ex ei
+榜	ei ew
+榝	eb ee
+榧	en er
+榨	ee ew
+榫	eu en
+榭	ez ek
+榰	eq eo
+榱	et ed
+榴	eb eq
+榷	ew eu
+榻	eo ez
+榼	eg ea ek
+榾	ef
+槁	eg
+槃	ir ie
+槅	en
+槊	hs he hv
+槌	et ek
+槎	eg eu
+槐	ea
+槑	de dd
+槔	eu em
+槕	ey ee eo
+槙	en eh eq
+槚	ev eo
+槛	ep er
+槜	eu ev
+槟	ew et
+槠	es eq
+槥	ea
+槭	en ey
+槱	ey ec
+槲	ex ej et
+槺	ex eb
+槻	eh ee
+槽	ef ey
+槿	el ed
+樊	eb em
+樋	ek eu et
+樑	ek ep
+樗	et ea em
+樘	es eg
+樛	ez ee ej
+樟	ex en
+模	el eo
+樨	ec ek
+横	en
+樯	eg ed eh
+樱	eo
+樵	eu ec
+樸	ec ei eg
+樽	eh ey
+樾	ep en
+橄	ea eq
+橇	ev
+橐	nd ne nw
+橑	em eh
+橘	ei et
+橙	eh ez
+橛	ex ee eh
+橞	en eh eq
+機	ei
+橡	ew
+橤	hh he
+橥	mq me mo
+橦	ei ed
+橱	ex ez
+橹	ew eo
+橼	ei eb
+檀	ez ef er
+檄	eu el
+檇	eu em
+檎	ej ev ez
+檐	ex es
+檑	et eq
+檗	cd ce cn
+檞	ex eq et
+檠	lg le lh
+檩	ez ef er
+檫	ew ef eh
+檬	el ew
+檵	ei ea
+櫆	ea ej
+櫈	eh eo ez
+櫌	ew eh
+櫶	ew eh ea
+櫺	et ed
+櫼	ej ef
+欂	el ek
+欛	et
+欝	eb ek
+欞	et ej ed
+欠	eq
+次	we
+欢	re
+欣	te
+欤	fa fe ff
+欧	nb ne
+欬	ke
+欮	hs he
+欲	he
+欷	bn be br
+欸	ko ke
+欹	mz me
+欺	zh ze
+欻	cc ce
+款	gf
+欿	xp xe
+歃	lp le
+歅	vg ve
+歆	xe
+歇	on oe of
+歉	hb he hc
+歌	zz ze
+歔	zc ze
+歘	cc ce
+歙	jd je jz
+歠	rr re
+止	si
+正	fs
+此	sv
+步	ss
+武	fp fs
+歧	sc
+歪	cf cs
+歷	xx
+歹	gd
+死	gv
+歼	gl
+殀	gt gm
+殁	gr
+殂	gf
+殃	gm
+殄	gj ge
+殆	gk gd
+殇	ge ga
+殉	gn go
+殊	gt ga
+残	gf gp
+殍	gy gh
+殒	gd go
+殓	gj gf gk
+殖	gn gf gq
+殚	gh gn gq
+殛	gr gd
+殡	gw gh gt
+殣	gl ga gd
+殪	gg gw
+殭	gf gq
+殳	rs
+殴	nb nr
+段	uf
+殷	zr
+殼	gw gr gf
+殽	bn br bv
+殿	cl cr ch
+毁	pu pr
+毂	gw gy
+毅	ij ir
+毋	ku
+毌	ku
+母	km
+每	ek
+毐	gk
+毑	ke
+毒	ak
+毓	ek eb
+比	vv
+毕	vv vn
+毖	vv vh
+毗	qv
+毙	vv vg
+毛	vm
+毡	vy vd
+毪	vk vq
+毫	gv
+毯	vc
+毳	vv
+毴	vr vf
+毵	km kv ke
+毷	oq ov
+毹	jv jp
+毽	vb vu
+氄	it iv im
+氅	sh sv
+氆	vh vo vc
+氇	vw vo
+氉	dd dv
+氍	qq qv qu
+氏	bs
+氐	bi
+民	dm
+氓	fd
+气	vq
+氕	vt
+氖	vv
+気	vb vi
+氘	vp
+氙	vv
+氚	vo
+氛	vh vp
+氟	vt
+氡	vh vw
+氢	vr vu
+氤	vr vm
+氦	vk
+氧	vg
+氨	vw vb
+氩	vf vc
+氪	vc vp
+氮	vc
+氯	vb vk
+氰	va vv
+氲	vo va
+水	ks
+氵	ks
+氶	ak
+氷	ik
+永	ik
+氹	ak
+氼	kj
+氽	jk js
+氾	kz
+氿	kk
+汀	ka
+汁	kn
+求	fk
+汆	jk js
+汇	kn
+汈	ka kf
+汉	kr
+汊	kr ki
+汋	kn ki
+汍	kk ki
+汎	ko ki
+汏	km
+汐	kl
+汔	ke ka
+汕	kv
+汖	vk
+汗	ke
+汙	kf kn
+汛	ka kn
+汜	kv ks
+汝	kb
+汞	uk us
+江	ku
+池	ke
+污	km ka
+汤	ka ke
+汧	kf kl
+汨	ko kr
+汩	ko kr
+汪	kn
+汫	kq
+汭	km kj
+汰	km ki
+汱	km
+汲	kc
+汴	kz ky
+汶	kv
+汹	kb km
+汽	kv
+汾	kh kp
+沁	kh
+沂	kt
+沃	kt km
+沄	kb
+沅	km kp
+沆	kz ko
+沇	kk kp
+沈	kw kp
+沉	kw ko
+沌	kf ks
+沏	kr kp
+沐	ke
+沒	kp kr
+沓	ko kr
+沔	kf ka kg
+沕	kn ke
+沖	kd kg
+沘	kv
+沙	ky kt
+沚	ks
+沛	kf kr
+沝	kk
+沟	kn kk
+没	kr
+沢	kc ki
+沣	ka
+沤	kn kb
+沥	kx ks
+沦	kj
+沧	kj kz
+沨	ko kb
+沩	ki ks
+沪	km
+沫	kf ke
+沬	ka
+沭	ke ki
+沮	kf
+沱	kw kv
+沲	ke
+河	kz
+沴	kj ke
+沸	kt
+油	kd
+沺	kq
+治	kk
+沼	kp kd
+沽	kc
+沾	ky kd
+沿	ko kd
+泂	km kd
+泃	kg
+泄	kl ka
+泅	kr kj
+泆	kt kh
+泇	ks kd
+泉	uk
+泊	ku
+泌	kh kt
+泐	kt ks
+泓	kb kk
+泔	kz
+法	kg
+泖	kb
+泗	ky
+泙	ke kh
+泚	ks kv
+泛	kt kr
+泜	kb ki
+泞	kw ka
+泠	kj kk
+泡	kn kv
+波	kr
+泣	ki
+泥	kc kv
+注	ki
+泪	kq
+泫	kz ki
+泬	ke
+泮	kh ku
+泯	kd
+泰	ai ak
+泱	km
+泳	ki kk
+泵	mk
+泶	kw kk
+泷	kt
+泸	ky kc
+泺	kb ky
+泻	kw kf
+泼	ks kr
+泽	kr ku
+泾	kr ku
+洁	kg kd
+洄	kr kd
+洇	kr km
+洈	kx kz
+洋	kg
+洌	kg kp
+洎	ko
+洏	kl
+洑	kj km
+洒	kv
+洓	ke km
+洗	kq kp
+洘	kq kf
+洙	kt ka
+洚	kh kv
+洛	ks
+洞	km kf
+洢	kj kt kb
+洣	kp
+津	kb
+洧	kn kv
+洨	ka kb
+洩	ko kt ka
+洪	kl kh
+洫	kt ka
+洭	kn
+洮	kp kw
+洱	kq
+洲	ko
+洳	kb kd
+洴	kh kl
+洵	kn ko
+洸	km
+洹	kf ko
+洺	kl kd
+活	ka
+洼	kg
+洽	kj kd
+派	kx
+洿	km ka
+流	kb
+浃	kh
+浅	kf kp
+浆	al ak
+浇	kp kf
+浈	ky ko
+浉	kp kr kf
+浊	kc
+测	ko
+浍	kj kb
+济	kq
+浏	kv kp
+浐	ki kx
+浑	kw ky
+浒	ks ke
+浓	kw kt
+浔	kb kk
+浕	kc kw ki
+浙	ku kt
+浚	kk kh
+浛	kj ka
+浜	kt kh
+浞	kp
+浟	kj kg
+浠	kb kr kn
+浡	kn kh kw
+浣	kw km
+浤	kw kk kn
+浥	kd km
+浦	kn
+浩	kq kd
+浪	ki
+浬	kd
+浭	kf kb ko
+浮	ky kh
+浯	kw kd
+浰	kx kp
+浲	kh ka
+浴	kh
+浵	km kz
+海	ke kk
+浸	kb kw
+浼	kw kp
+涂	kj kx
+涄	kd kf
+涅	ko kg
+消	ky kv
+涉	ks
+涊	kp kh ki
+涌	kk kt
+涍	kq kh
+涎	kt ku ks
+涐	kt kp ku
+涑	kx
+涓	kd kv
+涔	kv kj
+涕	kh kt
+涘	kk ko
+涚	kh kd
+涛	ka kk
+涝	kl kw
+涞	ka kh
+涟	ky ku
+涠	kr kg
+涡	kd kj km
+涢	kd ko
+涣	kx km
+涤	kh ke
+润	ka kn
+涧	ka ko
+涨	kb kp
+涩	kp ki
+涪	ki kd
+涫	kw kk
+涮	kc kr
+涯	kx kg
+液	kz kv kj
+涴	kw kl
+涵	ka km kk
+涸	kr kc
+涿	kj ki
+淀	kw kt
+淄	ko kq
+淅	ke kt
+淆	kb kv kn
+淇	kz kh
+淋	ke
+淌	ks
+淏	ko km kf
+淑	ky kf
+淒	kf kb
+淖	ky ko
+淘	kn ka
+淙	kw kf
+淚	km
+淜	kv
+淝	kv km
+淞	ke kh
+淟	ki kh
+淠	kq kl
+淡	kc
+淤	kl kj
+淦	kz
+淩	kg kh
+淫	ky kg kt
+淬	kz kn kj
+淮	ku
+淯	kb kv
+深	kw kh
+淳	kg kh
+淴	kn kh ke
+混	ko kv
+淹	km ko
+添	kf km
+淼	kk
+淽	kl ks
+清	ka kv
+渊	kp
+渋	ks kw
+渌	kb kk
+渍	ka ko
+渎	kn km ka
+渐	ky kt
+渑	kd km
+渔	kw
+渕	kh km
+渖	kw kg ko
+渗	kk km
+渚	kq ko
+渝	kj kv
+渟	kg ka
+渠	kn
+渡	kx kr kl
+渣	ke ko
+渤	kn ks kw
+渥	kc ky
+温	ko ka
+渫	kl ke ka
+渭	kq kv
+港	kl kv kh
+渰	kj kl kd
+渲	kw kf
+渴	ko kn
+游	kl ke
+渺	kq ky
+渼	kg km
+湃	ku kf
+湄	kc kq
+湉	kh ka
+湊	ka ki
+湍	kv kl
+湎	kb
+湑	kt kv
+湓	kh ka kp
+湔	kh kv
+湖	kc kv
+湘	ke kq
+湛	kz ka kh
+湜	ko kt
+湝	kv ku
+湟	ku kn
+湣	kd ko
+湨	kq km
+湪	kb kj
+湫	kx kc
+湮	kv kg
+湲	ky kr kf
+湴	kh kc
+湻	kg ko
+湾	kz kc
+湿	ko kc
+溁	kl ke kw
+溃	kc ko
+溅	ko kf
+溆	kj kr kx
+溇	kp kb
+溉	ki kd
+溍	kf kc
+溏	kx kb
+源	kx ku
+準	ku kn
+溘	kg ka kk
+溚	kl kd kj
+溜	kb kq
+溞	kr kc ki
+溟	kw ka ko
+溠	kg ku
+溢	kk ka
+溥	kn kk
+溦	kv kh kf
+溧	kv ke
+溪	ky ki
+溯	kh kv ks
+溱	ka kx ki
+溲	kp kg
+溴	ko km
+溵	kz kr
+溶	kw kh
+溷	kr kj
+溹	kn ki kw
+溺	kb kw
+溻	ko kz
+溽	kf kk
+滀	kz kq ki
+滁	kt kx kj
+滂	ki kw
+滃	kh kz kk
+滆	kn
+滇	kn kq
+滈	kg
+滉	ko km
+滋	kh ki
+滍	ks kf
+滏	kh kz kb
+滑	kf
+滓	kw kn
+滔	ky kp
+滕	vh vk
+滗	kr kv
+滘	kw kd kh
+滙	kn ku
+滚	kt kh
+滞	kl kr kw
+滟	ka km kx
+滠	kq kr
+满	kl
+滢	kl ki kw
+滤	kz kh
+滥	kp kr
+滦	kz ke kc
+滧	ka kh kb
+滨	kw kh kt
+滩	kr ku
+滪	ki kw
+滫	kj kv kg
+滮	kz ke
+滴	ki km
+滷	ky kr
+滹	kz kt
+漂	kv kf
+漆	ke kj
+漈	kh kf
+漉	kx
+漋	kt kl kh
+漏	kc kt
+漒	kb kc kd
+漓	kz kb
+演	kw kh kf
+漕	kf ky
+漖	kq kh
+漠	kl ko
+漤	ke kb
+漦	ah ak ax
+漩	kl kt ke
+漪	km kz
+漫	ko ky
+漭	kl km
+漯	kq ki
+漱	kx ke
+漳	kx kn
+漴	kv kf kw
+漶	kd kh
+漷	kg kt kh
+漹	kf kc ks
+漻	kz ke kj
+漼	kv ku
+漾	kg ki
+潆	kl ki kw
+潇	kl kb
+潋	kj kh kk
+潍	ki ku
+潏	ki kt
+潖	kn km
+潘	kt kp
+潜	kh
+潝	kj kz kd
+潞	kp ks
+潟	kp kn
+潢	kn
+潦	km ky kh
+潩	kq kh kl
+潭	kv ko
+潮	kn ko
+潲	kx ky
+潴	km ko kq
+潵	kl kv
+潶	kp
+潸	ke kv
+潺	kc kh
+潼	ki kd
+潽	kh ko kc
+潾	kp kl
+澂	kv kh kf
+澄	kh kz
+澈	kb kh kv
+澉	ka kq
+澌	kz kt kh
+澍	kh kk
+澎	kh ke
+澐	kt kb
+澔	ku kq
+澛	kw ko
+澜	ka kx
+澡	kd
+澥	kx kq kt
+澧	ky kz
+澨	kr kj ku
+澪	kt kk kj
+澭	kz ku ki
+澱	kc kl
+澳	kt km
+澴	ky kt kf
+澶	kz kr
+澹	kx
+澼	kc kd
+澽	kz kj
+激	ku kl
+濂	kx kh
+濉	kq ku
+濋	ke kt
+濑	kx ko
+濒	ks kw
+濛	kl kj kw
+濞	ko kl kq
+濠	kg kj
+濡	kt kl
+濩	kl ku
+濮	kj kc
+濯	kz ku
+瀁	kg ki
+瀌	kx kc
+瀍	kx kd
+瀑	ko kl
+瀔	kg kr kw
+瀚	kn kz ko
+瀛	kf kd
+瀞	ka kb kv
+瀣	kg kr
+瀱	ky kx
+瀵	kp kq
+瀹	kj kd
+瀺	kw kv
+瀼	kt kd
+瀽	kw kp kq
+灈	kq ku
+灌	kl kd
+灏	ko kw kg
+灕	kz ku kb
+灞	kt
+灧	kv ka
+火	ch
+灬	ch
+灭	fc
+灯	ca
+灰	nc
+灵	bc
+灶	cg
+灸	xi xc
+灺	ce
+灼	cn ci
+災	oc
+灾	wc
+灿	cv
+炀	ca ce
+炁	dc
+炅	oc
+炆	cv cw
+炉	cm
+炊	ce
+炌	cj cp
+炎	cc
+炏	cc
+炒	cy ct
+炔	cn cj
+炕	cz co
+炖	cf cs
+炘	ct
+炙	vc
+炜	cg
+炝	cj cz
+炟	co cf
+炣	cz ck
+炤	cp cd
+炫	cz ci
+炬	cn
+炭	vn vc
+炮	cn cv
+炯	cm cd
+炰	nv nc
+炱	kd kc
+炳	cf cm
+炷	ci cn
+炸	cw
+点	yd
+炻	cm
+炼	cr cy
+炽	cd ch
+烀	ct ch
+烁	cb cy
+烂	ch ct
+烃	cr cu
+烆	cp
+烈	gp gc
+烊	cg
+烎	fl fc
+烔	cm cf
+烘	cl ch
+烙	cs
+烛	cc
+烜	cf co
+烝	ak ac af
+烟	cr
+烠	cn cv
+烤	cq cf
+烦	cw
+烧	cp cf
+烨	cj cv
+烩	cj cb
+烫	ka kc ke
+烬	cc ci
+热	uk
+烯	cb cn
+烱	cm cd ch
+烶	ct cu cg
+烷	cw cm
+烹	gr gc
+烺	ci
+烻	ct cu cs
+烽	ch ca
+烿	cm ce cz
+焆	cd cv
+焉	fs ff
+焊	co ce
+焌	ck ch
+焐	cw cd
+焓	cj ca
+焕	cx cm
+焖	ca ch
+焗	cc ca
+焘	ak ac
+焙	ci cd
+焚	ee ec
+焜	co cv
+焞	cg ch
+焠	cz cj
+焦	uc
+焮	ct ce
+焯	cy co
+焰	cx
+焱	cc
+然	vm
+焿	cx cb
+煁	cz ca ch
+煃	cm cg
+煅	cu cf
+煊	cw cf
+煋	co cl
+煌	cu cn
+煎	hv hc hp
+煓	cv cl
+煙	cv cg
+煚	on oc
+煜	co ci
+煞	xb xc xh
+煟	cq cv
+煣	ci ct
+煤	cz ce
+煦	og oc
+照	op od
+煨	cq ct cf
+煮	qo qc
+煲	jd jc je
+煳	cc cv
+煴	co ca
+煸	cm ci
+煺	ci cu
+煽	cm cz
+煿	cn ck
+熄	co ch
+熇	cg
+熊	kv
+熏	lp
+熔	cw ch
+熘	cb cq
+熙	qv qc
+熛	cv cf
+熜	ct cr
+熟	gh gk
+熠	cz cu
+熥	ck cu ct
+熨	cf cc ck
+熬	ap ac ah
+熯	cl cd
+熳	co cy
+熵	ci cm
+熹	hd hc
+熺	ch cd
+熻	cj cz cd
+熿	cn ch
+燃	cv cc cm
+燄	xp xc
+燊	cc ce
+燋	cu cc
+燎	cm cy ch
+燏	ci cd ct
+燐	cp cv cl
+燔	ct cp
+燕	la lc ld
+燚	cc
+燠	ct cm
+燥	cd
+燧	ch cj
+燬	cp cr cu
+燮	sc sr
+燹	jj jc
+燻	cl cp
+爆	co cl
+爇	lg lc lh
+爊	cx cc
+爔	cg cx
+爕	sc
+爚	cj cd
+爝	cy
+爟	cl cu cd
+爢	zr zc
+爧	ct cj cd
+爨	pm pf
+爪	ya
+爫	ya
+爬	ym
+爰	yf yn
+爱	yw
+爵	yy yk yi
+父	hb
+爷	hb hz
+爸	hb hm
+爹	hb hl
+爻	bb
+爽	mb
+爿	ap
+牁	az
+牂	ag
+片	ap
+版	ax
+牌	au at
+牍	an aa
+牒	al aa
+牖	am an
+牙	ly
+牚	sl
+牛	qn
+牜	qn
+牝	qv
+牟	kq
+牠	qe
+牡	qg
+牢	wq
+牣	qp qi
+牤	qf
+牥	ql
+牦	qv
+牧	qh
+物	qn qe
+牪	qq
+牮	jp jq
+牯	qc
+牲	ql
+牴	qb qi
+牵	mw mq
+牷	qj qn
+牸	qw qh
+特	qg
+牺	qv
+牻	qo qe
+牾	qw qd
+牿	qq qd
+犀	ck cq
+犁	xp xq
+犄	qm qz
+犇	qq
+犊	qn qa
+犋	qq qh
+犍	qb qu
+犏	qm qi
+犒	qg
+犗	qw qd qa
+犟	bd bq bc
+犨	uu uq
+犬	mq
+犭	mq
+犮	nr ni
+犯	mz
+犰	mk
+犴	me mg
+状	am
+犷	mx mg
+犸	mn
+犹	mo
+犺	mz mo
+犼	mh ma
+犽	ml my
+狁	mk mp
+狂	mn
+狃	ma mg
+狄	mc
+狈	mo
+狉	mc mf
+狌	ml
+狍	mn mv
+狎	ms
+狐	my
+狒	mt
+狓	mr
+狖	me
+狗	mg
+狙	mf
+狛	mu
+狝	mx my
+狞	mw ma
+狠	mi
+狡	ma mb
+狥	mn mo
+狨	mp mn
+狩	mw mk
+独	mc
+狭	mh
+狮	mp mf
+狯	mj mb
+狰	mx mb
+狱	ms mm
+狲	mh my
+狳	mj mx
+狴	mv mg
+狷	md mv
+狸	md
+狺	ms
+狻	mk mh
+狼	mi
+猁	mx mp
+猂	mo me
+猃	mj mf mk
+猄	mg my
+猇	mz
+猊	mp
+猋	mm
+猎	ml mo
+猓	mq me
+猕	mb mx
+猖	mo
+猗	mm mz
+猛	mh ma
+猜	ma mv
+猝	mz mn mj
+猞	mj ma
+猡	my ml
+猢	mc mv
+猥	mq mf
+猨	my mf
+猩	mo ml
+猪	mq mo
+猫	ml mq
+猬	mq mv
+献	nm ng
+猯	mv ml
+猰	ma mp
+猱	mi mt
+猴	mj mn
+猷	hy hm
+猸	mc mq
+猹	me mf mo
+猺	my ma
+猾	mf
+猿	mg mt md
+獍	mx mp
+獐	mx mn
+獒	ap am ah
+獕	mv mu
+獗	mx mh
+獠	mm mh
+獬	mx mq mt
+獭	mx
+獯	ml mp
+獴	ml mw
+獾	ml md
+玃	mq mr
+玄	zi
+率	zi
+玉	ni
+玊	ni nd
+王	nw
+玍	eg
+玎	na
+玏	ns
+玑	no
+玒	nu
+玓	nn ni
+玕	ne
+玖	nx ni
+玗	nf nn
+玘	nv
+玙	nf na
+玚	na ne
+玛	nn
+玞	nh
+玟	nv
+玠	nj np
+玡	nl
+玢	nh np
+玤	na
+玥	nv
+玦	nn nj
+玨	nn
+玩	nm np
+玫	nh
+玭	nv
+玮	ng
+环	nc
+现	ne
+玱	nj nz
+玲	nj nk
+玳	nj np
+玵	nz
+玶	ne nh
+玷	ny nd
+玹	nz ni
+玺	xy xn
+玻	nr
+玼	ns nv
+玽	ng
+玿	np nd
+珀	nu
+珂	nz
+珅	no ng
+珇	nf
+珈	ns nd
+珉	nd
+珊	ni
+珋	nb
+珌	nh nt
+珍	nj ne
+珏	nn ni
+珐	ng nk
+珑	nt
+珒	nb
+珕	ns
+珖	nm ng
+珙	nl nh
+珛	nn nv
+珝	nz
+珞	ns ng
+珠	nt na
+珢	ni
+珣	nn no
+珥	nq
+珦	nt nd nm
+珧	np nw
+珨	nj nd
+珩	np
+珪	ng
+珫	nb np
+班	np
+珮	no nf
+珰	ny nb
+珲	nw ny
+珵	nd nn
+珶	nh nt
+珷	nf np
+珸	nw nd
+珹	nn na
+珺	nb nt
+珽	nt ng
+琀	nj na
+球	nf nk
+琄	nd nv
+琅	ni
+理	nd
+琇	nx nv
+琈	ny nh
+琉	nb no
+琊	nl nt
+琍	nx np
+琎	nq nu
+琏	ny nu
+琐	ny no
+琔	nw nt
+琖	np
+琚	nc
+琛	nw nh
+琞	ov on
+琟	nu
+琡	ny nr nf
+琢	nj ni
+琤	nx nb
+琥	nz
+琦	nm nz
+琨	no nv
+琪	nz nh
+琫	na ni
+琬	nw nl
+琭	nb nk
+琮	nw nf
+琯	nw nk
+琰	nc
+琱	nm nd ng
+琲	nr nf
+琳	ne
+琴	nn nj
+琵	nn nv
+琶	nn nm
+琹	nn ne
+琼	ng ny
+瑀	nt nv nd
+瑁	no nq
+瑂	nc nq
+瑃	na no ni
+瑄	nw nf
+瑅	no nt
+瑆	no nl
+瑊	nn nd nf
+瑑	nb nj
+瑓	nx nh
+瑔	nu nk
+瑕	nc nm
+瑖	nu nf
+瑗	ny nr nf
+瑙	no nt
+瑚	nc nv
+瑛	nl nm
+瑜	nj nv
+瑝	nu nn
+瑞	nv nl
+瑟	nn nt nh
+瑠	nb nq
+瑢	nw nh
+瑧	na nx ni
+瑨	nf nc
+瑬	kb ki ko
+瑭	nx nd nb
+瑰	na
+瑱	nn nq
+瑳	ng nu
+瑶	ny na
+瑷	ny nw
+瑾	nl nd
+璀	nv nu
+璁	nt nr
+璃	nz
+璆	nz ne nj
+璇	nl ne
+璈	na np
+璋	nx nn
+璎	no
+璐	np ns
+璒	nh nz
+璘	np nl
+璜	nn
+璞	nc ng
+璟	no ny ng
+璠	nt nq np
+璥	nl ng
+璧	cd ci cn
+璨	ng nr
+璩	nz nj
+璪	nd ne
+璬	nu nl
+璮	nz nr
+璱	nn nt
+璲	nh nj
+璺	pm pi pf
+璿	ng nq nh
+瓀	nt nl
+瓈	nx nk np
+瓒	nq np
+瓖	nt nf nd
+瓘	nl nu nd
+瓜	yg
+瓞	yt yh
+瓠	mm my ma
+瓢	vf vy
+瓣	ny nn
+瓤	td ty
+瓦	rw
+瓧	rn
+瓩	rl
+瓮	hk hr
+瓯	nb nr
+瓰	rh rp
+瓱	rv
+瓴	jk jr
+瓶	hl hr
+瓷	we wr
+瓸	rf ru
+瓻	bn br
+瓿	id ir
+甃	xc xr
+甄	vg vr
+甅	rx rd
+甇	cc cr cw
+甍	ly lr lw
+甏	he hr
+甑	hr hy
+甓	cd cr cn
+甗	zn zr
+甘	zg
+甙	pz
+甚	zh za
+甜	az
+生	ls
+甡	ll
+甥	lq ls
+甦	fo fl fb
+用	ty
+甩	ta
+甪	tt
+甫	nf
+甬	kt
+甭	ct
+甯	wh wt
+田	qt
+由	dy
+甲	sj
+申	og
+甴	dy
+电	oa
+男	qs
+甸	nq
+町	qa qd
+画	fq fm
+甾	oq
+畀	ql
+畅	og oa
+畇	qn qw
+畈	qx qr
+畊	qq
+畋	qh qp
+界	qj qp
+畎	qm
+畏	qf qt
+畐	fd fq
+畑	cq
+畔	qh qu
+畖	qy
+留	bq
+畚	km kq
+畛	qj qe
+畜	zi zq
+畠	uq
+畤	qg qk
+略	qs
+畦	qg
+番	tp tq
+畬	jx jq
+畯	qk qh
+畲	jf jq
+畴	qa qk
+畸	qm qz
+畹	qw ql
+畺	fq ff
+畿	ii ip
+疁	qz qj
+疃	qi qd
+疆	bg bf
+疋	ts
+疌	fb fs
+疍	to tf
+疏	tb to
+疐	nw nq
+疑	vo
+疒	ab
+疔	aa
+疖	az aj
+疗	ar
+疘	au
+疙	ae aa
+疚	ax ai
+疝	av
+疟	ab
+疠	af ap
+疡	aa ae
+疢	ac
+疣	ao
+疤	am
+疥	aj ap
+疫	ar
+疬	ax as
+疭	aj
+疮	aj az
+疯	ao ab
+疰	ai an
+疱	an av
+疲	ar
+疳	az
+疴	az
+疵	as av
+疸	ao af
+疹	aj ae
+疻	ad ah
+疼	ah aw
+疽	af
+疾	ao
+痁	ay ad
+痂	as ad
+痃	az ai
+痄	aw
+病	af am
+症	af as
+痈	at
+痉	ar au
+痊	aj an
+痍	am ab
+痎	ak
+痏	an av
+痐	ar ad
+痒	ag
+痓	ay
+痔	ag ak
+痕	ai
+痖	af ac
+痘	az
+痛	ak at
+痞	ac ad
+痠	ak ah
+痢	ax ap
+痣	ag ah
+痤	aj
+痦	aw ad
+痧	ak ay
+痨	al aw
+痪	ax am
+痫	aa ae
+痰	ac
+痱	ar
+痴	ao ad
+痹	aq al
+痺	au an at
+痼	ar ac
+痾	at az
+痿	ax ab
+瘀	al aw aj
+瘁	az an aj
+瘃	aj ai
+瘄	al ao
+瘅	ah an aq
+瘆	ak ae am
+瘈	aa am ap
+瘊	aj ao an
+瘌	ax ap
+瘐	ap aj
+瘕	ac am
+瘖	ax
+瘗	ah ag
+瘘	ap ab
+瘙	ar ai
+瘛	aa ap
+瘝	ay ak
+瘟	ao aa
+瘠	aw
+瘢	ai ar
+瘤	ab aq
+瘥	ag au
+瘦	ap ar ag
+瘩	al aj
+瘪	ao aj
+瘫	ar au
+瘭	av af
+瘰	aq ai
+瘳	az ae aj
+瘴	ax an
+瘵	ah af
+瘸	as aj ad
+瘼	al ao
+瘾	at ax
+瘿	ao ab
+癀	an
+癃	at ah
+癈	ah ar ab
+癌	ad
+癍	an av
+癒	aj av
+癔	ax ah
+癖	ac an ad
+癗	at aq
+癜	ac al
+癞	ax
+癣	aw ag
+癥	aw av
+癫	an aq
+癯	aq
+癸	hf hm
+登	hz
+發	hb hr
+白	ub
+百	fu
+癿	ua
+皁	un
+皂	ur
+皃	up
+的	ue
+皆	vv vu
+皇	un
+皈	ux ur
+皋	um un
+皎	ua ub
+皑	uv
+皓	uq ud
+皕	fu ff
+皖	uw um
+皙	et eu
+皛	uu
+皝	un um
+皞	uu um
+皤	ut uq up
+皦	uu ul
+皭	uy uk
+皮	rp
+皱	xb xr
+皲	wy wr
+皴	kh kr
+皿	am
+盂	fn fa
+盅	dg da
+盆	hp ha
+盈	vr va
+盉	xa
+益	ka
+盍	gk ga
+盎	mm ma
+盏	fp fa
+盐	gy ga
+监	pr pa
+盒	jd ja
+盔	nc na
+盖	ga
+盗	we wa
+盘	ia
+盛	na
+盝	bk ba
+盟	ov oa
+盥	pk pa
+盦	ja jy
+盩	gg ga gh
+目	qm
+盯	qa
+盱	qf qn
+盲	fq
+直	nq nf
+盷	qn qw
+相	eq
+盹	qf qs
+盻	qh qa qf
+盼	qh qp
+盾	xn xq
+省	yt yq
+眄	qf qa qg
+眇	qy qt
+眈	qw qp
+眉	cq
+眊	qv qm
+看	uq
+眍	qn qb
+眙	qk qd
+眚	lq
+眜	qf qe
+真	nq
+眠	qd
+眢	lz lq
+眥	sv sq
+眦	qs qv
+眨	qt qr
+眩	qz qi
+眬	qt
+眭	qg
+眯	qp
+眰	qy
+眵	ql
+眶	qn
+眷	hh hq
+眸	qk qq
+眺	qp qw
+眼	qi
+眾	yj
+着	gq
+睁	qx qb
+睃	qk qh
+睄	qy qv
+睆	qw qm
+睇	qh qt
+睎	qb qr qn
+睏	qr qe
+睐	qa qh
+睑	qj qf qk
+睒	qc
+睖	qg qh
+睚	qx qg
+睛	qa
+睡	ql
+睢	qu
+督	yf yq yy
+睥	qu qt
+睦	qg qh
+睨	qp
+睩	qb qk
+睫	qf qb
+睬	qy qe
+睹	qq qo
+睺	qj qo qn
+睽	qh qf
+睾	ty tg
+睿	gh gq
+瞀	it iq ih
+瞄	ql qq
+瞅	qx qc
+瞇	qp qu
+瞋	qn qq
+瞌	qg qa qk
+瞍	qp qr qg
+瞎	qw
+瞑	qw qo
+瞒	ql qm
+瞟	qv qf
+瞠	qs qg
+瞢	ly lq lw
+瞥	fh fq
+瞧	qu qc
+瞩	qc qt
+瞪	qh qz
+瞫	qv qo
+瞬	qy qw
+瞭	qm qh
+瞰	qa qq
+瞳	qi qd
+瞵	qp ql
+瞻	qx
+瞽	hc hq
+瞿	qq qu
+矇	ql qw
+矍	qq qr qu
+矗	nq nf
+矛	it
+矜	it ij
+矞	it id im
+矢	os
+矣	ko
+知	od
+矧	ob og
+矩	on
+矫	ot op om
+矬	oj
+短	oz
+矮	ox ob
+矰	oh oo or
+矱	ol ou
+石	ms
+矴	ma
+矶	mo
+矸	me
+矻	me ma
+矼	mu
+矽	ml
+矾	mo mi
+矿	mx
+砀	ma me
+码	mn
+砂	my mt
+砄	mn mj
+砆	mh
+砉	am
+砌	mr mp
+砍	me
+砑	ml
+砒	mv
+研	mf ml
+砖	mm mi ma
+砗	my
+砘	mf ms
+砚	me
+砜	mo mb
+砝	mg mk
+砟	mw ma
+砠	mf
+砢	mz mk
+砣	mw mv
+砥	mb mi
+砦	sv sm
+砧	my md
+砩	mt
+砫	mi mn
+砬	mi
+砭	mt mr
+砮	br bm
+砯	mi mk
+砰	me mh
+砳	mm
+破	mr
+砵	me mf
+砷	mo mg
+砸	mn mr
+砹	ml mb
+砺	mx mf
+砻	tm
+砼	mj mu
+砾	mb my
+砿	mx mk
+础	ms mm
+硁	mr mu
+硃	mt ma
+硅	mg
+硇	mt mb mr
+硊	mx mz
+硋	mk
+硌	ms mg
+硍	mi
+硎	mf mp ml
+硐	mm mf
+硒	mv
+硔	ml mh
+硕	mw
+硖	mh
+硗	mp mf
+硙	mv
+硚	mt mm
+硝	my mv
+硠	mi
+硪	mt mu
+硫	mb mo
+硬	mf mo
+硭	ml mf
+确	mx
+硵	my mr
+硷	mj mk
+硼	mv
+硿	me mu
+碁	zh zm
+碃	ma mv
+碇	mw mt
+碈	mb mo
+碉	mm mg
+碌	mb mk
+碍	mo mf
+碎	mz mj
+碏	ml mo
+碑	mu mt
+碓	mu mi
+碗	mw ml
+碘	mi mh
+碚	mi md
+碛	ma mo
+碜	mk mm
+碟	ml ma
+碡	ma mk
+碣	mo mn
+碥	mm mi
+碧	nu nm
+碨	mq mt mf
+碰	mh mc
+碱	mn mf
+碲	mi mr mw
+碳	mv mn
+碴	me mo
+碶	ma mm mp
+碹	mw mf
+確	mw mu
+碾	mc ml
+磁	mh mi
+磅	mi mw
+磈	ma
+磉	mr
+磊	mm
+磋	mg mu
+磎	my mi
+磏	mh mc mb
+磐	ir im
+磓	mt mu mk
+磔	ml mv
+磕	mg ma mk
+磙	mt mh
+磜	mh mf
+磡	mz ms mh
+磨	zm
+磬	gc gm gr
+磲	mk mn
+磴	mh mz
+磷	mp ml
+磹	mv mo
+磺	mn
+磻	mt mp
+礁	mu mc
+礃	ms mu
+礅	mg mh
+礌	mt mq
+礐	pb pm
+礓	mf mq
+礞	ml mj mw
+礤	ml mf mh
+礳	mz mm
+礴	ml mk
+礵	mt me
+示	fs
+礻	fs
+礼	fa
+礽	fv
+社	fg
+祀	fv
+祁	ft
+祂	fe
+祃	fn
+祆	ff fm
+祇	fb
+祈	ft
+祉	fs fi
+祊	fl
+祋	fr
+祎	fg
+祏	fm
+祐	fn fd
+祓	fn fr
+祕	fh ft
+祖	ff
+祗	fb fi
+祚	fw
+祛	fg fk
+祜	fc fg
+祝	fd fp
+神	fo fg
+祟	sm sf
+祠	fa ff
+祢	fx fy
+祥	fg
+祧	fp fw
+票	vf
+祭	hf
+祯	fy fo
+祲	fb fw
+祷	fa fk
+祸	fd fj fm
+祺	fz fh
+祼	fq fe
+祾	fg fh
+禀	zr zf zd
+禁	ee ef
+禄	fb fk
+禅	fh fq
+禊	fa fp
+禋	fv fg
+福	ff
+禒	fb fj
+禔	fo ft
+禘	fi fw
+禚	fg fc
+禛	fn fq
+禟	fx fb
+禤	fy fz
+禥	fz fg fh
+禦	wa wf wz
+禧	fh fd
+禩	fq fl
+禳	ft fd
+禵	fo fw ft
+禸	vr
+禹	td tv
+禺	qv
+离	zb
+禽	jz jb
+禾	xh
+禿	xp
+秀	xv
+私	xk
+秃	xo
+秆	xe
+秉	xb
+秋	xc
+种	xd xg
+科	xj
+秒	xy xt
+秕	xv
+秘	xh xt
+租	xf
+秣	xf xe
+秤	xe xh
+秦	ai ax
+秧	xm
+秩	xt xh
+秫	xe xi
+秬	xn
+秭	xt
+积	xd xh
+称	xx xy
+秸	xg xd
+移	xl
+秽	xv xl
+秾	xw xt
+稀	xb xr xn
+稂	xi
+稃	xy xh
+稆	xd
+程	xd xn
+稌	xj xx
+稍	xy xv
+税	xh xd
+稑	xg xh
+稔	xj xa
+稗	xu xt
+稙	xn xf xq
+稚	xu
+稞	xq xe
+稠	xm xg
+稣	wx
+稳	xx xb
+稷	xq xh
+稹	xn xh xq
+稻	xy xp
+稼	xw xj
+稽	xo xv
+稿	xg
+穀	gw gr gf
+穄	xh xf
+穆	xu xe xy
+穑	xg xd xh
+穗	xn xh xq
+穙	xc xg
+穜	xi xd
+穟	xh xj
+穰	xt xd
+穴	ex
+究	ek
+穷	es
+穸	el
+穹	eb
+空	eu
+穿	el
+窀	ef es
+突	em
+窃	er ep
+窄	ew
+窅	eq em
+窆	et er
+窈	ei es
+窊	ey
+窌	eb
+窍	eu ef
+窎	ex
+窑	ea
+窒	ey
+窕	ep ew
+窖	eq ed
+窗	et
+窘	eb et
+窜	ed
+窝	ed
+窟	ec es
+窠	eq ee
+窣	ez ej
+窥	eh ee
+窦	en ea
+窨	ex
+窬	ej ep ev
+窭	ep eb
+窳	ey
+窸	et ep
+窾	eg ef
+窿	et eh
+立	il
+竍	in
+竏	il
+竑	in ik
+竓	iv
+竕	ih ip
+竖	pr pi
+竘	ig
+站	iy id
+竞	id ip
+竟	xp
+章	xn
+竡	if iu
+竣	ik ih
+童	id
+竦	ix
+竫	ix ib
+竭	io in
+端	iv il
+竰	ix id
+竹	ru
+竺	rm
+竽	rf rn
+竿	re
+笃	rn
+笄	rf rl
+笆	rm
+笈	rc
+笊	ry
+笋	rb rt
+笏	rn re
+笑	rt rm
+笔	rv
+笕	re rj
+笘	ry rd
+笙	rl
+笛	rd
+笞	rk rd
+笠	ri
+笤	rp rd
+笥	ra rf
+符	rj rk
+笨	re rf
+笪	ro rf
+笫	rt
+第	rt
+笭	rj rk
+笮	rw
+笯	rb rr
+笱	rg
+笳	rs rd
+笸	rn rd
+笹	rl ra
+笺	rf rp
+笼	rt
+笾	rs ru
+筀	rg
+筅	rq rp
+筇	ru rt
+等	rg
+筋	rv rs
+筌	rj rn
+筏	rj rp
+筐	rn
+筑	ru ro
+筒	rm rf
+答	rj rd
+策	re rm
+筘	ru rd
+筚	rv
+筛	rp rf
+筜	ry rb
+筝	rx rb
+筠	rg rn
+筢	ru rm
+筤	ri
+筥	rd
+筦	rw rm
+筭	rn rl
+筮	ru rj
+筱	rj rg
+筲	ry rv
+筳	rt rg
+筵	rt rs
+筶	rq rd
+筷	rh rn
+筹	ra rk
+筻	rf ro
+筼	rd ro
+签	rj rf rk
+简	ra
+箅	rq rl
+箇	rr rc
+箍	ru rr rn
+箐	ra rv
+箑	rf rb
+箒	rb rw
+箓	rb rk
+箔	rk ru
+箕	rz rh
+箖	re
+算	rq rl
+箙	rv rz
+箜	re ru
+箝	ru rz
+箠	rl rg
+管	rw rk
+箢	rw rl
+箦	ra ro
+箧	rn rh
+箨	ru rr
+箩	ry rl
+箪	rh rq
+箫	rb rp
+箬	rl rn
+箭	rh rv
+箱	re rq
+箴	rn rd rf
+箸	rq ro
+篁	ru rn
+篅	rv rl
+篆	rb rj
+篇	rm ri
+篌	rj ro rn
+篑	rc ro
+篓	rp rb
+篙	rg
+篚	rn rr
+篛	rb rw
+篝	rq rf
+篠	rj re rg
+篡	rq rm
+篥	rv re
+篦	rt rr
+篨	rt rj
+篪	rx rz
+篮	rp rr
+篯	rz rf
+篱	rz rb
+篲	ra
+篷	rh ra
+篼	ru rp rb
+篾	ry rn
+篿	rn rk rq
+簃	rx rl
+簇	rl re
+簉	rq ru rd
+簋	ri ra
+簌	rx re
+簏	rx
+簑	rt rd
+簕	rt rs
+簖	rp ra
+簝	rm ry rh
+簟	rv ro
+簠	rn ra
+簦	rh rz
+簧	rn
+簪	rd
+簰	ra ru
+簷	rx rs
+簸	rz rr rh
+簿	rk rn
+籀	ru rq rb
+籁	rx
+籍	ra rl
+籐	rv rh
+籝	rf ri rd
+籤	rj
+籥	rj rd
+籧	rz rj
+籰	rq
+米	pm
+籴	jp
+籹	pb
+籺	pe pa
+类	pm
+籼	pv
+籽	ph
+籾	pp pi
+粃	pv
+粄	px pr
+粉	ph pp
+粑	pm
+粒	pi
+粔	pn
+粕	pu
+粗	pf
+粘	py pd
+粜	sm sp
+粝	px pf
+粞	pv
+粟	vp
+粢	we wp
+粤	tr ta tp
+粥	bp bb
+粦	pl pv
+粪	pl ph
+粮	pi
+粱	kp kh
+粲	gr gp
+粳	pf po
+粵	tr tt
+粹	pz pn pj
+粼	pl pv
+粽	pw pf
+精	pa
+粿	pq pe
+糁	pk pe pm
+糄	pm pi
+糅	pi pe pt
+糇	pj pn
+糈	pt pv
+糊	pc pv
+糌	ph po py
+糍	ph pi
+糒	pl pt
+糕	pg pc
+糖	px pd pb
+糗	po pm
+糙	pq pd
+糜	zp
+糞	pq pl
+糟	pf py
+糠	px pk pb
+糨	pb pd
+糯	pt pl
+糵	lt lp lk
+糸	is
+系	ti
+紊	vi
+素	ai
+索	nw ni
+紥	ua ui
+紧	pr
+紫	sv si
+紬	id
+紮	ea ei
+累	qi
+絜	ap ai
+絮	bd bi
+絷	uk ui
+綦	zh zi
+綮	mh mi
+縠	gw gr gf
+縢	vh vi
+縻	zi
+繁	ek ei eh
+繄	no ni nr
+繇	ya yt
+繣	ib iq
+繫	ym yr
+纂	rq ri rm
+纍	qq qi
+纔	iw iv
+纛	ak aq
+纟	is
+纠	ii
+纡	if in
+红	iu
+纣	ik
+纤	il
+纥	ie ia
+约	in ii
+级	ic
+纨	ik ii
+纩	ix
+纪	iv
+纫	ip ii
+纬	ig
+纭	ib
+纮	in ik
+纯	if is
+纰	iv
+纱	iy it
+纲	im ib
+纳	im ij
+纴	it ig
+纵	ij
+纶	ij
+纷	ih ip
+纸	ib
+纹	iv
+纺	il
+纻	iw if
+纼	ib ig
+纽	ia ig
+纾	ii
+线	if ip
+绀	iz
+绁	il ia
+绂	in ir
+练	ir iy
+组	if
+绅	io ig
+细	iq
+织	id ih
+终	ih iw
+绉	ix ib
+绊	ih iu
+绋	it
+绌	is im
+绍	ip id
+绎	ir iu
+经	ir
+绐	ik id
+绑	ia it
+绒	ip in
+结	ig id
+绔	im
+绕	ip if
+绖	iy
+绗	ip
+绘	ij ib
+给	ij
+绚	in io
+绛	ih iv
+络	is
+绝	ix im
+绞	ia ib
+统	ib ip
+绠	if io
+绡	iy iv
+绢	id iv
+绣	ix iv
+绤	ih
+绥	iy ib
+绦	ih ie
+继	ip
+绨	ih it
+绩	ia io
+绪	iq io
+绫	ig ih
+续	in ia
+绮	im iz
+绯	ir
+绰	iy io
+绱	is
+绲	io iv
+绳	id
+维	iu
+绵	iu ir
+绶	iy iw
+绷	iv
+绸	im ig
+绹	in ia
+绺	ih iy
+绻	ih
+综	iw if
+绽	iw it
+绾	iw ik
+绿	ib ik
+缀	ir
+缁	io iq
+缂	it
+缃	ie iq
+缄	in if
+缅	ib
+缆	ip ir
+缇	io it
+缈	iq iy
+缉	id iq
+缊	io ia
+缋	ic io
+缌	iq ih
+缍	il
+缎	iu if
+缏	ij if
+缐	iu ik
+缑	ij in
+缒	it ik
+缓	iy if
+缔	ii iw
+缕	ip ib
+编	im ii
+缗	id io
+缘	ib ij
+缙	if ic
+缚	in ik
+缛	if ik
+缜	in iq
+缝	ih ia
+缞	it id
+缟	ig
+缠	ix id
+缡	iz ib
+缢	ik ia
+缣	ih ic ib
+缤	iw ih it
+缥	iv if
+缦	io iy
+缧	iq ii
+缨	io
+缩	iw ij
+缪	iz ie ij
+缫	io ie iq
+缬	ig iw id
+缭	im ih
+缮	ig id ih
+缯	ih ir
+缰	if iq
+缱	ic ik
+缲	id ie
+缳	iy it if
+缴	iu il
+缵	iq ip
+缶	af
+缸	au
+缺	an
+罂	oo oa
+罄	gc ga gr
+罅	az at
+罇	ah ay
+罉	as au
+罍	qq qa
+罐	al ad
+网	mb
+罒	ys
+罔	mh mf
+罕	wh we
+罗	yl
+罘	yc
+罙	wh we
+罚	ys yp
+罟	yc yg
+罡	yf ys
+罢	yg yk
+罥	yd yv
+罦	yy yh
+罨	ym yo
+罩	yy yo
+罪	yr
+置	yn
+罱	yn ym
+署	yq yo
+罳	yq yh
+罴	yg yc yk
+罶	yb yq
+罹	yh yu
+罽	yx yc
+罾	yh yr
+羁	yt yn
+羊	gy
+羌	ga
+美	gm
+羑	gx gi
+羓	gm
+羔	gc gh
+羕	gi gk
+羖	gr gs
+羚	gj gk
+羝	gb gi
+羞	ga gg
+羟	gr gu
+羡	gw ge
+羣	bt bg bd
+群	bt
+羧	gk gh
+羨	gk ge
+羯	go gn
+羰	gv gn
+羱	gx gy gu
+羲	gx gp gf
+羴	gg
+羶	gz gf gr
+羸	fd fi fv
+羹	gc gm gg
+羼	cg
+羽	zv
+羿	zl
+翀	zd zg
+翁	hk hz
+翂	zh zp
+翃	nk nz
+翅	cz
+翈	sz
+翊	iz
+翋	zi zl
+翌	zi
+翎	jk jz
+習	zu zb
+翔	gz
+翕	jd jz
+翘	pf pz pp
+翙	vl vz
+翚	zw zy
+翛	jg jz jh
+翟	zu zi
+翠	zz zj
+翡	rz
+翥	qo qz
+翦	hv hz hp
+翩	mi mz
+翫	zu zm
+翮	nz
+翯	zg
+翰	no nz nn
+翱	um uz un
+翳	no nz nr
+翷	pl pz pv
+翻	tp
+翼	zq
+翽	sn sz sf
+翾	yf yz yd
+耀	mz mu
+老	ql
+耂	ql
+考	qf
+耄	qv qm
+者	qo
+耆	qo
+耇	qg
+耈	qg
+耋	qy
+而	le
+耍	lb
+耏	le
+耐	lk
+耑	vl
+耒	al
+耔	ah ai
+耕	aq
+耖	ay at
+耗	av
+耘	ab
+耙	am ab
+耜	ak
+耠	aj ad
+耢	al as aw
+耤	al ao
+耥	as
+耦	aq av
+耧	ap ab
+耨	af ak
+耩	aq af
+耪	ai aw
+耰	aw ah
+耱	az am
+耲	at ak ay
+耳	qe
+耵	qa qd
+耶	qt
+耷	mq
+耸	jj jq
+耻	qs
+耽	qw qp
+耿	qc
+聂	qr
+聃	qm qg
+聆	qj qk
+聊	qb
+聋	tq
+职	qd qh
+聍	qw qa
+聒	qa
+联	qh qm
+聘	qd qf
+聚	qr qt
+聩	qc qo
+聪	qh qd
+聱	ap aq ah
+聿	bv
+肀	bv
+肃	bp bh
+肄	vo vb
+肆	pb
+肇	mh mb
+肉	mj
+肋	vs
+肌	vo
+肏	jm jj
+肓	fv
+肖	yv
+肘	vk
+肚	vg
+肛	vu
+肜	ve
+肝	ve
+肟	vm va
+肠	va ve
+股	vr
+肢	vc
+肤	vh
+肥	vm
+肩	mv
+肪	vl
+肫	vf vs
+肭	vm vj
+肮	vz vo
+肯	sv
+肱	vn vk
+育	bv
+肴	bn bv
+肶	vv
+肷	ve
+肸	vh vn
+肺	vf vr
+肼	vq
+肽	vm vi
+肾	pr pv
+肿	vd vg
+胀	vp
+胁	vs vh
+胂	vo vg
+胃	qv
+胄	dv
+胆	vo vf
+胈	vn vr
+背	av
+胍	vy
+胎	vk vd
+胔	sv sj sm
+胖	vh vu
+胗	vj ve
+胙	vw
+胚	vc vf
+胛	vs vj
+胜	vl
+胝	vb vi
+胞	vn vv
+胠	vg vk
+胡	cv
+胣	ve
+胤	pi pv
+胥	tv ty
+胧	vt
+胨	vr vy
+胩	vy vf
+胪	vy vc
+胫	vr vu
+胬	br bj bm
+胭	vr vm
+胯	vm va
+胰	vm vb
+胱	vm
+胲	vk vh
+胳	vs
+胴	vm vf
+胶	va vb
+胷	nb nv nm
+胸	vn vb
+胺	vw vb
+胼	vh vl
+能	kv
+胾	np nm
+脂	vv vo
+脃	vx vm
+脆	vx
+脉	vi vk
+脊	ww wj
+脍	vj vb
+脎	vb ve
+脏	vx vg
+脐	vq
+脑	vz vb
+脒	vp vm
+脓	vw vt
+脔	zc zj zm
+脖	vn vw
+脘	vw vm
+脚	vg
+脝	vg vr
+脞	vj vg
+脟	vy vk
+脢	ve vk
+脦	vp vh
+脩	jg jv jh
+脬	vy vh
+脯	vn
+脰	vz
+脱	vh vd
+脲	vc vk
+脶	vd vj vm
+脷	vx vp
+脸	vj vk
+脾	vu vt
+脿	va vt
+腆	vi vh
+腈	va vv
+腊	vl vo
+腋	vz vj
+腌	vm vo
+腐	xj xk
+腑	vx vj
+腒	vc
+腓	vr
+腔	ve vu
+腕	vw vl
+腘	vr vn
+腙	vw vf
+腚	vw vt
+腠	va vm vi
+腥	vo vl
+腧	vj vp vv
+腨	vv vl
+腩	vn vm
+腭	vd va
+腮	vq vh
+腯	vx vq vn
+腰	vv vb
+腱	vb vu
+腴	vp vj
+腹	ve vo
+腺	vu vk
+腻	vp vo vm
+腼	vb
+腽	vo va
+腾	vh
+腿	vi vu
+膀	vi vw
+膂	le lv lt
+膇	vt vk
+膈	vn
+膊	vn vk
+膍	vt vr
+膏	gv
+膑	vw vh vt
+膗	vv vu
+膘	vv vf
+膙	vb vd
+膛	vs vg
+膜	vl vm vo
+膝	ve vk vj
+膣	ve vy
+膥	an aj aa
+膦	vp vv vl
+膨	vh ve
+膪	vi vd vw
+膰	vt vq vp
+膳	vg vh
+膵	vl vn vz
+膺	xj xv xu
+膻	vz vf vr
+臀	cl cv ch
+臁	vx vc vh
+臂	cd cv cn
+臃	vz vi
+臆	vx vh
+臊	vd
+臋	cl cj ch
+臌	vh vc
+臑	vt vl
+臘	vo vp
+臜	vq vo vp
+臝	fd fi fv
+臞	vq vu
+臟	vl vn
+臣	qc
+臧	nq
+自	oi
+臬	oe
+臭	om
+至	yi
+致	yh
+臸	yy yi
+臺	gd gy gw
+臻	ya yi
+臼	pj
+臽	xp
+臾	pj
+臿	lp
+舀	yp
+舁	pl pc
+舂	ai ap
+舄	pn pc
+舅	pq ps
+舆	py ph
+舌	as
+舍	ja
+舐	ab
+舒	ja ji
+舔	af ah am
+舛	lv
+舜	yw yl
+舞	el ev ef
+舟	io
+舠	ip
+舡	iu ig
+舢	iv
+舣	ii ib
+舥	im
+舨	ix ir
+航	iz io
+舫	il if
+般	ir
+舭	iv
+舯	id ig
+舰	ie
+舱	ij iz
+舲	ij ik
+舳	id
+舴	iw
+舵	iw iv
+舶	iu
+舷	iz ii
+舸	iz
+船	io id
+舻	iy ic
+舾	iv
+艃	id
+艄	iy iv
+艅	ij ix
+艇	it iu ig
+艉	ic iv
+艋	ih ia
+艎	iu in
+艏	ih io
+艘	ip ig
+艚	if iy
+艟	ii id
+艨	il iw
+艮	ig
+良	ii
+艰	ri
+色	xm
+艳	ax am
+艴	tx tm
+艷	va vm
+艸	lc
+艹	lc
+艺	la
+艽	lk
+艾	lb
+艿	lv
+节	lz
+芃	lo li
+芄	lk li
+芈	gy
+芊	ll
+芋	lf ln
+芍	ln li
+芎	lb
+芏	lg
+芑	lv
+芒	lf
+芔	sl
+芗	li
+芘	lv
+芙	lh
+芜	ld
+芝	lr
+芟	lr
+芠	lv
+芡	le
+芣	lc
+芤	lh la
+芥	lj lp
+芦	lm
+芨	lc
+芩	lj la
+芪	lb
+芫	lm lp
+芬	lh lp
+芭	lm
+芮	lm lj
+芯	lh
+芰	lc
+花	lj
+芲	lj
+芳	ll
+芴	ln le
+芶	ln lk
+芷	ls
+芸	lb
+芹	lt
+芻	ns nn
+芼	lv
+芽	ll
+芾	lf lr
+苁	lj
+苄	lz ly
+苇	lg
+苈	lx ls
+苉	ln lp
+苊	lx lz
+苋	le
+苌	lp
+苍	lj lz
+苎	lw lf
+苏	ls lh
+苑	ll lz
+苒	lm lg
+苓	lj lk
+苔	lk ld
+苕	lp ld
+苗	lq
+苘	lm ld
+苛	lz
+苜	lq
+苞	ln lv
+苟	lg
+苠	ld
+苡	lv lj
+苢	lk
+苣	ln
+苤	lc lf
+若	ln ld
+苦	lc
+苧	lw la
+苫	ly ld
+苯	le lf
+英	lm
+苲	lw
+苴	lf lq
+苶	lj ly
+苷	lz
+苹	le lh
+苻	lj lk
+苽	ly
+苾	lh lt
+茀	lt
+茁	ls lm
+茂	ln
+范	lk lz
+茄	ls ld
+茅	li lt
+茆	lb
+茇	ln lr
+茈	ls lv
+茉	lf le
+茋	lb li
+茌	lj lg
+茎	lr lu
+茏	lt
+茑	lx ln
+茓	le
+茔	lw lg
+茕	lw ln la
+茗	ll ld
+茚	lb lz lf
+茛	li
+茜	lv
+茝	lq
+茢	lg lp
+茧	lc
+茨	lw le
+茩	lx ld lf
+茫	lk lf
+茬	ln lg
+茭	la lb
+茯	lj lm
+茱	lt la
+茳	lk lu
+茴	lr ld
+茵	lr lm
+茶	lj le
+茸	lq
+茹	lb ld
+茺	lb lp
+茻	ll
+茼	lm ld lf
+茽	lj lg ld
+荀	ln lo
+荁	lf lo
+荃	lj ln
+荄	lk
+荅	lj ld
+荆	lf ll
+荇	lp
+草	lo
+荍	li lh
+荏	lj lt
+荐	ln lg
+荑	lm lb
+荒	lf lo
+荓	lh ll
+荔	ls
+荖	lq
+荙	lm lu
+荚	lh
+荛	lp lf
+荜	lv ln
+荞	lt lm
+荟	lj lb
+荠	lq
+荡	lk la
+荣	lw le
+荤	lw ly
+荥	lw lk
+荦	lw lq
+荧	lw lc
+荨	lb lk
+荩	lc lw li
+荪	lh ly
+荫	lt lv
+荬	la lw
+荭	li lu
+荮	li lk
+药	li
+荳	lz
+荷	lj lz
+荸	ln lw
+荻	lm lc
+荼	lj lx
+荽	ly lb
+莅	lj li
+莆	ln
+莉	lx lp
+莎	lk ly
+莒	ld
+莓	le lk
+莘	ln
+莙	lb lt
+莛	lt lg
+莜	lj lg
+莝	lj lg
+莞	lw lm
+莠	lx lv
+莨	li
+莩	ly lh
+莪	lt lp lu
+莫	lo lm
+莰	lg le
+莱	la lh
+莲	ly lu
+莳	lo lk
+莴	ld lj lm
+莶	lj lf lk
+获	lm
+莸	lm lo
+莹	lw ln
+莺	lw lx
+莼	li lf
+莽	lm ll
+莿	le lp lm
+菀	lw ll
+菁	la lv
+菂	lu li ln
+菅	lw lk
+菇	lb lc
+菈	lu li
+菉	lb lk
+菊	ln lp
+菌	lr lx
+菍	lj lh la
+菏	lk lz
+菑	lo lq
+菓	lq le
+菔	lv lz
+菖	lo
+菘	le lk lh
+菜	ly le
+菝	lu ln
+菟	lw
+菠	lk lr
+菡	la lm lk
+菥	le lt
+菩	li ld
+菪	lw lm
+菰	lh ly
+菱	lg lh
+菲	lr
+菴	lm la lo
+菸	ll lj
+菹	lk lf
+菻	le
+菼	lc
+菽	ly lf
+萁	lz lh
+萂	lx ld
+萃	lz lj
+萄	ln la
+萆	lu lt
+萋	lf lb
+萌	lo lv
+萍	lk le
+萎	lx lb
+萏	lx lp
+萑	lu
+萘	lm lf
+萚	lu lr
+萜	lr ly
+萝	ly ll
+萣	lw lt
+萤	lw lc
+营	lw ld
+萦	lw li
+萧	lb lp
+萨	lt
+萩	lx lc
+萬	lq lv
+萱	lw lf
+萳	ln lm
+萸	lp lj
+萹	lm li
+萼	ld la
+落	lk
+葆	lj ld
+葉	ll la
+葎	lw lb
+葑	lg lk
+葓	lk ll
+葖	le lm
+著	lq lo
+葙	le lq
+葚	lz la lh
+葛	lo ln
+葜	la lp
+葡	ln
+董	ll ld
+葩	lu lm
+葫	lc lv
+葬	lg lv
+葭	lc lm
+葰	lj lh lk
+葱	ln le
+葳	ln lb lf
+葴	ln ld lf
+葵	lh lm lf
+葶	lg la
+葸	lq lh
+葹	ll le
+葺	ld lq
+蒂	li lw
+蒄	lw lk lm
+蒇	ln lo
+蒈	lv lu
+蒉	lc lo
+蒋	la ll
+蒌	lp lb
+蒎	lk lx
+蒐	la
+蒗	lk li
+蒙	lw lf
+蒜	lf
+蒟	li lg
+蒡	li ll lw
+蒨	lj lv la
+蒯	lv
+蒱	lu ln
+蒲	lk ln
+蒴	lh ls
+蒸	la lk
+蒹	lh lc lb
+蒺	la lo
+蒻	lb lw
+蒽	lr lh lm
+蒿	lg
+蓁	la lx li
+蓂	lw lo
+蓄	lz li
+蓆	lx lr ll
+蓇	lf
+蓉	lw lh
+蓊	lh lk
+蓍	lq lo
+蓏	ly
+蓐	lf lk
+蓑	lt lf ld
+蓓	lj ld li
+蓖	lt lr
+蓝	lp
+蓟	lw lp
+蓠	lz lb
+蓢	li lv
+蓣	li lw
+蓥	lw lz
+蓦	lo ln lm
+蓨	lj lv lg
+蓬	lh la
+蓰	lw ls
+蓳	ll la ld
+蓺	lg li lh
+蓼	lz le lj
+蓿	lw lj
+蔀	li lt ld
+蔃	lb lc ld
+蔈	lv lf
+蔊	lc le lo
+蔌	lx le
+蔑	ly ln
+蔓	lo ly
+蔔	ln lq lf
+蔗	lx ll
+蔚	lc lf
+蔟	ll le
+蔡	lh lf
+蔧	la
+蔫	lf ls
+蔬	lt lb
+蔷	lg ld lh
+蔸	lu lb
+蔹	lj lh lk
+蔺	la lu
+蔻	lw lh lm
+蔼	ls lo
+蔽	lf lh
+蕃	lt lp
+蕈	lv lo
+蕉	lu lc
+蕊	lh
+蕓	lt lb
+蕖	lk le ln
+蕗	lp ls
+蕙	ln lh lq
+蕞	lo lq
+蕤	lj ll
+蕨	lx le lh
+蕰	lk lo
+蕲	lh lq
+蕴	li lo
+蕹	lz lu li
+蕺	ld lp lq
+蕻	lp ll
+蕾	lt lq
+薁	lt lm
+薄	lk ln
+薅	lb lf
+薆	ly lh lw
+薇	lw lv
+薏	lx lh
+薑	lf lq
+薙	lo lu
+薛	lt lk
+薜	lc ld
+薢	lx lt
+薤	lg lr
+薦	lx lf
+薨	ly lw
+薪	li le
+薮	lp lh lb
+薯	ly lq
+薰	ll lp
+薳	lg lu ld
+薷	lt ll
+薸	lk lv
+薹	lg ld
+薿	lv lt lo
+藁	lg le
+藂	lq lr
+藉	la lo ll
+藊	lx lm
+藏	ln lq
+藐	lm lu
+藓	lw lg
+藕	la lq
+藜	lx lk lp
+藟	lq
+藠	lu
+藤	lv lh
+藥	lu le li
+藦	lz lu
+藨	lx lc
+藩	lk lt
+藻	lk le ld
+藿	lt lu
+蘅	lp lw
+蘇	lw lx
+蘑	lz lm
+蘖	lt le lk
+蘘	lt lf ld
+蘧	lz lu lj
+蘩	le li lk
+蘸	ly lc lu
+蘼	lz lr
+虍	zh
+虎	zh
+虏	zs
+虐	zb
+虑	zh
+虒	xz
+虓	kz
+虔	zv
+虖	zt zn zh
+虚	zc
+虞	zd zf
+虡	zc zh
+虢	yk yz
+虤	zz
+虫	cc
+虬	ca
+虮	co
+虱	at ac
+虷	ce
+虸	ch
+虹	cu
+虺	fp fc
+虻	cf
+虼	ce ca
+虽	dc
+虾	cf cy
+虿	fp fc
+蚀	qc
+蚁	ci cb
+蚂	cn
+蚃	ic
+蚄	cl
+蚆	cm cb
+蚊	cv
+蚋	cm cj
+蚌	ca
+蚍	cv
+蚓	cb cg
+蚕	fm fc
+蚜	cl
+蚝	cv
+蚡	ch cp
+蚣	ch ck
+蚤	ri rc
+蚧	cj cp
+蚨	ch
+蚩	sf sc
+蚪	cj
+蚬	ce
+蚯	ct cf
+蚰	cd cy
+蚱	cw
+蚲	ce ch
+蚴	ci cs
+蚵	cz
+蚶	cz
+蚺	cm cg
+蛀	ci cn
+蛃	cf cj cm
+蛄	cc cg
+蛆	cf
+蛇	cw cv
+蛉	cj ck
+蛊	ca
+蛋	tc
+蛎	cx cf
+蛏	cr cg
+蛐	cy
+蛑	ck cq
+蛔	cr cd
+蛘	cg cy
+蛙	cg
+蛛	ct ca
+蛞	ca
+蛟	ca cb
+蛤	cj cd
+蛩	uo uc ui
+蛭	cy ci
+蛮	zc
+蛰	uk uc ui
+蛱	ch
+蛲	cp cf
+蛳	cp cr cf
+蛴	cq
+蛸	cy cv
+蛹	ck ct
+蛾	ct cu
+蜀	yn yc
+蜂	ch ca
+蜃	fc
+蜇	ut uc
+蜈	cd cf
+蜉	cy ch
+蜊	cx cp
+蜍	cj cx
+蜎	cd cv
+蜐	cg cs ck
+蜒	ct cs
+蜓	ct cg
+蜕	ch cd
+蜗	cd cj cm
+蜘	co cd
+蜚	rc
+蜜	wh wc wt
+蜞	cz ch
+蜡	cl co
+蜢	ch ca
+蜣	cg ca
+蜥	ce ct
+蜩	cm cd cg
+蜮	cp cd
+蜰	vm vc
+蜱	cu ct
+蜴	co ce cn
+蜷	ch
+蜻	ca cv
+蜾	cq ce
+蜿	cw cl
+蝂	ca cx
+蝄	cm cf ch
+蝇	cd
+蝈	cr cn
+蝉	ch cq
+蝌	cx cj
+蝎	co cn
+蝓	cj cp cv
+蝗	cu cn
+蝘	cn co
+蝙	cm ci
+蝠	cf cd
+蝡	cl cm
+蝣	cl ce
+蝤	ch cy
+蝥	it ic ih
+蝨	an ac
+蝮	ce co
+蝯	cy cf
+蝰	cm cg
+蝲	cx cp
+蝴	cc cv
+蝶	cl ce ca
+蝻	cn cg cm
+蝼	cp cb
+蝽	ca co ci
+蝾	cl ce cw
+螀	al ac ak
+螂	ci
+螃	ci cl cw
+螅	co ch
+螈	cx cu
+螋	cp cg
+融	nc
+螓	ca ci
+螗	cx cd cb
+螟	cw co
+螠	ck ca
+螣	vh vc
+螨	cl cm
+螫	gc gh
+螬	cf co cy
+螭	cz cb
+螯	ap ac ah
+螱	cf cc ck
+螳	cs cg
+螵	cv cf
+螺	cq ci
+螽	hw hc
+蟀	cz cn ci
+蟆	cl cm co
+蟇	lo lc lm
+蟊	it ic
+蟋	ct ch cp
+蟏	cl cb
+蟑	cx cn
+蟒	cl cm
+蟓	cw
+蟛	ch ce
+蟠	ct cq cp
+蟢	ch cd
+蟥	cn
+蟪	cn cq
+蟫	cv co
+蟮	cg ch
+蟲	cc
+蟹	xt xp
+蟾	cx
+蠃	fd fi fv
+蠊	cx ch
+蠋	cy cn
+蠓	cl cw
+蠔	cg cj
+蠕	ct cl
+蠖	cl cu
+蠛	cl ci cy
+蠟	co cp
+蠡	bj bc
+蠢	ai ac ao
+蠲	ka ky
+蠹	nd nc nw
+蠼	cq cr
+血	ta
+衂	ta tp
+衃	ta tc
+衄	ta
+衅	ta th
+衊	ta tl
+行	px
+衍	pk
+衎	pe
+衒	pz pi
+術	pe pi
+衔	pz
+衕	pm pd pf
+衖	pl ph
+街	pg
+衙	pw pd
+衚	pc pv
+衝	pl pd
+衠	pn pq
+衡	pw
+衢	pq pu
+衣	ti
+衤	ti
+补	ty
+表	at
+衩	tr ti
+衫	te
+衬	tk
+衮	th tk
+衰	td tf
+衲	tm tj
+衷	td tg
+衹	tb
+衺	tl
+衽	tt tg
+衾	ja jt
+衿	tj ta
+袁	gd gt
+袂	tn tj
+袄	tt tm
+袅	xt
+袆	tg
+袈	sd st
+袋	jp jt
+袍	tn tv
+袒	to tf
+袖	td
+袗	tj te
+袜	tf te
+袢	th tu
+袤	ti tt
+袪	tg tk
+被	tr
+袭	tt
+袯	ts tr
+袱	tj tm
+袴	tm ta
+袷	tj td
+袺	tg td
+袼	ts
+袿	tg
+裁	np nt
+裂	gp gt
+装	ag at
+裆	ty tb
+裇	tt ta
+裈	tw ty
+裉	ti tg
+裋	tz
+裌	tm tj
+裎	td tn
+裏	td
+裑	tz
+裒	tp
+裔	tm th
+裕	th
+裘	fk ft fi
+裙	tb tt
+裛	td tm
+裟	ky kt
+裢	ty tu
+裣	tj tf tk
+裤	tx ty
+裥	ta to
+裨	tu tt
+裰	tr
+裱	ta tt
+裲	tm
+裳	st
+裴	rt
+裸	tq te
+裹	tq
+裻	yf yt yy
+裼	to te tn
+裾	tc
+褀	tz th
+褂	tg ty
+複	te to
+褊	tm ti
+褎	tu tx
+褏	tu td
+褐	to tn
+褒	tj td
+褓	tj te td
+褕	tj tp tv
+褙	ta tv
+褚	tq to
+褛	tp tb
+褝	tk tq
+褟	to tz
+褡	tl tj
+褥	tf tk
+褦	tk tv
+褪	ti tu
+褫	tx tz
+褯	tx tl
+褰	wq wt wh
+褴	tp ta tr
+褶	tz tu
+襁	tb td
+襄	td
+襆	tc tg
+襈	tv th
+襕	ta tx
+襚	th tu tj
+襜	tx
+襞	cd ct cn
+襟	te tf
+襦	tt tl
+襫	tm tf
+襶	tn th tp
+襻	te tb
+西	vx
+要	vb
+覃	vo vn
+覅	vb ve vn
+覆	vw ve
+覇	vt vv
+见	ej
+观	re
+觃	eh
+规	he
+觅	ye
+视	fe
+觇	yd ye
+览	pr pe
+觉	kw ke
+觊	vv ve
+觋	uj ue
+觌	na ne nw
+觍	ih ie
+觎	jv je jp
+觏	qf qe qm
+觐	ld le la
+觑	zc ze
+角	xt
+觕	qx qt
+觖	xt xn
+觚	xt xy
+觜	sv sx
+觞	xt xe
+觟	xt xg
+解	xt
+觥	xt xm
+触	xt xc
+觫	xt xx
+觭	xt xz xm
+觯	xt xn xh
+觱	nf nt nd
+觳	gw gr gf
+觿	xt xv
+言	sy
+訄	ks
+訇	ns
+訚	as
+訾	sv ss
+詈	ys
+詟	ts
+詧	hs
+詹	xx xs xh
+誉	kh ks
+誊	hh hs
+誓	ut us
+諐	jd js jo
+謇	wq ws wh
+謦	gc gs gr
+謷	ap as ah
+警	lg
+譬	cd cs cn
+讠	sy
+计	sn
+订	sa
+讣	sy
+认	sj
+讥	so
+讦	se
+讧	su
+讨	sk
+让	sy sf
+讪	sv
+讫	se sa
+训	so
+议	si sb
+讯	sa sn
+记	sv
+讱	sp si
+讲	sq
+讳	sg
+讴	sn sb
+讵	sn
+讶	sl
+讷	sm sj
+许	se
+讹	sj sv
+论	sj
+讻	sb sm
+讼	sh sk
+讽	so sb
+设	sr
+访	sl
+诀	sn sj
+证	sf
+诂	sc
+诃	sz
+评	se sh
+诅	sf
+识	sd sh
+诇	sm sd
+诈	sw
+诉	st
+诊	sj se
+诋	sb si
+诌	sx sb
+词	sa sf
+诎	ss sm
+诏	sp sd
+诐	sr
+译	sr su
+诒	sk sd
+诓	sn
+诔	sa
+试	sp
+诖	sg
+诗	sg sk
+诘	sg sd
+诙	sn sc
+诚	sn sa
+诛	st sa
+诜	sq sp
+话	sa
+诞	st ss
+诟	sx sf
+诠	sj sn
+诡	sx
+询	sn so
+诣	sv so
+诤	sx sb
+该	sk
+详	sg
+诧	sw st
+诨	sw sy
+诩	sz
+诪	sa sk
+诫	sp sl
+诬	su sj
+语	sw
+诮	sy sv
+误	sd sf
+诰	sq sd
+诱	sx sv
+诲	se sk
+诳	sm sn
+说	sh
+诵	sk st
+诶	sk so
+请	sa sv
+诸	sq so
+诹	sq sr
+诺	sl sn
+读	sn sm sa
+诼	sj si
+诽	sr
+课	sq se
+诿	sx sb
+谀	sp sj
+谁	su
+谂	sj sa
+调	sm sg
+谄	sx sp
+谅	sg sy
+谆	sg sh
+谇	sz sn sj
+谈	sc
+谊	sw sf
+谋	sz se
+谌	sz sh
+谍	sl sa
+谎	sl so sf
+谏	sx sh
+谐	sv
+谑	sz sb
+谒	so sn
+谓	sq sv
+谔	sd
+谕	sj sp sv
+谖	sy sr sf
+谗	sw sp
+谘	sw se
+谙	sx
+谚	si sx
+谛	si sr sw
+谜	sp su
+谝	sm si
+谞	st sv
+谟	sl so
+谠	ss sp
+谡	sq sh
+谢	sz
+谣	sy sa
+谤	si sw
+谥	sk sa
+谦	sh sb
+谧	sh st
+谨	sl sd
+谩	so sy
+谪	si sm
+谫	sh sp sv
+谬	sz sj
+谭	sv sn so
+谮	sd so
+谯	su sc
+谰	sa sx
+谱	sh sc
+谲	si st
+谳	sn sm
+谴	sc sk
+谵	sx ss
+谶	sj sf
+谷	hg
+谼	hl hh
+谿	yi yh ym
+豁	wa wh wd
+豆	zd
+豇	zu
+豉	zc
+豌	zw zl
+豐	va vz
+豕	js
+豗	fp fj
+豙	ij
+豚	vj
+象	wx
+豢	hh hj
+豨	jb jr jn
+豪	gj
+豫	iw
+豬	jq jo
+豭	jc jr jm
+豮	jn jo jl
+豳	vj
+豸	mi
+豹	mn mi
+豺	mn mt
+貂	mp md
+貅	mj me
+貆	mf mo
+貉	ms
+貊	mf mu
+貌	mu mp
+貍	md
+貔	mt mv mr
+貘	ml mm mo
+贝	ob
+贞	yo
+负	xo
+贡	uo
+财	on ot
+责	ao
+贤	pr po
+败	oh
+账	op
+货	jv jo
+质	xn xo
+贩	ox or
+贪	ja jo
+贫	hp ho
+贬	ot or
+购	on ok
+贮	ow of
+贯	ko
+贰	pm po
+贱	of op
+贲	nl no
+贳	la lo
+贴	oy od
+贵	co
+贶	od op
+贷	jp jo
+贸	bo
+费	to
+贺	sd so
+贻	ok od
+贼	op on
+贽	uk uo ui
+贾	vo
+贿	on ov
+赀	sv so
+赁	jt jo jg
+赂	os
+赃	ox og
+资	we wo
+赅	ok
+赆	oc oi
+赇	of ok
+赈	of
+赉	ah ao
+赊	oj of
+赋	of os op
+赌	oq oo
+赍	nj
+赎	on oa
+赏	so
+赐	oo on
+赑	oo
+赒	om od og
+赓	xb xo xj
+赔	oi od
+赕	oc
+赖	xx xo
+赗	oo oq
+赘	ap ao ah
+赙	on ok
+赚	oh ob
+赛	wq wh
+赜	qa qo
+赝	xj xo xu
+赞	qp qq
+赟	vf vo vp
+赠	oh or
+赡	ox
+赢	fd fv
+赣	xn xh
+赤	gc
+赦	gc gh
+赧	gc gz
+赩	gc gx
+赪	gc gy
+赫	gc gg
+赭	gc gq
+赯	gc gd gx
+走	pz
+赲	ps
+赳	pi
+赴	py
+赵	pb
+赶	pe
+起	pv
+赸	pv
+趁	pj pe
+趄	pf pq
+超	pp pd
+越	pn
+趋	px pb
+趑	pw pe
+趔	pg pp
+趖	pj pg
+趟	ps
+趣	pq
+趯	pz pu
+趱	pq po pp
+足	pu
+趴	ph
+趵	pn pi
+趸	fp
+趺	ph
+趼	pf pl
+趾	ps
+趿	pc
+跂	pc
+跃	pt
+跄	pj pz
+跅	pt pi
+跆	pk pd
+跋	pn pr
+跌	pt ph
+跎	pw pv
+跏	ps pd
+跐	ps pv
+跑	pn pv
+跖	pm
+跗	pj pk
+跚	pi
+跛	pr
+距	pn
+跞	pb py
+跟	pi
+跡	pz pc
+跣	pq pp
+跤	pa pb
+跨	pm
+跩	po pa
+跪	px
+跫	uo up ui
+跬	pg
+路	ps
+跰	ph pl
+跱	pg pk
+跳	pp pw
+践	pf pp
+跶	pm pu
+跷	pp pf
+跸	pv pn
+跹	pl pu
+跺	po pe
+跻	pq
+跼	pc pa
+跽	pv ph
+踅	ut up
+踉	pi
+踊	pk pt
+踌	pa pk
+踏	pk
+踒	px pb
+踔	py po
+踖	pl po
+踝	pq pe
+踞	pc
+踟	po pd
+踠	pw pl
+踢	po
+踣	pi pd
+踦	pm pz
+踧	py pf
+踩	py pe
+踪	pw pf
+踬	px po pn
+踮	px pd py
+踯	ph pm
+踱	px pl
+踳	pa po pi
+踵	pl pd
+踶	po pt
+踹	pv pl
+踺	pb pu
+踽	pt pd
+蹀	pl pe pa
+蹁	pm pi
+蹂	pi pt
+蹄	pi pw
+蹅	pe pf po
+蹇	wq wp wh
+蹈	py pp
+蹉	pg pu
+蹊	py pi
+蹋	po pz
+蹌	pj pm
+蹍	pc pl
+蹐	pw pv
+蹑	pq pr
+蹒	pl pm
+蹓	pb pq
+蹙	ny np nf
+蹚	ps pg
+蹜	pw pj
+蹢	pi pm
+蹦	pv
+蹩	fh fp
+蹬	ph pz
+蹭	ph pr
+蹯	pt pp
+蹰	px pz
+蹲	ph py
+蹴	pg po py
+蹶	px ph
+蹼	pc pg
+蹽	pm ph
+蹾	pg ph
+蹿	pe pd
+躁	pd
+躃	pc pd
+躄	cd cp cn
+躅	py pn
+躇	pl pq
+躏	pl pa
+躐	po pp
+躔	px pd
+躜	pq po pp
+躞	ps pc
+身	zs
+躬	zb
+躯	zn zb
+躲	zo
+躶	zq ze
+躺	zs
+躾	zg zm
+車	yc
+车	yc
+轧	ya
+轨	yk
+轩	ye
+轪	ym yd
+轫	yp yi
+转	ym
+轭	yx yz
+轮	yj
+软	ye
+轰	yr
+轱	yc
+轲	yz
+轳	yy yc
+轴	yd
+轵	yd yh
+轶	yt yh
+轷	yt yn yh
+轸	yj ye
+轹	yb yy
+轺	yp yd
+轻	yr
+轼	yp yu
+载	np ny
+轾	yy
+轿	yt ym
+辀	yi
+辁	yj yn
+辂	ys yg
+较	ya yb
+辄	yq ya
+辅	yn
+辆	ym
+辇	hh hy
+辈	ry
+辉	mw my
+辊	yo yv
+辋	ym yh
+辌	yg yy
+辍	yr
+辎	yo yq
+辏	ya ym yi
+辐	yf yd
+辑	yd yq
+辒	yo ya
+输	yj yv
+辔	iy ii
+辕	yg yd
+辖	yw yd ya
+辗	yc yl
+辘	yx
+辙	yb yv
+辚	yp yl
+辛	nx
+辜	cn
+辞	an
+辟	cd cn
+辡	nn
+辢	xn
+辣	nx
+辨	np nn
+辩	ns nn
+辫	ni nx nn
+辰	fc
+辱	fk
+辶	uc
+边	su
+辻	nu nc
+込	ju
+辽	ru
+达	mu
+辿	vu
+迁	lu
+迂	fn fu
+迄	ea eu
+迅	an au
+过	ku
+迈	fp fu
+迌	vu
+迍	fs fu
+迎	bz
+运	bu
+近	tu
+迒	zo zu
+迓	lu lc
+返	xr xu
+迕	en eu
+还	cu
+这	vu
+进	qu
+远	mp
+违	gu
+连	yu
+迟	ci cu
+迢	pd pu
+迤	ee eu
+迥	md mu
+迦	sd su
+迨	kd ku
+迩	xy xu
+迪	du
+迫	uu
+迭	th tu
+迮	wu wc
+述	ei eu
+迳	ru
+迴	rd ru
+迷	pu
+迸	hl hu
+迹	zc zu
+迺	vu
+追	tk tu
+退	iu
+送	hm
+适	au
+逃	pw
+逄	hv hu
+逅	xf xu xd
+逆	hs hu
+选	qp qu
+逊	hy hu
+逋	nu
+逍	yv yu
+透	xv xu
+逐	ju
+逑	fk fu fi
+递	ht hu
+途	jx ju
+逖	mc mu
+逗	zu
+通	kt
+逛	mn mu
+逝	ut uu
+逞	dn du
+速	xu
+造	qd qu
+逡	kh ku
+逢	ha hu
+逦	fv fu
+逭	wk wu
+逮	bk bu
+逯	bk bu
+週	mg mu md
+逴	yo yu yn
+逵	gh gg
+逶	xb xu
+逸	wu
+逻	yl yu
+逼	fd fu fq
+逾	jv ju jp
+遁	xn xu xq
+遂	hj hu
+遄	vl vu
+遆	iw iu ir
+遇	qv
+遊	le lu lh
+遍	mi mu
+遏	on ou of
+遐	cm cn
+遑	un uu
+遒	hy hu
+道	ho
+遗	co cu
+遘	qf qm
+遛	bq bu
+遝	yk yu
+遢	oz ou
+遣	ck cu
+遥	ya yu
+遨	ap au ah
+遭	fy fu fo
+遮	xl xu xc
+遴	pl pu pv
+遵	hy hu hk
+遹	it iu im
+遽	zj zu
+避	cd cu cn
+邀	ul uu uh
+邂	xt xu xp
+邃	eh ej
+邅	zr zu zd
+邈	mu mp
+邋	op ou
+邑	dm db
+邓	rt
+邕	od om
+邗	et
+邘	fn ft
+邙	ft fe
+邛	ut ue
+邝	xt xe
+邠	hp ht
+邡	lt le
+邢	fl ft
+那	au
+邦	at
+邨	fs ft
+邪	lt
+邬	xt
+邮	dt
+邯	zt
+邰	kd kt
+邱	tf tt
+邲	ht
+邳	cf ct
+邴	fm ft fj
+邵	pd pt
+邶	av at
+邸	bi bt
+邹	xb xt
+邺	ct
+邻	jk jt
+邽	gg gt
+邾	ta tt
+邿	gk gt
+郁	nv nt
+郃	jd jt
+郄	bn bk
+郅	yt
+郇	no nt
+郈	xf xt xd
+郊	ab at
+郎	ii it
+郏	hh ht
+郐	jb jt
+郑	hm ht
+郓	wy wt
+郗	bn bt br
+郚	wd wt
+郛	yh yt
+郜	qd qt
+郝	gc gt
+郡	bt bd
+郢	dn dt
+郤	ht
+郦	fv ft
+郧	do dt
+部	id
+郪	fb ft
+郫	ut un
+郭	gh gt
+郯	cc ct
+郴	ee et
+郸	hq ht hn
+都	qo
+郾	no nb
+郿	cq ct
+鄀	ln lt ld
+鄂	dd dt dm
+鄃	jv jt jp
+鄄	vg vt
+鄅	td tt tv
+鄋	pg pt pr
+鄌	xb xt xd
+鄑	fc ft fo
+鄗	gt
+鄘	xb xt
+鄙	dn dt dr
+鄚	lo lt lm
+鄜	xt xe
+鄞	ld lt la
+鄠	tm tt ta
+鄢	fs ft ff
+鄣	xn xt
+鄫	hr ht hy
+鄯	gh gt gd
+鄱	tp tt tq
+鄹	qr qt
+酂	qp qt qq
+酃	td tt
+酅	vu vt vm
+酆	va
+酉	yy
+酊	ya
+酋	hy
+酌	yn yi
+配	yv
+酎	yk
+酏	ye
+酐	ye yg
+酒	ky
+酕	yv
+酗	yb ym
+酚	yh yp
+酝	yb
+酞	ym yi
+酡	yw yv
+酢	yw
+酣	yz
+酤	yc yg
+酥	yx
+酦	ys yr
+酩	yl yd
+酪	ys
+酬	yo
+酮	ym yf
+酯	yv yo
+酰	yq yp
+酱	al ay
+酲	yd yn
+酴	yj yx
+酵	yq yh
+酶	ye yk
+酷	yq yd
+酸	yk
+酹	yy yk
+酺	yn
+酽	yf yc
+酾	yf yv
+酿	yi
+醁	yb yk
+醃	ym ya yo
+醄	yn ya
+醅	yi yd
+醆	yp
+醇	yg yh
+醉	yz
+醊	yr
+醋	yl yo
+醌	yo yv
+醍	yo yt
+醐	yc yv
+醑	yt yv
+醒	yo
+醚	yp yu
+醛	yl yj
+醜	ya
+醡	ye yw
+醢	yn yd
+醣	yx yb
+醨	yz yb
+醪	yz ye yj
+醭	yc yi yg
+醮	yu yc
+醯	yb yo
+醴	yy yz
+醵	yz yj
+醺	yl yp
+醽	yt yd
+醾	yz yp
+釆	tp
+采	ye
+釉	tp td
+释	tp tr
+里	dl
+重	ld
+野	di
+量	of od
+釐	ah ad ax
+金	zj
+釒	zj
+釜	hb hz
+鉴	pr pz
+銎	uo uz ui
+銮	zc zz
+鋆	gn gz gw
+鋈	kt kz km
+鋪	zn
+鋬	ux uz ur
+錾	yt yz
+鍪	it iz ih
+鍳	qr qz
+鎏	kb kz ko
+鏇	zl zt ze
+鏊	ap az ah
+鏖	xz xj
+鐾	cd cz cn
+鑒	qr qz qy
+鑫	zz
+钅	zj
+钆	za
+钇	za
+针	zn
+钉	za
+钊	zp
+钋	zy zb
+钌	zr
+钍	zg
+钎	zl
+钏	zo
+钐	ze zs
+钒	zo zi
+钓	zn zi
+钔	za
+钕	zb
+钖	za ze
+钗	zr zi
+钘	zf zl
+钙	zf zy
+钚	zc zb
+钛	zm zi
+钜	zn
+钝	zf zs
+钞	zy zt
+钟	zd zg
+钠	zm zj
+钡	zo
+钢	zm zb
+钣	zx zr
+钤	zj za
+钥	zv
+钦	ze
+钧	zn zw
+钨	zx
+钩	zn zk
+钪	zz zo
+钫	zl
+钬	zc zh
+钭	zj
+钮	za zg
+钯	zm zb
+钰	zn zi
+钱	zf
+钲	zf zs
+钳	zz
+钴	zc
+钵	ze zf
+钶	zz
+钷	zn zd
+钸	zn zr
+钹	zn zr
+钺	zn
+钻	zy zd
+钼	zq
+钽	zo zf
+钾	zs
+钿	zq zt
+铀	zd
+铁	zt
+铂	zu
+铃	zj zk
+铄	zb zy
+铅	zo zd
+铆	zb
+铈	zz zr
+铉	zz zi
+铊	zw zv
+铋	zh zt
+铌	zc zv
+铍	zr
+铎	zr zu
+铏	zf zp zl
+铐	zq zf
+铑	zq
+铒	zq
+铓	zl zf
+铕	zn zv
+铖	zn za
+铗	zh
+铘	zl zt
+铙	zp zf
+铚	zy
+铛	zy zb
+铜	zm zf
+铝	zd
+铞	zd zr
+铟	zr zm
+铠	zv
+铡	zo zp
+铢	zt za
+铣	zq zp
+铤	zt zg
+铥	zt zk zg
+铦	za
+铧	zj zn zv
+铨	zj zn
+铩	zb ze
+铪	zj zd
+铫	zp zw
+铬	zs
+铭	zl zd
+铮	zx zb
+铯	zx zm
+铰	za zb
+铱	zt
+铲	zi zx
+铳	zb zp
+铴	zk ze za
+铵	zw zb
+银	zi
+铷	zb zd
+铸	za zk
+铹	zl zw
+铺	zn
+铻	zw zd
+铼	za zh
+铽	zp zh
+链	zy zu
+铿	zp zr
+销	zy zv
+锁	zy zo
+锂	zd
+锃	zd zn
+锄	zf zs
+锅	zd zm
+锆	zq zd
+锇	zt zu
+锈	zx zv
+锉	zj zg
+锊	zy zk
+锋	zh za
+锌	zn
+锍	zb zo
+锎	za zf
+锏	za zo
+锐	zh zd
+锑	zh zt
+锒	zi
+锓	zb zw
+锔	zc za
+锕	zt zz
+锖	za zv
+锗	zq zo
+锘	zl zn
+错	zl
+锚	zl zq
+锛	zm zn
+锜	zm zz
+锝	zo zf
+锞	zq ze
+锟	zo zv
+锡	zo zn
+锢	zr zc
+锣	zy zl
+锤	zl
+锥	zu
+锦	zu zr
+锧	zx zo zn
+锨	zt ze
+锩	zh zz
+锪	zn ze
+锫	zi zd
+锬	zc
+锭	zw zt
+键	zb zu
+锯	zc
+锰	zh za
+锱	zo zq
+锲	za zp
+锳	zl zm
+锴	zv zu
+锵	za zl
+锶	zq zh
+锷	zd za
+锸	zl zp
+锹	zx zc
+锺	zl zd
+锻	zu zf
+锼	zp zg
+锽	zu zn
+锾	zy zf
+锿	zt zd
+镀	zx zl
+镁	zg zm
+镂	zp zb
+镃	zh zi
+镄	zt zo
+镅	zc zq
+镆	zl zm zo
+镇	zn zq
+镈	zn zk
+镉	zn
+镊	zq zr
+镋	zs zp
+镌	zu zv
+镍	zo ze
+镎	zj zu zd
+镏	zb zq
+镐	zg
+镑	zi zw
+镒	zk za
+镓	zw zj
+镔	zw zh zt
+镕	zw zh
+镖	zv zf
+镗	zs zg
+镘	zo zy
+镙	zq zi
+镚	zv
+镛	zx zt zb
+镜	zx zp
+镝	zi zm
+镞	zl ze
+镟	zl zt ze
+镠	zz ze zj
+镡	zv zo
+镢	zx ze zh
+镣	zm zh
+镤	zc zi zg
+镥	zw zo
+镦	zg zh
+镧	za zx
+镨	zh zc
+镩	ze zd
+镪	zb zd
+镫	zh zz
+镬	zl zu
+镭	zt zq
+镮	zy zt zf
+镯	zy zn
+镰	zx zh
+镱	zx zh
+镲	zw zf zh
+镳	zx zc
+镴	zo zp
+镵	zw zv
+镶	zt zd
+长	pc
+门	am
+闩	af ai
+闪	aj
+闫	at
+闬	ae
+闭	an at
+问	ad
+闯	an
+闰	an
+闱	ag
+闲	ae
+闳	an ak
+间	ao
+闵	av
+闶	az ao
+闷	ah
+闸	as
+闹	az
+闺	ag
+闻	aq
+闼	am au
+闽	ac
+闾	ad
+闿	av
+阀	aj ap
+阁	as
+阂	ak
+阃	ar ae
+阄	aw
+阅	ah ad
+阆	ai
+阇	aq ao
+阈	ap af ad
+阉	am ao
+阊	ao
+阋	ap
+阌	ay aw
+阍	ab ao
+阎	ax ap
+阏	al aw aj
+阐	ah aq
+阑	ax ah
+阒	aq am
+阓	ac ao
+阔	ak aa
+阕	ah af
+阖	ag aa ak
+阗	an ah aq
+阘	ao az
+阙	ah as
+阚	aa aq
+阛	ay af
+阜	tk tn
+阝	te
+队	tj
+阡	tl
+阢	tf tp
+阧	tj
+阪	tx tr
+阮	tm tp
+阰	tv
+阱	tq
+防	tl
+阳	to
+阴	tv
+阵	ty
+阶	tj tp
+阻	tf
+阼	tw
+阽	ty td
+阿	tz
+陀	tw tv
+陁	te
+陂	tr
+附	tj tk
+际	tf
+陆	tu tm
+陇	tt
+陈	tr ty
+陉	tr tu
+陋	tf tm
+陌	tf tu
+降	th tv
+陎	tt ta
+陏	tn tv
+限	ti
+陑	tl
+陔	tk
+陕	th
+陛	tv
+陞	tt tg tl
+陟	ts
+陡	tp
+院	tw
+除	tj tx
+陧	to tg
+陨	td to
+险	tj tf tk
+陪	ti td
+陬	tq tr
+陲	tl
+陴	tu tn tt
+陵	tg th
+陶	tn ta
+陷	tx tp
+陸	tg th
+陻	tv tg
+隃	tj tp tv
+隅	tq tv
+隆	th tf
+隈	tq tt tf
+隋	tn tu
+隍	tu tn
+随	tn
+隐	tx
+隔	tn
+隗	ta
+隘	tk ta
+隙	ty to
+障	tx tn
+隧	th tj
+隩	tt tm
+隰	to ti
+隳	tn th tu
+隶	bk bs
+隹	ui
+隺	wu
+隻	ur
+隼	un
+隽	uv un
+难	ru
+雀	yu
+雁	xj xu
+雄	nk
+雅	lu
+集	ue
+雇	mu
+雉	ou
+雊	gu
+雋	um
+雌	sv su
+雍	zi zu
+雎	fu
+雏	xb xu
+雒	su si
+雔	uu
+雕	mg mu md
+雙	uu ur
+雞	yi yu ym
+雠	us ui uu
+雨	tv
+雩	tm ta
+雪	tb
+雫	tf ty
+雯	tv
+雰	th tp
+雱	tl tf
+雲	tb
+雳	tx ts
+零	tj tk
+雷	tq
+雹	tn tv
+雾	th ts
+需	tl
+霁	tq
+霂	tk te
+霄	ty tv
+霅	ts
+霆	tt tg
+震	tf
+霈	tk tf
+霉	te tk
+霊	tf
+霍	tu
+霎	ti tb
+霏	tr
+霑	tk td ty
+霓	tp
+霖	te
+霙	tl tm
+霜	te tq
+霞	tc tm
+霡	tv ti
+霨	tc tf
+霪	tk ty
+霭	ts to
+霰	tl tv
+露	tp ts
+霸	tt tv
+霹	tc td
+霾	tm td
+靆	tb tu
+靈	td tj
+靉	tb th ty
+青	av
+靓	av ae
+靖	ia iv
+靘	av am ax
+静	av ax
+靛	av at aw
+非	rf
+靠	qd qr
+靡	zr
+面	bm
+靥	xm xb
+革	tg
+靬	te
+靰	tf tp
+靳	tt
+靴	tj tv
+靶	tm
+靸	tc
+靺	tf te
+靼	to tf
+靽	th tu
+靿	ti ts
+鞁	tr
+鞅	tm
+鞋	tg
+鞌	wb wt
+鞍	tw tb
+鞑	tm tu
+鞒	tt tp tm
+鞓	td tn
+鞔	tw tp
+鞘	ty tv
+鞚	te tu
+鞝	ts
+鞞	tu tn tt
+鞠	tn tp
+鞡	tu ti
+鞣	ti te tt
+鞥	tj tl td
+鞦	tx tc
+鞧	th ty
+鞨	to tf tn
+鞫	tn ts
+鞬	tb tu
+鞭	tj tf
+鞮	to tt
+鞯	tl tn
+鞲	tq tf
+鞳	tl td tj
+鞴	tl tt
+韁	tf tq
+韂	tx ts
+韆	tv tm
+韦	gw
+韧	gp gi
+韨	gn gi gr
+韩	no nn
+韪	ot og
+韫	go ga
+韬	gy gp
+韭	rf
+韮	lr lf
+音	xy
+韵	xn xw
+韶	xp xd
+頁	wy
+顚	vq vw va
+页	wy
+顶	aw
+顷	vw
+顸	ew
+项	uw
+顺	ow
+须	ew
+顼	nw
+顽	mp mw
+顾	xz
+顿	fs fw
+颀	tw
+颁	hp hw
+颂	hk hw
+颃	zo zw
+预	iw
+颅	yc yw
+领	jk jw
+颇	rw
+颈	ru rw
+颉	gd gw
+颊	hh hw
+颋	tg tw tu
+颌	jd jw
+颍	vk vw
+颎	vc vw
+颏	kw ky
+颐	qw
+频	ss sw
+颓	xo xw
+颔	ja jw jd
+颖	vx vw
+颗	qe qw
+题	ot ow
+颙	qv qw
+颚	dd dw dm
+颛	vl vw
+颜	ix
+额	ws ww
+颞	qr qw
+颟	lm lw
+颠	nq nh
+颡	rr rw
+颢	og ow oy
+颣	pi pw
+颤	zr zd
+颥	tl tw
+颦	ss sn sw
+颧	ld lw
+风	ob
+飏	ob oa
+飐	ob od oy
+飑	ob on
+飒	io ib
+飓	ob oq
+飔	ob oh oq
+飕	ob op
+飖	ya yo
+飗	ob
+飘	vf vo
+飙	mm mb
+飚	ob oc
+飜	tp tc tq
+飞	cf
+食	qs
+飢	qo
+飤	qj
+飧	lq
+飨	iq
+飱	gq
+餍	xm xq
+餐	gr
+餮	gj gq ge
+饑	qi
+饔	zi zq zu
+饕	df dq da
+饣	qs
+饤	qa qd
+饥	qo
+饦	qt qr
+饧	qa qe
+饨	qf qs
+饩	qv
+饪	qt qg
+饫	qt qm
+饬	qe qs
+饭	qx
+饮	qe
+饯	qf qp
+饰	qe qr
+饱	qn qv
+饲	qa qf
+饳	qs qm
+饴	qk qd
+饵	qq
+饶	qp qf
+饷	qt qm
+饸	qj qd
+饹	qs qg
+饺	qa qb
+饻	qt
+饼	qh ql
+饽	qn qw
+饾	qz
+饿	qt qu
+馀	qj qx
+馁	qy qb
+馂	qk qh
+馃	qq qe
+馄	qo qv
+馅	qx qp
+馆	qw qk
+馇	qe qo
+馈	qc qo
+馉	qf
+馊	qp qg
+馋	qw qp
+馌	qg qa qk
+馍	ql qo
+馎	qn qk
+馏	qb qq
+馐	qg qa
+馑	ql qd
+馒	qo qy
+馓	ql qv
+馔	qv qh
+馕	qn qd
+首	ho
+馗	kh ko
+馘	ho hf hp
+香	xo
+馚	xo xp xh
+馝	xo xt xh
+馞	xo xn
+馥	xo xe
+馧	xo
+馨	gc gr
+马	nm
+驭	nr
+驮	nm
+驯	no
+驰	ne
+驱	nn nb
+驲	no
+驳	nb
+驴	nm
+驵	nf
+驶	nd nb
+驷	ny
+驸	nj nk
+驹	ng
+驺	nx nb
+驻	ni nn
+驼	nw nv
+驽	br bn
+驾	sd sn
+驿	nr nu
+骀	nk nd
+骁	np nf
+骂	dd dn
+骃	nr nm
+骄	nt nm
+骅	nj nn nv
+骆	ns
+骇	nk
+骈	nh nl
+骉	nn
+骊	nf nv
+骋	nd nf
+验	nj
+骍	nn
+骎	nb nw
+骏	nk nh
+骐	nz nh
+骑	nm nz
+骒	nq ne
+骓	nu
+骕	nb nh np
+骖	nk nm
+骗	nm ni
+骘	ts tn
+骙	nh nm nf
+骚	nr ni
+骛	it ih
+骜	ap an ah
+骝	nb nq
+骞	wq wn wh
+骟	nm nz
+骠	nv nf
+骡	nq ni
+骢	nt nh nr
+骣	nc nh
+骤	nq nr
+骥	na nv
+骦	nt ne
+骧	nt nd
+骨	fg
+骭	fe
+骰	fr
+骱	fj fp
+骶	fb fi
+骷	fc
+骸	fk
+骺	fx ff
+骼	fs
+骾	ff fo
+髀	fu ft
+髁	fq fe
+髂	fw fs
+髃	fq fv
+髅	fp fb
+髈	fi fl fw
+髋	fw fl
+髌	fw ft
+髎	fz fj
+髑	fy fn
+髒	fl fg
+髓	fn fu
+高	gg
+髟	pe
+髡	pe pf
+髢	pe
+髣	pe pl
+髦	pe pv
+髫	pe pp
+髭	pe pv ps
+髮	pe pn
+髯	pe pm
+髴	pe pt
+髹	pe pj
+髻	pe pd pg
+髽	pe pg pj
+鬁	pe pp px
+鬃	pe pf pw
+鬆	pe
+鬈	pe ph
+鬌	pe pv pn
+鬍	pe pc
+鬎	pe pp px
+鬏	pe px
+鬐	pe pq
+鬒	pe ph pn
+鬓	pe pw
+鬘	pe pr po
+鬚	pe pw
+鬟	pe py
+鬣	pe po
+鬥	jd
+鬦	jj
+鬯	pm pv
+鬰	eb ee
+鬱	ea ee
+鬲	ng
+鬴	nn
+鬶	he hn
+鬷	nb nh nm
+鬻	bp bn bb
+鬼	ag
+鬽	ae
+魁	aj
+魂	ba
+魃	an ar
+魄	ua
+魅	aa
+魆	an au
+魇	xm xa
+魈	ay av
+魉	am
+魋	au
+魍	am ah
+魏	xb xa
+魑	az ab
+魔	za
+鱼	wv
+鱽	wp
+鱾	wv
+鱿	wo
+鲀	wf ws
+鲁	wo
+鲂	wl wf
+鲃	wm
+鲅	wn wr
+鲆	we wh
+鲇	wy wd
+鲈	wy wc
+鲉	wd wy
+鲊	ww
+鲋	wj wk
+鲌	wu
+鲍	wn wv
+鲎	kw
+鲏	wr wp
+鲐	wk wd
+鲑	wg
+鲒	wg wd
+鲔	wn wv
+鲕	wl we
+鲖	wm wf
+鲗	wo wp
+鲘	wx wf
+鲙	wj wb
+鲚	wq
+鲛	wa wb
+鲜	wg
+鲝	gw gv
+鲞	hh hw
+鲟	wb wk
+鲠	wf wb wo
+鲡	wf wv
+鲢	wy wu
+鲣	wp wr
+鲤	wd
+鲥	wo wk
+鲦	wh we
+鲧	wt wi
+鲨	ky kw kt
+鲩	ww wp wm
+鲪	wb wd wt
+鲫	wi wz
+鲬	wk wt
+鲭	wa wv
+鲮	wg wh
+鲯	wz wh
+鲰	wq wr
+鲱	wr wf
+鲲	wo wv
+鲳	wo
+鲴	wr wc
+鲵	wp
+鲶	wj wa
+鲷	wm wd wg
+鲸	wg wy
+鲹	wk wm
+鲺	wa wt
+鲻	wo wq
+鲼	wn wl
+鲽	wl wa
+鲾	wf wq wd
+鲿	ws wb
+鳀	wo wt
+鳁	wo wa
+鳂	wq wf
+鳃	wq wh
+鳄	wd wa
+鳅	wx wc
+鳆	we wh wo
+鳇	wu wn
+鳈	wu wk
+鳉	wa wk wl
+鳊	wm wi
+鳋	wr wi
+鳌	ap aw ah
+鳍	wq wo
+鳎	wo wz
+鳏	wy wk
+鳐	wy wa
+鳑	wi ww
+鳒	wh wc wb
+鳓	wt ws
+鳔	wv wf
+鳕	wt wb
+鳖	fh fw
+鳗	wo wr wy
+鳘	ek ew eh
+鳙	wx wt wb
+鳚	wc wf
+鳛	wz wu
+鳜	wx we wh
+鳝	wg wd wh
+鳞	wp wl
+鳟	wh wy
+鳠	wl wu
+鳡	wn wh wf
+鳢	wy wz
+鳣	wz wr
+鳤	wr ww
+鸟	xn
+鸠	kx
+鸡	rx
+鸢	px
+鸣	dx
+鸤	cx
+鸥	nb nx
+鸦	lx
+鸧	jz jx
+鸨	vn vx
+鸩	wp wx
+鸪	cx
+鸫	ry rx
+鸬	yc yx
+鸭	sx
+鸮	df dx da
+鸯	mm mx
+鸰	jk jx
+鸱	bi bx
+鸲	gx
+鸳	lz lx
+鸴	kw kx
+鸵	xw xv
+鸶	ii ix
+鸷	uk ux ui
+鸸	lx
+鸹	ax
+鸺	je jx
+鸻	px
+鸼	ix
+鸽	jd jx
+鸾	zc zx
+鸿	ku kx
+鹀	uj ux
+鹁	nw nx nh
+鹂	fv fx
+鹃	dv dx
+鹄	qd qx
+鹅	tu tp
+鹆	hx
+鹇	ae ax
+鹈	ht hx
+鹉	fp fx fs
+鹊	lo lx
+鹋	lq lx
+鹌	mo mx ma
+鹍	ov ox
+鹎	ut ux un
+鹏	vv vx
+鹐	xp xx
+鹑	gh gx
+鹒	xb xx xj
+鹓	wl wx wz
+鹔	bp bx bh
+鹕	cv cx
+鹖	on ox of
+鹗	dd dx dm
+鹘	fx
+鹙	xc xx
+鹚	hi hx
+鹛	cq cx
+鹜	it ix ih
+鹝	nx
+鹞	ya yx
+鹟	hk hx hz
+鹠	bq bx
+鹡	ww wx wj
+鹢	ka kx
+鹣	hb hx hc
+鹤	wu wx
+鹥	no nx nr
+鹦	oo ox ob
+鹧	xl xx xc
+鹨	zj zx ze
+鹩	mh mo
+鹪	uc ux
+鹫	gy go
+鹬	it im
+鹭	ps px
+鹮	yf yx yd
+鹯	zr zx zd
+鹰	xj xx xu
+鹱	xl xu
+鹲	lw lx lf
+鹳	ld lx
+鹴	te tx tq
+鹵	yr yp
+鹹	yr yp
+鹾	yr yu yb
+鹿	xl
+麀	xv
+麂	xo xj
+麇	xx
+麈	xi xn
+麋	xp
+麑	xp
+麒	xz xh
+麓	ee ex
+麖	xg xy
+麝	xz xk
+麟	xp xl
+麤	xx
+麦	ah
+麪	ej ea
+麵	ej eb
+麸	ah
+麹	ah an
+麻	zm
+麽	zt zk
+麾	zv
+麿	zd
+黁	zx zo
+黄	nh
+黇	ny nd
+黉	kw kn
+黍	xj xk
+黎	xp xj
+黏	xj xd xk
+黐	xj xv xk
+黑	ph
+黔	pj pa
+默	pm
+黛	jp
+黜	ps pm
+黝	pi ps
+黟	pl
+黠	pg pd
+黡	xm xp
+黢	pk ph
+黥	pg py
+黧	xp
+黩	pn pa
+黪	pk pe pm
+黯	px
+黵	px ps
+黹	cf
+黻	cf ci cn
+黼	cf cn
+黾	dm
+鼋	mp md
+鼍	dd dq
+鼎	qa
+鼐	vq va
+鼒	nt nq
+鼓	hc
+鼗	pw pc
+鼙	hc hu
+鼟	hc hh
+鼠	ps
+鼢	ph pp
+鼥	pn pi pr
+鼧	pw pv
+鼩	pg
+鼫	pm ps
+鼬	pd
+鼯	pw pd
+鼱	pa pv
+鼷	py pm pi
+鼹	po pw
+鼻	oq ol
+鼽	oq ok ol
+鼾	oq oe ol
+齁	oq og ol
+齄	oq of ol
+齆	oq om ol
+齇	oq of ol
+齉	oq ot ol
+齌	qc
+齐	qq
+齑	qr qf
+齿	lc
+龀	lv
+龁	le la
+龂	lt
+龃	lf
+龄	lj lk
+龅	ln lv
+龆	lp ld
+龇	ls lv
+龈	li
+龉	lw ld
+龊	lp
+龋	lt ld
+龌	lc ly
+龘	tt
+龙	tl
+龚	tl th
+龛	jd jt
+龟	wg
+龠	jd
+龢	jd jx
+龵	us
+鿃	qm qj
+鿍	gh gv
+鿎	mm mu
+鿏	za zh
+鿔	zz
+鿫	vt vm
+鿭	zx zy
+鿽	ew
+𖿲	pe
+𠀾	cj cb
+𠂇	ns
+𠃓	ae
+𠄏	rl
+𠅤	zq zh
+𠇔	jv
+𠉂	jm ju
+𠊎	jx jg
+𠍐	jk jy jm
+𠙶	rm
+𠡦	ls lu
+𠧚	yr yj
+𠩃	sm sx
+𠬝	zr
+𠬤	ru
+𠬶	bw br
+𠮛	fd
+𠰴	dm
+𠲎	dj dp
+𠲖	dt
+𠳐	da dt
+𠵆	du df do
+𡆠	ra
+𡌶	gh gc
+𡍷	gh gf
+𡎚	gm gi
+𡏋	kn kg
+𡐓	gx gk gb
+𡒄	gz gf gr
+𡕩	tr th tb
+𡗗	ai
+𡗜	mh
+𡘙	mm
+𡚦	bi
+𡚽	ag ab
+𡛟	bn
+𡛰	bd bh
+𡝗	bb bd bt
+𡥆	ag ah
+𡦀	ha hv ho
+𡨄	wq wh
+𡮐	yy
+𡰦	cj
+𡰪	cd
+𡶦	vt vf
+𡷫	vn va
+𡺎	vw vj
+𢀖	ru
+𢒉	ef
+𢖿	yh
+𢘑	fd fh fg
+𢙐	hw ht
+𢪒	uu
+𢪘	hp hu
+𢫬	ub ue
+𢱉	uc us uf
+𣎆	fd fo fv
+𣐿	et
+𣗋	es ep
+𣨼	gl gw
+𣬂	vv ve
+𣭲	kt kv
+𣱼	kp
+𣱾	kr
+𣲗	kg
+𣲘	kd
+𣵦	kn kq
+𣸣	kn ko kl
+𣸤	ky kl
+𤆬	vc
+𤆵	cm ch cb
+𤌙	co cz
+𤘧	qq
+𤙖	jd jq
+𤛭	qq
+𤞤	mf mc
+𤞶	mw me mh
+𤧛	ni nr nw
+𤩽	nn nm
+𤪌	nz ni nh
+𤫉	ns nr nc
+𤭢	zj zr
+𤯔	fl
+𤯕	lb
+𤯥	bd bl
+𤯦	tp tl
+𤱙	qe qf
+𤲶	qs qq
+𤺥	ar ad aj
+𥄨	qa qg
+𥇢	qy qt
+𥉳	qb qq
+𥔲	md
+𥕢	mf mo my
+𥖄	mg mw
+𥖨	md me
+𥤶	ev
+𥥷	ez
+𥧔	ev ep
+𥫗	ru
+𥮾	rk rm
+𥯨	rq rh
+𥹂	pc pf
+𥻗	pe pf po
+𦈖	io iz
+𦈠	iy ih iu
+𦈡	it il
+𦊞	mb md
+𦏴	zf zn
+𦒍	id iz
+𦙶	vc
+𦛨	vl vs vw
+𦝼	vp vb
+𦠿	vf vm
+𦨩	it
+𦭜	ld lh
+𦰏	lh le
+𦰡	la lt lu
+𧊅	cd cs
+𧋡	cr cg ca
+𧋱	cq cs
+𧏾	nl nc nn
+𧒽	ct cq
+𧗩	cp
+𧝁	ty tz
+𧟄	tt tf td
+𧿹	pk
+𨂿	pc ps pf
+𨃅	pu pf
+𨐈	ym
+𨑨	ou
+𨓈	bd bu
+𨙸	ct
+𨚕	kl kt
+𨛍	yv yt
+𨟠	qq qt qu
+𨭉	vf vz vp
+𨰻	zz
+𨱇	zf zk
+𨱍	zi zt
+𨱏	zl zj
+𨱑	zn
+𨱔	zh zk zy
+𨺙	tp
+𨻧	tb tq
+𩉜	to
+𩠍	ql qt qe
+𩫇	cg
+𩽾	ww wb
+𩾃	ww wp
+𩾌	wx wk wb
+𪉈	sv sx
+𪎊	ah at ay
+𪚥	tt
+𪞝	wr wu
+𪟝	ao as
+𪟧	qs qq
+𪠽	dy db
+𪣝	gu gr
+𪣻	gp gb
+𪤗	gz ge gj
+𪥰	bw ba
+𪨇	fp fo fc
+𪨊	cj
+𪨗	cw ct
+𪨰	vy
+𪨶	vm vy
+𪩘	vn vm
+𪯡	dg dv
+𪻐	nj
+𪾔	ew ea
+𪾢	qe
+𪿖	mz mi
+𫁡	ix
+𫄤	im iu
+𫄥	if iv
+𫄧	it is
+𫄨	ib ir in
+𫄶	ib id
+𫄷	ix ih
+𫄸	il ip
+𫇭	li ls
+𫉁	ly lr lw
+𫉄	ls lq
+𫊻	cb ck
+𫌀	ta to
+𫌨	xy xe
+𫍙	se
+𫍟	se
+𫍢	sp sf
+𫍣	sm sd sf
+𫍯	sn sd sf
+𫍲	sp sr sg
+𫍽	sy st sf
+𫏋	pt pp pm
+𫐄	yf yp
+𫐐	yp
+𫐓	yi ye yt
+𫑡	dt
+𫓧	zh
+𫓩	zj
+𫓯	zg
+𫓶	zd zv
+𫓹	zz zh
+𫔍	zt zq zp
+𫔎	zi zd zt
+𫔶	ao ae
+𫖃	bc bo
+𫖔	gl gt
+𫖘	xk xl
+𫖮	vv vw
+𫖯	pw
+𫖳	bt bw bd
+𫖹	ny nw nf
+𫗧	qx
+𫗫	qc qv
+𫗰	qt qu qk
+𫗴	qz qr
+𫘜	nv
+𫘝	nn nj
+𫘤	nk no
+𫘦	nn na
+𫘧	nb nk
+𫘨	no nt
+𫘪	nx ny nu
+𫘬	ny nm ni
+𫚒	wt
+𫚔	wr wd
+𫚕	wp wr wf
+𫚖	sv sw
+𫚭	wo wp
+𫛞	xn xj
+𫛩	wb wx
+𫛭	mn mx
+𫛶	xs xx
+𫜨	lm
+𫜩	ap al
+𫝭	bo bb
+𫞩	nl nm
+𫟅	ig iy
+𫟦	yh yj
+𫟹	zl zh
+𫟼	zm zu
+𫠆	cw
+𫠊	nz ni
+𫠜	lp
+𫠡	fj fg
+𫢸	jh jn jq
+𫣊	jy jw
+𫧯	yd yj ym
+𫩛	dj
+𫪁	da dh
+𫪘	dn de db
+𫫇	df dh dc
+𫭟	gn gb
+𫭢	gj
+𫭪	gp gf
+𫭼	gl gs gw
+𫮃	gh gn gq
+𫯝	yf
+𫰛	br bu
+𫰡	bj bn bv
+𫰰	bj bf bk
+𫲦	hh hp hd
+𫵘	ch ct
+𫵷	vx vs
+𫵼	vf vb vo
+𫶇	vl vr vw
+𫷷	xz xe
+𫸩	bn bb
+𫼝	ux ub
+𬀩	og
+𬀪	oe
+𬂁	vb vd vt
+𬂉	vh vo
+𬂩	eh
+𬃊	ex eo en
+𬆮	gw gx gf
+𬇕	kf kp
+𬇙	ko
+𬇞	kf kj km
+𬇹	kr ki kn
+𬉼	cn cb
+𬊈	cb ck
+𬊤	ch cn cq
+𬊶	cp ca cr
+𬌗	lj ld
+𬍛	nb ny
+𬍡	ka ki ke
+𬍤	nb nk
+𬎆	nl ni nw
+𬑗	qa qo
+𬒈	kw km
+𬒔	ms mv
+𬒗	mp me mr
+𬕂	ru ro
+𬖋	pa
+𬖞	po pk
+𬘓	io
+𬘘	iw ip
+𬘡	ir im
+𬘢	im
+𬘩	it iu ig
+𬘫	iw im
+𬘬	ia iv
+𬘭	ie
+𬘯	ig ih
+𬘵	ih if
+𬙂	iw ih if
+𬙆	it iq ip
+𬙊	ip ig
+𬙋	it if id
+𬜬	la ld
+𬜯	lm
+𬞟	ls lw
+𬟁	ln lx
+𬟽	cr cy
+𬢊	af ae ad
+𬢋	pw pe
+𬣀	pg ps
+𬣙	sf sn
+𬣞	sw sf
+𬣡	sf sp
+𬣳	si
+𬤇	sv sg
+𬤊	so st
+𬤝	sn sh sq
+𬤨	sd se
+𬧀	pa pk pl
+𬨂	yb
+𬨎	yh yy
+𬩽	bk bt
+𬪍	bo bt
+𬪩	yw yt
+𬬩	zp
+𬬫	zv
+𬬭	zj
+𬬮	zp
+𬬰	zj zz
+𬬱	zt
+𬬸	ze zi
+𬬹	zo zg
+𬬺	zf
+𬬻	zy zc
+𬬿	zp zd
+𬭁	zk
+𬭊	ze zg
+𬭍	zo ze
+𬭎	zw zk zn
+𬭚	zg zh
+𬭛	zk zr
+𬭣	zu zk
+𬭤	zj zo zn
+𬭨	zt zu zk
+𬭩	zh zk
+𬭬	za zb
+𬭯	zf zh
+𬭳	zh zd
+𬭶	zp
+𬭸	zp zl
+𬭼	zh zu zj
+𬮤	aj ad
+𬮱	av ag
+𬮴	ax
+𬮿	tv
+𬯎	tc to
+𬱖	dw
+𬱟	xx xw xz
+𬲱	qw qv
+𬲽	qz qh
+𬳇	qw qf
+𬳵	nc nf
+𬳶	nm nd
+𬳽	nq np
+𬳿	nj nx
+𬴃	na nm
+𬴊	np nv nl
+𬶋	wg
+𬶍	ww wv
+𬶏	wx
+𬶐	wp ww
+𬶟	wx wp
+𬶠	wx wh
+𬶨	id iw
+𬶭	wh wf
+𬶮	wh wd
+𬷕	nx
+𬸅	xb xx
+𬸘	no nx nb
+𬸚	ms mx mm
+𬸣	wq wx wh
+𬸦	le lx lo
+𬸪	tp tx tq
+𬹼	lj lp
+𬺈	lm lz
+𬺓	le lt
+𭎂	gj
+𭚦	bx
+𭣇	un uw uq
+𭱊	ku kw
+𮆏	ra rh rx
+𮉧	im
+𮉨	id ij im
+𮉪	iq ir
+𮉫	ix ib
+𮉬	iz in ij
+𮉯	ih if
+𮐨	lo lb
+𮔂	cl cz
+𮔅	cx co
+𮔊	cm
+𮖱	tg tw td
+𮙊	st sx
+𮙋	sn ss sa
+𮝴	yy
+𮝵	yl
+𮝹	yy yt yf
+𮣲	zu
+𮣳	zn zk
+𮣴	zt zs
+𮤲	ah at
+𮧴	gp
+𮧵	gj gv
+𮩝	qo qf qn
+𮩞	qg qz qw
+𮪥	ng nh
+𮬝	wv wl
+𮬡	wf
+𮭦	vj vx va
+𮭨	ow ox ob
+𮱡	yh
+𮳺	qn
+𮷛	yy
+𮸽	cc
+𮹝	tt
+𰁸	jy jb
+𰂎	ja jv
+𰃷	wj wz
+𰇣	dr dp
+𰉄	dq do dp
+𰌀	lw lb
+𰌂	by bo
+𰞇	cr cu
+𰟘	ca cp cx
+𰡘	mj mo ma
+𰣊	qs qr qn
+𰨖	fo fw ft
+𰪭	pp
+𰪿	pl ps pw
+𰬪	ik ie im
+𰯼	pm po pf
+𰱱	lw lo le
+𰵝	sx
+𰵞	si sk
+𰵤	ss
+𰵦	sa sb
+𰵧	sg sh
+𰵩	sn
+𰵴	sy sr sf
+𰵼	sl se sv
+𰷥	wf wo
+𰹲	yd
+𰻝	es eu ei
+𰽗	zf zn
+𰽚	zx
+𰽴	zm za
+𰽼	zh zl
+𰽽	zg
+𰾫	zp za zr
+𱂨	wb ww
+𱂩	nw
+𱂱	nf nw nd
+𱃱	qe qa
+𱃺	qa
+𱅋	nq
+𱇑	wf wr
+𱇒	wv
+𱇣	ws wr
+𱇫	bd bw
+𱇮	wl wf
+𱇱	jg jw jh
+𱇻	wx wp
+𱈃	wq wv
+𱈌	wg wa
+𱉻	yb yx
+𱊊	eu ex
+𱊌	cc cx
+𱊬	yn yx yc
+𱊳	qq qx
+𱌮	lg
+𱎼	jt
+𱏱	ja
+𱏿	wd
+𱑞	xl xr xw
+𱖇	ge
+𱖎	gt gm
+𱖒	gf gp
+𱚦	yb
+𱞍	th
+𱟛	si sh
+𱤏	ee
+𱥂	fs ff
+𱫉	cp
+𱮒	ml me mj
+𱮸	nd np
+𱯄	nw ni nn
+𱯍	nz
+𱰛	lq ls
+𱰾	qs qu
+𱳪	mm mi
+𱸇	rl rs rw
+𱸥	ri rw rp
+𱹍	pz pe
+𲀃	cv
+𲂎	su
+𲄗	az
+𲄚	zp
+𲈗	zx zn
+𲈵	ak
+𲉅	ax ad ab
+𲋤	qp qd
+𲍭	fs fx
+𲍿	zj zx zv
+𠂉	et
+𠷡	fu fd fj
+の	ae

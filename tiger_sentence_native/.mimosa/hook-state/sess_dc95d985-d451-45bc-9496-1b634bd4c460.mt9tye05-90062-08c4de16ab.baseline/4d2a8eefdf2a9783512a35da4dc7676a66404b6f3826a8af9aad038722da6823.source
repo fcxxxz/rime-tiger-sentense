@@ -1,0 +1,7 @@
+#!/bin/zsh
+# 构建 libtigerengine.dylib（需要 Lua 5.4 头文件，见 README.md）
+set -euo pipefail
+cd "$(dirname "$0")"
+clang++ -O2 -std=c++17 -dynamiclib tigerengine.cc tigerengine_lua.cc \
+  -I. -undefined dynamic_lookup -o libtigerengine.dylib
+echo "built libtigerengine.dylib"

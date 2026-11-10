@@ -1,0 +1,22 @@
+# 大体积数据：不进 git，来源与哈希见 PROVENANCE.md
+corpus/
+tiger_sentence_native/mohu-sentence-ngram-v5.bin
+tiger_sentence_native/mohu-sentence-ngram-v5.bin.zip
+mohu_zrm.words.dict.yaml
+mohu_flypy.words.dict.yaml
+mohu_pinyin.dict.yaml
+
+# 构建产物与临时文件
+.tmp/
+*.o
+*.tmp
+.DS_Store
+__pycache__/
+*.pyc
+
+# 第三方竞品（不可信数据，单独管理）
+competitors/
+
+# 用户运行时状态
+userdb/
+*.userdb

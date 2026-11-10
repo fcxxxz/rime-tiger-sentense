@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "mimosa-hook-status/v1",
+  "recordedAt": "2026-10-19T02:49:06.495Z",
+  "sessionId": "sess_322b92c7-f44d-41d6-bc4b-7ba637747969",
+  "event": "PostToolUse",
+  "toolName": "Write",
+  "file": "/Users/fuchuxuan/.zcode/cli/memories/projects/rime-mohu-eb17d53c97bb51f5/memory/slash-o-suffix-deadzone.md",
+  "outcome": "clear",
+  "coverage": "complete",
+  "findingCount": 0,
+  "durationMs": 3,
+  "hostState": "hook_complete",
+  "reportHint": ".mimosa/reports/"
+}

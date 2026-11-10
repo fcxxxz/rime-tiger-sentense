@@ -1,0 +1,189 @@
+#pragma once
+
+#include <stddef.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* Handles become invalid permanently after tiger_engine_free. */
+int tiger_engine_create(const char* model_path, const char* lexicon_path,
+                        int beam_width, int all_ranks_always,
+                        char* error, int error_capacity);
+/* Replace the personal phrase snapshot. Rows are code<TAB>text<TAB>commits. */
+int tiger_engine_set_personal_lexicon(int handle, const char* rows);
+/* Apply one positive commit delta immediately. Code is normalized bare
+ * double-pinyin; an existing static edge is updated instead of duplicated. */
+int tiger_engine_adjust_personal(int handle, const char* code, const char* text,
+                                 int commits_delta);
+/* Chunked snapshot transaction: begin, append newline-terminated row
+ * batches, then commit. Decode keeps the previous snapshot until commit. */
+int tiger_engine_personal_begin(int handle);
+int tiger_engine_personal_append(int handle, const char* rows);
+int tiger_engine_personal_commit(int handle);
+int tiger_engine_personal_abort(int handle);
+/* Adaptive user trigram layer: feed committed text (UTF-8). Returns
+ * 0 = no change, 1 = applied (decode cache invalidated), -1 = error. */
+int tiger_engine_update_user_model(int handle, const char* text);
+/* Un-learning for user-word deletion: subtract `times` worth of trigram
+ * counts along the same BOS/EOS windows update_user_model used to feed this
+ * exact text. Floors at zero; windows shared with other words are decremented
+ * too and rebuild naturally from later input. Range (0, 1000000].
+ *
+ * Approximation, not an exact inverse: update_user_model is fed the whole
+ * commit text (possibly a sentence, possibly with punctuation), while this
+ * replays windows over the word alone, so the two align window-for-window only
+ * when the word was committed standalone. If it was committed inside a longer
+ * sentence, the in-sentence context trigrams are not decremented. Counts are
+ * also approximate after decay_if_large() has scaled the layer (tri > 100000
+ * entries), where `times` = the raw commit count over-subtracts slightly. */
+int tiger_engine_forget_text(int handle, const char* text, int times);
+/* static_weight is the static model's share in (0, 1]; 1 disables the layer. */
+int tiger_engine_set_user_model_weight(int handle, double static_weight);
+/* Opt-in contextual learning guard (0 legacy, 1 guarded). Keep snapshot format
+ * unchanged; restrict personal backoff, composed BOS and internal known-word
+ * boosts to their observed contexts. Main Mohu schemas enable it. */
+int tiger_engine_set_learning_context_guard(int handle, int on);
+/* Cap the positive cumulative user-model gain on one decoded path, in nats.
+ * 0 disables the cap. This limits historical trigram amplification without
+ * removing user counts or personal lexical edges. Range [0, 32]. */
+int tiger_engine_set_user_model_gain_cap(int handle, double cap);
+/* Cap the user-model gain attributed to BOS-context trigrams (the first two
+ * chars of a fresh decode), in nats. Word-level standalone commits feed every
+ * commit as a "sentence start" into the user model, so repeated single-word
+ * commits can saturate the head of unrelated sentences; this budget bounds
+ * that anchoring while interior learning, whole-word personal edges and real
+ * sentence-start habits (within the cap) keep working. 0 disables the cap.
+ * Range [0, 32]. */
+int tiger_engine_set_bos_user_gain_cap(int handle, double cap);
+/* Cap the personal-word boost when the word rides as an internal edge inside
+ * a longer sentence, in nats. Only applies to personal words that match a
+ * genuine static entry at the same code (rank < 90): the dictionary already
+ * knows those, so user commits must not rewrite long-sentence first choices
+ * (认得 intruding into 人人的脸都憋得发紫). OOV coinages (魔虎), injected
+ * rank-99 words, whole-input edges and single-char reordering keep the full
+ * boost. Range [0, 12]; 12 matches the old behavior, 0 zeroes that class. */
+int tiger_engine_set_personal_edge_internal_cap(int handle, double cap);
+/* Reading prior weight in [0, 4]: scales the per-entry log P(reading|char)
+ * prior derived from the lexicon's optional 5th column (reading-conditional
+ * frequency). 0 disables, default 1.0. Returns 1 applied, 0 no change,
+ * -1 error. Old lexicons without the column stay neutral at any weight. */
+int tiger_engine_set_reading_prior_weight(int handle, double weight);
+/* Composed reading prior weight in [0, 4]: when a single-char edge takes part
+ * in a multi-segment composed path (i.e. it is not the whole-input edge), the
+ * reading prior is applied a second time (squared prior). The char-level LM's
+ * collocation evidence comes from the dominant reading's corpus (vgxju → 整车
+ * borrows all its evidence from zhěngchē), so a secondary reading with a
+ * non-trivial share (车 jū ≈ 4.3%) survives a single prior. Whole-input edges
+ * (single-char input, whole-word hits) are never affected. 0 disables,
+ * default 1.0. */
+int tiger_engine_set_composed_reading_prior_weight(int handle, double weight);
+/* Bounded word-edge prior: 0 disables (default; static multi-char words
+ * match the whole input only), >0 lets static dictionary words act as
+ * sentence-internal beam edges and adds this bounded bonus per internal
+ * word edge, mirroring librime's entry_weight + grammar additive fusion.
+ * Range [0, 4]. */
+int tiger_engine_set_word_edge_weight(int handle, double weight);
+/* Word-edge frequency gradient: 0 disables (default; internal word edges keep
+ * the flat word_edge_weight bonus); >0 adds a bounded freq-weighted bonus on
+ * top for static multi-char internal edges, using the same gradient shape as
+ * the text-lexicon prior (log(w+2)/log(2M), floor 0.35, cap 1.0). Unknown
+ * weights (0/20001) and personal edges are unaffected. Range [0, 32]. */
+int tiger_engine_set_word_edge_freq_weight(int handle, double weight);
+/* Auxiliary spellings retain full-code dictionary-word identity. Default on;
+ * 0 disables query-local auxiliary word projections. Returns 1 applied,
+ * 0 unchanged, -1 error. The dictionary/code table is never rewritten. */
+int tiger_engine_set_auxiliary_word_edges(int handle, int on);
+/* Mix weight [0,1] for observed word-internal evidence when a validated
+ * auxiliary word's crossing character trigram only backs off. Default 0.5;
+ * 0 disables. Correction is bounded to one nat over the entire path. */
+int tiger_engine_set_auxiliary_context_guard(int handle, double weight);
+/* Text-lexicon prior: 0 disables (default); >0 adds this bounded bonus to
+ * the output score (and early-commit confidence) of candidates whose full
+ * text is a multi-character lexicon entry under ANY code form (e.g. 同一个
+ * exists only under the abbreviation tyg). This votes "the dictionary has
+ * this word" at the whole-candidate level, complementing the per-edge word
+ * prior, to stop composed paths from outranking real dictionary words on
+ * context-leveraged LM margins (observed up to ~4.5 nats). Range [0, 16]. */
+int tiger_engine_set_text_lexicon_weight(int handle, double weight);
+/* Word-form whole-hit authority: 0 disables (default); >0 adds
+ * weight * (dict_weight / max_known_weight_of_code, floored at 0.35) to
+ * paths whose full-code input (2 keys per char, >= 3 chars) is covered
+ * whole by a single
+ * full-code dictionary word. While text-lexicon votes "is a word" on a global log gradient
+ * (a 2x weight ratio is worth only ~0.32 nats, below char-model noise), this
+ * encodes the dictionary's intended intra-code ordering with a linear share,
+ * favors higher-weight words sharing the same code without guaranteeing their
+ * final order (bagerf: 八个人 354 vs 把个人 173). Only whole-input edges: composed paths and long-sentence
+ * segmentation are untouched. Range [0, 16]. */
+int tiger_engine_set_word_form_weight(int handle, double weight);
+/* Experimental abbreviated-word internal edges: max_rank = 0 disables
+ * (default; abbreviated words match the whole input only), >= 1 enables
+ * static abbreviated entries (code shorter than 2 keys per char) as
+ * internal sentence-lattice edges, bounded by that rank cap. Returns
+ * 1 applied, 0 no change, -1 error. */
+int tiger_engine_set_abbrev_edges(int handle, int max_rank);
+/* Restrict abbreviation edges to exact one-key-per-char entries
+ * (code length == char count). Returns 1 applied, 0 no change, -1 error. */
+int tiger_engine_set_abbrev_strict(int handle, int on);
+/* Snapshot blob of the user layer; caller owns and must free() the buffer.
+ * *size_out receives the byte length (the blob is binary and may contain
+ * NUL bytes). Empty model yields ""; NULL on error. */
+char* tiger_engine_user_model_export(int handle, size_t* size_out);
+/* Replace the user layer from a snapshot blob (binary, may contain NUL
+ * bytes, explicit length); -1 on corrupt input. */
+int tiger_engine_user_model_import(int handle, const char* blob, size_t blob_size);
+/* Cross-commit left context: pass the WHOLE latest commit text (same source
+ * as librime's GetPrecedingText); the engine extracts the trailing CJK
+ * characters itself (character trigram window; window_chars <= 0 means the
+ * default 2, values above 2 are clamped to 2 by the current model). A word-mode
+ * primary instead extracts up to two complete words from its vocabulary.
+ * An independently loaded scoring model does not change decode units. Empty or
+ * CJK-free text clears it. Returns 0 = no change, 1 = applied (decode cache
+ * invalidated), -1 = error. */
+int tiger_engine_set_decode_context(int handle, const char* text, int window_chars);
+/* Explicit standalone word-level scoring model (MHKNM01). Optional: a
+ * container model (MHCTN01) or a word-mode primary already provides the
+ * word layer; an explicit load takes precedence. Returns 0 on success,
+ * -1 on error (the engine itself stays usable). */
+int tiger_engine_load_word_scorer(int handle, const char* model_path);
+/* Batch word-level context scoring: candidates is '\n'-joined UTF-8 text
+ * (candidate_count entries); out_scores receives logP(candidate | trailing
+ * words of context_text). OOV candidates get -20 (no signal). window_words
+ * <= 0 means the default 2 (values above 2 are clamped). Returns the count
+ * written, or -1 on error. */
+int tiger_engine_context_word_scores(int handle, const char* context_text,
+                                     const char* candidates, int candidate_count,
+                                     int window_words, double* out_scores);
+/* Batch character-level continuation scoring (octagram-style): out_scores[i]
+ * is the sum of logP(codepoint | last 2 CJK chars of context and previously
+ * consumed chars) over candidate i's codepoints. Empty context yields the
+ * BOS baseline (use the difference as a frequency-free lift). Char-level
+ * primary models only; word_mode engines return -1. */
+int tiger_engine_context_char_scores(int handle, const char* context_text,
+                                     const char* candidates, int candidate_count,
+                                     double* out_scores);
+/* Same scores plus observed boundary evidence: context's last CJK char and
+ * the candidate's first two codepoints form an observed static/personal
+ * trigram. Both output arrays have candidate_count entries. */
+int tiger_engine_context_char_scores_supported(int handle, const char* context_text,
+                                     const char* candidates, int candidate_count,
+                                     double* out_scores, int* out_supported);
+/* Read/write snapshot files through UTF-8 paths. The writer uses a flushed
+ * same-directory temporary file and atomically replaces an existing target.
+ * The caller owns and must free() the read buffer. */
+char* tiger_read_snapshot_file(const char* path, size_t* size_out);
+int tiger_atomic_write_snapshot_file(const char* path, const char* blob, size_t size);
+void tiger_engine_free(int handle);
+/* include_early is a deprecated ABI compatibility flag; the canonical Lua
+ * translator always passes 0 and never exposes early-commit results. */
+int tiger_decode(int handle, const char* raw, int include_early,
+                 char* output, int output_capacity, double* elapsed_ms);
+int tiger_decode_full(int handle, const char* raw, int include_early,
+                      char* output, int output_capacity);
+int tiger_status(int handle, char* output, int output_capacity);
+const char* tiger_last_error(void);
+
+#ifdef __cplusplus
+}
+#endif

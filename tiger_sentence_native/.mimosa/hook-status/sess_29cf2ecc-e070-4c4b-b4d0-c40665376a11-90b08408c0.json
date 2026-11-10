@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "mimosa-hook-status/v1",
+  "recordedAt": "2026-09-01T14:17:09.394Z",
+  "sessionId": "sess_29cf2ecc-e070-4c4b-b4d0-c40665376a11",
+  "event": "PostToolUse",
+  "toolName": "Write",
+  "file": "/tmp/tiger55/tigerengine_lua.cc",
+  "outcome": "inconclusive",
+  "coverage": "partial",
+  "findingCount": 0,
+  "durationMs": 18,
+  "hostState": "hook_complete",
+  "reportHint": ".mimosa/reports/"
+}

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "mimosa-hook-status/v1",
+  "recordedAt": "2026-10-20T10:45:22.854Z",
+  "sessionId": "session_45d162e418a59c57599c98f83227e745",
+  "event": "PostToolUse",
+  "toolName": "Edit",
+  "file": "mohu_tiger.lexicon.txt",
+  "outcome": "clear",
+  "coverage": "complete",
+  "findingCount": 0,
+  "durationMs": 65,
+  "hostState": "hook_complete",
+  "reportHint": ".mimosa/reports/"
+}

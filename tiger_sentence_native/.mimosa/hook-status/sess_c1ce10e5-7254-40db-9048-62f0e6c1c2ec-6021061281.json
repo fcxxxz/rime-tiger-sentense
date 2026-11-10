@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "mimosa-hook-status/v1",
+  "recordedAt": "2026-10-14T08:31:17.480Z",
+  "sessionId": "sess_c1ce10e5-7254-40db-9048-62f0e6c1c2ec",
+  "event": "PostToolUse",
+  "toolName": "Edit",
+  "file": "/Users/fuchuxuan/PycharmProjects/rime-mohu/tests/tigerengine_word_edge_test.cc",
+  "outcome": "inconclusive",
+  "coverage": "partial",
+  "findingCount": 0,
+  "durationMs": 3,
+  "hostState": "hook_complete",
+  "reportHint": ".mimosa/reports/"
+}

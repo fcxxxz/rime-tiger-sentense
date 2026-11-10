@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "mimosa-hook-status/v1",
+  "recordedAt": "2026-09-21T04:59:02.025Z",
+  "sessionId": "sess_c814a3af-d1b1-4e84-b5e0-0a3905d5a5c7",
+  "event": "PostToolUse",
+  "toolName": "Edit",
+  "file": "/Users/fuchuxuan/PycharmProjects/rime-mohu/tools/build_mohu_lexicons.py",
+  "outcome": "inconclusive",
+  "coverage": "partial",
+  "findingCount": 0,
+  "durationMs": 3,
+  "hostState": "hook_complete",
+  "reportHint": ".mimosa/reports/"
+}

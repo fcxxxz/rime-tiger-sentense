@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "mimosa-hook-status/v1",
+  "recordedAt": "2026-09-24T06:58:06.948Z",
+  "sessionId": "sess_919c9041-42e5-43ba-aa73-9af9c923fedf",
+  "event": "PostToolUse",
+  "toolName": "Edit",
+  "file": "/Users/fuchuxuan/.zcode/cli/memories/projects/rime-mohu-eb17d53c97bb51f5/memory/mohu-sentence-pipelines.md",
+  "outcome": "clear",
+  "coverage": "complete",
+  "findingCount": 0,
+  "durationMs": 2,
+  "hostState": "hook_complete",
+  "reportHint": ".mimosa/reports/"
+}

@@ -1,0 +1,42 @@
+#pragma once
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* Handles become invalid permanently after tiger_engine_free. */
+int tiger_engine_create(const char* model_path, const char* lexicon_path,
+                        int beam_width, int all_ranks_always,
+                        char* error, int error_capacity);
+/* Replace the personal phrase snapshot. Rows are code<TAB>text<TAB>commits. */
+int tiger_engine_set_personal_lexicon(int handle, const char* rows);
+/* Chunked snapshot transaction: begin, append newline-terminated row
+ * batches, then commit. Decode keeps the previous snapshot until commit. */
+int tiger_engine_personal_begin(int handle);
+int tiger_engine_personal_append(int handle, const char* rows);
+int tiger_engine_personal_commit(int handle);
+int tiger_engine_personal_abort(int handle);
+/* Adaptive user trigram layer: feed committed text (UTF-8). Returns
+ * 0 = no change, 1 = applied (decode cache invalidated), -1 = error. */
+int tiger_engine_update_user_model(int handle, const char* text);
+/* static_weight is the static model's share in (0, 1]; 1 disables the layer. */
+int tiger_engine_set_user_model_weight(int handle, double static_weight);
+/* Snapshot blob of the user layer; caller owns and must free() the buffer.
+ * *size_out receives the byte length (the blob is binary and may contain
+ * NUL bytes). Empty model yields ""; NULL on error. */
+char* tiger_engine_user_model_export(int handle, size_t* size_out);
+/* Replace the user layer from a snapshot blob; -1 on corrupt input. */
+int tiger_engine_user_model_import(int handle, const char* blob);
+void tiger_engine_free(int handle);
+/* include_early is a deprecated ABI compatibility flag; the canonical Lua
+ * translator always passes 0 and never exposes early-commit results. */
+int tiger_decode(int handle, const char* raw, int include_early,
+                 char* output, int output_capacity, double* elapsed_ms);
+int tiger_decode_full(int handle, const char* raw, int include_early,
+                      char* output, int output_capacity);
+int tiger_status(int handle, char* output, int output_capacity);
+const char* tiger_last_error(void);
+
+#ifdef __cplusplus
+}
+#endif

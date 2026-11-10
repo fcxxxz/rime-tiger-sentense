@@ -1,0 +1,120 @@
+{
+  "new": {
+    "sentences": 100000,
+    "characters": 1218539,
+    "keys": 2855645,
+    "wrong_sentences": 76,
+    "wrong_commit_events": 206,
+    "final_correct": 99711,
+    "commits": 865886,
+    "coverage": 0.8767491233354041,
+    "correct_prefix_coverage": 0.8765160573440818,
+    "pending_keys_mean": 3.5764767679455955,
+    "pending_chars_mean": 1.1922914087710481,
+    "final_pending_keys_mean": 3.70838,
+    "final_pending_chars_mean": 1.50186,
+    "no_commit_sentences": 236,
+    "low_coverage_sentences": 956,
+    "latency_mean_ms": 0.9053686984901805,
+    "latency_max_ms": 13.127000000001,
+    "latency_samples": 713913,
+    "pending_keys_p50": 3,
+    "final_pending_chars_p50": 1,
+    "latency_p50_ms": 0.234,
+    "pending_keys_p90": 6,
+    "final_pending_chars_p90": 2,
+    "latency_p90_ms": 3.39,
+    "pending_keys_p99": 9,
+    "final_pending_chars_p99": 6,
+    "latency_p99_ms": 5.817
+  },
+  "original": {
+    "sentences": 100000,
+    "characters": 1218539,
+    "keys": 2855645,
+    "wrong_sentences": 159,
+    "wrong_commit_events": 407,
+    "final_correct": 98007,
+    "commits": 530659,
+    "coverage": 0.5947614315175797,
+    "correct_prefix_coverage": 0.594225543868518,
+    "pending_keys_mean": 8.012513109997917,
+    "pending_chars_mean": 3.0785990555548746,
+    "final_pending_keys_mean": 11.83589,
+    "final_pending_chars_mean": 4.93799,
+    "no_commit_sentences": 2187,
+    "low_coverage_sentences": 7261,
+    "latency_mean_ms": 10.692999392081212,
+    "latency_max_ms": 108.97999999997,
+    "latency_samples": 713913,
+    "pending_keys_p50": 6,
+    "final_pending_chars_p50": 3,
+    "latency_p50_ms": 9.993,
+    "pending_keys_p90": 16,
+    "final_pending_chars_p90": 11,
+    "latency_p90_ms": 21.129,
+    "pending_keys_p99": 37,
+    "final_pending_chars_p99": 19,
+    "latency_p99_ms": 30.826
+  },
+  "paired": {
+    "both_wrong_early": 19,
+    "new_only_wrong_early": 57,
+    "original_only_wrong_early": 140,
+    "both_final_correct": 97906,
+    "new_only_final_correct": 1805,
+    "original_only_final_correct": 101,
+    "new_less_final_pending": 86251,
+    "original_less_final_pending": 523
+  },
+  "by_length": [
+    {
+      "length": "4-8",
+      "sentences": 31792,
+      "new": {
+        "wrong_sentences": 23,
+        "final_correct": 31701,
+        "coverage": 0.7826498257756903,
+        "final_pending_chars_mean": 1.4381605435329643
+      },
+      "original": {
+        "wrong_sentences": 62,
+        "final_correct": 31204,
+        "coverage": 0.5825366869334144,
+        "final_pending_chars_mean": 2.762267237040765
+      }
+    },
+    {
+      "length": "9-15",
+      "sentences": 43428,
+      "new": {
+        "wrong_sentences": 31,
+        "final_correct": 43312,
+        "coverage": 0.8718388529709284,
+        "final_pending_chars_mean": 1.4761904761904763
+      },
+      "original": {
+        "wrong_sentences": 58,
+        "final_correct": 42618,
+        "coverage": 0.6835874245822788,
+        "final_pending_chars_mean": 3.6445150594086764
+      }
+    },
+    {
+      "length": "16-30",
+      "sentences": 24780,
+      "new": {
+        "wrong_sentences": 22,
+        "final_correct": 24698,
+        "coverage": 0.9205534250458693,
+        "final_pending_chars_mean": 1.6285714285714286
+      },
+      "original": {
+        "wrong_sentences": 39,
+        "final_correct": 24185,
+        "coverage": 0.5123532376310133,
+        "final_pending_chars_mean": 9.996246973365617
+      }
+    }
+  ]
+}
