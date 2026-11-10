@@ -1,0 +1,24 @@
+# Compile-only dependency: builds the sentence dictionary and its prism.
+# Not a selectable input scheme; interactive features live in mohu_zrm.schema.yaml.
+# 【编译垫片】只负责生成 mohu_zrm.words 的 table/prism；不是用户选择的输入方案。
+schema:
+  schema_id: mohu_zrm_sentence_core
+  version: '20261008'
+engine:
+  translators:
+  - script_translator
+speller:
+  alphabet: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/=;
+  delimiter: ' '''
+  algebra:
+    __patch:
+    - mohu:/algebra/user_force_top?
+    - mohu:/algebra/user_sentence_top?
+    - mohu:/algebra/fly_zrm?
+    - mohu:/algebra/generate_code
+    - mohu:/algebra/user_sentence_bottom?
+    - mohu:/algebra/user_force_bottom?
+translator:
+  dictionary: mohu_zrm.words
+  prism: mohu_zrm
+  enable_user_dict: false

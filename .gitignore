@@ -20,3 +20,7 @@ competitors/
 # 用户运行时状态
 userdb/
 *.userdb
+mohu_zrm.dict.yaml
+mohu_flypy.dict.yaml
+mohu_zrm_custom_phrases.txt
+mohu_flypy_custom_phrases.txt

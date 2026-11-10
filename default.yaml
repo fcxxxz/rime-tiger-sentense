@@ -4,20 +4,8 @@
 config_version: '1.0.mohu'
 
 schema_list:
-  - schema: mohu_zrm
-  - schema: mohu_flypy
   # 虎码·整句：连续虎码整句（原生引擎），Ctrl+T 切单字顶屏；` 反查。
   - schema: tiger
-  # 声虎·整句：声母+虎码123位四码定长，同虎整框架（原生引擎）。
-  - schema: shenghu
-  # - schema: luna_pinyin
-  # - schema: luna_pinyin_simp
-  # - schema: luna_pinyin_fluency
-  # - schema: bopomofo
-  # - schema: bopomofo_tw
-  # - schema: cangjie5
-  # - schema: stroke
-  # - schema: terra_pinyin
 
 switcher:
   caption: 〔方案选单〕

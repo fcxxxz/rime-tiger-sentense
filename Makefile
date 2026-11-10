@@ -1,7 +1,9 @@
 # 虎码·整句 独立仓 Makefile（自魔虎仓精简迁出，2026-11-10）
 # 只保留整句引擎测试与构建；码表再生成/打包机器不随仓（见 PROVENANCE.md）。
 
-MOHU_LUA_BIN ?= lua
+# dylib 按 Lua 5.4 ABI 构建（Squirrel 同源）；系统 lua 若是 5.5 会
+# version mismatch，优先用 homebrew lua@5.4，缺失时回退 PATH 里的 lua。
+MOHU_LUA_BIN ?= $(shell test -x /opt/homebrew/opt/lua@5.4/bin/lua && echo /opt/homebrew/opt/lua@5.4/bin/lua || echo lua)
 TIGER_NGRAM ?= tiger_sentence_native/mohu-sentence-ngram-v5.bin
 TIGER_ENGINE_INCLUDES = -I tiger_sentence_native
 UNAME_S := $(shell uname -s)
@@ -116,7 +118,7 @@ tigerengine-word-units:
 
 tigerengine-aux-words:
 	clang++ -std=c++17 -O2 $(TIGER_ENGINE_INCLUDES) tests/tigerengine_aux_words_test.cc \
-		tiger_sentence_native/tigerengine.cc $(TIGER_EXTRA_LDFLAGS) -o /tmp/tigerengine_aux_words_test
+		$(TIGER_EXTRA_LDFLAGS) -o /tmp/tigerengine_aux_words_test
 	/tmp/tigerengine_aux_words_test
 
 # ---- 真实模型上的 Lua 引擎测试（模型 gitignore，需先放入本仓路径） ----

@@ -67,3 +67,15 @@
 - 用户 Rime 目录：`lua/`（模块含 mohu_sentence 垫片）+ `mohu/runtime/libtigerengine.dylib`
   + `mohu/model/mohu-sentence-ngram-v5.bin` + `mohu/data/tiger/tiger.lexicon.txt`
 - 引擎句柄按宿主进程生命周期复用；与已安装魔虎共用 `mohu/` 目录（引擎/模型同名共存）。
+
+## 迁移验证补齐（2026-11-10 部署冒烟发现，均 HEAD 版/工作树干净版）
+
+- `punctuation.yaml`（default.yaml 的 __include 依赖）
+- `mohu_zrm_sentence_core.schema.yaml`、`mohu_flypy_sentence_core.schema.yaml`
+- `mohu_zrm.dict.yaml`、`mohu_flypy.dict.yaml`（各 ~2.4MB，反查依赖链要求编译，
+  gitignore 仅磁盘）与 `mohu_{zrm,flypy}_custom_phrases.txt`
+- `default.yaml` schema_list 裁剪为仅 tiger（原为魔虎开发版三方案）
+
+隔离部署冒烟：`rime_deployer --build` 于干净用户目录 exit 0，产出
+tiger.extended.table/prism/reverse、mohu_zrm/mohu_flypy codes.prism、
+mohu_pinyin、mohu_charset 全套，无 error。
