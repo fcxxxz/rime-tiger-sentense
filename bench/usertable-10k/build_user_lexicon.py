@@ -54,10 +54,15 @@ def load_rows(path: Path) -> list[tuple[str, str, int]]:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument('--inject', action='store_true')
+    # 定向撤注（2026-11-11 inject2 终案）：这 3 对在三元模型下互相残杀
+    # （办→说 ×5 / 说→办 ×3 等，见 report-selective.md），注入无正收益。
+    ap.add_argument('--exclude', default='说,和,道',
+                    help='--inject 时跳过这些字的 2 码注入（逗号分隔，空串=全注入）')
     ap.add_argument('--src', type=Path, default=HERE / 'tiger_user.dict.yaml')
     ap.add_argument('--out', type=Path, default=None)
     ap.add_argument('--stats', type=Path, default=None)
     args = ap.parse_args()
+    exclude = {c for c in args.exclude.split(',') if c} if args.inject else set()
     out = args.out or HERE / ('tiger_user_inject.lexicon.txt' if args.inject
                               else 'tiger_user_base.lexicon.txt')
 
@@ -82,6 +87,8 @@ def main() -> None:
     already: list[tuple[str, str, int]] = []          # (字, 2码, 原 rank)
     if args.inject:
         for t, cs in one_key.items():
+            if t in exclude:
+                continue
             full = max(cs, key=len)
             p2 = full[:2]
             seq = by_code[p2]

@@ -65,6 +65,9 @@ compete 臂（26 个一简字全量注入 2 码次选 + all_ranks=true）中「�
 
 ## 复现
 
+- 表：`python3 build_user_lexicon.py --inject`（`--exclude 说,和,道` 已设为默认，
+  产出 `tiger_user_inject2.lexicon.txt`；`--exclude ''` 恢复全注入）
 - 语料：`corpus-compete.tsv` 同句集，说/和/道 改回 base 3 码 → `corpus-inject2.tsv`
-- 运行：`driver.lua inject2 … tiger_user_inject2.lexicon.txt true`（8 分片 × 1250 句）
+- 运行：`driver.lua inject2 … tiger_user_inject2.lexicon.txt true`（8 分片 × 1250 句，
+  正规重编号表复跑逐分片键数与首跑完全一致）
 - 扫描数据：`sweep_penalty.py`（pen05…pen40 全套 TSV 在 staging 目录）
