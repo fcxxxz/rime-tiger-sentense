@@ -25,6 +25,11 @@ DIRS = ['lua', 'opencc']
 RUNTIME = [
     ('tiger_sentence_native/libtigerengine.dylib', 'mohu/runtime/libtigerengine.dylib'),
     ('tiger_sentence_native/data/tiger/tiger.lexicon.txt', 'mohu/data/tiger/tiger.lexicon.txt'),
+    # 整句 lua 三件套（shim → 引擎适配 → runtime 路径解析）；缺任一则
+    # schema 静默回退单字模式（2026-11-11 装机实测踩过）。
+    ('tiger_sentence_native/mohu_sentence.lua', 'lua/mohu_sentence.lua'),
+    ('tiger_sentence_native/mohu_tiger_sentence.lua', 'lua/mohu_tiger_sentence.lua'),
+    ('tiger_sentence_native/mohu_runtime.lua', 'lua/mohu_runtime.lua'),
 ]
 
 
