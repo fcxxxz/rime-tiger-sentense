@@ -1,9 +1,5 @@
 name: Package release zip
 
-# 自动打包：push 到 main 构建 zip 留 artifact；打 tag (v*) 时创建 Release
-# 并附上 zip。模型文件不随仓（>100MB），Release 里由维护者另行上传
-# mohu-sentence-ngram-v5.bin。
-
 on:
   push:
     branches: [main]
@@ -34,8 +30,29 @@ jobs:
           python-version: '3.12'
 
       - name: Build zip
+        run: python3 make_dist.py
+
+      - name: Verify zip contents
         run: |
-          python3 make_dist.py
+          python3 - <<'EOF'
+          import zipfile, sys
+          required = [
+            "tiger-sentence/tiger.schema.yaml",
+            "tiger-sentence/tiger.dict.yaml",
+            "tiger-sentence/default.yaml",
+            "tiger-sentence/lua/mohu_sentence.lua",
+            "tiger-sentence/lua/mohu_tiger_sentence.lua",
+            "tiger-sentence/lua/mohu_runtime.lua",
+            "tiger-sentence/mohu/runtime/libtigerengine.dylib",
+            "tiger-sentence/mohu/data/tiger/tiger.lexicon.txt",
+          ]
+          with zipfile.ZipFile("dist/tiger-sentence-latest.zip") as z:
+            names = set(z.namelist())
+            missing = [r for r in required if r not in names]
+          if missing:
+            print("MISSING:", missing); sys.exit(1)
+          print(f"OK: {len(names)} files, all required files present")
+          EOF
           cd dist && sha256sum tiger-sentence-latest.zip | tee ../zip.sha256
 
       - name: Upload artifact
@@ -44,7 +61,7 @@ jobs:
           name: tiger-sentence-latest
           path: |
             dist/tiger-sentence-latest.zip
-            dist/zip.sha256
+            zip.sha256
           if-no-files-found: error
 
       - name: Create release (tag builds)
@@ -52,8 +69,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          tag="${GITHUB_REF_NAME}"
-          gh release create "$tag" \
-            --title "虎整 $tag" \
+          gh release create "$GITHUB_REF_NAME" \
+            --title "虎整 $GITHUB_REF_NAME" \
             --notes "安装：解压 zip 全部内容到 Rime 用户目录；模型 mohu-sentence-ngram-v5.bin 从 Release 资产下载后放入 mohu/model/，重新部署并完全重启输入法。sha256 见 zip.sha256。" \
-            dist/tiger-sentence-latest.zip dist/zip.sha256
+            dist/tiger-sentence-latest.zip zip.sha256
