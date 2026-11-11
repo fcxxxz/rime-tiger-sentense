@@ -3,6 +3,10 @@
 # Line order inside one code defines its lexicon rank (1 = first).
 # Comments (#) and blank lines are ignored. Edit or replace freely;
 # re-running the exporter overwrites this file.
+# [本地补丁 2026-11-11] 31 个二码位（qk/ck/ce…）原本只有简码词（睡觉/不能/不想…）
+# 没有单字；按虎码秃版口径（小狼毫 tiger.dict.yaml 2026.08.14）在词行前回插
+# 该码位单字（眸/尿/炊…），二码首选单字、简码词退次选。上游 codes.txt 更新
+# 后需重放本补丁（见 git log 本文件）。
 的	u
 的	ue
 一	f
@@ -5163,42 +5167,73 @@
 种种	xx
 叔叔	yy
 哥哥	zz
+阌	ay
 适当	ay
 好像	bj
+炊	ce
 不想	ce
+尿	ck
 不能	ck
+炉	cm
 不同	cm
+炮	cn
 还有	cn
+翅	cz
 不错	cz
+喂	dq
 吃饭	dq
+喘	dv
 虽然	dv
+柯	ez
 本身	ez
 一般	fi
+骱	fj
 一个	fj
+骰	fr
 一切	fr
+鹘	fx
 一种	fx
+祺	fz
 与其	fz
+坛	gb
 增强	gb
 经常	is
+狐	my
 达到	my
+戚	ny
 有点	ny
+赴	py
 路上	py
+眸	qk
 睡觉	qk
+卧	qy
 特点	qy
+眩	qz
 考虑	qz
+箫	rb
 对面	rb
 对方	rl
+篱	rz
 对错	rz
+肠	va
 以来	va
+肿	vd
 这里	vd
+肝	ve
 这样	ve
+胧	vt
 这么	vt
+稷	xq
 意思	xq
+稼	xw
 解决	xw
 小米	yp
 可能	zk
+钊	zp
 可行	zp
+锭	zw
 其实	zw
+销	zy
 甚至	zy
 一个人	fjj
 是不是	oco
