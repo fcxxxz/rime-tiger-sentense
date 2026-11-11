@@ -179,16 +179,20 @@ reverse_lookup:
 
 rev_zrm:
   tags: [reverse_lookup]
-  dictionary: mohu_zrm.words
-  prism: mohu_zrm
+  # 基础词库（16 万行）+ .codes prism（zrm 方案自己的反查配置，依赖构建
+  # 恰好产出这两个产物）；.words 运行库只在 mohu_zrm 方案完整构建时编译，
+  # 虎方案单独安装时永远缺表（2026-11-11 装机实测）。
+  dictionary: mohu_zrm
+  prism: mohu_zrm.codes
   enable_user_dict: false
   enable_sentence: true
   initial_quality: 1000
 
 rev_flypy:
   tags: [reverse_lookup]
-  dictionary: mohu_flypy.words
-  prism: mohu_flypy
+  # 同上：基础词库 + .codes prism。
+  dictionary: mohu_flypy
+  prism: mohu_flypy.codes
   enable_user_dict: false
   enable_sentence: true
   initial_quality: 2000
