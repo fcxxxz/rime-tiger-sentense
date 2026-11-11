@@ -2029,6 +2029,17 @@ inline double word_char_reward() {
   }();
   return cached;
 }
+// 一简字 2 码次选注入的定向罚分（实验可调；默认 0＝不罚）：
+// allow_secondary 单字（说@sh、的@un）在弱上下文里凭高频先验反杀
+// 同码位 rank 1 首选字（办→说、皇→的）时，罚分把裁决权还给档位。
+inline double secondary_penalty() {
+  static const double cached = []() {
+    const char* env = getenv("TIGER_SECONDARY_PENALTY");
+    double v = env ? atof(env) : 0.0;
+    return v >= 0 ? v : 0.0;
+  }();
+  return cached;
+}
 const int kIsolationThreshold = 3000;
 const double kIsolationLambda = 2.0;
 // 多段组句里「孤立超生僻字」候选的隐藏阈（字频名次 >kWholeCharFreqCap
@@ -3258,6 +3269,11 @@ struct Engine {
             }
             if (selected_rank == 0 && cand.rank > 1)
               score -= kRankPenalty * log(1.0 + (double)(cand.rank - 1));
+            // 定向罚分：只罚 allow_secondary 的注入次选单字（说@sh、的@un），
+            // 普通多档位字（词、部首、异体）不受影响——基准扫描专用旋钮。
+            if (selected_rank == 0 && cand.rank == 2 && cand.allow_secondary &&
+                secondary_penalty() > 0.0)
+              score -= secondary_penalty();
             // 虎整对齐（all_ranks=false）：整段单字命中加固定奖励，下方
             // mass_score 累计时扣除——排序证据不冒充模型置信。
             double whole_single_reward_added = 0.0;
