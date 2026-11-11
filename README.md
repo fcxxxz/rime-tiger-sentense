@@ -47,6 +47,24 @@
 基准为训练重叠口径的离线逐键测评，不代表独立留出泛化；复现脚本在
 [bench/lvyww-100k/](bench/lvyww-100k/)。
 
+## 码表（虎整码表）
+
+整句层词表采用虎整码表（源自 [lvyww/tiger-sentense-rime](https://github.com/lvyww/tiger-sentense-rime)
+的 `tiger_sentence.codes.txt`，GPL-3，已随仓库存放于
+`tiger_sentence_native/data/tiger/hz-codes.txt`，由 `build_hz_lexicon.py` 生成引擎词表）。
+其设计：**一简字 2 码占首选位**（的=ue、在=ng、要=vb、到=yp、我=tu、说=sh、和=xd、
+是=ot；根字 不=cb、了=rl、人=jr、大=md、一=fi…），**同码原主人退长码**（皇=un 不受扰、
+近=tuc、办=shb、存=ngh、集=uem）。组句解码定顶（`all_ranks=false`）即可，2 码打法
+天然成立、无同码竞争：
+
+| 配置（10,000 句配对） | 最终首选准确率 | 键数 |
+|---|---:|---:|
+| 用户自编虎单码表（原表基准） | 99.38% | 278,985 |
+| 本方案（虎整码表+定顶） | **99.45%** | **266,471（−4.49%）** |
+
+完整对照（含碰撞压力语料、一简字打法消融）见
+[bench/usertable-10k/report-hz.md](bench/usertable-10k/report-hz.md)。
+
 ## 开发
 
 ```sh
