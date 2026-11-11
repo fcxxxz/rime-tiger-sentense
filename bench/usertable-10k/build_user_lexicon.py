@@ -85,12 +85,16 @@ def main() -> None:
 
     injected: list[tuple[str, str, str, str]] = []   # (字, 2码, 全码, 该码位原首选)
     already: list[tuple[str, str, int]] = []          # (字, 2码, 原 rank)
+    # 顶功根字的组句 2 码取「大码+小码」规则位（用户口径 2026-11-11）：
+    # 在=ng、要=vb、到=yg、的=ue——这些字的全码前 2 位（nggt→ng 恰同、ypd→yp
+    # 不同、uni→un 不同）不总等于规则位，以用户口径为准。
+    RULE_TWO_CODE = {'在': 'ng', '要': 'vb', '到': 'yg', '的': 'ue'}
     if args.inject:
         for t, cs in one_key.items():
             if t in exclude:
                 continue
             full = max(cs, key=len)
-            p2 = full[:2]
+            p2 = RULE_TWO_CODE.get(t) or full[:2]
             seq = by_code[p2]
             if t in seq:
                 # 该码位已有此字：保持原序不动（如 一=fi、不=cb）
