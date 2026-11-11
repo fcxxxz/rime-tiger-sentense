@@ -1,0 +1,59 @@
+name: Package release zip
+
+# 自动打包：push 到 main 构建 zip 留 artifact；打 tag (v*) 时创建 Release
+# 并附上 zip。模型文件不随仓（>100MB），Release 里由维护者另行上传
+# mohu-sentence-ngram-v5.bin。
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: package-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+
+      - name: Build zip
+        run: |
+          python3 make_dist.py
+          cd dist && sha256sum tiger-sentence-latest.zip | tee ../zip.sha256
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: tiger-sentence-latest
+          path: |
+            dist/tiger-sentence-latest.zip
+            dist/zip.sha256
+          if-no-files-found: error
+
+      - name: Create release (tag builds)
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="${GITHUB_REF_NAME}"
+          gh release create "$tag" \
+            --title "虎整 $tag" \
+            --notes "安装：解压 zip 全部内容到 Rime 用户目录；模型 mohu-sentence-ngram-v5.bin 从 Release 资产下载后放入 mohu/model/，重新部署并完全重启输入法。sha256 见 zip.sha256。" \
+            dist/tiger-sentence-latest.zip dist/zip.sha256
