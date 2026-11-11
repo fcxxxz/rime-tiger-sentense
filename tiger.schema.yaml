@@ -204,7 +204,10 @@ rev_pinyin:
 
 rev_tiger_comment:
   tags: [reverse_lookup]
-  dictionary: tiger
+  # tiger 单表无独立编译产物（仅作 tiger.extended 的 import 源，无
+  # tiger.reverse.bin），反查注释取 tiger.extended 的 reverse 库（内容
+  # 为其超集）。2026-11-11 装机实测 tiger 指向报 reversedb 缺失。
+  dictionary: tiger.extended
   overwrite_comment: true
   comment_format:
     - "xform/^/〔/"
