@@ -244,15 +244,91 @@ struct MappedFile {
 #ifdef _WIN32
   HANDLE mapping = nullptr;
 #endif
+  // 空闲修剪注册表：V5 模型 mmap 随机访问会把 ~93% 页摸热（基准实测
+  // 341MB/389MB），但都是干净只读页——phys_footprint 口径下贡献为 0
+  // （OS 可回收页缓存），RSS 口径会虚高。停打数秒后释放全部映射页：
+  // Linux 用 madvise(DONTNEED)（真释放）；macOS 上三个 madvise 变体
+  // 实测对文件页均无效，改用「munmap + MAP_FIXED 原址重映射」——地址
+  // 不变（引擎内部指针不失效），页全部归还，后续访问按页缓存软缺页
+  // 补回（μs 级）。注册表登记 (base, size, 独立 dup 的 fd)，覆盖所有
+  // 自有映射（宿主容器/字符模型/词模型）；条目与实例生命周期同步。
+#ifndef _WIN32
+  struct RegEntry {
+    uint8_t* base;
+    size_t size;
+    int fd;  // 注册表自持的 dup 描述符，重映射复用
+  };
+  // 故意泄漏的静态（进程级单例）：避免静态析构顺序与 g_engines 相互
+  // 竞争（实测函数局部静态 mutex 在引擎后析构时 lock 抛 system_error）。
+  static std::vector<RegEntry>& map_registry() {
+    static auto* regs = new std::vector<RegEntry>();
+    return *regs;
+  }
+  static std::mutex& map_registry_mutex() {
+    static auto* m = new std::mutex();
+    return *m;
+  }
+  static void trim_all_pages() {
+    std::lock_guard<std::mutex> lock(map_registry_mutex());
+    for (auto& e : map_registry()) {
+#ifdef __APPLE__
+      // 原址重映射，64MB 分块缩小无映射窗口；失败即中止（保持已成功
+      // 部分有效，宁可不修剪也不留空洞）。
+      const size_t kChunk = 64u << 20;
+      for (size_t off = 0; off < e.size; off += kChunk) {
+        size_t len = std::min(kChunk, e.size - off);
+        void* base = e.base + off;
+        ::munmap(base, len);
+        void* q = ::mmap(base, len, PROT_READ, MAP_PRIVATE | MAP_FIXED, e.fd, (off_t)off);
+        if (q != base) {
+          if (q != MAP_FAILED) ::munmap(q, len);
+          q = ::mmap(base, len, PROT_READ, MAP_PRIVATE | MAP_FIXED, e.fd, (off_t)off);
+        }
+        if (q != base) break;  // 无法原址恢复：中止后续分块
+      }
+#else
+      posix_madvise(e.base, e.size, POSIX_MADV_DONTNEED);
+#endif
+    }
+  }
+  void reg_add() {
+    if (!owned || !data || !size) return;
+    std::lock_guard<std::mutex> lock(map_registry_mutex());
+    auto& regs = map_registry();
+    for (auto& e : regs)
+      if (e.base == data) { e.size = size; return; }
+    int fd_copy = trim_fd >= 0 ? ::dup(trim_fd) : -1;
+    regs.push_back({data, size, fd_copy});
+  }
+  void reg_remove() {
+    if (!owned || !data) return;
+    std::lock_guard<std::mutex> lock(map_registry_mutex());
+    auto& regs = map_registry();
+    for (size_t i = 0; i < regs.size(); ++i)
+      if (regs[i].base == data) {
+        if (regs[i].fd >= 0) ::close(regs[i].fd);
+        regs.erase(regs.begin() + i);
+        return;
+      }
+  }
+  int trim_fd = -1;  // dup 的描述符：注册表重映射用（macOS）
+#endif
   MappedFile() = default;
   MappedFile(MappedFile&& o) noexcept : data(o.data), size(o.size), owned(o.owned) {
 #ifdef _WIN32
     mapping = o.mapping;
     o.mapping = nullptr;
 #endif
+#ifndef _WIN32
+    trim_fd = o.trim_fd;
+    o.trim_fd = -1;
+#endif
     o.data = nullptr;
     o.size = 0;
     o.owned = true;
+#ifndef _WIN32
+    reg_add();  // 所有权转移到本对象，注册表跟随
+#endif
   }
   MappedFile& operator=(MappedFile&& o) noexcept {
     if (this != &o) {
@@ -267,6 +343,11 @@ struct MappedFile {
       o.data = nullptr;
       o.size = 0;
       o.owned = true;
+#ifndef _WIN32
+      trim_fd = o.trim_fd;
+      o.trim_fd = -1;
+      reg_add();
+#endif
     }
     return *this;
   }
@@ -294,11 +375,15 @@ struct MappedFile {
       }
 #else
       if (data) {
+        reg_remove();
         munmap(data, size);
 #ifdef TIGERENGINE_MAPPING_TEST
         ++g_mapping_unmap_count;
 #endif
       }
+#endif
+#ifndef _WIN32
+    if (trim_fd >= 0) { ::close(trim_fd); trim_fd = -1; }
 #endif
     }
     data = nullptr;
@@ -358,9 +443,13 @@ struct MappedFile {
     }
     size = (size_t)st.st_size;
     void* p = mmap(nullptr, size, PROT_READ, MAP_PRIVATE, fd, 0);
+#ifndef _WIN32
+    trim_fd = ::dup(fd);  // 注册表空闲重映射复用（macOS）
+#endif
     ::close(fd);
     if (p == MAP_FAILED) { set_error("cannot mmap %s", path); release(); return false; }
     data = (uint8_t*)p;
+    reg_add();
     return true;
 #endif
   }
@@ -5214,6 +5303,31 @@ void tiger_engine_free(int handle) {
   }
 }
 
+// 空闲模型页修剪：解码入口检测距上次解码的壁钟间隔，超过阈值即把全部
+// mmap 映射 madvise(DONTNEED)（干净只读页，OS 立即可回收）。连续打字
+// 时不触发（无收益纯开销）；停打 TIGER_MODEL_TRIM_SEC 秒后下一次解码
+// 收掉热页，空闲足迹回到引擎常驻结构大小。≤0 关闭。
+static void maybe_trim_model_pages() {
+#ifndef _WIN32
+  static double idle_sec = -1.0;
+  static bool idle_init = false;
+  if (!idle_init) {
+    idle_init = true;
+    const char* env = getenv("TIGER_MODEL_TRIM_SEC");
+    idle_sec = env ? atof(env) : 3.0;
+  }
+  if (idle_sec <= 0) return;
+  using clk = std::chrono::steady_clock;
+  static clk::time_point last = clk::time_point::max();
+  const auto now = clk::now();
+  const auto idle = std::chrono::duration_cast<clk::duration>(
+      std::chrono::duration<double>(idle_sec));
+  if (last != clk::time_point::max() && now - last >= idle)
+    MappedFile::trim_all_pages();
+  last = now;
+#endif
+}
+
 int tiger_decode(int handle, const char* raw, int include_early,
                  char* out, int outcap, double* ms) {
   Engine* e = nullptr;
@@ -5223,6 +5337,7 @@ int tiger_decode(int handle, const char* raw, int include_early,
       set_error("invalid engine handle");
       return -1;
     }
+    maybe_trim_model_pages();
     if (!raw || !out || outcap <= 0) {
       set_error("raw input and output buffer are required");
       return -1;
