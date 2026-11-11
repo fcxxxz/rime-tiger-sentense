@@ -12,7 +12,7 @@
 seed=20261111 抽 10,000 句。训练重叠口径（与 lvyww-100k 相同，注明）。
 """
 from pathlib import Path
-import hashlib, json, random, shutil
+import hashlib, json, random, shutil, subprocess
 
 BASE = Path('/tmp/tiger-hz-lvyww-20261111')
 OURS = Path('/Users/fuchuxuan/输入法/整句')
@@ -121,8 +121,8 @@ files['new/tiger_sentence_native/mohu-sentence-ngram-v5.bin'] = {
 
 meta = {'seed': SEED, 'n': N, 'shards': SHARDS, 'sentences_per_shard': PER,
         'pool_unique_encodable': len(pool), 'common_encodable_characters': len(common),
-        'git_head': shutil.run(['git', '-C', str(OURS), 'rev-parse', '--short', 'HEAD'],
-                               capture_output=True, text=True).stdout.strip(),
+        'git_head': subprocess.run(['git', '-C', str(OURS), 'rev-parse', '--short', 'HEAD'],
+                                   capture_output=True, text=True).stdout.strip(),
         'files': files}
 (BASE / 'manifest.json').write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding='utf-8')
 print(json.dumps({k: v for k, v in meta.items() if k != 'files'}, ensure_ascii=False))

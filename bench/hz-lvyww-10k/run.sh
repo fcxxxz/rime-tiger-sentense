@@ -22,7 +22,7 @@ for mode in new lvyww; do
       pids=("${newpids[@]}"); (( ${#pids[@]} < PAR )) || sleep 5
     done
     echo "launch $mode-$shard"
-    /usr/bin/time -l $LUA_BIN "$B/driver.lua" "$mode" "$B" "$B/corpus.tsv" "$start" "$PER" "$out" \
+    /usr/bin/time -l $LUA_BIN "$B/driver.lua" "$mode" "$B/$mode" "$B/corpus.tsv" "$start" "$PER" "$out" \
       > "$log" 2> "$timelog" &
     pids+=($!)
   done

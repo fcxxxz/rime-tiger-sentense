@@ -60,7 +60,10 @@ def max_rss_kb(arm):
     for shard in range(SHARDS):
         for line in (B / f'{arm}-{shard}.time').open():
             if 'maximum resident set size' in line:
-                vals.append(int(line.strip().split()[-1]))
+                for tok in line.strip().split():
+                    if tok.isdigit():
+                        vals.append(int(tok))
+                        break
     return vals
 
 
@@ -92,8 +95,8 @@ def main() -> None:
             'latency_mean_ms': sum(r['sum_ms'] for r in rows.values()) / keys,
             'latency_p50_ms': percentile(lat, .5),
             'latency_p99_ms': percentile(lat, .99),
-            'rss_max_mb': max(rss) / 1024 if rss else None,
-            'rss_mean_mb': (sum(rss) / len(rss) / 1024) if rss else None,
+            'rss_max_mb': max(rss) / 1048576 if rss else None,      # time -l 报字节
+            'rss_mean_mb': (sum(rss) / len(rss) / 1048576) if rss else None,
         }
 
     paired = {}
