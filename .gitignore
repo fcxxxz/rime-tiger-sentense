@@ -4,7 +4,6 @@ tiger_sentence_native/mohu-sentence-ngram-v5.bin
 tiger_sentence_native/mohu-sentence-ngram-v5.bin.zip
 mohu_zrm.words.dict.yaml
 mohu_flypy.words.dict.yaml
-mohu_pinyin.dict.yaml
 
 # 构建产物与临时文件
 .tmp/
@@ -20,10 +19,6 @@ competitors/
 # 用户运行时状态
 userdb/
 *.userdb
-mohu_zrm.dict.yaml
-mohu_flypy.dict.yaml
-mohu_zrm_custom_phrases.txt
-mohu_flypy_custom_phrases.txt
 **/.mimosa/
 dist/
 bench/usertable-10k/tiger_user.dict.yaml
