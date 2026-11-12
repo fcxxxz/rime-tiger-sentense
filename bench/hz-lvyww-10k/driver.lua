@@ -17,6 +17,14 @@ if mode == "new" then
     ["tiger/user_model"] = "false", ["tiger/two_char_word_gate"] = "false",
     ["tiger/native_short_codes"] = "true",
   }
+  -- 虎整组句资格臂（bench/hz-segment-policy-10k）：如 "3,true"；未设 = 旧定顶。
+  local policy = os.getenv("TIGER_BENCH_SEGMENT_POLICY")
+  if policy and policy ~= "" then
+    local min_len, filter = policy:match("^(%d+),(%a+)$")
+    assert(min_len, "bad TIGER_BENCH_SEGMENT_POLICY: " .. policy)
+    values["tiger/auto_select_min_code_length"] = min_len
+    values["tiger/high_freq_filter"] = filter
+  end
   config = {
     get_string = function(_, key) return values[key] end,
     get_int = function() return nil end,

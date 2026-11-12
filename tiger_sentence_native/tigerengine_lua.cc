@@ -604,6 +604,28 @@ int l_probe_code(lua_State* L) {
   return 1;
 }
 
+int l_set_segment_policy(lua_State* L) {
+  lua_Integer handle_value = luaL_checkinteger(L, 1);
+  luaL_argcheck(L, handle_value >= std::numeric_limits<int>::min() &&
+                       handle_value <= std::numeric_limits<int>::max(),
+                1, "engine handle is out of range");
+  lua_Integer min_code_length = luaL_checkinteger(L, 2);
+  luaL_argcheck(L, min_code_length >= 0 && min_code_length <= 128, 2,
+                "min code length must be 0..128");
+  lua_Integer filter = luaL_checkinteger(L, 3);
+  luaL_argcheck(L, filter == 0 || filter == 1, 3, "high freq filter must be 0 or 1");
+  int rc;
+  char error[512] = {0};
+  {
+    std::lock_guard<std::mutex> lock(g_lua_binding_mutex);
+    rc = tiger_engine_set_segment_policy((int)handle_value, (int)min_code_length, (int)filter);
+    if (rc < 0) std::snprintf(error, sizeof(error), "%s", tiger_last_error());
+  }
+  if (rc < 0) return luaL_error(L, "%s", error[0] ? error : "segment policy update failed");
+  lua_pushboolean(L, 1);
+  return 1;
+}
+
 int l_set_two_char_word_gate(lua_State* L) {
   lua_Integer handle_value = luaL_checkinteger(L, 1);
   luaL_argcheck(L, handle_value >= std::numeric_limits<int>::min() &&
@@ -637,6 +659,24 @@ int l_set_word_edge_weight(lua_State* L) {
     if (rc != 0) std::snprintf(error, sizeof(error), "%s", tiger_last_error());
   }
   if (rc < 0) return luaL_error(L, "%s", error[0] ? error : "word edge weight update failed");
+  lua_pushboolean(L, 1);
+  return 1;
+}
+
+int l_set_code_form_penalty(lua_State* L) {
+  lua_Integer handle_value = luaL_checkinteger(L, 1);
+  luaL_argcheck(L, handle_value >= std::numeric_limits<int>::min() &&
+                       handle_value <= std::numeric_limits<int>::max(),
+                1, "engine handle is out of range");
+  double penalty = luaL_checknumber(L, 2);
+  int rc;
+  char error[512] = {0};
+  {
+    std::lock_guard<std::mutex> lock(g_lua_binding_mutex);
+    rc = tiger_engine_set_code_form_penalty((int)handle_value, penalty);
+    if (rc != 0) std::snprintf(error, sizeof(error), "%s", tiger_last_error());
+  }
+  if (rc < 0) return luaL_error(L, "%s", error[0] ? error : "code form penalty update failed");
   lua_pushboolean(L, 1);
   return 1;
 }
@@ -855,10 +895,12 @@ int luaopen_tigerengine(lua_State* L) {
       {"set_reading_prior_weight", l_set_reading_prior_weight},
       {"set_composed_reading_prior_weight", l_set_composed_reading_prior_weight},
       {"set_two_char_word_gate", l_set_two_char_word_gate},
+      {"set_segment_policy", l_set_segment_policy},
       {"probe_code", l_probe_code},
       {"probe_common_code", l_probe_common_code},
       {"code_char_rank", l_code_char_rank},
       {"set_word_edge_weight", l_set_word_edge_weight},
+      {"set_code_form_penalty", l_set_code_form_penalty},
       {"set_word_edge_freq_weight", l_set_word_edge_freq_weight},
       {"set_auxiliary_word_edges", l_set_auxiliary_word_edges},
       {"set_auxiliary_context_guard", l_set_auxiliary_context_guard},

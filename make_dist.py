@@ -10,16 +10,18 @@ ROOT = Path(__file__).resolve().parent
 OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / 'dist'
 STAGE = OUT / 'tiger-sentence'
 
+# 2026-11-11 瘦身：zrm/flypy 双拼运行库（.words 240万行 ×2、其 sentence_core
+# 编译钩子、custom_phrases）不随虎包——虎方案单独安装时 words 永不编译
+# （1e69156 起反查走 16万行基础库 + codes prism），纯占 65MB 包体的大头；
+# 反查可用性探测查编译产物 .table.bin 不查 yaml。双拼整句装魔虎主包。
 ROOT_FILES = [
     'LICENSE', 'README.md', 'default.yaml', 'punctuation.yaml', 'symbols.yaml',
     'key_bindings.yaml', 'mohu.yaml', 'mohu_defs.yaml',
     'tiger.schema.yaml', 'tiger.dict.yaml', 'tiger.extended.dict.yaml', 'tiger.user.dict.yaml',
     'mohu_pinyin.dict.yaml', 'mohu_pinyin.schema.yaml',
     'mohu_charset.dict.yaml', 'mohu_charset.schema.yaml',
-    'mohu_zrm.schema.yaml', 'mohu_zrm.dict.yaml', 'mohu_zrm.words.dict.yaml',
-    'mohu_zrm_custom_phrases.txt', 'mohu_zrm_sentence_core.schema.yaml',
-    'mohu_flypy.schema.yaml', 'mohu_flypy.dict.yaml', 'mohu_flypy.words.dict.yaml',
-    'mohu_flypy_custom_phrases.txt', 'mohu_flypy_sentence_core.schema.yaml',
+    'mohu_zrm.schema.yaml', 'mohu_zrm.dict.yaml',
+    'mohu_flypy.schema.yaml', 'mohu_flypy.dict.yaml',
 ]
 DIRS = ['lua', 'opencc']
 RUNTIME = [

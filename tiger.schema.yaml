@@ -151,12 +151,28 @@ tiger:
   scheme: tiger
   # 整句开关关时翻译器整体让位（单字模式 table 独占）。
   when_option: sentence
-  # 虎整对齐：多段组句边只取每码 rank 1（卩/钅/釒这类同码 2+ 档的部首
-  # 变形字不再拼进句子，只在裸打整段命中或数字选重时可达）；≤4 键改
-  # 码表序平局+模型分排序（ojjg 首选 几个 而非全码字 矬），整段单字加
-  # 固定奖励保居首。注意字符串 "false"：conf 经 get_string 读布尔 false
+  # 虎整对齐：多段组句边不开全档位竞争（2 码位的 卩/钅/釒 这类同码 2+ 档
+  # 部首变形字不拼进句子，只在裸打整段命中或数字选重时可达；≥3 码非首选
+  # 单字的放行见下方 auto_select_min_code_length）；≤4 键码表序平局+模型分
+  # 排序（ojjg 首选 几个 而非全码字 矬），整段单字加固定奖励
+  # 保居首。注意字符串 "false"：conf 经 get_string 读布尔 false
   # 得 nil 会静默回退默认 true。
   all_ranks: "false"
+  # 虎整组句资格（对齐虎整 HEAD auto_select_min_code_length / high_freq_limit）：
+  # 多段组句时，码长 ≥3 的非首选单字也可省略选重键参与组句，与首选按
+  # 模型分竞争（孑@rfi 次选：rfiil → 孑立）；2 码非首选与非首选多字词仍
+  # 只在整段单打或选重时可达。0 = 旧定顶（只取首选）。
+  auto_select_min_code_length: 3
+  # 高频字（字频前 1500，全码白名单除外）组句只用最优码：书 只认 aa，
+  # aag 不再作为句中段（单打 aag 仍出 书）。词表第 7 列 h 标记由
+  # build_hz_lexicon.py 按虎整口径生成。"false" 关闭。
+  high_freq_filter: "true"
+  # γ 码形先验（2026-11-12）：多段组句边使用非最优码形（词表 flag 'o'，
+  # build_hz_lexicon.py 全字生成）每边罚该值 nats——短码组合优先于并字
+  # 长码形（拟@uvjr 不得反超 指(uv)+人(jr)、救@fkih 不得反超 求(fk)+收(ih)，
+  # 标定 γ=6 一致覆盖）；整段单字命中（打全码单打）豁免，与 h 同款豁免。
+  # 0 关闭。100k 全量标定见 bench/hz-lvyww-10k/report.md。
+  code_form_penalty: "6"
   # 短码（≤4 键）与单字也由引擎出候选：一简/其余档位与 Rime 表同源同序，
   # uniquifier 去重后引擎排序（含词序先验）主导；引擎缺席时 table 兜底。
   native_short_codes: true

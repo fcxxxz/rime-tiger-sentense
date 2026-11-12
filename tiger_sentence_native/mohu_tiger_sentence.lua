@@ -312,7 +312,9 @@ local function ensure_engine(env)
       conf("word_scorer_model") or "",
       conf("auxiliary_word_edges") or "", conf("auxiliary_context_guard") or "",
       conf("word_edge_weight") or "", conf("word_edge_freq_weight") or "",
+      conf("code_form_penalty") or "",
       conf("two_char_word_gate") or "",
+      conf("auto_select_min_code_length") or "", conf("high_freq_filter") or "",
       (conf("learning_context_guard") == "false" or
        conf("learning_context_guard") == "0") and "0" or "1" }, "\28")
   if engine_handle ~= nil then
@@ -481,6 +483,25 @@ local function ensure_engine(env)
     pcall(tigerengine.set_two_char_word_gate, h,
           (gate ~= "false" and gate ~= "0") and 1 or 0)
   end
+  -- 虎整组句资格（仅 all_ranks=false 生效）：tiger/auto_select_min_code_length
+  -- （0–128，非首选单字码长达到该值可省选重键组句，0 = 只取首选）与
+  -- tiger/high_freq_filter（高频字只用最优码组句）。两键都未配置时不调用，
+  -- 引擎保持旧定顶；旧 ABI dylib 无该函数时同样静默保持。
+  if type(tigerengine.set_segment_policy) == "function" then
+    local min_len = tonumber(conf("auto_select_min_code_length"))
+    local filter = conf("high_freq_filter")
+    if filter == nil then
+      local ok, value = pcall(cfg and cfg.get_bool or function() return nil end,
+                             cfg, "tiger/high_freq_filter")
+      if ok and value ~= nil then filter = tostring(value) end
+    end
+    if min_len ~= nil or filter ~= nil then
+      if min_len == nil or not finite_number(min_len) then min_len = 0 end
+      min_len = math.max(0, math.min(128, math.floor(min_len)))
+      pcall(tigerengine.set_segment_policy, h, min_len,
+            (filter == "true" or filter == "1") and 1 or 0)
+    end
+  end
   -- 词边先验权重：tiger/word_edge_weight（0 关闭）。旧 ABI dylib 无该
   -- 函数时静默保持引擎内建默认（0=旧行为）；非法值回退默认。
   local word_edge_weight = tonumber(conf("word_edge_weight"))
@@ -490,6 +511,19 @@ local function ensure_engine(env)
   end
   if type(tigerengine.set_word_edge_weight) == "function" then
     pcall(tigerengine.set_word_edge_weight, h, word_edge_weight)
+  end
+  -- γ 码形先验：tiger/code_form_penalty（0 关闭）。>0 时多段组句边使用
+  -- 非最优码形（词表 flag 'o'，全字覆盖）每边罚该值 nats——短码组合优先
+  -- 于并字长码形（拟@uvjr 偷 指(uv)+人(jr) 类）；整段单字命中豁免。
+  -- 旧 ABI dylib 无该函数时静默跳过；非法值回退默认 0。
+  do
+    local gamma = tonumber(conf("code_form_penalty"))
+    if gamma == nil or not finite_number(gamma) or gamma < 0 or gamma > 32 then
+      gamma = 0
+    end
+    if type(tigerengine.set_code_form_penalty) == "function" then
+      pcall(tigerengine.set_code_form_penalty, h, gamma)
+    end
   end
   -- 词边词频梯度：tiger/word_edge_freq_weight（0 关闭=固定分旧行为）。
   -- >0 时静态多字内部词边在固定分之上按词典权重梯度加有界分，压

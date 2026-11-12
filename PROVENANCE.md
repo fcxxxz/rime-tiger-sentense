@@ -32,7 +32,9 @@
 - `mohu.yaml`、`mohu_defs.yaml`、`symbols.yaml`、`default.yaml`、`key_bindings.yaml`
 - `mohu_pinyin.schema.yaml`、`mohu_charset.dict.yaml`、`mohu_charset.schema.yaml`
 - `mohu_zrm.words.dict.yaml`、`mohu_flypy.words.dict.yaml`（各 83MB，反查词库，
-  gitignore 仅磁盘）
+  gitignore 仅磁盘）——**2026-11-11 已从磁盘删除**：虎方案单独安装时永不编译
+  （反查走 mohu_zrm/flypy 基础库 + .codes prism），虎包也不再收录
+  （make_dist.py 同步剔除，65MB→6.8MB）；双拼整句运行库随魔虎主包分发
 - `tests/` 其余 `*_test.lua`、`*.test.yaml`、`fixtures/`、`tigerengine_*_test.cc`
   全套引擎测试
 

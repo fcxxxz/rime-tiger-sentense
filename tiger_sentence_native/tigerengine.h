@@ -77,6 +77,15 @@ int tiger_engine_set_reading_prior_weight(int handle, double weight);
  * character composition is the intended behavior. Returns 1 applied,
  * 0 no change, -1 error. */
 int tiger_engine_set_two_char_word_gate(int handle, int on);
+/* TigerSentence segment eligibility (only when all_ranks is off). With
+ * min_code_length > 0, a segmented edge may also use a non-first
+ * single-character entry whose code has at least that many keys (beam and
+ * final ordering become score-first, rank breaks ties); non-first words still
+ * need an explicit selector. high_freq_filter keeps lexicon rows flagged `h`
+ * (common character, non-optimal code) out of segmented edges. Whole-input
+ * edges are unaffected. 0/0 keeps the legacy rank-1-only behavior.
+ * Returns 1 applied, 0 no change, -1 error. */
+int tiger_engine_set_segment_policy(int handle, int min_code_length, int high_freq_filter);
 /* Probe the lexicon trie for `code`: bit 1 = exact code, bit 2 = proper
  * prefix of longer code(s). 0 = neither, -1 error. Feeds the deterministic
  * push-commit rule (a char's code closed by the next key can be pushed). */
@@ -106,6 +115,12 @@ int tiger_engine_set_composed_reading_prior_weight(int handle, double weight);
  * word edge, mirroring librime's entry_weight + grammar additive fusion.
  * Range [0, 4]. */
 int tiger_engine_set_word_edge_weight(int handle, double weight);
+/* Code-form prior (gamma): 0 disables (default); >0 penalizes each multi-
+ * segment composition edge that consumes a character via a non-optimal code
+ * form (lexicon flag 'o', emitted by build_hz_lexicon.py for every char) by
+ * this many nats. Whole-input single-character hits (typing a char's full
+ * code alone) are exempt, mirroring the h-flag exemption. Range [0, 32]. */
+int tiger_engine_set_code_form_penalty(int handle, double penalty);
 /* Word-edge frequency gradient: 0 disables (default; internal word edges keep
  * the flat word_edge_weight bonus); >0 adds a bounded freq-weighted bonus on
  * top for static multi-char internal edges, using the same gradient shape as

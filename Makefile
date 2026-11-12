@@ -18,7 +18,8 @@ endif
 	tigerengine-learning-context tigerengine-mapping tigerengine-mobile \
 	tigerengine-personal-internal tigerengine-reading-prior tigerengine-snapshot-io \
 	tigerengine-user-model tigerengine-word-edge tigerengine-word-form \
-	tigerengine-word-score tigerengine-word-units tigerengine-aux-words
+	tigerengine-word-score tigerengine-word-units tigerengine-aux-words \
+	tigerengine-segment-policy
 
 all: test
 
@@ -121,6 +122,11 @@ tigerengine-aux-words:
 		$(TIGER_EXTRA_LDFLAGS) -o /tmp/tigerengine_aux_words_test
 	/tmp/tigerengine_aux_words_test
 
+tigerengine-segment-policy:
+	clang++ -std=c++17 -O2 $(TIGER_ENGINE_INCLUDES) tests/tigerengine_segment_policy_test.cc \
+		tiger_sentence_native/tigerengine.cc $(TIGER_EXTRA_LDFLAGS) -o /tmp/tigerengine_segment_policy_test
+	/tmp/tigerengine_segment_policy_test
+
 # ---- 真实模型上的 Lua 引擎测试（模型 gitignore，需先放入本仓路径） ----
 tigerengine-static-compact: tigerengine-native
 	$(MOHU_LUA_BIN) tests/tiger_static_compact_test.lua "$(CURDIR)"
@@ -142,7 +148,7 @@ test: lua-tests tigerengine-safety tigerengine-lua-safety tigerengine-static-com
 	tigerengine-mapping tigerengine-mobile tigerengine-personal-internal \
 	tigerengine-reading-prior tigerengine-snapshot-io tigerengine-user-model \
 	tigerengine-word-edge tigerengine-word-form tigerengine-word-score \
-	tigerengine-word-units tigerengine-aux-words
+	tigerengine-word-units tigerengine-aux-words tigerengine-segment-policy
 	@echo "ALL TESTS PASSED"
 
 # 装机走打包闭环：make_dist 从仓库构建 zip → 从 zip 解包安装到 Rime 目录

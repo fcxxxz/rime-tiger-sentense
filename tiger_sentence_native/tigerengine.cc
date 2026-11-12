@@ -1461,6 +1461,15 @@ struct LexEntry {
   // 码表装载时，对单字且 rank==2 的行，若该字有 1 键码存在则置位。
   // 组句边在 all_ranks=false 下仍允许 rank 2 且此位为真的条目进入。
   bool allow_secondary = false;
+  // 第 7 列 flags 含 h：虎整高频过滤判定的「高频字非最优码」（由
+  // build_hz_lexicon.py 按虎整口径生成）。high_freq_filter 打开时不进
+  // 多段组句边，整段命中不受影响。
+  bool high_freq_nonoptimal = false;
+  // 第 7 列 flags 含 o：全字非最优码形（γ 码形先验标记）。code_form_penalty
+  // >0 时，多段组句边使用该类码形每边罚 γ nats——短码组合（每字最优码）
+  // 优先于并字长码形（拟@uvjr 偷 指(uv)+人(jr)、救@fkih 偷 求(fk)+收(ih)）；
+  // 整段单字命中（打全码单打）豁免，与 h 机制同款豁免语义。
+  bool code_form_nonoptimal = false;
   // 第 4 列原始值：多字行=词典权重、字行=字频名次（0/20001=未知占位）。
   int lex_weight_raw = -1;
   // 词形整段命中权重占比（词典权重 / 同码最大已知权重，地板 0.35）：
@@ -1621,6 +1630,9 @@ struct Lexicon {
       e.rank = rank < 1 ? 1 : rank;
       e.reading_freq_raw = reading_freq < 0 ? -1 : reading_freq;
       e.reading_key = std::move(reading_key);
+      // 可选第 7 列：flags（h = 高频字非最优码，o = 全字非最优码形 γ 标记）。
+      e.high_freq_nonoptimal = cols.size() > 6 && cols[6].find('h') != std::string::npos;
+      e.code_form_nonoptimal = cols.size() > 6 && cols[6].find('o') != std::string::npos;
       for (auto& ch : utf8_split(text)) {
         uint32_t cp;
         size_t n;
@@ -2210,6 +2222,7 @@ struct Bucket {
   std::vector<double> mass;
   bool truncated = false;
   bool free_order = false;  // all_ranks 模式：分数优先排序
+  bool free_merge = false;  // 同文本路径合并分数优先（否则档位优先）
   bool track_auxiliary_boundary = false;
 
   void add(State* s) {
@@ -2232,7 +2245,7 @@ struct Bucket {
       size_t i = it->second;
       mass[i] = logsumexp(mass[i], s->mass_score);
       const State* prev = best[i];
-      bool better = free_order
+      bool better = free_merge
           ? (s->score > prev->score || (s->score == prev->score && s->max_rank < prev->max_rank))
           : (s->max_rank < prev->max_rank ||
              (s->max_rank == prev->max_rank && s->score > prev->score));
@@ -2573,6 +2586,10 @@ struct Engine {
   // 投票，对应 librime/万象 entry_weight+Query 的加法融合结构（词频地板
   // 垫在字符模型下）。0 = 关闭并逐字节保持旧行为。
   double word_edge_weight = 0.0;
+  // γ 码形先验（2026-11-12）：多段组句边使用非最优码形（flag 'o'）每边罚
+  // 该值 nats。0 关闭（默认）。标定：拟@uvjr 压 指(uv)+人(jr) 5.46 nats、
+  // 救@fkih 压 求(fk)+收(ih) 0.68 nats——γ=6 一致覆盖；整段单字命中豁免。
+  double code_form_penalty = 0.0;
   // 词边词频梯度（方案 B 收尾，2026-10-14）：固定 word_edge_weight 压不住
   // 「焊后+热情」类强搭配字链（8+ nats）对真词边的整段反杀——hjhbreqy 的
   // 「憨厚热情」输给「焊后热情」6.8 nats、全参数旋钮封顶仍差 4.3。>0 时
@@ -2661,6 +2678,32 @@ struct Engine {
   Lexicon lex;
   int beam = 200;
   bool all_ranks_always = true;      // 魔虎模式：>4 键也允许全部档位竞争
+  // 虎整组句资格（仅 all_ranks=false 生效，对齐虎整 HEAD）：
+  // auto_select_min_code_length > 0：多段组句边除首选外，码长达到该值的
+  //   非首选单字也可省略选重键参与组句（孑@rfi），beam 与终态按分数
+  //   优先竞争；非首选多字词仍须显式选重。0 = 旧定顶（只取首选）。
+  // high_freq_filter：带 h 标记的高频字非最优码不进组句边。
+  // 两项皆关时逐字节保持旧行为；整段命中（单打该码）均不受影响。
+  int auto_select_min_code_length = 0;
+  bool high_freq_filter = false;
+
+  bool segment_policy() const {
+    return !all_ranks_always && (auto_select_min_code_length > 0 || high_freq_filter);
+  }
+  bool duplicate_single() const {
+    return !all_ranks_always && auto_select_min_code_length > 0;
+  }
+  bool segment_blocked(const LexEntry& e) const {
+    return high_freq_filter && e.high_freq_nonoptimal;
+  }
+  // 多段组句边（非整段命中）在无选重键时的资格，仅 segment_policy() 下使用。
+  // 多字词无论什么 rank 都不能隐式组句，必须整段命中或显式选重。
+  bool implicit_segment_ok(const LexEntry& e, size_t code_length) const {
+    if (segment_blocked(e)) return false;
+    if (e.chars.size() != 1) return false;
+    if (e.rank == 1) return true;
+    return duplicate_single() && (int)code_length >= auto_select_min_code_length;
+  }
 
   // 码表词条 -> 词 id（词表含码表全部词条，正常都有；未命中用 OOV 地板）
   uint32_t word_id(const std::string& text) const {
@@ -3042,7 +3085,10 @@ struct Engine {
 
   std::unique_ptr<Bucket> new_bucket() {
     auto b = std::make_unique<Bucket>();
-    b->free_order = all_ranks_always;
+    // 虎整非首选单字组句时按分数排序 beam（state_better_score_first），
+    // 同文本路径合并仍档位优先（虎整 duplicate_better）。
+    b->free_order = all_ranks_always || duplicate_single();
+    b->free_merge = all_ranks_always;
     b->track_auxiliary_boundary = auxiliary_word_edges && auxiliary_context_guard > 0.0;
     return b;
   }
@@ -3074,7 +3120,8 @@ struct Engine {
         for (const auto& e : bucket->second) {
           if (e.chars.size() != 1 || !e.from_static ||
               (selected_rank && e.rank != selected_rank) ||
-              (!selected_rank && !all_ranks_always && length > 4 && e.rank != 1)) continue;
+              (!selected_rank && !all_ranks_always && length > 4 &&
+               !(segment_policy() ? implicit_segment_ok(e, width) : e.rank == 1))) continue;
           const auto& head = e.reading_key.empty() ? code.substr(0, 2) : e.reading_key;
           uint32_t token = Lexicon::syllable_character_token(head, e.chars[0]);
           if (!token) continue;
@@ -3151,7 +3198,9 @@ struct Engine {
   void expand_range(const std::string& raw, size_t from_pos, size_t length,
                     int64_t minimum_consumed_end) {
     if (minimum_consumed_end < 0) minimum_consumed_end = -1;
-    bool allow_all = all_ranks_always || length <= 4;
+    // 虎整组句资格下没有「≤4 键全档位」特例：段边一律按 implicit_segment_ok。
+    const bool policy = segment_policy();
+    bool allow_all = all_ranks_always || (length <= 4 && !policy);
     // 词频梯度的第二道门：输入恰被静态词形整段命中（≥3 字全码词，
     // word_form_share > 0）时关闭梯度——词形权威（word_form_weight ×
     // 码内占比）是该输入的既定裁决机制，内部边梯度会让高频尾巴词
@@ -3216,10 +3265,17 @@ struct Engine {
         if (!(selected_rank == 0 && (allow_all || edge_whole_input))) {
           int want = selected_rank > 0 ? selected_rank : 1;
           for (const auto& e : candidates) {
-            // 定向豁免：allow_secondary 标记的 rank 2 单字（一简字 2 码次选）
-            // 在 all_ranks=false 下仍允许参与组句边。
-            if (e.rank == want || (e.rank == 2 && e.allow_secondary))
-              filtered.push_back(e);
+            bool keep;
+            if (!policy) {
+              // 定向豁免：allow_secondary 标记的 rank 2 单字（一简字 2 码次选）
+              // 在 all_ranks=false 下仍允许参与组句边。
+              keep = e.rank == want || (e.rank == 2 && e.allow_secondary);
+            } else if (selected_rank > 0) {
+              keep = e.rank == selected_rank && (edge_whole_input || !segment_blocked(e));
+            } else {
+              keep = implicit_segment_ok(e, code_length);
+            }
+            if (keep) filtered.push_back(e);
           }
           chosen = &filtered;
         }
@@ -3270,9 +3326,11 @@ struct Engine {
                 !whole_input_edge && !word_prior_edge && !word_model_edge) continue;
             // 整段命中的静态多字词在输入继续增长后语义会失效（整段→内部），
             // 必须禁用增量复用。启用学习守卫时，个人词和单字的 BOS
-            // 预算/标记也依赖整段身份，追加输入必须重新评分。
+            // 预算/标记也依赖整段身份，追加输入必须重新评分。虎整组句
+            // 资格下整段边放行全部档位与高频非最优码，同理不得复用。
             if (whole_input_edge &&
-                (learning_context_guard || (cand.chars.size() != 1 && !cand.personal)))
+                (learning_context_guard || policy ||
+                 (cand.chars.size() != 1 && !cand.personal)))
               has_terminal_phrase_states = true;
             double score = item->score;
             double user_gain = item->user_gain;
@@ -3370,6 +3428,12 @@ struct Engine {
                 cand.chars.size() == 1) {
               whole_single_reward_added = kWholeInputSingleReward;
               score += whole_single_reward_added;
+            }
+            // γ 码形先验：多段组句边使用非最优码形（flag 'o'）罚 γ nats，
+            // 整段边（whole_input_edge，含打全码单打）豁免——短码组合优先。
+            if (code_form_penalty > 0.0 && cand.code_form_nonoptimal &&
+                !whole_input_edge) {
+              score -= code_form_penalty;
             }
             // 词边先验：内部静态词条边加一次有界分（整段命中边维持原
             // 语义不另加）；「支持」是词条而「只吃」只是字符拼装时，
@@ -3762,11 +3826,29 @@ struct Engine {
     // 高频组词（对齐虎整句行为）。注意不能整条拆除：300 常用字全码
     // 抽测中纯 LM 排序会让 28 字（努力/中心/好牛/号当…）失守居首。
     bool short_input = raw.size() <= 4;
+    // 虎整 prefer_score_over_lexicon_rank：非首选单字可组句时，只要终态
+    // 含多段候选就按分数排序（档位仅平局裁决）；全是整段单边才保码表序。
+    bool score_first = false;
+    if (duplicate_single()) {
+      for (const auto& it : final_items)
+        if (it.edges >= 2) { score_first = true; break; }
+    }
     // Apply EOS/isolation adjustments before exposing the bounded top-20.
     // Truncating the pre-adjustment beam first could hide a candidate whose
     // final score should move it above the twentieth row.
     std::sort(final_items.begin(), final_items.end(),
-              [this, short_input](const OutItem& l, const OutItem& r) {
+              [this, short_input, score_first](const OutItem& l, const OutItem& r) {
+                // 同码整段单字之间按码表档位序优先，不受 score_first
+                // （prefer_score_over_lexicon_rank）影响：蛰@ukic（rank1
+                // 全码）不被热的非最优四码形（rank2）以模型分反超——对齐
+                // 虎整官方（ukic 首选蛰）。已知生僻（whole_freq>
+                // kWholeCharFreqCap）不享受保护，维持与多段同池竞争；
+                // 多字词（edges==1 但 text>1 字）不属本条款。
+                const bool l_rare = l.whole_freq > kWholeCharFreqCap && l.whole_freq < 20001;
+                const bool r_rare = r.whole_freq > kWholeCharFreqCap && r.whole_freq < 20001;
+                const bool l_ws = l.edges == 1 && l.text.size() <= 4 && !l_rare;
+                const bool r_ws = r.edges == 1 && r.text.size() <= 4 && !r_rare;
+                if (l_ws && r_ws && l.max_rank != r.max_rank) return l.max_rank < r.max_rank;
                 if (short_input && all_ranks_always) {
                   const int l_edges =
                       (l.edges == 1 && l.whole_freq > kWholeCharFreqCap &&
@@ -3776,10 +3858,13 @@ struct Engine {
                        r.whole_freq < 20001) ? 2 : r.edges;
                   if (l_edges != r_edges) return l_edges < r_edges;
                   if (l.max_rank != r.max_rank) return l.max_rank < r.max_rank;
-                } else if (!all_ranks_always) {
+                } else if (!all_ranks_always && !score_first) {
                   if (l.max_rank != r.max_rank) return l.max_rank < r.max_rank;
                 }
-                if (l.score == r.score) return l.text < r.text;
+                if (l.score == r.score) {
+                  if (score_first && l.max_rank != r.max_rank) return l.max_rank < r.max_rank;
+                  return l.text < r.text;
+                }
                 return l.score > r.score;
               });
     if (!static_evidence && final_items.size() > static_cast<size_t>(kCandidateLimit)) {
@@ -4041,7 +4126,7 @@ struct Engine {
         expand_range(raw, from_pos, length, (int64_t)old_n);
         reuse = true;
       } else if (length < old_n && cached_raw.compare(0, length, raw) == 0 &&
-                 !lex.has_multi_char_entries) {
+                 !lex.has_multi_char_entries && !segment_policy()) {
         states.resize(length + 1);
         reuse = true;
       }
@@ -4790,6 +4875,34 @@ int tiger_engine_probe_common_code(int handle, const char* code, int freq_cap) {
   }
 }
 
+/* 虎整组句资格（仅 all_ranks=false 生效）：min_code_length 0–128（0 = 旧
+   定顶，只取首选），high_freq_filter 0/1。返回 1 已应用 / 0 无变化 / -1 错误。 */
+int tiger_engine_set_segment_policy(int handle, int min_code_length, int high_freq_filter) {
+  try {
+    std::lock_guard<std::mutex> lock(g_engine_mutex);
+    if (handle < 0 || handle >= (int)g_engines.size() || !g_engines[handle]) {
+      set_error("invalid engine handle");
+      return -1;
+    }
+    if (min_code_length < 0 || min_code_length > 128 ||
+        (high_freq_filter != 0 && high_freq_filter != 1)) {
+      set_error("segment policy out of range");
+      return -1;
+    }
+    Engine* e = g_engines[handle].get();
+    const bool filter = high_freq_filter != 0;
+    if (e->auto_select_min_code_length == min_code_length && e->high_freq_filter == filter)
+      return 0;
+    e->auto_select_min_code_length = min_code_length;
+    e->high_freq_filter = filter;
+    e->invalidate_overlay_cache();
+    return 1;
+  } catch (...) {
+    set_error("segment policy update failed");
+    return -1;
+  }
+}
+
 /* 两字组合终态词表门控（方案 A）开关：1 开（默认，魔虎行为），0 关
    （虎码方案：无词库，两字组合终态不要求命中静态词表）。 */
 int tiger_engine_set_two_char_word_gate(int handle, int on) {
@@ -4856,6 +4969,28 @@ int tiger_engine_set_word_edge_weight(int handle, double weight) {
     return 1;
   } catch (...) {
     set_error("word edge weight update failed");
+    return -1;
+  }
+}
+
+int tiger_engine_set_code_form_penalty(int handle, double penalty) {
+  try {
+    std::lock_guard<std::mutex> lock(g_engine_mutex);
+    if (handle < 0 || handle >= (int)g_engines.size() || !g_engines[handle]) {
+      set_error("invalid engine handle");
+      return -1;
+    }
+    if (!(penalty >= 0.0 && penalty <= 32.0)) {
+      set_error("code form penalty must be in [0, 32]");
+      return -1;
+    }
+    Engine* e = g_engines[handle].get();
+    if (e->code_form_penalty == penalty) return 0;
+    e->code_form_penalty = penalty;
+    e->invalidate_overlay_cache();
+    return 1;
+  } catch (...) {
+    set_error("code form penalty update failed");
     return -1;
   }
 }

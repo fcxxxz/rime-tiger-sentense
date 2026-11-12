@@ -54,7 +54,9 @@ ours_codes = {}
 for line in (new / 'tiger_sentence_native/data/tiger/tiger.lexicon.txt').read_text(encoding='utf-8').splitlines():
     p = line.split('\t')
     if len(p) >= 3 and len(p[1]) == 1 and len(p[0]) >= 2 and p[2] == '1' and p[0].isalpha():
-        ours_codes.setdefault(p[1], set()).add(p[0])
+        # 按源表行序记录首个 rank-1 码为最优（对齐高频过滤口径）
+        if p[1] not in ours_codes:
+            ours_codes[p[1]] = p[0]
 
 lvyww_codes, first_by_code = {}, {}
 for line in (lv / 'tiger_sentence.codes.txt').read_text(encoding='utf-8').splitlines():
@@ -63,16 +65,14 @@ for line in (lv / 'tiger_sentence.codes.txt').read_text(encoding='utf-8').splitl
     text, _, code = line.partition('\t')
     if not code or not code.isalpha() or len(code) < 2 or len(text) != 1:
         continue
-    if code not in first_by_code:
-        first_by_code[code] = text
-for code, text in first_by_code.items():
-    lvyww_codes.setdefault(text, set()).add(code)
+    # 按源表行序记录首个码为最优（对齐高频过滤口径）
+    if text not in lvyww_codes:
+        lvyww_codes[text] = code
 
 common = {}
-for ch, codes in ours_codes.items():
-    shared = codes & lvyww_codes.get(ch, set())
-    if shared:
-        common[ch] = min(shared, key=lambda s: (len(s), s))
+for ch in ours_codes:
+    if ch in lvyww_codes and ours_codes[ch] == lvyww_codes[ch]:
+        common[ch] = ours_codes[ch]
 print(f"本仓 rank-1 字 {len(ours_codes)}，lvyww {len(lvyww_codes)}，共同 {len(common)}")
 assert common.get('在') == 'ng' and common.get('的') == 'ue', \
     f"hz 口径 sanity 失败: 在={common.get('在')!r} 的={common.get('的')!r}"

@@ -24,7 +24,7 @@ mohu_zrm.dict.yaml
 mohu_flypy.dict.yaml
 mohu_zrm_custom_phrases.txt
 mohu_flypy_custom_phrases.txt
-.mimosa/
+**/.mimosa/
 dist/
 bench/usertable-10k/tiger_user.dict.yaml
 bench/usertable-10k/*.lexicon.txt

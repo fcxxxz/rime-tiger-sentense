@@ -84,7 +84,8 @@ MOHU_TIGER_STRICT_VALIDATE=1
 
 ## 码表格式
 
-每行 `code <TAB> text <TAB> rank <TAB> freq_rank [<TAB> reading_freq]`。
+每行 `code <TAB> text <TAB> rank <TAB> freq_rank [<TAB> reading_freq [<TAB> reading_key [<TAB> flags]]]`。
+`flags` 目前只有 `h`（高频字非最优码，见配置 `high_freq_filter`），缺列即无标记。
 码形含裸双拼（YY）、加辅（YYX）与真实码形（YYX/、YYXX/、YYXXo）。
 `reading_freq` 是可选的读音条件简频（同一字罕用读音≈0、主读音大，
 如「万」mò=1 / wàn=1201402）：引擎装载期按 (字, 音节) 去重归一为
@@ -113,6 +114,15 @@ qie=qp、wei=ww 不设飞键），源表中的自然码飞键变体行在小鹤�
 - `engine_lib` / `model` / `lexicon`：路径覆盖，默认用户目录 `mohu/` 下同名文件
 - `beam`：束宽（默认 200）
 - `all_ranks`：>4 键时全部档位竞争（默认 true）
+- `auto_select_min_code_length`：仅 `all_ranks: false` 生效（对齐虎整 HEAD
+  同名设置，默认不配 = 0 旧定顶；虎码方案配 3）。>0 时多段组句边除首选外，
+  码长达到该值的非首选单字也可省略选重键参与组句（孑@rfi：rfiil → 孑立），
+  beam 与终态改为分数优先、档位平局裁决；2 码非首选与非首选多字词仍只在
+  整段单打或选重时可达；同时取消定顶下「≤4 键段边全档位」特例
+- `high_freq_filter`：仅 `all_ranks: false` 生效（默认 false；虎码方案开）。
+  词表第 7 列 `h` 标记的高频字非最优码（虎整 high_freq_limit=1500 口径，
+  全码白名单除外，由 `build_hz_lexicon.py` 生成，如 书@aag）不进组句段，
+  整段单打不受影响
 - `reading_prior_weight`：读音先验权重（默认 1.0，0 关闭，范围 0–4）。
   码表第 5 列读音简频 → log P(读音|字) 并入每步路径分，补偿字符级模型
   不认读音的盲区（万 mò 拼「万虎」排 mohuz 首选）。旧 ABI dylib
