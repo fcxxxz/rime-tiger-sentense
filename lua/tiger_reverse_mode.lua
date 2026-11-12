@@ -50,11 +50,11 @@ local function data_dirs()
   return dirs
 end
 
-local function dictionary_available(name)
+local function file_available(rel_path)
   local dirs = data_dirs()
   if #dirs == 0 then return true end -- 探测不可用时保守放行
   for _, base in ipairs(dirs) do
-    local probe = io.open(base .. "/" .. name .. ".table.bin", "r")
+    local probe = io.open(base .. "/" .. rel_path, "r")
     if probe then
       probe:close()
       return true
@@ -64,14 +64,16 @@ local function dictionary_available(name)
 end
 
 local function available_modes()
+  -- 2026-11-12 反查走引擎模型后探测 lexicon 数据文件（tiger_rev_engine
+  -- 直接喂引擎，无编译产物）；全拼模式复用 zrm lexicon（lua 层切音节）。
   local checks = {
-    zrm = "mohu_rev_zrm",
-    flypy = "mohu_rev_flypy",
-    pinyin = "mohu_pinyin",
+    zrm = "mohu/data/zrm/mohu_zrm.lexicon.txt",
+    flypy = "mohu/data/flypy/mohu_flypy.lexicon.txt",
+    pinyin = "mohu/data/zrm/mohu_zrm.lexicon.txt",
   }
   local available = {}
   for _, mode in ipairs(MODES) do
-    if dictionary_available(checks[mode.key]) then
+    if file_available(checks[mode.key]) then
       available[#available + 1] = mode
     end
   end
