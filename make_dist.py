@@ -11,17 +11,19 @@ OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / 'dist'
 STAGE = OUT / 'tiger-sentence'
 
 # 2026-11-11 瘦身：zrm/flypy 双拼运行库（.words 240万行 ×2、其 sentence_core
-# 编译钩子、custom_phrases）不随虎包——虎方案单独安装时 words 永不编译
-# （1e69156 起反查走 16万行基础库 + codes prism），纯占 65MB 包体的大头；
-# 反查可用性探测查编译产物 .table.bin 不查 yaml。双拼整句装魔虎主包。
+# 编译钩子、custom_phrases）不随虎包——虎方案单独安装时 words 永不编译，
+# 纯占 65MB 包体的大头；反查可用性探测查编译产物 .table.bin 不查 yaml。
+# 双拼整句装魔虎主包。2026-11-12 起反查走 mohu_rev_* 双拼单字音节表
+# （build_rev_dicts.py 生成，随包分发）；mohu_zrm/flypy 的 schema+基础
+# 码表不再是虎方案依赖，随包瘦身移除（生成器的数据源在仓库里，不在包里）。
 ROOT_FILES = [
     'LICENSE', 'README.md', 'default.yaml', 'punctuation.yaml', 'symbols.yaml',
     'key_bindings.yaml', 'mohu.yaml', 'mohu_defs.yaml',
     'tiger.schema.yaml', 'tiger.dict.yaml', 'tiger.extended.dict.yaml', 'tiger.user.dict.yaml',
     'mohu_pinyin.dict.yaml', 'mohu_pinyin.schema.yaml',
+    'mohu_rev_zrm.dict.yaml', 'mohu_rev_zrm.schema.yaml',
+    'mohu_rev_flypy.dict.yaml', 'mohu_rev_flypy.schema.yaml',
     'mohu_charset.dict.yaml', 'mohu_charset.schema.yaml',
-    'mohu_zrm.schema.yaml', 'mohu_zrm.dict.yaml',
-    'mohu_flypy.schema.yaml', 'mohu_flypy.dict.yaml',
 ]
 DIRS = ['lua', 'opencc']
 RUNTIME = [

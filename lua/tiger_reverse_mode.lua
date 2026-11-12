@@ -1,13 +1,14 @@
 -- 虎码方案的嵌入魔虎反查：码式门控与循环切换。
 --
--- 三码式共用 reverse_lookup tag，靠 script_translator 的质量带区分
+-- 三码式共用 reverse_lookup tag，靠 table_translator 的质量带区分
 -- （rev_zrm 1000 / rev_flypy 2000 / rev_pinyin 3000）。当前码式由两个
 -- 布尔 option 编码：rev_flypy + rev_full：
 --   false/false = 自然码双拼（默认）；true/false = 小鹤双拼；
 --   /true/ = 全拼。
 -- Ctrl+R（processor）按本包可用词典循环：词典缺席的码式自动跳过
--- （探测 build/<dict>.table.bin）。gate 只放行当前码式质量带内的候选，
--- 其余码式的候选整段丢弃——切换即时生效，无需重部署。
+-- （探测 build/<dict>.table.bin；2026-11-12 修复：原探测 mohu_*.words
+-- 是旧配置残留，装机永不编译致 Ctrl+R 卡死）。gate 只放行当前码式
+-- 质量带内的候选，其余码式的候选整段丢弃——切换即时生效，无需重部署。
 
 local kAccepted = 1
 local kNoop = 2
@@ -64,8 +65,8 @@ end
 
 local function available_modes()
   local checks = {
-    zrm = "mohu_zrm.words",
-    flypy = "mohu_flypy.words",
+    zrm = "mohu_rev_zrm",
+    flypy = "mohu_rev_flypy",
     pinyin = "mohu_pinyin",
   }
   local available = {}

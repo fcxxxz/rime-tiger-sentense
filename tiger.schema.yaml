@@ -22,9 +22,9 @@ schema:
     - fcxxxz <https://github.com/fcxxxz/rime-tiger>（虎码单字上游）
     - 荒 <space_proc3 / symbol_proc>
   dependencies:
-    - mohu_zrm
-    - mohu_flypy
     - mohu_pinyin
+    - mohu_rev_zrm
+    - mohu_rev_flypy
     - mohu_charset
   description: |
     虎码整句（魔虎框架）
@@ -100,9 +100,10 @@ engine:
     - lua_translator@*mohu_candidate_manager*manager_translator  # 候选管理菜单
     # 嵌入魔虎反查（` 前缀）：三码式共用 reverse_lookup tag，质量带区分
     # （zrm 1000 / flypy 2000 / pinyin 3000），tiger_reverse_gate 按当前
-    # 码式放行；prism 复用魔虎双拼方案编译产物，辅码与句中辅打法天然继承。
-    - script_translator@rev_zrm
-    - script_translator@rev_flypy
+    # 码式放行；三表均为 table+completion 的单字音节表（mohu_rev_* 由
+    # build_rev_dicts.py 生成，mohu_pinyin 为全拼源表）。
+    - table_translator@rev_zrm
+    - table_translator@rev_flypy
     - table_translator@rev_pinyin
     - lua_translator@*mohu_sentence*translator          # 原生整句（sentence 开关门控）
     - table_translator
@@ -184,9 +185,9 @@ tiger:
   two_char_word_gate: "false"
 
 # 嵌入魔虎反查（` 前缀，Ctrl+R 循环 自然码双拼 → 小鹤双拼 → 全拼）。
-# affix_segmentor 剥前后缀打 reverse_lookup tag；三个 script_translator
-# 复用魔虎编译好的 prism（辅码/句中辅打法随 prism 继承），质量带区分码式，
-# tiger_reverse_gate 只放行当前码式；reverse_lookup_filter 注虎码注释。
+# affix_segmentor 剥前后缀打 reverse_lookup tag；三个 table_translator
+# 各挂一张单字音节表（zrm/flypy 由 build_rev_dicts.py 生成），质量带区分
+# 码式，tiger_reverse_gate 只放行当前码式；reverse_lookup_filter 注虎码注释。
 reverse_lookup:
   tag: reverse_lookup
   prefix: "`"
@@ -195,22 +196,22 @@ reverse_lookup:
 
 rev_zrm:
   tags: [reverse_lookup]
-  # 基础词库（16 万行）+ .codes prism（zrm 方案自己的反查配置，依赖构建
-  # 恰好产出这两个产物）；.words 运行库只在 mohu_zrm 方案完整构建时编译，
-  # 虎方案单独安装时永远缺表（2026-11-11 装机实测）。
-  dictionary: mohu_zrm
-  prism: mohu_zrm.codes
+  # 双拼单字音节表（build_rev_dicts.py 从 mohu_pinyin 全拼表数据驱动学出
+  # 音节映射后生成，与魔然码表双向交叉校验 100% 吻合）。2026-11-12 修复：
+  # 原配 mohu_zrm 基础码表 + .codes prism 是「每字唯一精确码」（ni 下只有
+  # 你，泥=nik/尼=nic），反查用户不知形码根本查不到同音字——双拼反查
+  # 名存实亡；table+completion 与 rev_pinyin 同构后 ni 出全音字。
+  dictionary: mohu_rev_zrm
   enable_user_dict: false
-  enable_sentence: true
+  enable_completion: true
   initial_quality: 1000
 
 rev_flypy:
   tags: [reverse_lookup]
-  # 同上：基础词库 + .codes prism。
-  dictionary: mohu_flypy
-  prism: mohu_flypy.codes
+  # 同 rev_zrm：小鹤双拼单字音节表。
+  dictionary: mohu_rev_flypy
   enable_user_dict: false
-  enable_sentence: true
+  enable_completion: true
   initial_quality: 2000
 
 rev_pinyin:
