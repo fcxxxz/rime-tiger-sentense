@@ -1,5 +1,7 @@
 # 虎码·整句（rime-tiger-sentence）
 
+[![Package release zip](https://github.com/fcxxxz/rime-tiger-sentense/actions/workflows/package.yml/badge.svg)](https://github.com/fcxxxz/rime-tiger-sentense/actions/workflows/package.yml)
+
 虎码连续整句输入方案：连续虎码经原生引擎（libtigerengine + V5 字符 n-gram
 模型）出整句候选，确定性提前上屏稳定前缀，空格提交、回车上原码。基于魔虎
 （[rime-mohu](https://github.com/fcxxxz/rime-mohu)）框架的整句能力独立成仓，
@@ -8,6 +10,11 @@
 - 整句（`sentence` 开关，默认开）：字母连打整句候选；引擎不可用时自动退化为纯单字模式
 - 提前上屏（`early_commit` 开关，默认开）：置信度门槛下自动提交稳定前缀
 - 单字模式（Ctrl+T / 输入法菜单切「单字」）：4 码顶功 + 唯一候选自动上屏，与上游手感一致
+- 组句规则（虎整口径）：一简字 2 码占首选位；高频字组句只用最优码（h 过滤）；
+  码长 ≥3 的非首选单字可省选重键参与组句（孑@rfi）；**γ 码形先验**（默认 6，
+  组句边用非最优码形受罚、全码单打豁免）——短码组合优先，并字长码形
+  （拟@uvjr 偷 指(uv)+人(jr) 类）不再反超；同码整段单字按码表档位序（蛰@ukic）
+- 31 个二码位（qk/ck/ce…）首选单字（qk=眸）、简码词退次选（虎码秃版口径回插）
 - 用户词套件沿用魔虎：`编码// + 空格` 加词、Shift+Delete 两段式删词（含引擎反学习）、
   Ctrl+方向键调序置顶、`==` 候选管理器
 - `` ` `` 反查（Ctrl+R 循环 自然码双拼 → 小鹤双拼 → 全拼）；Ctrl+X 常用字/全字集
@@ -29,23 +36,25 @@
 ## 基准
 
 对照 [lvyww/tiger-sentense-rime](https://github.com/lvyww/tiger-sentense-rime)
-（虎爪整句的 Rime 移植）的同码配对基准（2026-11-10，10,000 句 / 297,366 键，
-三方逐句配对，训练重叠口径）：
+官方发布包（20260915）的同码流双臂打字模拟——**100,000 句终测（2026-11-12，
+含 γ=6 引擎，seed 20261111，训练重叠口径）**：
 
-| 指标 | 本方案 | tiger-sentense-rime 发布包 | 虎整原版 |
+| 指标 | 本方案 | 官方虎整 | 差值 |
 |---|---:|---:|---:|
-| 最终首选准确率 | **99.83%** | 98.12% | 98.12% |
-| 错误提前上屏率 | **0.050%** | 0.100% | 0.170% |
-| 自动上屏字符覆盖率 | **88.3%** | 59.8% | 59.4% |
-| 逐键处理器 CPU 均值 | **1.87ms** | 5.49ms | 8.34ms |
-| 逐键处理器 CPU P99 | **14.7ms** | 19.9ms | 26.7ms |
+| 句末首选准确率 | **99.80%** | 98.10% | **+1.70pp** |
+| 自动上屏字符覆盖率 | **88.20%** | 59.94% | +28.26pp |
+| 句尾残留（打完瞬间） | **1.49 字** | 5.04 字 | −3.55 |
+| 每键 CPU 均值 / P99 | **2.09 / 15.3ms** | 7.06 / 21.9ms | 3.4× / −30% |
+| 错误提前上屏事件 | **156** | 359 | −57% |
+| 安装包 | **6.8 MB** | — | — |
 
-配对差异：最终首选仅本方案正确 174 句 vs 仅 tiger-sentense-rime 正确 3 句。
-注：tiger-sentense-rime HEAD 的五阶模型未随 Release 公开，对照采用其最新可
-安装发布包；完整口径与限制见
-[bench/reports/2026-11-10-lvyww-10k/report.md](bench/reports/2026-11-10-lvyww-10k/report.md)。
-基准为训练重叠口径的离线逐键测评，不代表独立留出泛化；复现脚本在
-[bench/lvyww-100k/](bench/lvyww-100k/)。
+成绩单（总分/已落地/负结果归档/病例档案）见
+[bench/scorecard-20261112.md](bench/scorecard-20261112.md)；完整证据链
+（γ 标定、词表/重排/门槛三类负结果、错判病理）见
+[bench/hz-lvyww-10k/report.md](bench/hz-lvyww-10k/report.md)。
+注：官方 Release 未含其 HEAD 五阶模型；基准为训练重叠口径的离线逐键
+测评，不代表独立留出泛化。双臂管线在 [bench/hz-lvyww-50k/](bench/hz-lvyww-50k/)
+（50k 口径可复现，100k 终测同法扩样）。
 
 ## 码表（虎整码表）
 
@@ -64,6 +73,9 @@
 
 完整对照（含碰撞压力语料、一简字打法消融）见
 [bench/usertable-10k/report-hz.md](bench/usertable-10k/report-hz.md)。
+在虎整码表基础上的本地补丁（源头均改 `hz-codes.txt`，两条生成链同源同序）：
+31 个二码位回插秃版单字（qk=眸 首选、简码词睡觉退次选）；词表第 7 列
+flags（h=高频非最优码形硬过滤、o=全字非最优码形供 γ 罚分标记）。
 
 ## 开发
 
