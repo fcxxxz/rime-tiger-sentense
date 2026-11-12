@@ -59,12 +59,13 @@ switches:
   - name: early_commit
     reset: 1
     states: [ 不提前, 提前上屏 ]
-  # 反查码式（Ctrl+R 循环切换；rev_flypy×rev_full 组合编码三态）
+  # 反查码式（Ctrl+R 循环切换；rev_flypy×rev_full 组合编码三态）。
+  # 默认全拼（人人会敲）；双拼用户 Ctrl+R 循环：全拼 → 自然码 → 小鹤。
   - name: rev_flypy
     reset: 0
     states: [ 自然码, 小鹤 ]
   - name: rev_full
-    reset: 0
+    reset: 1
     states: [ 双拼, 全拼 ]
 
 engine:
@@ -188,7 +189,9 @@ reverse_lookup:
   tag: reverse_lookup
   prefix: "`"
   suffix: "'"
-  tips: "〔魔虎反查〕"
+  # 兜底静态提示；动态版（当前码式 + Ctrl+R 下一态）由
+  # tiger_reverse_mode 的 filter 每键刷新，lua 失效时才露出本值。
+  tips: "〔反查·全拼｜Ctrl+R 切双拼〕"
 
 rev_tiger_comment:
   tags: [reverse_lookup]

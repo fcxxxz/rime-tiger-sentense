@@ -16,9 +16,12 @@ local kNoop = 2
 local M = { processor = {}, filter = {} }
 
 local MODES = {
-  { key = "zrm", flypy = false, full = false, band_lo = 900, band_hi = 1900 },
-  { key = "flypy", flypy = true, full = false, band_lo = 1900, band_hi = 2900 },
-  { key = "pinyin", flypy = false, full = true, band_lo = 2900, band_hi = 3900 },
+  { key = "zrm", flypy = false, full = false, band_lo = 900, band_hi = 1900,
+    tip = "〔反查·自然码｜Ctrl+R 切小鹤〕" },
+  { key = "flypy", flypy = true, full = false, band_lo = 1900, band_hi = 2900,
+    tip = "〔反查·小鹤｜Ctrl+R 切全拼〕" },
+  { key = "pinyin", flypy = false, full = true, band_lo = 2900, band_hi = 3900,
+    tip = "〔反查·全拼｜Ctrl+R 切双拼〕" },
 }
 
 local function current_mode(context)
@@ -118,6 +121,14 @@ function M.filter.func(input, env)
     return
   end
   local mode = current_mode(context)
+  -- 动态码式提示：把反查段的 prompt 刷成「当前码式 + Ctrl+R 下一态」，
+  -- 每（含 set_option 触发的）翻译刷新一次；prompt 读写失败不影响门控。
+  pcall(function()
+    local seg = context.composition:back()
+    if seg and seg.has_tag and seg:has_tag("reverse_lookup") then
+      seg.prompt = mode.tip
+    end
+  end)
   for cand in input:iter() do
     if in_band(mode, cand.quality) then
       yield(cand)
