@@ -31,9 +31,11 @@ local MODE_TIP = {
   flypy = "〔反查·小鹤｜Ctrl+R 切全拼〕",
   pinyin = "〔反查·全拼｜Ctrl+R 切双拼〕",
 }
+-- 候选不设自加帽：单音节枚举天然有界（码块边界即止），多音节的本质
+-- 上界是 beam（decode_static 每码流至多 beam 行，实测组句词打满 200），
+-- beam 之外引擎本来就给不出——beam search 只保留前 200 路径，主输入
+-- 同款。MAX_STREAMS（跨 ' 分段切分的笛卡尔积防爆炸）才是承重墙。
 local BEAM = 200
-local MAX_CANDIDATES = 20   -- 多音节组句候选上限（单音节走 lexicon 枚举）
-local MAX_ENUM = 200        -- 单音节同码字枚举上限（防御；实测最大 yi=127、ji=120）
 
 local handles = {}      -- scheme → engine handle
 local engine_module     -- tigerengine 表
@@ -247,7 +249,7 @@ local function decode_rows(h, code)
       -- 项），反查菜单不消费，段起始即停读。
       if line:match("^#hidden ") then break end
       local text, _, _, conf = line:match("^([^\t]+)\t([^\t]*)\t([^\t]*)\t([^\t]*)")
-      if text and #rows < MAX_CANDIDATES then
+      if text then
         rows[#rows + 1] = { text = text, conf = tonumber(conf) or 0 }
       end
     end
@@ -256,9 +258,10 @@ local function decode_rows(h, code)
 end
 
 -- 单音节枚举：lexicon 是引擎数据文件（非 Rime 词库），按码字典序排序，
--- 二分定位后行序即 rank 序（同码全字表，gj=干感敢赶甘…27 字）。反查的
--- 「查字」场景（`gan 找全音字）由枚举供全；模型解码给组句（多音节），
--- 其 beam 视图天然只含最优路径——单音节枚举补齐，两场景各取所长。
+-- 二分定位后行序即 rank 序（同码全字表，gj=干感敢赶甘…27 字，最大
+-- yi=127）。反查的「查字」场景（`gan 找全音字）由枚举供全——码块边界
+-- 即天然终止，不设自加帽；模型解码给组句（多音节），其 beam 视图天然
+-- 只含最优路径——单音节枚举补齐，两场景各取所长。
 local function lexicon_lookup(lexicon_path, code)
   local f = io.open(lexicon_path, "r")
   if not f then return nil end
@@ -289,7 +292,7 @@ local function lexicon_lookup(lexicon_path, code)
   -- 呢 你 尼。
   local rows, seen = {}, {}
   local pos = lo
-  while #rows < MAX_ENUM do
+  while true do
     local line = read_line(pos)
     if not line then break end
     pos = pos + #line + 1
@@ -368,17 +371,14 @@ function M.translator.func(input, seg, env)
     if not streams then return end
   end
 
-  -- 单音节（任一切分恰 2 键，即用户输入单音节）→ lexicon 全字枚举（帽
-  -- MAX_ENUM：查字场景要全，ji=120、yi=127 都得放完）；多音节 → 各切分
-  -- 并行喂模型组句，按路径置信合并去重（帽 MAX_CANDIDATES，组句菜单够用）。
+  -- 单音节（任一切分恰 2 键，即用户输入单音节）→ lexicon 全字枚举（查
+  -- 字场景要全）；多音节 → 各切分并行喂模型组句，按路径置信合并去重。
   local rows
-  local cap = MAX_CANDIDATES
   if streams[1] and #streams[1] == 2 and #streams == 1 then
     local lexicon = rev_lexicon_path(handle_scheme)
     local texts = lexicon and lexicon_lookup(lexicon, streams[1]) or nil
     if texts then
       rows = {}
-      cap = MAX_ENUM
       for i, text in ipairs(texts) do rows[i] = { text = text, conf = i } end
     end
   else
@@ -404,9 +404,7 @@ function M.translator.func(input, seg, env)
   if not rows then return end
   local quality = QUALITY[scheme]
   local mode_name = MODE_NAME[scheme]
-  local yielded = 0
   for _, row in ipairs(rows) do
-    if yielded >= cap then break end
     if row.text ~= "" then
       local codes = tiger_codes(row.text)
       local comment = codes and ("〔" .. codes .. "｜" .. mode_name .. "〕")
@@ -414,7 +412,6 @@ function M.translator.func(input, seg, env)
       local cand = Candidate("rev_engine", seg.start, seg._end, row.text, comment)
       cand.quality = quality
       yield(cand)
-      yielded = yielded + 1
     end
   end
 end
