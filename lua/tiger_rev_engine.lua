@@ -33,7 +33,7 @@ local MODE_TIP = {
 }
 local BEAM = 200
 local MAX_CANDIDATES = 20   -- 多音节组句候选上限（单音节走 lexicon 枚举）
-local MAX_ENUM = 50         -- 单音节同码字枚举上限（防御；gj=27、ni=23）
+local MAX_ENUM = 200        -- 单音节同码字枚举上限（防御；实测最大 yi=127、ji=120）
 
 local handles = {}      -- scheme → engine handle
 local engine_module     -- tigerengine 表
@@ -368,14 +368,17 @@ function M.translator.func(input, seg, env)
     if not streams then return end
   end
 
-  -- 单音节（任一切分恰 2 键，即用户输入单音节）→ lexicon 全字枚举；
-  -- 多音节 → 各切分并行喂模型组句，按路径置信合并去重。
+  -- 单音节（任一切分恰 2 键，即用户输入单音节）→ lexicon 全字枚举（帽
+  -- MAX_ENUM：查字场景要全，ji=120、yi=127 都得放完）；多音节 → 各切分
+  -- 并行喂模型组句，按路径置信合并去重（帽 MAX_CANDIDATES，组句菜单够用）。
   local rows
+  local cap = MAX_CANDIDATES
   if streams[1] and #streams[1] == 2 and #streams == 1 then
     local lexicon = rev_lexicon_path(handle_scheme)
     local texts = lexicon and lexicon_lookup(lexicon, streams[1]) or nil
     if texts then
       rows = {}
+      cap = MAX_ENUM
       for i, text in ipairs(texts) do rows[i] = { text = text, conf = i } end
     end
   else
@@ -403,7 +406,7 @@ function M.translator.func(input, seg, env)
   local mode_name = MODE_NAME[scheme]
   local yielded = 0
   for _, row in ipairs(rows) do
-    if yielded >= MAX_CANDIDATES then break end
+    if yielded >= cap then break end
     if row.text ~= "" then
       local codes = tiger_codes(row.text)
       local comment = codes and ("〔" .. codes .. "｜" .. mode_name .. "〕")
