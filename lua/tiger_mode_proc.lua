@@ -44,6 +44,7 @@ local REQUIRED_STRONG = 2        -- 强证据：连续 2 键
 local MAX_NEUTRAL_GAP = 3        -- 无达标前缀时 tracker 最多保留 3 键
 local MIN_TOTAL_KEYS = 4      -- 全句（含已提交）至少 >4 键才允许证据
 local MIN_LIVE_KEYS = 3       -- 提交时存活码至少 3 键
+local DEFAULT_PENDING_CHAR_CAP = 4  -- 未上屏字数帽（0 关闭），schema 可调
 
 local engine_module
 local engine_module_attempted = false
@@ -257,6 +258,65 @@ local function try_commit_mature(env, full_raw, visible_top)
   if remaining ~= "" then context:push_input(remaining) end
 end
 
+-- 未上屏字数帽：最优候选未提交字数 > cap 时，把已提交前缀之后的
+-- (pending-cap) 字强制提交。与基准 driver-cap 同款语义：取首个延伸已提交
+-- 前缀的行，按 raw_lengths 找字边界截点；强制提交重置 tracker（提交链
+-- 变更，旧证据失效）。帽触发的提交不经过证据门——正是证据未封边时
+-- pending 才会堆高。
+local function try_commit_cap(env)
+  local cap = env._tiger_pending_cap or 0
+  if cap <= 0 then return end
+  local context = env.engine.context
+  local live = context.input
+  if type(live) ~= "string" or #live < cap + 1 then return end
+  local module = load_engine_module()
+  if not module or not module.native_ready() then return end
+  if early.suspended then return end
+  local full_raw = early.committed_raw .. live
+  local decoded = module.decode_with_early(full_raw)
+  if not decoded then return end
+  -- 提交对象取终态 items（用户可见的首选），不用 early 行（内部置信视图，
+  -- 排序可与可见菜单不同——实测廖哈句 early 首选是「去边去」家族而可见
+  -- 首选是「劫持」，从 early 提交会把句子锁进错误家族）。
+  local rows = decoded.items
+  if not rows or #rows == 0 then return end
+  local prefix, cr = early.committed_text, early.committed_raw
+  for _, row in ipairs(rows) do
+    local text = row.text
+    if prefix == ""
+        or (#text > #prefix and text:sub(1, #prefix) == prefix) then
+      local pend = utf8_length(text) - utf8_length(prefix)
+      if pend <= cap then return end
+      local rl = row.raw_lengths
+      if not rl then return end
+      -- 截点：已提交前缀之后再走 (pend-cap) 字的结束字节
+      local i, taken, cut = #prefix + 1, 0, nil
+      while i <= #text and taken < pend - cap do
+        local c = text:byte(i)
+        i = i + (c < 0x80 and 1 or (c < 0xE0 and 2 or (c < 0xF0 and 3 or 4)))
+        taken = taken + 1
+      end
+      cut = (taken == pend - cap) and (i - 1) or nil
+      if cut and cut > #prefix and rl[cut] and rl[cut] > #cr then
+        local part = text:sub(#prefix + 1, cut)
+        early.committed_text = text:sub(1, cut)
+        early.committed_raw = full_raw:sub(1, rl[cut])
+        if context.set_property then
+          context:set_property("tiger_committed",
+            early.committed_raw .. "\t" .. early.committed_text)
+        end
+        early.trackers = {}
+        early.last_seen_raw = ""
+        env.engine:commit_text(part)
+        context:clear()
+        local remaining = full_raw:sub(rl[cut] + 1)
+        if remaining ~= "" then context:push_input(remaining) end
+      end
+      return
+    end
+  end
+end
+
 local function reset_early_state(full, context)
   early.trackers = {}
   early.last_seen_raw = ""
@@ -383,11 +443,13 @@ local function record_and_maybe_commit(env)
       end
       early.trackers = next_trackers
       try_commit_mature(env, full_raw, visible_top)
+      try_commit_cap(env)
       return
     end
   end
   step_gap_trackers()
   try_commit_mature(env, full_raw, visible_top)
+  try_commit_cap(env)
 end
 
 function M.processor.init(env)
@@ -419,6 +481,21 @@ function M.processor.init(env)
     threshold = number
   end
   env._tiger_threshold = threshold
+  -- 未上屏字数帽（tiger/pending_char_cap，默认 4，0 关闭）：最优候选的
+  -- 未提交字数超帽时强制提交超出部分（不要求证据达标——pending 堆高正
+  -- 说明证据未封边）。10 万句基准实测：帽=4 净 −4 句、触发 233 次、
+  -- 句尾残留 1.49→1.41 字；错上屏句 67→154（错误总量不变、提前可见）。
+  local pending_cap = DEFAULT_PENDING_CHAR_CAP
+  local p_ok, p_value = pcall(cfg.get_string, cfg, "tiger/pending_char_cap")
+  local pnum = p_ok and tonumber(p_value) or nil
+  if pnum == nil then
+    local pi_ok, pi_value = pcall(cfg.get_int, cfg, "tiger/pending_char_cap")
+    pnum = pi_ok and tonumber(pi_value) or nil
+  end
+  if pnum ~= nil and pnum >= 0 and pnum <= 32 then
+    pending_cap = math.floor(pnum)
+  end
+  env._tiger_pending_cap = pending_cap
 end
 
 local BROWSE_KEYS = {
