@@ -15,16 +15,31 @@ local function check(name, ok)
     end
 end
 
--- 全拼贪心切音节（数据来自 tiger_rev_syllables，build_rev_dicts.py 学出）
-check("nihao → nihk", t.pinyin_to_zrm("nihao") == "nihk")
-check("zhongguo → vsgo", t.pinyin_to_zrm("zhongguo") == "vsgo")
-check("apostrophe 分隔 ni'hao → nihk", t.pinyin_to_zrm("ni'hao") == "nihk")
-check("xian 整音节优先 → xm", t.pinyin_to_zrm("xian") == "xm")
+-- 全拼切音节（数据来自 tiger_rev_syllables，build_rev_dicts.py 学出）。
+-- 贪心单切分在连续全拼上系统性出错（jidangeng → ji+dang+eng），全部
+-- 合法切分并行喂引擎消歧——断言用流成员式。
+local function streams_of(q)
+    local list = t.pinyin_streams(q)
+    if not list then return {} end
+    local set = {}
+    for _, s in ipairs(list) do set[s] = true end
+    return set
+end
+check("nihao 含 ni+hao", streams_of("nihao")["nihk"] == true)
+check("zhongguo 含 zhong+guo", streams_of("zhongguo")["vsgo"] == true)
+check("apostrophe 分隔 ni'hao 含 nihk", streams_of("ni'hao")["nihk"] == true)
+check("xian 含整音节切分 xm", streams_of("xian")["xm"] == true)
 check("lv → lv", t.pinyin_to_zrm("lv") == "lv")
 check("er → er", t.pinyin_to_zrm("er") == "er")
 check("单音节 ni → ni", t.pinyin_to_zrm("ni") == "ni")
 check("切不出的串 → nil", t.pinyin_to_zrm("nix") == nil)
 check("空串 → 空流", t.pinyin_to_zrm("") == "")
+
+local jd = streams_of("jidangeng")
+check("jidangeng 含正确切分 ji+dan+geng", jd["jidjgg"] == true)
+check("jidangeng 含贪心切分 ji+dang+eng（引擎自选）", jd["jidheg"] == true)
+check("xianhua 两切分 xian+hua / xi+an+hua", streams_of("xianhua")["xmhw"] == true)
+check("切分流上限 8 内", #t.pinyin_streams("jidangeng") <= 8)
 
 -- 质量带落位（tiger_reverse_mode 的带：zrm 900–1900 / flypy 1900–2900 /
 -- pinyin 2900–3900）
@@ -75,6 +90,14 @@ if model_probe then
 
     out = run_case("`nihc", { rev_full = false, rev_flypy = true })
     check("flypy `nihc 出候选", #out > 0)
+
+    out = run_case("`jidangeng", { rev_full = true, rev_flypy = false })
+    check("pinyin `jidangeng 出候选（多切分合并）", #out > 0)
+    local found = false
+    for _, c in ipairs(out) do
+      if c.text == "鸡蛋羹" then found = true break end
+    end
+    check("pinyin `jidangeng 含 鸡蛋羹", found)
 
     out = run_case("nihk", { rev_full = false, rev_flypy = false })
     check("非 ` 前缀不响应", #out == 0)

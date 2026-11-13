@@ -122,50 +122,83 @@ local sorted_lengths = {}
 for len in pairs(zrm_syllable_lengths) do sorted_lengths[#sorted_lengths + 1] = len end
 table.sort(sorted_lengths, function(a, b) return a > b end)
 
--- 全拼串 → zrm 码流。' 为用户手动音节分隔（ni'hao），段内贪心最长音节。
--- 切不出的串返回 nil（候选静默为空，与词库反查「查无此码」行为一致）。
-local function pinyin_to_zrm(code)
-  local out = {}
-  for chunk in code:gmatch("[^']+") do
-    local index = 1
-    while index <= #chunk do
-      local matched = nil
-      for _, len in ipairs(sorted_lengths) do
-        if index + len - 1 > #chunk then
-          -- 超界长度跳过
-        elseif len == 1 then
-          local syl = chunk:sub(index, index)
-          if syllables.zrm[syl] then matched = syl break end
-        else
-          local syl = chunk:sub(index, index + len - 1)
-          if syllables.zrm[syl] then matched = syl break end
+-- 全拼串 → 全部合法切分的 zrm 码流（DAG 记忆化枚举）。贪心最长单切分在
+-- 连续全拼上系统性出错（jidangeng 切 ji+dang+eng 而非 ji+dan+geng），
+-- 歧义交给引擎：全部切分并行解码、按路径置信合并。' 为用户手动音节
+-- 分隔（段内仍枚举，段间笛卡尔）；切不出的段返回 nil（候选静默空）。
+local MAX_STREAMS = 8
+
+local function chunk_streams(chunk, memo)
+  memo = memo or {}
+  local function cut_from(pos)
+    if memo[pos] then return memo[pos] end
+    local result = {}
+    if pos > #chunk then
+      result[1] = ""
+    else
+      for len = 1, math.min(6, #chunk - pos + 1) do
+        local syl = chunk:sub(pos, pos + len - 1)
+        local mapped = syllables.zrm[syl]
+        if mapped then
+          for _, tail in ipairs(cut_from(pos + len)) do
+            result[#result + 1] = mapped .. tail
+            if #result >= MAX_STREAMS then break end
+          end
         end
+        if #result >= MAX_STREAMS then break end
       end
-      if not matched then return nil end
-      out[#out + 1] = syllables.zrm[matched]
-      index = index + #matched
     end
+    memo[pos] = result
+    return result
   end
-  return table.concat(out)
+  return cut_from(1)
 end
 
--- decode_static 输出：header 一行（数字空格串）+ 候选行 text\t…。
--- 只取 text（引擎行序即分序），弱校验首行形态。
-local function decode_texts(h, code)
+local function pinyin_streams(code)
+  local streams = { "" }
+  for chunk in code:gmatch("[^']+") do
+    local chunk_out = chunk_streams(chunk)
+    if #chunk_out == 0 then return nil end
+    local merged = {}
+    for _, head in ipairs(streams) do
+      for _, tail in ipairs(chunk_out) do
+        merged[#merged + 1] = head .. tail
+        if #merged >= MAX_STREAMS then break end
+      end
+      if #merged >= MAX_STREAMS then break end
+    end
+    streams = merged
+  end
+  return streams
+end
+
+-- 旧名保留（单测/内部沿用）：取枚举出的第一条（最长贪心优先的次序
+-- 由 DAG 枚举自然给出——len 1..6 递增，首条是最短音节贪心；无所谓，
+-- 多切分全部喂引擎）。
+local function pinyin_to_zrm(code)
+  local streams = pinyin_streams(code)
+  return streams and streams[1] or nil
+end
+
+-- decode_static 输出：header 一行（数字空格串）+ 候选行 text\tseg\tscore
+-- \tconf\t…。取 (text, conf)——conf 为引擎路径置信，跨切分可比较。
+local function decode_rows(h, code)
   local ok, out = pcall(engine_module.decode_static, h, code, false)
   if not ok or type(out) ~= "string" or #out == 0 then return nil end
   local first = true
-  local texts = {}
+  local rows = {}
   for line in out:gmatch("([^\n]*)\n") do
     if first then
       if not line:match("^%d+ %d+ ") then return nil end
       first = false
     else
-      local text = line:match("^([^\t]+)\t")
-      if text and #texts < MAX_CANDIDATES then texts[#texts + 1] = text end
+      local text, _, _, conf = line:match("^([^\t]+)\t([^\t]*)\t([^\t]*)\t([^\t]*)")
+      if text and #rows < MAX_CANDIDATES then
+        rows[#rows + 1] = { text = text, conf = tonumber(conf) or 0 }
+      end
     end
   end
-  return texts
+  return rows
 end
 
 -- 单音节枚举：lexicon 是引擎数据文件（非 Rime 词库），按码字典序排序，
@@ -266,37 +299,63 @@ function M.translator.func(input, seg, env)
   end
 
   local handle_scheme = scheme == "pinyin" and "zrm" or scheme
+  local streams = { code }
   if scheme == "pinyin" then
-    local converted = pinyin_to_zrm(code)
-    if not converted or converted == "" then return end
-    code = converted
+    streams = pinyin_streams(code)
+    if not streams then return end
   end
 
-  -- 单音节（zrm 码流恰 2 键）→ lexicon 全字枚举；多音节 → 模型组句。
-  local texts
-  if #code == 2 then
+  -- 单音节（任一切分恰 2 键，即用户输入单音节）→ lexicon 全字枚举；
+  -- 多音节 → 各切分并行喂模型组句，按路径置信合并去重。
+  local rows
+  if streams[1] and #streams[1] == 2 and #streams == 1 then
     local lexicon = runtime.paths().lexicons[handle_scheme]
-    texts = lexicon and lexicon_lookup(lexicon, code) or nil
+    local texts = lexicon and lexicon_lookup(lexicon, streams[1]) or nil
+    if texts then
+      rows = {}
+      for i, text in ipairs(texts) do rows[i] = { text = text, conf = i } end
+    end
   else
     local h = engine_handle(handle_scheme)
     if not h then return end
-    texts = decode_texts(h, code)
+    local merged, seen = {}, {}
+    for _, stream in ipairs(streams) do
+      local stream_rows = decode_rows(h, stream)
+      if stream_rows then
+        for _, row in ipairs(stream_rows) do
+          if not seen[row.text] then
+            seen[row.text] = true
+            merged[#merged + 1] = row
+          end
+        end
+      end
+    end
+    if #merged > 0 then
+      table.sort(merged, function(a, b) return a.conf > b.conf end)
+      rows = merged
+    end
   end
-  if not texts or #texts == 0 then return end
+  if not rows then return end
   local quality = QUALITY[scheme]
   local mode_name = MODE_NAME[scheme]
-  for _, text in ipairs(texts) do
-    local codes = tiger_codes(text)
-    local comment = codes and ("〔" .. codes .. "｜" .. mode_name .. "〕")
-        or ("〔" .. mode_name .. "〕")
-    local cand = Candidate("rev_engine", seg.start, seg._end, text, comment)
-    cand.quality = quality
-    yield(cand)
+  local yielded = 0
+  for _, row in ipairs(rows) do
+    if yielded >= MAX_CANDIDATES then break end
+    if row.text ~= "" then
+      local codes = tiger_codes(row.text)
+      local comment = codes and ("〔" .. codes .. "｜" .. mode_name .. "〕")
+          or ("〔" .. mode_name .. "〕")
+      local cand = Candidate("rev_engine", seg.start, seg._end, row.text, comment)
+      cand.quality = quality
+      yield(cand)
+      yielded = yielded + 1
+    end
   end
 end
 
 M._test = {
   pinyin_to_zrm = pinyin_to_zrm,
+  pinyin_streams = pinyin_streams,
   quality = QUALITY,
 }
 
