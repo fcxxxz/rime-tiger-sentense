@@ -24,7 +24,8 @@ local M = { translator = {} }
 
 local QUALITY = { zrm = 1001.0, flypy = 2001.0, pinyin = 3001.0 }
 local BEAM = 200
-local MAX_CANDIDATES = 10
+local MAX_CANDIDATES = 20   -- 多音节组句候选上限（单音节走 lexicon 枚举）
+local MAX_ENUM = 50         -- 单音节同码字枚举上限（防御；gj=27、ni=23）
 
 local handles = {}      -- scheme → engine handle
 local engine_module     -- tigerengine 表
@@ -130,6 +131,64 @@ local function decode_texts(h, code)
   return texts
 end
 
+-- 单音节枚举：lexicon 是引擎数据文件（非 Rime 词库），按码字典序排序，
+-- 二分定位后行序即 rank 序（同码全字表，gj=干感敢赶甘…27 字）。反查的
+-- 「查字」场景（`gan 找全音字）由枚举供全；模型解码给组句（多音节），
+-- 其 beam 视图天然只含最优路径——单音节枚举补齐，两场景各取所长。
+local function lexicon_lookup(lexicon_path, code)
+  local f = io.open(lexicon_path, "r")
+  if not f then return nil end
+  local size = f:seek("end")
+  if not size or size == 0 then f:close() return nil end
+
+  -- 读 pos 起的一整行（pos>0 先跳残行）
+  local function read_line(pos)
+    f:seek("set", pos)
+    if pos > 0 then f:read("*l") end
+    return f:read("*l")
+  end
+
+  -- 二分下界：第一个 code 列 >= 目标码 的行位置
+  local lo, hi = 0, size
+  while lo < hi do
+    local mid = math.floor((lo + hi) / 2)
+    local line = read_line(mid)
+    local row_code = line and (line:match("^[^\t]*")) or ""
+    if row_code < code then
+      lo = mid + 1
+    else
+      hi = mid
+    end
+  end
+  -- 行序是 lexicon rank（全码表序，多音字挂载如 呢@ni rank1 而读音频次
+  -- 仅 1）；反查按读音频次（第 5 列 reading_freq）降序——你 尼 泥…而非
+  -- 呢 你 尼。
+  local rows, seen = {}, {}
+  local pos = lo
+  while #rows < MAX_ENUM do
+    local line = read_line(pos)
+    if not line then break end
+    pos = pos + #line + 1
+    local row_code = line:match("^[^\t]*")  -- 永不 nil（短行兜底空串）
+    if row_code == code then
+      local text, _, _, freq =
+          line:match("^[^\t]*\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)")
+      if text and text ~= "" and not seen[text] then
+        seen[text] = true
+        rows[#rows + 1] = { text = text, freq = tonumber(freq) or 0 }
+      end
+    elseif row_code > code then
+      break
+    end
+  end
+  f:close()
+  if #rows == 0 then return nil end
+  table.sort(rows, function(a, b) return a.freq > b.freq end)
+  local texts = {}
+  for i, row in ipairs(rows) do texts[i] = row.text end
+  return texts
+end
+
 -- librime-lua 的 Segment 没有 has_tag 方法（旧版亦然），用 tags 表遍历
 -- （对齐 mohu.lua 的 segment_is_reverse_lookup 写法）。
 local function seg_is_reverse_lookup(seg)
@@ -162,10 +221,17 @@ function M.translator.func(input, seg, env)
     code = converted
   end
 
-  local h = engine_handle(handle_scheme)
-  if not h then return end
-  local texts = decode_texts(h, code)
-  if not texts then return end
+  -- 单音节（zrm 码流恰 2 键）→ lexicon 全字枚举；多音节 → 模型组句。
+  local texts
+  if #code == 2 then
+    local lexicon = runtime.paths().lexicons[handle_scheme]
+    texts = lexicon and lexicon_lookup(lexicon, code) or nil
+  else
+    local h = engine_handle(handle_scheme)
+    if not h then return end
+    texts = decode_texts(h, code)
+  end
+  if not texts or #texts == 0 then return end
   local quality = QUALITY[scheme]
   for _, text in ipairs(texts) do
     local cand = Candidate("rev_engine", seg.start, seg._end, text, "")

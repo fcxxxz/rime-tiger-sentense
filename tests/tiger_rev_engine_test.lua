@@ -77,6 +77,19 @@ if model_probe then
     out = run_case("nihk", { rev_full = false, rev_flypy = false })
     check("非 ` 前缀不响应", #out == 0)
 
+    -- 单音节走 lexicon 枚举（不依赖 dylib，纯文本二分）；
+    -- reading_freq 序与旧 mohu_pinyin 全拼反查一致（感 干 敢 赶 甘…）
+    out = run_case("`gj", { rev_full = false, rev_flypy = false })
+    check("zrm `gj 单音节枚举 >10 字（全字表）", #out > 10)
+    check("zrm `gj 首选 感（readfreq 序）", out[1] and out[1].text == "感")
+    check("zrm `gj 次选 干", out[2] and out[2].text == "干")
+    out = run_case("`gan", { rev_full = true, rev_flypy = false })
+    check("pinyin `gan 切 gj 枚举与双拼同表",
+          #out > 10 and out[1] and out[1].text == "感")
+    out = run_case("`ni", { rev_full = true, rev_flypy = false })
+    check("pinyin `ni 首选 你（reading_freq 序）", out[1] and out[1].text == "你")
+
+    for i = #yielded, 1, -1 do yielded[i] = nil end
     local seg_plain = { tags = { abc = true }, start = 0, _end = 4 }
     m.translator.func(nil, seg_plain,
                       { engine = { context = { input = "`nihk",

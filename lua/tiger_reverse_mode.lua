@@ -104,6 +104,12 @@ function M.processor.func(key_event, env)
   local next_mode = cycle_from(current_mode(context), available_modes())
   context:set_option("rev_flypy", next_mode.flypy)
   context:set_option("rev_full", next_mode.full)
+  -- 部分前端（实机 Squirrel 的旧版 librime）set_option 不触发未确认段
+  -- 重译——候选/提示停在旧码式，用户侧表现为「切换没生效」。显式刷新
+  -- 兜底；绑定缺失时静默（此时靠 option 通知路径）。
+  if type(context.refresh_non_confirmed_composition) == "function" then
+    pcall(context.refresh_non_confirmed_composition, context)
+  end
   return kAccepted
 end
 
