@@ -15,6 +15,10 @@
 --   - 前缀证据 =（前缀文本, 码长边界）二元组：前缀质量占比 ≥ 门槛
 --     （默认 0.99，tiger/early_commit_threshold 可配）且边界封死（同前缀
 --     行在该切点码长上 ≥0.99999 全票）才算达标；
+--   - 强化版1（2026-11-13）：证据质量计入 #hidden 隐藏行（引擎「孤立
+--     生僻字」过滤移出项，菜单不可见、桶镜像可见视图，只入质量不改
+--     档位）——被删行撑出的 share=1.0 是真空全票，kukflfks 曾在第 6 键
+--     把 过滑 当唯一终态误顶（第 5 键 过汧 整行被删、终态束真空）；
 --   - 达标前缀各建 tracker 连续计票：普通证据 3 键、强证据（占比 ≥0.999）
 --     2 键即可提交；无达标键时 tracker 最多保留 3 键（不计数）；模型未
 --     收敛期的分叉读法只是不形成 tracker，不会污染后续（全史公共前缀
@@ -362,6 +366,21 @@ local function record_and_maybe_commit(env)
     rows = decoded.items
     truncated = decoded.truncated
   end
+  -- 强化版1（2026-11-13）：被引擎「孤立生僻字」过滤移出的隐藏行（#hidden
+  -- 段/TSC2 尾行下发）回归置信质量，桶镜像可见视图（early 视图配
+  -- hidden_early、终态视图配 hidden_items、截断双桶配双隐藏桶）。菜单
+  -- 照旧不可见；否则删行撑出的 share=1.0 是真空全票——kukflfks 在
+  -- 第 5 键 过汧 整行被删、第 6 键把 过滑 当唯一终态误顶上屏。只入质量、
+  -- 不改档位：隐藏行多为远端垃圾（打字途中频现），禁强档会把合法的
+  -- 强档×2 连击清零、把提交推给无证据门的 pending 帽（100k 实测 W 事件
+  -- 156→3881，已回退）；错误家族会被质量稀释自然挤出 qualifying
+  --（qualifying 非空时不合格的 tracker 直接丢弃）。
+  local hidden_rows
+  if decoded.uses_incomplete and #(decoded.early or {}) > 0 then
+    hidden_rows = decoded.hidden_early
+  else
+    hidden_rows = decoded.hidden_items
+  end
   -- 与非截断分支同规：只统计延伸已提交文本的行，否则已提交前缀的
   -- 兄弟家族（不知首(领) 对 不知道）会分掉前缀质量、证据永远不达标。
   local candidates = {}
@@ -376,8 +395,11 @@ local function record_and_maybe_commit(env)
   if truncated then
     collect(decoded.items)
     collect(decoded.early)
+    collect(decoded.hidden_items)
+    collect(decoded.hidden_early)
   else
     collect(rows)
+    collect(hidden_rows)
   end
   -- 可见首选：提交增量必须与其前缀一致（重排后菜单错位即放弃）。
   local visible_top = nil
@@ -399,8 +421,10 @@ local function record_and_maybe_commit(env)
     candidates = {}
     if base.uses_incomplete and #(base.early or {}) > 0 then
       collect(base.early)
+      collect(base.hidden_early)
     else
       collect(base.items)
+      collect(base.hidden_items)
     end
   end
 

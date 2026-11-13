@@ -681,6 +681,26 @@ int l_set_code_form_penalty(lua_State* L) {
   return 1;
 }
 
+int l_set_hidden_evidence(lua_State* L) {
+  lua_Integer handle_value = luaL_checkinteger(L, 1);
+  luaL_argcheck(L, handle_value >= std::numeric_limits<int>::min() &&
+                       handle_value <= std::numeric_limits<int>::max(),
+                1, "engine handle is out of range");
+  lua_Integer on_value = luaL_checkinteger(L, 2);
+  luaL_argcheck(L, on_value == 0 || on_value == 1, 2,
+                "hidden evidence flag must be 0 or 1");
+  int rc;
+  char error[512] = {0};
+  {
+    std::lock_guard<std::mutex> lock(g_lua_binding_mutex);
+    rc = tiger_engine_set_hidden_evidence((int)handle_value, (int)on_value);
+    if (rc != 0) std::snprintf(error, sizeof(error), "%s", tiger_last_error());
+  }
+  if (rc < 0) return luaL_error(L, "%s", error[0] ? error : "hidden evidence update failed");
+  lua_pushboolean(L, 1);
+  return 1;
+}
+
 int l_set_word_edge_freq_weight(lua_State* L) {
   lua_Integer handle_value = luaL_checkinteger(L, 1);
   luaL_argcheck(L, handle_value >= std::numeric_limits<int>::min() &&
@@ -901,6 +921,7 @@ int luaopen_tigerengine(lua_State* L) {
       {"code_char_rank", l_code_char_rank},
       {"set_word_edge_weight", l_set_word_edge_weight},
       {"set_code_form_penalty", l_set_code_form_penalty},
+      {"set_hidden_evidence", l_set_hidden_evidence},
       {"set_word_edge_freq_weight", l_set_word_edge_freq_weight},
       {"set_auxiliary_word_edges", l_set_auxiliary_word_edges},
       {"set_auxiliary_context_guard", l_set_auxiliary_context_guard},

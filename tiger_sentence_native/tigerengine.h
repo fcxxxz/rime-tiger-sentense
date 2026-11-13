@@ -121,6 +121,16 @@ int tiger_engine_set_word_edge_weight(int handle, double weight);
  * this many nats. Whole-input single-character hits (typing a char's full
  * code alone) are exempt, mirroring the h-flag exemption. Range [0, 32]. */
 int tiger_engine_set_code_form_penalty(int handle, double penalty);
+/* Hidden evidence rows (hardened fix 1, 2026-11-13): on=1 stops dropping rows
+ * removed by the isolated-rare-char filter and ships them in a trailing
+ * #hidden section of the text payload (and as TSC2 trailing rows of the
+ * compact payload), bucketed final-then-early, confidence-descending, capped.
+ * Menus keep ignoring them; early-commit consumers must count their mass
+ * (else the filter manufactures a vacuum share=1.0, cf. kukflfks committing
+ * 过滑 before 过汧县 can appear) and must not grant strong evidence on any
+ * key whose bucket contains hidden rows. on=0 restores legacy drop behavior.
+ * Returns 1 applied, 0 no change, -1 error. */
+int tiger_engine_set_hidden_evidence(int handle, int on);
 /* Word-edge frequency gradient: 0 disables (default; internal word edges keep
  * the flat word_edge_weight bonus); >0 adds a bounded freq-weighted bonus on
  * top for static multi-char internal edges, using the same gradient shape as

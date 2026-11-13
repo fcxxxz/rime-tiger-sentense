@@ -25,6 +25,10 @@
 //        consensus_complete consensus_text_bytes consensus_raw_length visible_consensus
 //   之后 n_final + n_early 行: text \t segmented \t score \t confidence \t max_rank \t pathmap [\t personal]
 //   pathmap：逗号分隔的 "文本字节数:原始码长"，供提前上屏定位边界。
+//   set_hidden_evidence 开启时末尾追加一段: "#hidden <nf> <ne>" 行 + 行式
+//   同上的被隐藏行（孤立生僻字过滤移出项，nf 个终态桶行在前、ne 个
+//   early 桶行在后，各按置信度降序、限量）。仅提前上屏消费；旧消费方
+//   按行数停读或行式不匹配，天然忽略。
 
 #include <algorithm>
 #include <atomic>
@@ -2158,6 +2162,10 @@ const int kHiddenRareCharCount = 2;
 const double kUserGainPersonalThreshold = 5.0;
 const int kCandidateLimit = 20;
 const int kEarlyCandidateLimit = 20;
+// 隐藏证据行的下发上限（按置信度降序截断）。提前上屏的质量回归只需
+// 贴近领先行的被删行（4.6~6.9 nats 内），超限截断对份额的影响由
+// 「束内有隐藏行禁强档」兜底。
+const int kHiddenEvidenceLimit = 8;
 const size_t kMaxRawLength = 128;
 // ≤4 键「整段单条命中居首」的让位阈：全码单字的字频名次已知且高于
 // 此值（生僻尾段，idhp=㪗 9462）时不再压过多段解析，落回码表序+模型
@@ -2307,6 +2315,14 @@ struct DecodeResult {
   // over every row it can see.  It is never a claim that hidden beam paths
   // were exhaustively enumerated; Lua validates visible rows and boundaries.
   bool visible_consensus = false;
+  // 隐藏证据行（2026-11-13 强化版1）：被「孤立生僻字」过滤移出 items/
+  // early 的行按原桶存此（按置信度降序、限量），set_hidden_evidence 开启
+  // 时随 payload 末尾 #hidden 段下发——菜单不可见，提前上屏的置信质量
+  // 必须计入。否则删行撑出的 share=1.0 是真空全票（kukflfks 在第 6 键
+  // 误顶 过滑 方水：过汧 被过滤删行、终态束真空）。
+  std::vector<OutItem> hidden_items;  // 终态桶被隐藏行
+  std::vector<OutItem> hidden_early;  // early 桶被隐藏行
+  bool hidden_evidence = false;       // payload 是否携带 #hidden 段
 };
 
 // ---------------------------------------------------------------- 用户调频层
@@ -2590,6 +2606,11 @@ struct Engine {
   // 该值 nats。0 关闭（默认）。标定：拟@uvjr 压 指(uv)+人(jr) 5.46 nats、
   // 救@fkih 压 求(fk)+收(ih) 0.68 nats——γ=6 一致覆盖；整段单字命中豁免。
   double code_form_penalty = 0.0;
+  // 隐藏证据下发开关（强化版1）：开启时「孤立生僻字」过滤移出的行不再
+  // 丢弃，按原桶存入 DecodeResult::hidden_*，payload 末尾追加 #hidden 段。
+  // 菜单消费方照旧忽略；提前上屏的置信质量回归计入。默认 0 = 旧行为
+  // （直接删行），旧 Lua 无感知。
+  bool hidden_evidence = false;
   // 词边词频梯度（方案 B 收尾，2026-10-14）：固定 word_edge_weight 压不住
   // 「焊后+热情」类强搭配字链（8+ nats）对真词边的整段反杀——hjhbreqy 的
   // 「憨厚热情」输给「焊后热情」6.8 nats、全参数旋钮封顶仍差 4.3。>0 时
@@ -3039,6 +3060,25 @@ struct Engine {
 
   double isolation_penalty(const std::string& text) {
     return kIsolationLambda * isolated_rare_count(text, kIsolationThreshold);
+  }
+
+  // 「孤立超生僻字」隐藏判定（终态/early 两桶共用）：≤2 字、≥2 段、含
+  // 左右均无二元组见证的超生僻字。
+  bool hidden_rare_row(const OutItem& it) {
+    if (it.edges < 2) return false;
+    if (utf8_split(it.text).size() > (size_t)kHiddenRareCharCount) return false;
+    return isolated_rare_count(it.text, kWholeCharFreqCap) > 0;
+  }
+
+  // 隐藏证据行按置信度降序限量：质量回归只需贴近领先行的被删行，远端
+  // 截断对份额的影响由 Lua 侧「束内有隐藏行禁强档」兜底。
+  static void cap_hidden_evidence(std::vector<OutItem>* rows) {
+    if (rows->empty()) return;
+    std::sort(rows->begin(), rows->end(), [](const OutItem& l, const OutItem& r) {
+      if (l.confidence == r.confidence) return l.text < r.text;
+      return l.confidence > r.confidence;
+    });
+    if (rows->size() > (size_t)kHiddenEvidenceLimit) rows->resize(kHiddenEvidenceLimit);
   }
 
   static size_t trailing_selector_span(const std::string& raw) {
@@ -3772,6 +3812,7 @@ struct Engine {
 
   DecodeResult emit(const std::string& raw, bool include_early) {
     DecodeResult result;
+    result.hidden_evidence = hidden_evidence;
     bool now_truncated = false;
     std::vector<State*> completed = states[raw.size()]->limit(beam, &now_truncated);
     result.truncated = states[raw.size()]->truncated || now_truncated;
@@ -3809,13 +3850,23 @@ struct Engine {
     }
     // 多段短拼装里的孤立超生僻字（idhp 的 乀分/部攵 类）不进终态候选：
     // 罚分只能压分，≤4 键的码表档位序仍让它露脸；全码整段单字（edges==1）
-    // 与 >2 字长句不藏，保持生僻字可达性。
-    final_items.erase(std::remove_if(final_items.begin(), final_items.end(),
-        [this](const OutItem& it) {
-          if (it.edges < 2) return false;
-          if (utf8_split(it.text).size() > (size_t)kHiddenRareCharCount) return false;
-          return isolated_rare_count(it.text, kWholeCharFreqCap) > 0;
-        }), final_items.end());
+    // 与 >2 字长句不藏，保持生僻字可达性。强化版1：开启 hidden_evidence
+    // 时被移出的行按桶转入 hidden_items（#hidden 段下发，菜单仍不可见）
+    // ——提前上屏的置信质量必须计入被删行，否则份额是真空全票
+    // （kukflfks 第 5 键 过汧 整行被删、终态束真空误顶 过滑）。
+    {
+      std::vector<OutItem> kept;
+      kept.reserve(final_items.size());
+      for (auto& it : final_items) {
+        if (hidden_rare_row(it)) {
+          if (hidden_evidence) result.hidden_items.push_back(std::move(it));
+        } else {
+          kept.push_back(std::move(it));
+        }
+      }
+      final_items = std::move(kept);
+      cap_hidden_evidence(&result.hidden_items);
+    }
     // ≤4 键：魔虎“四码简快码”规则——整段单条命中按码表序排最前，
     // 其余多段解析按码表序；>4 键（整句）：语言模型分数优先。
     // all_ranks=false（虎码·虎整对齐）时不走该规则：≤4 键与 >4 键同为
@@ -3929,13 +3980,22 @@ struct Engine {
         result.early.push_back(std::move(item));
       }
       // 与终态同规：多段短拼装里的孤立超生僻字不进 early 行（打字途中
-      // 的可见菜单走 early），置信质量仍由完整束承担。
-      result.early.erase(std::remove_if(result.early.begin(), result.early.end(),
-          [this](const OutItem& it) {
-            if (it.edges < 2) return false;
-            if (utf8_split(it.text).size() > (size_t)kHiddenRareCharCount) return false;
-            return isolated_rare_count(it.text, kWholeCharFreqCap) > 0;
-          }), result.early.end());
+      // 的可见菜单走 early），置信质量仍由完整束承担——强化版1：开启
+      // hidden_evidence 时被移出行转入 hidden_early 随 #hidden 段下发，
+      // 打字途中的提前上屏质量回归与终态同口径。
+      {
+        std::vector<OutItem> kept;
+        kept.reserve(result.early.size());
+        for (auto& it : result.early) {
+          if (hidden_rare_row(it)) {
+            if (hidden_evidence) result.hidden_early.push_back(std::move(it));
+          } else {
+            kept.push_back(std::move(it));
+          }
+        }
+        result.early = std::move(kept);
+        cap_hidden_evidence(&result.hidden_early);
+      }
       std::sort(result.early.begin(), result.early.end(),
                 [](const OutItem& l, const OutItem& r) {
                   if (l.confidence == r.confidence) return l.text < r.text;
@@ -4222,6 +4282,16 @@ bool serialize(const DecodeResult& r, char* out, int outcap) {
   };
   for (const auto& it : r.items) if (!write_item(it)) return false;
   for (const auto& it : r.early) if (!write_item(it)) return false;
+  // 强化版1：#hidden 段附在可见行之后（旧消费方按行数/行式解析，无制表
+  // 符的 # 行不匹配候选行式，天然跳过）。行序：终态桶被隐藏行在前、
+  // early 桶在后，与可见行 items→early 的排布同构。
+  if (r.hidden_evidence) {
+    snprintf(buf, sizeof(buf), "#hidden %zu %zu\n",
+             r.hidden_items.size(), r.hidden_early.size());
+    s += buf;
+    for (const auto& it : r.hidden_items) if (!write_item(it)) return false;
+    for (const auto& it : r.hidden_early) if (!write_item(it)) return false;
+  }
   if ((int)s.size() + 1 > outcap) return false;
   memcpy(out, s.data(), s.size() + 1);
   return true;
@@ -4231,9 +4301,13 @@ bool serialize(const DecodeResult& r, char* out, int outcap) {
 // Header: magic, byte size, flags, final count, early count, consensus bytes/raw.
 // Row: text size, boundary count, row flags, rounded confidence, UTF-8 text,
 //      then (text bytes, raw length) u32 pairs. No C++ layout crosses the ABI.
+// v2 (TSC2, 2026-11-13): header 追加 hidden final/early 两计数，行区末尾
+// 追加隐藏证据行（与文本格式 #hidden 段同口径）；flags/行式与 v1 不变，
+// v1 消费方按自身计数停读，尾部新行天然忽略。
 bool serialize_static_compact(const DecodeResult& r, char* out, int outcap) {
   if (!out || outcap <= 0) return false;
-  std::string data("TSC1", 4);
+  const bool with_hidden = r.hidden_evidence;
+  std::string data(with_hidden ? "TSC2" : "TSC1", 4);
   auto u32 = [&](uint32_t value) {
     for (int shift = 0; shift < 32; shift += 8)
       data.push_back(static_cast<char>((value >> shift) & 255));
@@ -4253,6 +4327,10 @@ bool serialize_static_compact(const DecodeResult& r, char* out, int outcap) {
   u32(static_cast<uint32_t>(r.early.size()));
   u32(static_cast<uint32_t>(r.consensus_text_bytes));
   u32(static_cast<uint32_t>(r.consensus_raw_length));
+  if (with_hidden) {
+    u32(static_cast<uint32_t>(r.hidden_items.size()));
+    u32(static_cast<uint32_t>(r.hidden_early.size()));
+  }
   auto row = [&](const OutItem& item) {
     if (!std::isfinite(item.score) || !std::isfinite(item.confidence)) return false;
     u32(static_cast<uint32_t>(item.text.size()));
@@ -4268,6 +4346,10 @@ bool serialize_static_compact(const DecodeResult& r, char* out, int outcap) {
   };
   for (const auto& item : r.items) if (!row(item)) return false;
   for (const auto& item : r.early) if (!row(item)) return false;
+  if (with_hidden) {
+    for (const auto& item : r.hidden_items) if (!row(item)) return false;
+    for (const auto& item : r.hidden_early) if (!row(item)) return false;
+  }
   if (data.size() > static_cast<size_t>(outcap) || data.size() > UINT32_MAX) return false;
   const uint32_t size = static_cast<uint32_t>(data.size());
   for (int shift = 0; shift < 32; shift += 8)
@@ -4991,6 +5073,34 @@ int tiger_engine_set_code_form_penalty(int handle, double penalty) {
     return 1;
   } catch (...) {
     set_error("code form penalty update failed");
+    return -1;
+  }
+}
+
+/* 隐藏证据下发（2026-11-13 强化版1）：on=1 时「孤立超生僻字」过滤移出的
+   行不再丢弃，按原桶（终态/early）随 payload 末尾的 #hidden 段下发（文本
+   格式）/ TSC2 尾部行区（compact 格式），行含 confidence 与 pathmap。菜单
+   消费方照旧忽略；提前上屏（tiger_mode_proc）把隐藏行计入置信质量并在束内
+   存在隐藏行时禁强档证据。on=0 = 旧行为（直接删行）。切换会重建解码缓存。
+   返回 1 生效、0 无变化、-1 错误。 */
+int tiger_engine_set_hidden_evidence(int handle, int on) {
+  try {
+    std::lock_guard<std::mutex> lock(g_engine_mutex);
+    if (handle < 0 || handle >= (int)g_engines.size() || !g_engines[handle]) {
+      set_error("invalid engine handle");
+      return -1;
+    }
+    if (on != 0 && on != 1) {
+      set_error("hidden evidence flag must be 0 or 1");
+      return -1;
+    }
+    Engine* e = g_engines[handle].get();
+    if (e->hidden_evidence == (on == 1)) return 0;
+    e->hidden_evidence = (on == 1);
+    e->invalidate_overlay_cache();
+    return 1;
+  } catch (...) {
+    set_error("hidden evidence update failed");
     return -1;
   }
 }

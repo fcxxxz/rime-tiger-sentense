@@ -492,6 +492,92 @@ for _, scenario in ipairs({ "supported", "ambiguous", "conflict", "legacy" }) do
     end
 end
 
+-- 强化版1回归（2026-11-13 装机实录）：kukflfks 打「过汧县」，第 5 键
+-- 起 过汧（ku kfl）被引擎「孤立生僻字」过滤整行移出——旧行为下第 6 键
+-- 终态束真空、过滑 share=1.0 强档×2 误顶上屏。修复后：隐藏行回归置信
+-- 质量，过滑 家族第 6 键 share 0.97<0.99 被 qualifying 丢弃，强档连击
+-- 无法累积；公共前缀 过 share 恒 1.0 在第 6 键安全提交，终态 过汧县
+-- 不再被顶掉。只入质量、禁强档变体已证伪（100k W 156→3881）。
+-- 数据为装机参数（γ=6、segment_policy(3,1)、text_lexicon 6.5）实测
+-- payload 各键快照。
+do
+    proc._test.reset()
+    local views = {
+        ["kuk"] = {
+            uses_incomplete = true, items = {},
+            early = { { text = "过", confidence = -11.8529608,
+                        pathmap = "0:0,3:2" } },
+        },
+        ["kukf"] = {
+            uses_incomplete = false, early = {},
+            items = { { text = "过滑", confidence = -17.3434894,
+                        pathmap = "0:0,3:2,6:4" } },
+        },
+        ["kukfl"] = {
+            uses_incomplete = true, items = {},
+            early = { { text = "过滑", confidence = -17.3434894,
+                        pathmap = "0:0,3:2,6:4" } },
+            hidden_items = { { text = "过汧", confidence = -28.4986929,
+                               pathmap = "0:0,3:2,6:5" } },
+            hidden_early = { { text = "过汧", confidence = -28.4986929,
+                               pathmap = "0:0,3:2,6:5" } },
+        },
+        ["kukflf"] = {
+            uses_incomplete = true,
+            items = { { text = "过滑方", confidence = -24.9797097,
+                        pathmap = "0:0,3:2,6:4,9:6" } },
+            early = { { text = "过滑方", confidence = -24.9797097,
+                        pathmap = "0:0,3:2,6:4,9:6" } },
+            hidden_early = { { text = "过汧", confidence = -28.4986929,
+                               pathmap = "0:0,3:2,6:5" } },
+        },
+        ["kukflfk"] = {
+            uses_incomplete = true,
+            items = { { text = "过滑蓐", confidence = -32.6841778,
+                        pathmap = "0:0,3:2,6:4,9:7" },
+                      { text = "过汧求", confidence = -32.7169518,
+                        pathmap = "0:0,3:2,6:5,9:7" } },
+            early = { { text = "过滑方", confidence = -24.9797097,
+                        pathmap = "0:0,3:2,6:4,9:6" },
+                      { text = "过滑蓐", confidence = -32.6841778,
+                        pathmap = "0:0,3:2,6:4,9:7" },
+                      { text = "过汧求", confidence = -32.7169518,
+                        pathmap = "0:0,3:2,6:5,9:7" } },
+        },
+        ["kukflfks"] = {
+            uses_incomplete = false,
+            items = { { text = "过汧县", confidence = -25.3475394,
+                        pathmap = "0:0,3:2,6:5,9:8" },
+                      { text = "过滑方水", confidence = -30.8771858,
+                        pathmap = "0:0,3:2,6:4,9:6,12:8" } },
+            early = { { text = "过汧县", confidence = -25.3475394,
+                        pathmap = "0:0,3:2,6:5,9:8" },
+                      { text = "过滑方水", confidence = -30.8771858,
+                        pathmap = "0:0,3:2,6:4,9:6,12:8" } },
+        },
+    }
+    t.set_engine_module({
+        native_ready = function() return true end,
+        decode_with_early = function(raw)
+            return views[raw]
+        end,
+    })
+    local env, _, commits, context = make_env(
+        { sentence = true, early_commit = true }, "")
+    -- 第 1~6 键：过滑 不得上屏（旧代码在第 6 键误顶）；公共前缀 过 在
+    -- 第 6 键安全提交（share 恒 1.0，强档不受隐藏行稀释影响）。
+    for _, key in ipairs({ "k", "u", "k", "f", "l", "f" }) do
+        proc.processor.func(make_key(key), env)
+    end
+    check("hidden rare row breaks the vacuum share (no 过滑 commit)",
+          #commits == 1 and commits[1] == "过" and context.input == "kflf")
+    -- 第 7/8 键：过汧县 家族份额被 过滑方 挤出 qualifying，无更多提交。
+    proc.processor.func(make_key("k"), env)
+    proc.processor.func(make_key("s"), env)
+    check("terminal state keeps 过汧县 family (no further commit)",
+          #commits == 1 and commits[1] == "过" and context.input == "kflfks")
+end
+
 proc._test.reset()
 
 if failures > 0 then

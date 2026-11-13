@@ -525,6 +525,15 @@ local function ensure_engine(env)
       pcall(tigerengine.set_code_form_penalty, h, gamma)
     end
   end
+  -- 强化版1（2026-11-13）：隐藏证据下发。「孤立生僻字」过滤移出的行随
+  -- payload 末尾 #hidden 段（compact 则 TSC2 尾行）下发——菜单照旧忽略，
+  -- 提前上屏（tiger_mode_proc）把隐藏行计入置信质量并在束内存在隐藏行时
+  -- 禁强档。否则删行撑出的 share=1.0 是真空全票（kukflfks 第 6 键误顶
+  -- 过滑：第 5 键 过汧 整行被删、终态束真空）。旧 ABI dylib 无该函数时
+  -- 静默跳过（隐藏行维持旧行为=直接删行）。
+  if type(tigerengine.set_hidden_evidence) == "function" then
+    pcall(tigerengine.set_hidden_evidence, h, 1)
+  end
   -- 词边词频梯度：tiger/word_edge_freq_weight（0 关闭=固定分旧行为）。
   -- >0 时静态多字内部词边在固定分之上按词典权重梯度加有界分，压
   -- 「焊后+热情」类强搭配字链对真词边的整段反杀。旧 ABI dylib 无该
@@ -1250,6 +1259,7 @@ end
 local function parse_output(out)
   local result = { items = {}, early = {} }
   local first = true
+  local in_hidden = false
   for line in out:gmatch("([^\n]*)\n") do
     if first then
       local t, et, ui, pi, n_final, n_early, cc, cb, cr, vc =
@@ -1297,6 +1307,17 @@ local function parse_output(out)
       result.visible_consensus = vc == "1"
       first = false
     else
+      -- 强化版1：#hidden 段标记行（无制表符，旧消费方行式不匹配天然跳过）
+      if not in_hidden then
+        local hf, he = line:match("^#hidden (%d+) (%d+)$")
+        if hf then
+          result.n_hidden_final = tonumber(hf)
+          result.n_hidden_early = tonumber(he)
+          result.hidden_rows = {}
+          in_hidden = true
+          goto continue
+        end
+      end
       local text, segmented, score, conf, max_rank, pathmap, personal, learn =
         line:match("^([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t(.*)\t([01])\t([01])$")
       if not text then
@@ -1334,11 +1355,20 @@ local function parse_output(out)
       for tl, rl in (pathmap or ""):gmatch("(%d+):(%d+)") do
         item.raw_lengths[tonumber(tl)] = tonumber(rl)
       end
-      result.items[#result.items + 1] = item
+      if in_hidden then
+        result.hidden_rows[#result.hidden_rows + 1] = item
+      else
+        result.items[#result.items + 1] = item
+      end
     end
+    ::continue::
   end
   if first or #result.items ~= result.n_final + result.n_early then
     return nil, "native output count mismatch"
+  end
+  if in_hidden and #result.hidden_rows ~=
+      (result.n_hidden_final or 0) + (result.n_hidden_early or 0) then
+    return nil, "native hidden count mismatch"
   end
   return result
 end
@@ -1384,6 +1414,21 @@ local function decode(raw, include_early, static_only)
     while #parsed.items > n_final do
       table.remove(parsed.items)
     end
+  end
+  -- 强化版1：#hidden 段按引擎计数拆桶（终态在前、early 在后），与可见
+  -- items/early 的选桶规则一一对应。旧 dylib 无该段时两表恒空。
+  if parsed.hidden_rows then
+    local n_hidden = parsed.n_hidden_final or 0
+    parsed.hidden_items = {}
+    parsed.hidden_early = {}
+    for index = 1, #parsed.hidden_rows do
+      if index <= n_hidden then
+        parsed.hidden_items[#parsed.hidden_items + 1] = parsed.hidden_rows[index]
+      else
+        parsed.hidden_early[#parsed.hidden_early + 1] = parsed.hidden_rows[index]
+      end
+    end
+    parsed.hidden_rows = nil
   end
   -- A text can occur in both lists when one native path is complete and
   -- another reaches the same text through an unfinished tail.  That overlap
@@ -1673,11 +1718,24 @@ function M.decode_with_early(raw)
 end
 
 local function parse_static_compact(out, canonical_raw)
-  if type(out) ~= "string" or #out < 28 or out:sub(1, 4) ~= "TSC1" then
-    return nil
+  -- TSC1: 经典六字段头。TSC2（强化版1）：头尾各加 hidden 两计数、行区
+  -- 末尾追加隐藏证据行（终态桶在前），行式与 v1 一致；两版共用行解析。
+  if type(out) ~= "string" or #out < 28 then return nil end
+  local magic = out:sub(1, 4)
+  if magic ~= "TSC1" and magic ~= "TSC2" then return nil end
+  local with_hidden = magic == "TSC2"
+  local header_size = with_hidden and 36 or 28
+  if #out < header_size then return nil end
+  local size, flags, nf, ne, cb, cr, nhf, nhe, pos
+  if with_hidden then
+    size, flags, nf, ne, cb, cr, nhf, nhe, pos =
+      string.unpack("<I4I4I4I4I4I4I4I4", out, 5)
+  else
+    size, flags, nf, ne, cb, cr, pos = string.unpack("<I4I4I4I4I4I4", out, 5)
+    nhf, nhe = 0, 0
   end
-  local size, flags, nf, ne, cb, cr, pos = string.unpack("<I4I4I4I4I4I4", out, 5)
-  if size ~= #out or flags > 63 or nf + ne > (#out - 28) / 20 then return nil end
+  if size ~= #out or flags > 63 or nf + ne > (#out - header_size) / 20
+      or nhf + nhe > (#out - header_size) / 20 then return nil end
   if flags & 16 == 0 and (cb ~= 0 or cr ~= 0) then return nil end
   local result = {
     items = {}, early = {}, truncated = flags & 1 ~= 0,
@@ -1685,8 +1743,10 @@ local function parse_static_compact(out, canonical_raw)
     prefers_incomplete = flags & 8 ~= 0, consensus_complete = flags & 16 ~= 0,
     visible_consensus = flags & 32 ~= 0, consensus_text_bytes = cb,
     consensus_raw_length = cr, n_final = nf, n_early = ne,
+    hidden_items = {}, hidden_early = {},
   }
-  for index = 1, nf + ne do
+  local read_row
+  read_row = function()
     if pos + 19 > #out then return nil end
     local text_size, cuts, row_flags, confidence
     text_size, cuts, row_flags, confidence, pos = string.unpack("<I4I4I4d", out, pos)
@@ -1705,9 +1765,19 @@ local function parse_static_compact(out, canonical_raw)
       if bytes > text_size then return nil end
       lengths[bytes] = raw
     end
-    local item = { text = text, confidence = confidence, raw_lengths = lengths,
+    return { text = text, confidence = confidence, raw_lengths = lengths,
       personal = row_flags & 1 ~= 0, learning_affected = row_flags & 2 ~= 0 }
+  end
+  for index = 1, nf + ne do
+    local item = read_row()
+    if not item then return nil end
     local list = index <= nf and result.items or result.early
+    list[#list + 1] = item
+  end
+  for index = 1, nhf + nhe do
+    local item = read_row()
+    if not item then return nil end
+    local list = index <= nhf and result.hidden_items or result.hidden_early
     list[#list + 1] = item
   end
   if pos ~= #out + 1 or has_duplicate_candidate_text(result.items)

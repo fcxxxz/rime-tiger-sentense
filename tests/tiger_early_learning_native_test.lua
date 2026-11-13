@@ -95,6 +95,31 @@ local seg = { start = 0, _end = #ctx.input, has_tag = function() return true end
 native.translator.func(ctx.input, seg, translator_env)
 assert(yielded[1] and ctx.committed .. yielded[1].text == target,
     "the real translator must trim committed text and return the correct suffix")
+-- 强化版1装机实录回归（2026-11-13）：kukflfks 打 过汧县。第 5 键起
+-- 过汧 被「孤立生僻字」过滤移出可见束（#hidden 段随 wire 下发）——旧行
+-- 为第 6 键终态束真空、过滑 share=1.0 强档×2 误顶上屏；修复后隐藏行
+-- 回归置信质量且隐藏行在场禁强档，任何自动提交都必须是 过汧县 的前缀。
+do
+  local raw2, target2 = "kukflfks", "过汧县"
+  local hidden_view = native.decode_with_early("kukfl")
+  assert(hidden_view and hidden_view.hidden_early and #hidden_view.hidden_early > 0
+      and hidden_view.hidden_early[1].text == "过汧",
+    "hidden rare rows must ride the wire for early-commit mass")
+  assert(#hidden_view.items == 0 or hidden_view.items[1].text ~= "过汧",
+    "hidden rows must stay out of the visible items")
+  ctx.input = ""
+  ctx.committed = ""
+  proc._test.reset()
+  for i = 1, #raw2 do
+    local key = raw2:sub(i, i)
+    assert(proc.processor.func({ repr = function() return key end }, processor_env) == 1)
+    assert(target2:sub(1, #ctx.committed) == ctx.committed,
+      "every automatic commit must be a prefix of 过汧县 (got " .. ctx.committed .. ")")
+  end
+  local final_view = native.decode_with_early("kukflfks")
+  assert(final_view and final_view.items[1] and final_view.items[1].text == "过汧县",
+    "terminal menu top must stay 过汧县")
+end
 -- Avoid persisting the deliberately isolated test learner.
 translator_env._tiger_user_model_dirty = false
 native.translator.fini(translator_env)

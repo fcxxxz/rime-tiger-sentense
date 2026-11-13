@@ -146,6 +146,49 @@ native.translator.func("abcd", segment, env)
 assert(#yielded == 0,
   "a single two-syllable word must remain under the normal smart translator")
 
+-- 强化版1（2026-11-13）：#hidden 段解析。被「孤立生僻字」过滤移出的行
+-- （装机实录 kukflf 的 过汧）进 hidden_items/hidden_early 供提前上屏计量，
+-- 菜单（translator yield）不消费；计数不符整体判坏、fail-open 为空。
+decode_output = table.concat({
+  "0 0 1 0 1 1 1 3 2 0",
+  "过滑方\tku kf lf\t-24.9797097\t-24.9797097\t1\t0:0,3:2,6:4,9:6\t0\t0",
+  "过滑方\tku kf lf\t-24.9797097\t-24.9797097\t1\t0:0,3:2,6:4,9:6\t0\t0",
+  "#hidden 0 1",
+  "过汧\tku kfl\t-28.4986929\t-28.4986929\t1\t0:0,3:2,6:5\t0\t0",
+  "",
+}, "\n")
+local view = native.decode_with_early("kukflf")
+assert(view and #view.items == 1 and view.items[1].text == "过滑方",
+  "visible rows must exclude hidden rare rows")
+assert(view and #view.early == 1, "hidden section must not leak into early rows")
+assert(view.hidden_items and #view.hidden_items == 0,
+  "hidden bucket counts must be honored (final=0)")
+assert(view.hidden_early and #view.hidden_early == 1
+    and view.hidden_early[1].text == "过汧"
+    and math.abs(view.hidden_early[1].confidence + 28.4986929) < 1e-6
+    and view.hidden_early[1].raw_lengths[6] == 5,
+  "hidden early rows must carry confidence and pathmap")
+ctx.input = "kukflf"
+segment._end = 6
+yielded = {}
+native.translator.func("kukflf", segment, env)
+local leaked = false
+for _, candidate in ipairs(yielded) do
+  if candidate.text == "过汧" then leaked = true end
+end
+assert(not leaked, "hidden rows must never yield as menu candidates")
+decode_output = table.concat({
+  "0 0 1 0 1 1 1 3 2 0",
+  "过滑方\tku kf lf\t-24.9797097\t-24.9797097\t1\t0:0,3:2,6:4,9:6\t0\t0",
+  "过滑方\tku kf lf\t-24.9797097\t-24.9797097\t1\t0:0,3:2,6:4,9:6\t0\t0",
+  "#hidden 2 0",
+  "过汧\tku kfl\t-28.4986929\t-28.4986929\t1\t0:0,3:2,6:5\t0\t0",
+  "",
+}, "\n")
+local broken = native.decode_with_early("kukflf")
+assert(broken and #broken.items == 0,
+  "hidden count mismatch must fail open to an empty view")
+
 yielded = {}
 local punct = {
   start = 0,
