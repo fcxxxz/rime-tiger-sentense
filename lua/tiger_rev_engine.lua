@@ -4,25 +4,27 @@
 -- completion、组句语义各有坑——词库路线三连修：基础码表每字唯一精确码
 -- 查不到同音字 → 音节表无组句 → Ctrl+R 探测错表），改为直接复用主输入
 -- 的 libtigerengine：反查段码流喂 decode_static（纯静态、无用户学习污染），
--- 引擎组句候选原样上屏，虎码注释由 rev_tiger_comment 照加。
+-- 引擎组句候选原样上屏。
 --
 -- 码式（tiger_reverse_mode 的 rev_flypy/rev_full option）：
---   zrm（默认）——码流直接喂 zrm lexicon 的引擎；
---   flypy       ——码流直接喂 flypy lexicon 的引擎；
---   pinyin      ——全拼串先贪心切音节（tiger_rev_syllables 数据模块，
---                 build_rev_dicts.py 数据驱动学出），转 zrm 码流再解码，
---                 复用 zrm 引擎（模型是字元三元，方案间共享）。
+--   pinyin（默认）——全拼串贪心切音节（tiger_rev_syllables，数据驱动学出）
+--                   转 zrm 码流，复用 zrm 引擎（字元三元模型方案间共享）；
+--   zrm / flypy    ——双拼码流直接喂对应 lexicon 的引擎。
 --
--- 候选 quality 落在对应码式质量带内（1001/2001/3001），由
--- tiger_reverse_mode 的 gate 放行本码式候选。
+-- 单音节（zrm 码流恰 2 键）走 lexicon 二分枚举（全字表，reading_freq 序），
+-- 多音节走模型组句；候选 quality 落码式质量带（1001/2001/3001）交 gate。
+-- 候选注释由本模块直注「〔虎码｜码式名〕」（reverse_lookup_filter 对
+-- lua 候选不注且码式名兼作切换提示，与前端 librime 版本无关）。
 --
--- 引擎/模型/词表缺席时安静返回（反查空，不影响主输入）。
+-- handle 创建（17M lexicon 解析 ~1.6s）在 init 预建两个——落在方案装载期，
+-- 首次反查按键零等待；引擎/模型/词表缺席时安静返回（反查空）。
 local runtime = require("mohu_runtime")
 local syllables = require("tiger_rev_syllables")
 
 local M = { translator = {} }
 
 local QUALITY = { zrm = 1001.0, flypy = 2001.0, pinyin = 3001.0 }
+local MODE_NAME = { zrm = "自然码", flypy = "小鹤", pinyin = "全拼" }
 local BEAM = 200
 local MAX_CANDIDATES = 20   -- 多音节组句候选上限（单音节走 lexicon 枚举）
 local MAX_ENUM = 50         -- 单音节同码字枚举上限（防御；gj=27、ni=23）
@@ -30,6 +32,41 @@ local MAX_ENUM = 50         -- 单音节同码字枚举上限（防御；gj=27�
 local handles = {}      -- scheme → engine handle
 local engine_module     -- tigerengine 表
 local load_attempted = false
+local rev_db            -- ReverseLookup("tiger.extended")（虎码注释直注）
+
+-- 虎码注释直注：ReverseLookup 对 lua 候选不可靠（实机 reverse_lookup_filter
+-- 不注），按字查码拼接；整句候选逐字连注。库缺席时注释只带码式名。
+local function utf8_chars_of(text)
+  local chars = {}
+  local index = 1
+  while index <= #text do
+    local byte = text:byte(index)
+    local width = byte < 0x80 and 1 or byte < 0xE0 and 2 or byte < 0xF0 and 3 or 4
+    chars[#chars + 1] = text:sub(index, index + width - 1)
+    index = index + width
+  end
+  return chars
+end
+
+local function utf8_len(text)
+  return #utf8_chars_of(text)
+end
+
+local function tiger_codes(text)
+  if rev_db and type(text) == "string" then
+    local codes = {}
+    for _, ch in ipairs(utf8_chars_of(text)) do
+      local ok, code = pcall(rev_db.lookup, rev_db, ch)
+      if ok and type(code) == "string" and code ~= "" then
+        codes[#codes + 1] = code
+      end
+    end
+    if #codes == utf8_len(text) and #codes > 0 then
+      return table.concat(codes, " ")
+    end
+  end
+  return nil
+end
 
 local function load_engine_module()
   if load_attempted then return engine_module end
@@ -199,6 +236,20 @@ local function seg_is_reverse_lookup(seg)
   return false
 end
 
+function M.translator.init(env)
+  -- handle 创建是 17M lexicon 文本解析（实测 ~1.6s/个），懒建会卡在首次
+  -- 反查按键上——装载期预建 zrm+flypy 两个（全拼复用 zrm），打字路径
+  -- 零等待；缺席环境（无 dylib/模型）安静跳过。
+  pcall(engine_handle, "zrm")
+  pcall(engine_handle, "flypy")
+  -- 虎码注释库（tiger.extended.reverse.bin，装机已有）；缺席时注释退化为
+  -- 仅码式名。
+  if type(ReverseLookup) == "function" then
+    local ok, db = pcall(ReverseLookup, "tiger.extended")
+    if ok and db and type(db.lookup) == "function" then rev_db = db end
+  end
+end
+
 function M.translator.func(input, seg, env)
   if not seg_is_reverse_lookup(seg) then return end
   local ctx = env.engine.context
@@ -233,8 +284,12 @@ function M.translator.func(input, seg, env)
   end
   if not texts or #texts == 0 then return end
   local quality = QUALITY[scheme]
+  local mode_name = MODE_NAME[scheme]
   for _, text in ipairs(texts) do
-    local cand = Candidate("rev_engine", seg.start, seg._end, text, "")
+    local codes = tiger_codes(text)
+    local comment = codes and ("〔" .. codes .. "｜" .. mode_name .. "〕")
+        or ("〔" .. mode_name .. "〕")
+    local cand = Candidate("rev_engine", seg.start, seg._end, text, comment)
     cand.quality = quality
     yield(cand)
   end

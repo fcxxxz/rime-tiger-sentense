@@ -107,11 +107,10 @@ engine:
     - lua_translator@*mohu_pin*panacea_translator       # 加词万灵药
   filters:
     - lua_filter@*mohu_charset_filter                    # 常用字/全字集（extended_charset 开关，与魔虎同机制）
-    - lua_filter@*tiger_reverse_mode*filter         # 反查码式门控（Ctrl+R 循环）
+    - lua_filter@*tiger_reverse_mode*filter         # 反查码式门控（Ctrl+R 循环）+ 段提示
     - lua_filter@*mohu_pin*pin_filter                    # 置顶词注入
     - lua_filter@*mohu_candidate_override*override_order_filter  # 调序
     - lua_filter@*mohu_candidate_override*override_filter        # 隐藏/恢复
-    - reverse_lookup_filter@rev_tiger_comment            # 反查候选注释虎码
     - simplifier@chaifen                                 # 虎码拆分注释
     - simplifier@pinyinhint                              # 拼音注释
     - simplifier@emoji                                   # emoji 联想
@@ -189,20 +188,13 @@ reverse_lookup:
   tag: reverse_lookup
   prefix: "`"
   suffix: "'"
-  # 兜底静态提示；动态版（当前码式 + Ctrl+R 下一态）由
-  # tiger_reverse_mode 的 filter 每键刷新，lua 失效时才露出本值。
-  tips: "〔反查·全拼｜Ctrl+R 切双拼〕"
+  # 兜底静态提示（中性）；动态版（当前码式 + Ctrl+R 下一态）由
+  # tiger_reverse_mode 的 filter 每键刷新（旧版 librime 不支持段 prompt
+  # 改写时露出本值），候选注释尾部常驻码式名（tiger_rev_engine 直注）。
+  tips: "〔反查｜Ctrl+R 换码式〕"
 
-rev_tiger_comment:
-  tags: [reverse_lookup]
-  # tiger 单表无独立编译产物（仅作 tiger.extended 的 import 源，无
-  # tiger.reverse.bin），反查注释取 tiger.extended 的 reverse 库（内容
-  # 为其超集）。2026-11-11 装机实测 tiger 指向报 reversedb 缺失。
-  dictionary: tiger.extended
-  overwrite_comment: true
-  comment_format:
-    - "xform/^/〔/"
-    - "xform/$/〕/"
+# 反查候选注释（〔虎码｜码式名〕）由 tiger_rev_engine 直注，不再挂
+# reverse_lookup_filter（实机对 lua 候选不注，且 overwrite 会盖掉码式名）。
 
 # 魔虎用户词套件配置（共享 mohu.yaml；调序库独立——虎码码空间与双拼不同）
 mohu:

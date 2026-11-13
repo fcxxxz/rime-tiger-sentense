@@ -66,6 +66,8 @@ if model_probe then
     check("zrm `nihk 出候选（tags 判定+decode+yield 全链）", #out > 0)
     check("zrm `nihk 首选 你好", out[1] and out[1].text == "你好")
     check("候选 quality 落 zrm 带", out[1] and out[1].quality == t.quality.zrm)
+    check("注释带码式名（自然码）", out[1] and out[1].comment
+          and out[1].comment:find("自然码", 1, true) ~= nil)
 
     out = run_case("`nihao", { rev_full = true, rev_flypy = false })
     check("pinyin `nihao 出候选（贪心切分→zrm 引擎）", #out > 0)
