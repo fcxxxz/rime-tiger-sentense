@@ -200,8 +200,16 @@ def crop_rev_lexicons():
         with src.open(encoding='utf-8') as fin, out.open('w', encoding='utf-8') as fout:
             for line in fin:
                 total += 1
-                code = line.split('\t', 1)[0]
-                if len(code) == 2 or line.startswith('#'):
+                if line.startswith('#'):
+                    fout.write(line)
+                    kept += 1
+                    continue
+                parts = line.split('\t', 2)
+                code = parts[0]
+                text = parts[1] if len(parts) > 1 else ''
+                # 反查码流纯音节（2 键），只保留单字行；词条缩码（xm=下面）
+                # 和多字词条一并排除，否则引擎把词路径打分高于单字路径。
+                if len(code) == 2 and len(text) == 1:
                     fout.write(line)
                     kept += 1
         report.append(f'[{scheme}] {out.name}: {kept}/{total} 行 '
