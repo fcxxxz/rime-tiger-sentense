@@ -131,18 +131,21 @@ table.sort(sorted_lengths, function(a, b) return a > b end)
 -- 全拼串 → 全部合法切分的 zrm 码流（DAG 记忆化枚举）。贪心最长单切分在
 -- 连续全拼上系统性出错（jidangeng 切 ji+dang+eng 而非 ji+dan+geng），
 -- 歧义交给引擎：全部切分并行解码、按路径置信合并。' 为用户手动音节
--- 分隔（段内仍枚举，段间笛卡尔）；切不出的段返回 nil（候选静默空）。
+-- 分隔（段内仍枚举，段间笛卡尔）。
+-- 容错：段尾切不出（打字中间态，如 jidangengx 的 x / nid 的 d）时退到
+-- 最长合法前缀的切分，非法尾丢弃——上一个合法态的候选不闪断。
 local MAX_STREAMS = 8
 
-local function chunk_streams(chunk, memo)
+local function chunk_streams(chunk, upto, memo)
+  upto = upto or #chunk
   memo = memo or {}
   local function cut_from(pos)
     if memo[pos] then return memo[pos] end
     local result = {}
-    if pos > #chunk then
+    if pos > upto then
       result[1] = ""
     else
-      for len = 1, math.min(6, #chunk - pos + 1) do
+      for len = 1, math.min(6, upto - pos + 1) do
         local syl = chunk:sub(pos, pos + len - 1)
         local mapped = syllables.zrm[syl]
         if mapped then
@@ -160,10 +163,22 @@ local function chunk_streams(chunk, memo)
   return cut_from(1)
 end
 
+-- 段枚举：全串无解时找最长合法前缀（可达性：cut_from(1) 空 → 从尾扫
+-- 每个断点 pos-1 使 [pos..end] 有一个音节起头？直接按前缀长度递减试）。
+local function chunk_streams_tolerant(chunk)
+  local out = chunk_streams(chunk)
+  if #out > 0 then return out end
+  for prefix = #chunk - 1, 1, -1 do
+    local trimmed = chunk_streams(chunk, prefix)
+    if #trimmed > 0 then return trimmed end
+  end
+  return {}
+end
+
 local function pinyin_streams(code)
   local streams = { "" }
   for chunk in code:gmatch("[^']+") do
-    local chunk_out = chunk_streams(chunk)
+    local chunk_out = chunk_streams_tolerant(chunk)
     if #chunk_out == 0 then return nil end
     local merged = {}
     for _, head in ipairs(streams) do
@@ -186,10 +201,13 @@ local function pinyin_to_zrm(code)
   return streams and streams[1] or nil
 end
 
--- decode_static 输出：header 一行（数字空格串）+ 候选行 text\tseg\tscore
--- \tconf\t…。取 (text, conf)——conf 为引擎路径置信，跨切分可比较。
+-- decode_static 输出（include_early=true）：header 一行（10 数字字段，
+-- 第 5 个 n_final 是终态行数）+ 候选行 text\tseg\tscore\tconf\t…，行序
+-- 终态在前、early（未完成尾的进行态组句）在后。中间态（尾音节不全）
+-- 只有 early 行——打字过程即出候选，不必打完全码。conf 为引擎路径
+-- 置信，跨切分/跨终态-early 可比较。
 local function decode_rows(h, code)
-  local ok, out = pcall(engine_module.decode_static, h, code, false)
+  local ok, out = pcall(engine_module.decode_static, h, code, true)
   if not ok or type(out) ~= "string" or #out == 0 then return nil end
   local first = true
   local rows = {}

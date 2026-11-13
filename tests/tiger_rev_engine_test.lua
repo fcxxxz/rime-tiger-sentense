@@ -32,7 +32,7 @@ check("xian 含整音节切分 xm", streams_of("xian")["xm"] == true)
 check("lv → lv", t.pinyin_to_zrm("lv") == "lv")
 check("er → er", t.pinyin_to_zrm("er") == "er")
 check("单音节 ni → ni", t.pinyin_to_zrm("ni") == "ni")
-check("切不出的串 → nil", t.pinyin_to_zrm("nix") == nil)
+check("nix 容错截断到 ni", t.pinyin_to_zrm("nix") == "ni")
 check("空串 → 空流", t.pinyin_to_zrm("") == "")
 
 local jd = streams_of("jidangeng")
@@ -40,6 +40,11 @@ check("jidangeng 含正确切分 ji+dan+geng", jd["jidjgg"] == true)
 check("jidangeng 含贪心切分 ji+dang+eng（引擎自选）", jd["jidheg"] == true)
 check("xianhua 两切分 xian+hua / xi+an+hua", streams_of("xianhua")["xmhw"] == true)
 check("切分流上限 8 内", #t.pinyin_streams("jidangeng") <= 8)
+
+-- 容错：打字中间态非法尾退到最长合法前缀，候选不闪断
+check("jidangengx 截断 x 含 jidjgg", streams_of("jidangengx")["jidjgg"] == true)
+check("nid 截断 d 含 ni", streams_of("nid")["ni"] == true)
+check("纯非法串 → nil", t.pinyin_streams("vwx") == nil)
 
 -- 质量带落位（tiger_reverse_mode 的带：zrm 900–1900 / flypy 1900–2900 /
 -- pinyin 2900–3900）
@@ -98,6 +103,18 @@ if model_probe then
       if c.text == "鸡蛋羹" then found = true break end
     end
     check("pinyin `jidangeng 含 鸡蛋羹", found)
+
+    -- 中间态（early 行）：打字过程即出候选，不必打完全码
+    out = run_case("`nih", { rev_full = false, rev_flypy = false })
+    check("zrm `nih 中间态出候选（early）", #out > 0)
+    out = run_case("`nihkx", { rev_full = false, rev_flypy = false })
+    check("zrm `nihkx 非法尾仍出候选", #out > 0)
+    out = run_case("`jidangengx", { rev_full = true, rev_flypy = false })
+    found = false
+    for _, c in ipairs(out) do
+      if c.text == "鸡蛋羹" then found = true break end
+    end
+    check("pinyin `jidangengx 容错含 鸡蛋羹", found)
 
     out = run_case("nihk", { rev_full = false, rev_flypy = false })
     check("非 ` 前缀不响应", #out == 0)
