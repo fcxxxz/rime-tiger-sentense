@@ -48,7 +48,9 @@ local REQUIRED_STRONG = 2        -- 强证据：连续 2 键
 local MAX_NEUTRAL_GAP = 3        -- 无达标前缀时 tracker 最多保留 3 键
 local MIN_TOTAL_KEYS = 4      -- 全句（含已提交）至少 >4 键才允许证据
 local MIN_LIVE_KEYS = 3       -- 提交时存活码至少 3 键
-local DEFAULT_PENDING_CHAR_CAP = 4  -- 未上屏字数帽（0 关闭），schema 可调
+local DEFAULT_PENDING_CHAR_CAP = 0  -- 未上屏字数帽（默认关闭）：100k 实装
+-- 消融帽=4 为 −0.59pp（级联锁死，见 tiger.schema.yaml 注释与 2026-11-13
+-- 复测），证据门修好前不默认启用；schema tiger/pending_char_cap 可调。
 
 local engine_module
 local engine_module_attempted = false
