@@ -130,8 +130,18 @@ local function decode_texts(h, code)
   return texts
 end
 
+-- librime-lua 的 Segment 没有 has_tag 方法（旧版亦然），用 tags 表遍历
+-- （对齐 mohu.lua 的 segment_is_reverse_lookup 写法）。
+local function seg_is_reverse_lookup(seg)
+  if not seg or not seg.tags then return false end
+  for tag in pairs(seg.tags) do
+    if tag == "reverse_lookup" then return true end
+  end
+  return false
+end
+
 function M.translator.func(input, seg, env)
-  if not (seg and seg.has_tag and seg:has_tag("reverse_lookup")) then return end
+  if not seg_is_reverse_lookup(seg) then return end
   local ctx = env.engine.context
   local raw = type(ctx.input) == "string" and ctx.input or ""
   if raw:sub(1, 1) ~= "`" then return end

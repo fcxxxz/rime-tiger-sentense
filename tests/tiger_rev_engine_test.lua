@@ -32,6 +32,60 @@ check("zrm quality 在带内", t.quality.zrm >= 900 and t.quality.zrm < 1900)
 check("flypy quality 在带内", t.quality.flypy >= 1900 and t.quality.flypy < 2900)
 check("pinyin quality 在带内", t.quality.pinyin >= 2900 and t.quality.pinyin < 3900)
 
+-- 集成段：mock librime-lua 全局（Candidate/yield/Segment 形状）驱动
+-- translator.func 全链——覆盖 tags 表判定、option 判型、decode→yield。
+-- 引擎件（dylib/模型/lexicon）缺席时整段跳过（CI 无模型）。
+local home = os.getenv("HOME") or ""
+local model = home .. "/Library/Rime/mohu/model/mohu-sentence-ngram-v5.bin"
+local model_probe = io.open(model, "r")
+if model_probe then
+    model_probe:close()
+    -- mock rime_api：mohu_runtime 经 get_user_data_dir 解析引擎/词表路径，
+    -- 集成段指向实机用户目录（模型/dylib/lexicon 都在那里）。
+    rawset(_G, "rime_api", {
+        get_user_data_dir = function() return home .. "/Library/Rime" end,
+    })
+    local yielded = {}
+    Candidate = function(_, _, _, text, comment)  -- 全局 mock
+        return { text = text, comment = comment, quality = nil }
+    end
+    yield = function(c) yielded[#yielded + 1] = c end
+
+    local function run_case(input, options)
+        for i = #yielded, 1, -1 do yielded[i] = nil end
+        local ctx = {
+            input = input,
+            get_option = function(_, name) return options[name] == true end,
+        }
+        local seg = { tags = { reverse_lookup = true }, start = 1, _end = 5 }
+        m.translator.func(nil, seg, { engine = { context = ctx } })
+        return yielded
+    end
+
+    local out = run_case("`nihk", { rev_full = false, rev_flypy = false })
+    check("zrm `nihk 出候选（tags 判定+decode+yield 全链）", #out > 0)
+    check("zrm `nihk 首选 你好", out[1] and out[1].text == "你好")
+    check("候选 quality 落 zrm 带", out[1] and out[1].quality == t.quality.zrm)
+
+    out = run_case("`nihao", { rev_full = true, rev_flypy = false })
+    check("pinyin `nihao 出候选（贪心切分→zrm 引擎）", #out > 0)
+    check("pinyin `nihao 首选 你好", out[1] and out[1].text == "你好")
+
+    out = run_case("`nihc", { rev_full = false, rev_flypy = true })
+    check("flypy `nihc 出候选", #out > 0)
+
+    out = run_case("nihk", { rev_full = false, rev_flypy = false })
+    check("非 ` 前缀不响应", #out == 0)
+
+    local seg_plain = { tags = { abc = true }, start = 0, _end = 4 }
+    m.translator.func(nil, seg_plain,
+                      { engine = { context = { input = "`nihk",
+                                               get_option = function() return false end } } })
+    check("非反查段不响应", #yielded == 0)
+else
+    print("skip - 引擎集成段（模型不在 " .. home .. "/Library/Rime，CI 环境）")
+end
+
 if failures > 0 then
     print(("FAILED %d checks"):format(failures))
     os.exit(1)

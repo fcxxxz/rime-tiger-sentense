@@ -123,10 +123,16 @@ function M.filter.func(input, env)
   local mode = current_mode(context)
   -- 动态码式提示：把反查段的 prompt 刷成「当前码式 + Ctrl+R 下一态」，
   -- 每（含 set_option 触发的）翻译刷新一次；prompt 读写失败不影响门控。
+  -- Segment 无 has_tag 方法，用 tags 表遍历（见 mohu.lua 同款）。
   pcall(function()
     local seg = context.composition:back()
-    if seg and seg.has_tag and seg:has_tag("reverse_lookup") then
-      seg.prompt = mode.tip
+    if seg and seg.tags then
+      for tag in pairs(seg.tags) do
+        if tag == "reverse_lookup" then
+          seg.prompt = mode.tip
+          break
+        end
+      end
     end
   end)
   for cand in input:iter() do
