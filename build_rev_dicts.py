@@ -182,13 +182,46 @@ def dump_syllables(mappings):
     return path
 
 
+def crop_rev_lexicons():
+    """从魔然全量 lexicon（含 65 万行辅码细分，主输入辅打法用）裁出
+    反查版：只保留 2 键音节行（反查码流纯音节，辅码行零引用）。
+    17M/16M → ~200KB，引擎 create 也从秒级降到毫秒级。"""
+    srcs = {
+        'zrm': HERE / 'tiger_sentence_native/data/zrm/mohu_zrm.lexicon.txt',
+        'flypy': HERE / 'tiger_sentence_native/data/flypy/mohu_flypy.lexicon.txt',
+    }
+    report = []
+    for scheme, src in srcs.items():
+        if not src.exists():
+            report.append(f'[{scheme}] 源 lexicon 缺失，跳过: {src}')
+            continue
+        out = src.with_name(src.name.replace('.lexicon.txt', '.rev.lexicon.txt'))
+        total = kept = 0
+        with src.open(encoding='utf-8') as fin, out.open('w', encoding='utf-8') as fout:
+            for line in fin:
+                total += 1
+                code = line.split('\t', 1)[0]
+                if len(code) == 2 or line.startswith('#'):
+                    fout.write(line)
+                    kept += 1
+        report.append(f'[{scheme}] {out.name}: {kept}/{total} 行 '
+                      f'({out.stat().st_size // 1024}KB)')
+    return report
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--learn-only', action='store_true',
                     help='只学映射并打印报告，不写词典')
     ap.add_argument('--syllables-only', action='store_true',
                     help='只生成 lua/tiger_rev_syllables.lua 音节映射模块')
+    ap.add_argument('--lexicon-crop', action='store_true',
+                    help='从魔然全量 lexicon 裁反查版（2 键音节行）')
     args = ap.parse_args()
+
+    if args.lexicon_crop:
+        print('\n'.join(crop_rev_lexicons()))
+        return 0
 
     pinyin_entries = parse_rime_dict(PINYIN_DICT, want_weight=True)
     report = []

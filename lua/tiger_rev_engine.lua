@@ -95,18 +95,45 @@ local function load_engine_module()
   return engine_module
 end
 
+-- 反查版 lexicon（build_rev_dicts.py --lexicon-crop 裁剪：只留 2 键音节
+-- 行，~172KB/张；辅码/词条行对纯音节码流零引用）。create 毫秒级，init
+-- 预建无感；两字终态词表门控关闭（虎码方案同款 free 组合——裁剪版无
+-- 词条行，不关门则完整音节串终态全灭）。
+local REV_LEXICON = {
+  zrm = "mohu/data/zrm/mohu_zrm.rev.lexicon.txt",
+  flypy = "mohu/data/flypy/mohu_flypy.rev.lexicon.txt",
+}
+
+local function rev_lexicon_path(scheme)
+  local rel = REV_LEXICON[scheme]
+  if not rel then return nil end
+  local api = rawget(_G, "rime_api")
+  if api and type(api.get_user_data_dir) == "function" then
+    local ok, base = pcall(api.get_user_data_dir)
+    if ok and type(base) == "string" and base ~= "" then
+      base = base:gsub("/+$", "")
+      local probe = io.open(base .. "/" .. rel, "r")
+      if probe then
+        probe:close()
+        return base .. "/" .. rel
+      end
+    end
+  end
+  return nil
+end
+
 local function engine_handle(scheme)
   if handles[scheme] then return handles[scheme] end
   local mod = load_engine_module()
   if not mod then return nil end
-  local paths = runtime.paths()
-  local lexicon = paths.lexicons[scheme]
+  local lexicon = rev_lexicon_path(scheme)
   if not lexicon then return nil end
-  local probe = io.open(lexicon, "r")
-  if not probe then return nil end
-  probe:close()
+  local paths = runtime.paths()
   local ok, h = pcall(mod.create, paths.ngram, lexicon, BEAM, 1)
   if ok and h then
+    if mod.set_two_char_word_gate then
+      pcall(mod.set_two_char_word_gate, h, 0)
+    end
     handles[scheme] = h
     return h
   end
@@ -216,6 +243,9 @@ local function decode_rows(h, code)
       if not line:match("^%d+ %d+ ") then return nil end
       first = false
     else
+      -- 强化版1：#hidden 段是提前上屏的隐藏证据行（引擎孤立生僻过滤移出
+      -- 项），反查菜单不消费，段起始即停读。
+      if line:match("^#hidden ") then break end
       local text, _, _, conf = line:match("^([^\t]+)\t([^\t]*)\t([^\t]*)\t([^\t]*)")
       if text and #rows < MAX_CANDIDATES then
         rows[#rows + 1] = { text = text, conf = tonumber(conf) or 0 }
@@ -345,7 +375,7 @@ function M.translator.func(input, seg, env)
   -- 多音节 → 各切分并行喂模型组句，按路径置信合并去重。
   local rows
   if streams[1] and #streams[1] == 2 and #streams == 1 then
-    local lexicon = runtime.paths().lexicons[handle_scheme]
+    local lexicon = rev_lexicon_path(handle_scheme)
     local texts = lexicon and lexicon_lookup(lexicon, streams[1]) or nil
     if texts then
       rows = {}

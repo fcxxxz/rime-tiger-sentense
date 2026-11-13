@@ -67,12 +67,12 @@ local function file_available(rel_path)
 end
 
 local function available_modes()
-  -- 2026-11-12 反查走引擎模型后探测 lexicon 数据文件（tiger_rev_engine
-  -- 直接喂引擎，无编译产物）；全拼模式复用 zrm lexicon（lua 层切音节）。
+  -- 探测反查裁剪版 lexicon（build_rev_dicts.py --lexicon-crop 产物，
+  -- ~172KB；全拼模式 lua 层切音节后复用 zrm）。
   local checks = {
-    zrm = "mohu/data/zrm/mohu_zrm.lexicon.txt",
-    flypy = "mohu/data/flypy/mohu_flypy.lexicon.txt",
-    pinyin = "mohu/data/zrm/mohu_zrm.lexicon.txt",
+    zrm = "mohu/data/zrm/mohu_zrm.rev.lexicon.txt",
+    flypy = "mohu/data/flypy/mohu_flypy.rev.lexicon.txt",
+    pinyin = "mohu/data/zrm/mohu_zrm.rev.lexicon.txt",
   }
   local available = {}
   for _, mode in ipairs(MODES) do
