@@ -236,7 +236,9 @@ recognizer:
   patterns:
     candidate_manager: "^==[hopwlu]?[a-z]*$"
     punct: '^/([0-9]0?|[A-Za-z]*)$'
-    reverse_lookup: "^`[a-z;'/]*'?$"
+    # 反查段至少 1 字母：空 ` 落回 punct 段（` 符号可正常上屏，且段有
+    # 翻译经过 filter 链——空反查态的码式提示 prompt 才有写入机会）。
+    reverse_lookup: "^`[a-z;'/]+'?$"
 
 punctuator:
   import_preset: symbols

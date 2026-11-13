@@ -105,8 +105,8 @@ function M.processor.func(key_event, env)
   context:set_option("rev_flypy", next_mode.flypy)
   context:set_option("rev_full", next_mode.full)
   -- 部分前端（实机 Squirrel 的旧版 librime）set_option 不触发未确认段
-  -- 重译——候选/提示停在旧码式，用户侧表现为「切换没生效」。显式刷新
-  -- 兜底；绑定缺失时静默（此时靠 option 通知路径）。
+  -- 重译——切换后无候选变化。显式刷新兜底（空反查段的码式提示候选
+  -- 由 tiger_rev_engine 供给，刷新后即显示新码式）。
   if type(context.refresh_non_confirmed_composition) == "function" then
     pcall(context.refresh_non_confirmed_composition, context)
   end
@@ -127,19 +127,18 @@ function M.filter.func(input, env)
     return
   end
   local mode = current_mode(context)
-  -- 动态码式提示：把反查段的 prompt 刷成「当前码式 + Ctrl+R 下一态」，
-  -- 每（含 set_option 触发的）翻译刷新一次；prompt 读写失败不影响门控。
-  -- Segment 无 has_tag 方法，用 tags 表遍历（见 mohu.lua 同款）。
+  -- 动态码式提示：把段的 prompt 与 tips 双写「当前码式 + Ctrl+R 下一态」
+  -- （旧版 librime-lua 绑定差异，任一生效即可见；读写失败不影响门控）。
+  -- 空 ` 态经 recognizer pattern 落回 punct 段（有翻译、filter 会跑），
+  -- 写入条件按 raw 前缀而非段 tag。
   pcall(function()
     local seg = context.composition:back()
-    if seg and seg.tags then
-      for tag in pairs(seg.tags) do
-        if tag == "reverse_lookup" then
-          seg.prompt = mode.tip
-          break
-        end
-      end
-    end
+    if not seg then return end
+    seg.prompt = mode.tip
+  end)
+  pcall(function()
+    local seg = context.composition:back()
+    if seg and seg.tips then seg.tips = mode.tip end
   end)
   for cand in input:iter() do
     if in_band(mode, cand.quality) then

@@ -25,6 +25,12 @@ local M = { translator = {} }
 
 local QUALITY = { zrm = 1001.0, flypy = 2001.0, pinyin = 3001.0 }
 local MODE_NAME = { zrm = "自然码", flypy = "小鹤", pinyin = "全拼" }
+-- 与 tiger_reverse_mode 的 MODES tip 文案同款（空反查码的提示候选）。
+local MODE_TIP = {
+  zrm = "〔反查·自然码｜Ctrl+R 切小鹤〕",
+  flypy = "〔反查·小鹤｜Ctrl+R 切全拼〕",
+  pinyin = "〔反查·全拼｜Ctrl+R 切双拼〕",
+}
 local BEAM = 200
 local MAX_CANDIDATES = 20   -- 多音节组句候选上限（单音节走 lexicon 枚举）
 local MAX_ENUM = 50         -- 单音节同码字枚举上限（防御；gj=27、ni=23）
@@ -289,13 +295,25 @@ function M.translator.func(input, seg, env)
   local raw = type(ctx.input) == "string" and ctx.input or ""
   if raw:sub(1, 1) ~= "`" then return end
   local code = raw:sub(2):gsub("'$", "")
-  if code == "" or code:find("[^a-z']") then return end
 
   local scheme = "zrm"
   if ctx.get_option and ctx:get_option("rev_full") then
     scheme = "pinyin"
   elseif ctx.get_option and ctx:get_option("rev_flypy") then
     scheme = "flypy"
+  end
+
+  -- 空反查码：出码式提示候选（切换后/刚进反查时候选窗首位直接可见，
+  -- 敲字母即被真实候选替换）。段 prompt 通道在旧版 librime-lua 不可写、
+  -- 空段无候选时 filter 也不跑——提示候选是唯一跨版本可见的通道。
+  if code == "" or code:find("[^a-z']") then
+    if code == "" then
+      local cand = Candidate("rev_engine", seg.start, seg._end,
+                             MODE_TIP[scheme], "")
+      cand.quality = QUALITY[scheme]
+      yield(cand)
+    end
+    return
   end
 
   local handle_scheme = scheme == "pinyin" and "zrm" or scheme

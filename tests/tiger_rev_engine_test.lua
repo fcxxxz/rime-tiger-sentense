@@ -120,6 +120,14 @@ if model_probe then
                       { engine = { context = { input = "`nihk",
                                                get_option = function() return false end } } })
     check("非反查段不响应", #yielded == 0)
+
+    -- 空反查码：码式提示候选（切换后/刚进反查的即时反馈通道）
+    out = run_case("`", { rev_full = true, rev_flypy = false })
+    check("空码 yield 码式提示候选", #out == 1 and out[1].text:find("全拼", 1, true) ~= nil)
+    out = run_case("`", { rev_full = false, rev_flypy = false })
+    check("空码提示随码式变（自然码）", #out == 1 and out[1].text:find("自然码", 1, true) ~= nil)
+    out = run_case("`", { rev_full = false, rev_flypy = true })
+    check("空码提示随码式变（小鹤）", #out == 1 and out[1].text:find("小鹤", 1, true) ~= nil)
 else
     print("skip - 引擎集成段（模型不在 " .. home .. "/Library/Rime，CI 环境）")
 end
