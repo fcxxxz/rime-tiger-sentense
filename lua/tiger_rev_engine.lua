@@ -16,8 +16,8 @@
 -- 候选注释由本模块直注「〔虎码｜码式名〕」（reverse_lookup_filter 对
 -- lua 候选不注且码式名兼作切换提示，与前端 librime 版本无关）。
 --
--- handle 创建（17M lexicon 解析 ~1.6s）在 init 预建两个——落在方案装载期，
--- 首次反查按键零等待；引擎/模型/词表缺席时安静返回（反查空）。
+-- handle 懒建：裁剪版 lexicon（~172KB）create 实测 6.6ms，首次反查时建
+-- 无感知；引擎/模型/词表缺席时安静返回（反查空，不影响主输入）。
 local runtime = require("mohu_runtime")
 local syllables = require("tiger_rev_syllables")
 
@@ -324,13 +324,10 @@ local function seg_is_reverse_lookup(seg)
 end
 
 function M.translator.init(env)
-  -- handle 创建是 17M lexicon 文本解析（实测 ~1.6s/个），懒建会卡在首次
-  -- 反查按键上——装载期预建 zrm+flypy 两个（全拼复用 zrm），打字路径
-  -- 零等待；缺席环境（无 dylib/模型）安静跳过。
-  pcall(engine_handle, "zrm")
-  pcall(engine_handle, "flypy")
-  -- 虎码注释库（tiger.extended.reverse.bin，装机已有）；缺席时注释退化为
-  -- 仅码式名。
+  -- handle 懒建（首次反查时）：裁剪版 lexicon 只 172KB/张，create 实测
+  -- 6.6ms，无需装载期预建（全量版 17M 时代曾 1.6s，07bb912 起退役）。
+  -- 虎码注释库（tiger.extended.reverse.bin）装载期建（轻量）；缺席时
+  -- 注释退化为仅码式名。
   if type(ReverseLookup) == "function" then
     local ok, db = pcall(ReverseLookup, "tiger.extended")
     if ok and db and type(db.lookup) == "function" then rev_db = db end
