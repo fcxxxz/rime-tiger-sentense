@@ -92,6 +92,19 @@ for _, schema_id in ipairs({ "mohu_zrm", "mohu_flypy", "other_schema" }) do
     assert(count == 1, schema_id .. " 同步名单恰好包含一次 aux_hint")
 end
 
+-- 并集版（2026-11-16）：单字/整句两生态条目共存，未安装方案的条目为死数据。
+local function list_has(schema_id, want)
+    for _, name in ipairs(option_sync._test_option_names(schema_id)) do
+        if name == want then return true end
+    end
+    return false
+end
+assert(list_has("tiger_sentence", "sentence") and list_has("tiger_sentence", "early_commit"),
+    "tiger_sentence 条目含整句/提前上屏开关")
+assert(list_has("PY_c", "udpf_switch"), "PY_c 条目（rime-tiger 同装）存在")
+assert(list_has("other_schema", "extended_char") and list_has("other_schema", "aux_hint"),
+    "COMMON 为两生态并集")
+
 local function assert_option_state(ctx, expected, message)
     assert(ctx:get_option("aux_hint") == expected, message)
     local persisted = assert(loadfile(state_dir .. "/lua/option_state_data.lua"))()

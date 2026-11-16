@@ -1,4 +1,8 @@
 -- Sync common Rime options across engine contexts.
+-- 2026-11-16 并集版：lua/ 目录为全方案共享，本文件需同时服务整句仓
+-- （tiger_sentence）与用户同装的 rime-tiger 单字全家桶（tiger/tigress/PY_c）。
+-- COMMON 取两生态开关名并集；SCHEMA_OPTIONS 各方案专属名单，未命中落 COMMON。
+-- 未安装的方案条目只是死数据（查表不命中），不产生任何副作用。
 
 local option_state = require("option_state")
 
@@ -19,6 +23,17 @@ end
 local COMMON_OPTIONS = {
   "ascii_punct",
   "full_shape",
+  -- rime-tiger 单字生态（tiger/tigress 及其未列条目的方案）
+  "extended_char",
+  "simplification",
+  "pinyin",
+  "emoji_cn",
+  "input_speed_stat",
+  "chaifen",
+  "mars",
+  "charset_comment_filter",
+  "udpf_switch",
+  -- 魔虎生态（整句仓开发用 mohu_zrm/mohu_flypy 落 COMMON）
   "extended_charset",
   "emoji",
   "inflexible",
@@ -61,6 +76,17 @@ local SCHEMA_OPTIONS = {
     "early_commit",
     "rev_flypy",
     "rev_full",
+  },
+  -- 拼音反查方案（源自 rime-tiger 用户配置；未安装 PY_c 的机器上是死条目）。
+  PY_c = {
+    "ascii_punct",
+    "full_shape",
+    "simplification",
+    "pinyin",
+    "emoji_cn",
+    "mars",
+    "charset_comment_filter",
+    "udpf_switch",
   },
 }
 
