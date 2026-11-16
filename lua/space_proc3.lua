@@ -3,7 +3,7 @@
 空码标顶清屏
 
 将 space_proc3.lua 文件复制到个人文件夹的 lua 目录下。
-然后找到 tiger.schema.yaml，在 engine/processors 下 recognizer 一行的下方加入：
+然后找到 tiger_sentence.schema.yaml（虎码整句方案），在 engine/processors 下 recognizer 一行的下方加入：
 
   - lua_processor@*space_proc3 #标顶空码不上屏
 

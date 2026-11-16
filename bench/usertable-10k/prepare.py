@@ -98,7 +98,7 @@ def main() -> None:
     (BASE / 'tiger_sentence_native/data/tiger').mkdir(parents=True)
     (BASE / 'tiger_sentence_native/mohu-sentence-ngram-v5.bin').symlink_to(
         OURS / 'tiger_sentence_native/mohu-sentence-ngram-v5.bin')
-    shutil.copy2(OURS / 'tiger.schema.yaml', BASE / 'tiger.schema.yaml')
+    shutil.copy2(OURS / 'tiger_sentence.schema.yaml', BASE / 'tiger_sentence.schema.yaml')
     shutil.copy2(HERE / 'driver.lua', BASE / 'driver.lua')
     for name in ('tiger_user_base.lexicon.txt', 'tiger_user_inject.lexicon.txt',
                  'tiger_user.dict.yaml'):

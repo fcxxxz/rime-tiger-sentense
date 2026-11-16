@@ -15,7 +15,7 @@ schema:
     # 依赖该方案的标准翻译器在部署时编译。
     - mohu_flypy_sentence_core
     - mohu_charset
-    - tiger
+    - tiger_sentence
 
 switches:
   - name: ascii_mode
@@ -367,7 +367,7 @@ reverse_tiger:
   # 本翻译器响应的输入分段标签；需与分段器识别出的标签对应。
   tag: reverse_tiger
   # 系统词典名，对应同名 dict.yaml；空字符串表示不加载系统词典。
-  dictionary: tiger
+  dictionary: tiger_sentence
   # 是否输出未完成编码的补全候选；true 开启，false 关闭，仅作用于本翻译器。
   enable_completion: true
   # 进入此反查或造词功能的引导字符；不是补全候选的匹配前缀。
@@ -380,7 +380,7 @@ reverse_tiger_backtick:
   # 本翻译器响应的输入分段标签；需与分段器识别出的标签对应。
   tag: reverse_tiger_backtick
   # 系统词典名，对应同名 dict.yaml；空字符串表示不加载系统词典。
-  dictionary: tiger
+  dictionary: tiger_sentence
   # 是否输出未完成编码的补全候选；true 开启，false 关闭，仅作用于本翻译器。
   enable_completion: true
   # 进入此反查或造词功能的引导字符；不是补全候选的匹配前缀。

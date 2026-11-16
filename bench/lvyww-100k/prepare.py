@@ -41,7 +41,7 @@ shutil.copytree(OURS / 'tiger_sentence_native', new / 'tiger_sentence_native',
 (new / 'tiger_sentence_native/data/tiger').mkdir(parents=True)
 shutil.copy2(OURS / 'tiger_sentence_native/data/tiger/tiger.lexicon.txt',
              new / 'tiger_sentence_native/data/tiger/tiger.lexicon.txt')
-shutil.copy2(OURS / 'tiger.schema.yaml', new / 'tiger.schema.yaml')
+shutil.copy2(OURS / 'tiger_sentence.schema.yaml', new / 'tiger_sentence.schema.yaml')
 (new / 'tiger_sentence_native/mohu-sentence-ngram-v5.bin').symlink_to(
     OURS / 'tiger_sentence_native/mohu-sentence-ngram-v5.bin')
 

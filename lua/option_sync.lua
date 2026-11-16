@@ -51,8 +51,8 @@ local SCHEMA_OPTIONS = {
     "quick_code_hint",
     "aux_hint",
   },
-  -- 虎码方案：整句/提前上屏开关与反查码式（rev_flypy/rev_full）持久化。
-  tiger = {
+  -- 虎码整句方案（id=tiger_sentence）：整句/提前上屏开关与反查码式（rev_flypy/rev_full）持久化。
+  tiger_sentence = {
     "ascii_punct",
     "full_shape",
     "extended_charset",

@@ -1,10 +1,10 @@
-# Rime dictionary: tiger
+# Rime dictionary: tiger_sentence
 # encoding: utf-8
 # 虎整码表统一口径（build_tiger_dict.py 生成）：常用字候选序=虎整 codes.txt 行序；
 # 生僻字（不在虎整表）按四码全码回填，Ctrl+X 全字集可达。
 
 ---
-name: tiger
+name: tiger_sentence
 version: "2026.11.11"
 sort: by_weight
 use_preset_vocabulary: false

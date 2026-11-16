@@ -8,6 +8,6 @@ for _, scheme in ipairs({"zrm", "flypy"}) do
     assert(not s:find("fixed_legacy", 1, true))
     local shim = read("mohu_" .. scheme .. "_sentence_core.schema.yaml")
     assert(shim:find("script_translator", 1, true))
-    assert(s:find("dictionary: tiger", 1, true))
+    assert(s:find("dictionary: tiger_sentence", 1, true))
 end
 print("Unified dictionary schema configuration tests passed")

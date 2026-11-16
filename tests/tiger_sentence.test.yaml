@@ -1,4 +1,4 @@
-schema: tiger
+schema: tiger_sentence
 # 指向构建产物 dist-zrm（make dist-zrm）：根目录 dist/ 是历史遗留的陈旧
 # 快照，会让集成测试跑在旧代码上（同 mohu_candidate_override.test.yaml
 # 的 2026-10-13 教训）。mira 宿主（Lua 5.5）装载不了 5.4 的 dylib，整句
@@ -41,7 +41,7 @@ deploy:
       # 可用列表仅 [自然码]，循环为空转（正确行为）；三式循环与缺席码式
       # 跳过的逻辑由 tests/tiger_reverse_mode_test.lua 单测覆盖，真实部署
       # （mohu_pinyin 按依赖编译）另行验证。
-      # 码表合并（rime-tiger 移植版）：一简出常用字；tiger.user 层 ; 快符可用；
+      # 码表合并（rime-tiger 移植版）：一简出常用字；tiger_sentence.user 层 ; 快符可用；
       # 生僻字在常用字模式下隐藏。
       - send: u
         assert: has_text(cand, '的')

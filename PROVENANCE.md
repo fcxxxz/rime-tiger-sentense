@@ -3,6 +3,12 @@
 本仓（`整句/`）于 2026-11-10 从魔虎仓 `/Users/fuchuxuan/输入法/rime-tiger` 一次性迁出建立。
 魔虎仓自此对本仓只读——所有演进在本仓进行。
 
+> **2026-11-16 更名**：Rime 方案层 `tiger` → `tiger_sentence`（schema_id 与
+> `tiger.schema.yaml`/`tiger.dict.yaml`/`tiger.extended.dict.yaml`/`tiger.user.dict.yaml`
+> 四文件，git mv 保留历史），腾出 `tiger` 给上游 fcxxxz 单字方案同装共存。
+> 引擎层命名不变（libtigerengine、`mohu/data/tiger/`、schema `tiger:/` 配置节、
+> lua 组件 `tiger_*.lua`）。下文所记迁出时（2026-11-10）文件名保留原貌。
+
 - 来源仓快照：HEAD `56fb959d51f62df5cbf94ed35135bc43522e2a14`，工作树另有 38 个未提交变更
   （基线存档：`git -C <魔虎仓> status --porcelain`，与 `/tmp/mohu-baseliine-status.txt` 一致）。
 

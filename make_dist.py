@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / 'dist'
-STAGE = OUT / 'tiger-sentence'
+STAGE = OUT / 'tiger_sentence'
 
 # 2026-11-11 瘦身：zrm/flypy 双拼运行库（.words 240万行 ×2、其 sentence_core
 # 编译钩子、custom_phrases）不随虎包——虎方案单独安装时 words 永不编译，
@@ -18,7 +18,7 @@ STAGE = OUT / 'tiger-sentence'
 ROOT_FILES = [
     'LICENSE', 'README.md', 'default.yaml', 'punctuation.yaml', 'symbols.yaml',
     'key_bindings.yaml', 'mohu.yaml', 'mohu_defs.yaml',
-    'tiger.schema.yaml', 'tiger.dict.yaml', 'tiger.extended.dict.yaml', 'tiger.user.dict.yaml',
+    'tiger_sentence.schema.yaml', 'tiger_sentence.dict.yaml', 'tiger_sentence.extended.dict.yaml', 'tiger_sentence.user.dict.yaml',
     'mohu_charset.dict.yaml', 'mohu_charset.schema.yaml',
 ]
 DIRS = ['lua', 'opencc']
@@ -62,7 +62,7 @@ def main() -> None:
         '从 Release 下载 mohu-sentence-ngram-v5.bin 放入本目录后重新部署。\n', encoding='utf-8')
     (STAGE / 'mohu/config').mkdir()
 
-    zip_path = OUT / 'tiger-sentence-latest.zip'
+    zip_path = OUT / 'tiger_sentence-latest.zip'
     if zip_path.exists():
         zip_path.unlink()
     with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as zf:

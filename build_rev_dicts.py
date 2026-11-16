@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """生成双拼单字反查词典 mohu_rev_{zrm,flypy}.dict.yaml。
 
-背景（2026-11-12 装机反馈「反查几乎不可用」）：tiger 方案的 ` 反查三码式
+背景（2026-11-12 装机反馈「反查几乎不可用」）：虎整方案的 ` 反查三码式
 里 rev_zrm/rev_flypy 曾配 mohu_zrm/mohu_flypy（基础码表）+ .codes prism。
 基础码表是「每字唯一精确码」（ni 下只有 你，泥=nik、尼=nic）——反查用户
 恰恰不知道形码，双拼反查名存实亡。本脚本从三张已入库表数据驱动地重建

@@ -1,7 +1,9 @@
-# Rime schema: tiger
+# Rime schema: tiger_sentence
 # encoding: utf-8
 #
 # 【虎码·整句】单方案（自 fcxxxz/rime-tiger 移植后并入魔虎框架）。
+# 2026-11-16 起方案 id 由 tiger 改为 tiger_sentence：tiger 留给上游单字方案，
+# 两者同装共存。引擎层命名不变（libtigerengine、data/tiger/、tiger:/）。
 # 整句（sentence 开关，默认开）：连续虎码经原生引擎（libtigerengine +
 # v5 字元三元模型，data/tiger/tiger.lexicon.txt）出整句候选，字母键由
 # tiger_mode_proc 接管追加，不受 4 码顶功限制；引擎不可用时自动退化为
@@ -13,7 +15,7 @@
 # （mohu_pin）、Shift+Delete 删词（两段式含引擎反学习）、Ctrl+方向键
 # 调序置顶（mohu_candidate_override）、`==` 打开管理器
 # （mohu_candidate_manager）。
-# 码表数据层合并：常用字与全字集在 tiger 主码表（常用字带简码，生僻字
+# 码表数据层合并：常用字与全字集在 tiger_sentence 主码表（常用字带简码，生僻字
 # 挂四码全码）；字集切换沿用魔虎 extended_charset 开关（Ctrl+X）。
 # 敲 ` 键进入反查（模型解码；Ctrl+R 循环 自然码/小鹤双拼 → 全拼）。
 
@@ -31,7 +33,7 @@ schema:
     Ctrl+X 切换 常用字/全字集。
     敲 ` 键反查（Ctrl+R 循环 双拼/全拼，模型组句）；== 打开候选管理。
   name: "虎码·整句"
-  schema_id: tiger
+  schema_id: tiger_sentence
   # 显式版本号须高于小狼毫自带副本（0.9），否则部署时用户副本会被清进 trash/。
   version: "2.0"
 
@@ -126,11 +128,11 @@ speller:
   max_code_length: 4
   # / 与 = 不入码表，供 == 管理器与 / 符号命令前缀（recognizer 接管）。
   alphabet: ";'=zyxwvutsrqponmlkjihgfedcba/"
-  # 分号引导的快符（;q ：“ 等，住在 tiger.user 层）自动上屏。
+  # 分号引导的快符（;q ：“ 等，住在 tiger_sentence.user 层）自动上屏。
   auto_select_pattern: ^;\w+
 
 translator:
-  dictionary: tiger.extended
+  dictionary: tiger_sentence.extended
   enable_charset_filter: false
   enable_encoder: false
   enable_sentence: false
@@ -143,7 +145,7 @@ translator:
     - "xform/~/ /"
 
 # 原生整句引擎（与魔虎双拼方案共用 libtigerengine、v5 模型与用户学习层；
-# 词表独立：mohu/data/tiger/tiger.lexicon.txt，由 tiger.dict.yaml 生成）。
+# 词表独立：mohu/data/tiger/tiger.lexicon.txt，由 tiger_sentence.dict.yaml 生成）。
 tiger:
   scheme: tiger
   # 整句开关关时翻译器整体让位（单字模式 table 独占）。

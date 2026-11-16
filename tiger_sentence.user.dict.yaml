@@ -1,8 +1,8 @@
-# Rime dictionary: tiger.user
+# Rime dictionary: tiger_sentence.user
 # encoding: utf-8
 
 ---
-name: tiger.user
+name: tiger_sentence.user
 version: "2026.10.15"
 sort: by_weight
 use_preset_vocabulary: false
@@ -110,7 +110,7 @@ encoder:
 #字频可被重置，写在这里的优先级高于主码表
 #字频若想置顶，可直接加超大的权重值100000000000……
 #字频若想置后，常用字集的最小字频是255，改成这个就会在常用字集的最后
-#若需精准调控，可在“tiger.dict.yaml”文件中搜索，找到具体数值
+#若需精准调控，可在“tiger_sentence.dict.yaml”文件中搜索，找到具体数值
 #例如 想把 “凫” 改到 “麂” 前面，但不能在 “秃” 前面
 #“秃”的字频 查得为5592，“麂”的字频，查得为519
 

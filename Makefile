@@ -153,7 +153,7 @@ test: lua-tests tigerengine-safety tigerengine-lua-safety tigerengine-static-com
 
 # 装机走打包闭环：make_dist 从仓库构建 zip → 从 zip 解包安装到 Rime 目录
 # （与发布物同链路，验证的是包本身而非手工拷贝）。用户自管文件不覆盖：
-# tiger.user.dict.yaml（学习词）、tiger.custom.yaml、*.bak*。
+# tiger_sentence.user.dict.yaml（学习词）、tiger_sentence.custom.yaml、*.bak*。
 # 用法: make deploy
 RIME_DIR ?= $(HOME)/Library/Rime
 SQUIRREL ?= /Library/Input Methods/Squirrel.app
@@ -161,10 +161,10 @@ DEPLOYER ?= /opt/homebrew/bin/rime_deployer
 .PHONY: deploy
 deploy:
 	python3 make_dist.py
-	rm -rf /tmp/tiger-sentence-install && mkdir -p /tmp/tiger-sentence-install
-	unzip -q dist/tiger-sentence-latest.zip -d /tmp/tiger-sentence-install
-	rsync -a --exclude 'tiger.user.dict.yaml' --exclude 'tiger.custom.yaml' \
-	      --exclude '*.bak*' /tmp/tiger-sentence-install/tiger-sentence/ $(RIME_DIR)/
+	rm -rf /tmp/tiger_sentence-install && mkdir -p /tmp/tiger_sentence-install
+	unzip -q dist/tiger_sentence-latest.zip -d /tmp/tiger_sentence-install
+	rsync -a --exclude 'tiger_sentence.user.dict.yaml' --exclude 'tiger_sentence.custom.yaml' \
+	      --exclude '*.bak*' /tmp/tiger_sentence-install/tiger_sentence/ $(RIME_DIR)/
 	$(DEPLOYER) --build $(RIME_DIR) "$(SQUIRREL)/Contents/SharedSupport" $(RIME_DIR)/build
 	killall Squirrel 2>/dev/null || true; sleep 1
 	open -g "$(SQUIRREL)"

@@ -21,13 +21,18 @@
 
 ## 安装
 
-1. 下载 `tiger-sentence-latest.zip`，解压全部内容到 Rime 用户目录
+1. 下载 `tiger_sentence-latest.zip`，解压全部内容到 Rime 用户目录
    （macOS：`~/Library/Rime/`；Windows：`%APPDATA%\Rime\`）
 2. 从 Release 下载模型 `mohu-sentence-ngram-v5.bin`，放入 `~/Library/Rime/mohu/model/`
    （包内已预建该目录；没有模型时方案自动回退单字/词组候选，不报错）
 3. 重新部署；macOS（Squirrel）更新运行时文件后须**完全退出并重启**——动态库按宿主
    进程生命周期加载
 4. 切换到「虎码·整句」
+
+方案 id 为 `tiger_sentence`（2026-11-16 前为 `tiger`）：`tiger` 留给上游 fcxxxz 单字方案，
+两者可同装共存；旧版升级时请删除用户目录里旧整句版的 `tiger.schema.yaml` 与
+`tiger.*.dict.yaml`（单字方案要用的同名文件），置顶/调序库（`tiger_pin.userdb`、
+`tiger_candidate_override.userdb`）与引擎学习层自动沿用。
 
 与魔虎双拼方案共存：两者共用 `mohu/runtime/libtigerengine.dylib`、`mohu/model/`
 与 `mohu/data/`，学习层（`mohu/config/user-ngram.snapshot`）互通；升级任一方时

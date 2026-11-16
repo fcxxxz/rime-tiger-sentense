@@ -40,7 +40,7 @@ local BEAM = 200
 local handles = {}      -- scheme → engine handle
 local engine_module     -- tigerengine 表
 local load_attempted = false
-local rev_db            -- ReverseLookup("tiger.extended")（虎码注释直注）
+local rev_db            -- ReverseLookup("tiger_sentence.extended")（虎码注释直注）
 
 -- 虎码注释直注：ReverseLookup 对 lua 候选不可靠（实机 reverse_lookup_filter
 -- 不注），按字查码拼接；整句候选逐字连注。库缺席时注释只带码式名。
@@ -329,10 +329,10 @@ end
 function M.translator.init(env)
   -- handle 懒建（首次反查时）：裁剪版 lexicon 只 172KB/张，create 实测
   -- 6.6ms，无需装载期预建（全量版 17M 时代曾 1.6s，07bb912 起退役）。
-  -- 虎码注释库（tiger.extended.reverse.bin）装载期建（轻量）；缺席时
+  -- 虎码注释库（tiger_sentence.extended.reverse.bin）装载期建（轻量）；缺席时
   -- 注释退化为仅码式名。
   if type(ReverseLookup) == "function" then
-    local ok, db = pcall(ReverseLookup, "tiger.extended")
+    local ok, db = pcall(ReverseLookup, "tiger_sentence.extended")
     if ok and db and type(db.lookup) == "function" then rev_db = db end
   end
 end
